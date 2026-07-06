@@ -1,0 +1,15 @@
+# Environments
+env/
+.env
+venv/
+.venv/
+__pycache__/
+
+# Documents
+*.pptx
+*.pdf
+*.html
+*.csv
+
+# Scripts
+scripts/
