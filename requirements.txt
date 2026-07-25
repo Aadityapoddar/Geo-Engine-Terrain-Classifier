@@ -5,3 +5,7 @@ numpy
 python-dotenv
 seaborn
 tabulate
+fastapi
+uvicorn[standard]
+pydantic
+httpx
