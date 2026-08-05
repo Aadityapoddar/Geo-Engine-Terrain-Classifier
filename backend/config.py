@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 EE_PROJECT_ID = os.getenv("EE_PROJECT_ID")
+EE_ASSET_ROOT = os.getenv("EE_ASSET_ROOT", "users/ashutoshsaxena703")
 
 DEFAULT_MAP_CENTER = {
     "lat": 20.5937,
@@ -28,27 +29,21 @@ LAND_COVER_CLASSES = {
 
 CLASS_PALETTE = ["00FF00", "0000FF", "FF0000", "D2B48C"]
 
-BANDS = ["B2", "B3", "B4", "B8", "B11", "B12", "NDVI", "NDWI", "NDBI", "SAVI"]
+# Spectral bands + indices, then GLCM texture.
+# Texture is what separates bare soil from built-up: concrete is structurally rough
+# (edges, roofs, shadows), bare soil is smooth. Brightness alone cannot tell them
+# apart -- dry soil red reflectance 0.222 vs concrete 0.226.
+BANDS = ["B2", "B3", "B4", "B8", "B11", "B12", "NDVI", "NDWI", "NDBI", "SAVI",
+         "BSI", "UI", "IBI", "SWIRratio", "BAEI",
+         "g_contrast", "g_ent", "g_var", "g_idm", "g_diss", "g_asm",
+         "VV", "VH", "VVVH", "s_contrast", "s_var", "s_ent"]
 
+# District-wide Jabalpur training points (1000 per class), not the old campus-only set.
 FEATURE_COLLECTIONS = {
-    "water": "users/cosypix/water_points",
-    "forest": "users/cosypix/forest_points",
-    "soil": "users/cosypix/soil_points",
-    "buildings": "users/cosypix/building_points"
-}
-
-# The campus geometry where all training labels exist.
-# The classifier is ALWAYS trained on this area, then applied to any user-drawn AOI.
-CAMPUS_GEOJSON = {
-    "type": "Polygon",
-    "coordinates": [[
-        [80.01710357666015, 23.173962177472703],
-        [80.03259601593017, 23.165361215115187],
-        [80.03654422760009, 23.172502420044232],
-        [80.026802444458,   23.181694681000845],
-        [80.01542987823485, 23.176960548201308],
-        [80.01710357666015, 23.173962177472703]
-    ]]
+    "water": f"{EE_ASSET_ROOT}/jabalpur_water_points",
+    "forest": f"{EE_ASSET_ROOT}/jabalpur_forest_points",
+    "soil": f"{EE_ASSET_ROOT}/jabalpur_soil_points",
+    "buildings": f"{EE_ASSET_ROOT}/jabalpur_building_points"
 }
 
 MODEL_METADATA = {

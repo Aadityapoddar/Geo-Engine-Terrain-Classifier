@@ -11,7 +11,6 @@ try:
         CLASS_PALETTE,
         BANDS,
         FEATURE_COLLECTIONS,
-        CAMPUS_GEOJSON,
         MODEL_METADATA,
     )
 except ModuleNotFoundError:
@@ -23,7 +22,6 @@ except ModuleNotFoundError:
         CLASS_PALETTE,
         BANDS,
         FEATURE_COLLECTIONS,
-        CAMPUS_GEOJSON,
         MODEL_METADATA,
     )
 
@@ -52,7 +50,13 @@ def mask_s2_clouds(image):
 
 
 def _add_spectral_indices(composite):
-    """Add NDVI, NDWI, NDBI, SAVI index bands to a composite."""
+    """Add index bands plus GLCM texture to a composite.
+
+    Bare soil and built-up overlap almost completely in per-pixel reflectance, so
+    the separation has to come from somewhere else: bareness/built indices that
+    exploit the SWIR slope, and texture, which measures local structure rather
+    than brightness.
+    """
     ndvi = composite.normalizedDifference(["B8", "B4"]).rename("NDVI")
     ndwi = composite.normalizedDifference(["B3", "B8"]).rename("NDWI")
     ndbi = composite.normalizedDifference(["B11", "B8"]).rename("NDBI")
@@ -60,7 +64,67 @@ def _add_spectral_indices(composite):
         "1.5 * (NIR - RED) / (NIR + RED + 0.5)",
         {"NIR": composite.select("B8"), "RED": composite.select("B4")}
     ).rename("SAVI")
-    return composite.addBands([ndvi, ndwi, ndbi, savi])
+    composite = composite.addBands([ndvi, ndwi, ndbi, savi])
+
+    b2, b3, b4 = composite.select("B2"), composite.select("B3"), composite.select("B4")
+    b8, b11, b12 = composite.select("B8"), composite.select("B11"), composite.select("B12")
+
+    bsi = (b11.add(b4).subtract(b8.add(b2))) \
+        .divide(b11.add(b4).add(b8).add(b2)).rename("BSI")
+    ui = (b12.subtract(b8)).divide(b12.add(b8)).rename("UI")
+    t1 = b11.multiply(2).divide(b11.add(b8))
+    t2 = b8.divide(b8.add(b4)).add(b3.divide(b3.add(b11)))
+    ibi = (t1.subtract(t2)).divide(t1.add(t2)).rename("IBI")
+    swir_ratio = b11.divide(b12.add(1e-6)).rename("SWIRratio")
+    baei = (b4.add(0.3)).divide(b3.add(b11).add(1e-6)).rename("BAEI")
+    composite = composite.addBands([bsi, ui, ibi, swir_ratio, baei])
+
+    # GLCM needs a small number of grey levels; 32 keeps the co-occurrence matrix
+    # dense enough that entropy and homogeneity stay meaningful.
+    grey = composite.select("B8").unitScale(0, 0.5).clamp(0, 1) \
+        .multiply(31).toByte().rename("g")
+    texture = grey.glcmTexture(size=3).select(
+        ["g_contrast", "g_ent", "g_var", "g_idm", "g_diss", "g_asm"])
+    return composite.addBands(texture)
+
+
+def _add_sar(composite, geometry, start_date, end_date):
+    """Add Sentinel-1 C-band radar bands.
+
+    Buildings produce a double-bounce return that bare soil cannot, at any
+    brightness, so radar separates the two by physical mechanism rather than by
+    appearance. Values are rescaled from dB into roughly 0-1 so they sit on the
+    same scale as reflectance -- an RBF SVM is distance-based and unscaled dB
+    (-25..5) would otherwise dominate the kernel.
+    """
+    s1 = (
+        ee.ImageCollection("COPERNICUS/S1_GRD")
+        .filterBounds(geometry)
+        .filterDate(start_date, end_date)
+        .filter(ee.Filter.eq("instrumentMode", "IW"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+    )
+    if s1.size().getInfo() == 0:
+        print("No Sentinel-1 scenes in range; widening SAR date window.")
+        s1 = (
+            ee.ImageCollection("COPERNICUS/S1_GRD")
+            .filterBounds(geometry)
+            .filterDate("2024-01-01", "2025-12-31")
+            .filter(ee.Filter.eq("instrumentMode", "IW"))
+            .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+            .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+        )
+
+    sar = s1.select(["VV", "VH"]).median()
+    vv_db, vh_db = sar.select("VV"), sar.select("VH")
+    ratio = vv_db.subtract(vh_db).unitScale(-5, 20).clamp(0, 1).rename("VVVH")
+    vv = vv_db.unitScale(-25, 5).clamp(0, 1).rename("VV")
+    vh = vh_db.unitScale(-30, 0).clamp(0, 1).rename("VH")
+
+    grey = vv_db.unitScale(-25, 5).clamp(0, 1).multiply(31).toByte().rename("s")
+    texture = grey.glcmTexture(size=3).select(["s_contrast", "s_var", "s_ent"])
+    return composite.addBands([vv, vh, ratio]).addBands(texture)
 
 
 def _build_collection(geometry, start_date, end_date, cloud_threshold):
@@ -92,22 +156,16 @@ def build_sentinel_composite(geometry, start_date="2025-03-01", end_date="2025-0
     collection = _build_collection(geometry, start_date, end_date, cloud_threshold)
     composite = collection.median().clip(geometry)
     composite = _add_spectral_indices(composite)
+    composite = _add_sar(composite, geometry, start_date, end_date)
     return composite
 
 
 def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-04-30", cloud_threshold=15):
     """
-    ALWAYS train on the campus composite where labelled training points exist.
+    ALWAYS train on the composite covering the labelled training points.
     The classifier is then applied to any user-supplied AOI.
     """
     init_ee()
-
-    # ── Training geometry: always the campus (where training labels live) ──
-    campus_geometry = ee.Geometry(CAMPUS_GEOJSON)
-    campus_collection = _build_collection(campus_geometry, start_date, end_date, cloud_threshold)
-    # Do NOT clip — keep unclipped so sampleRegions can find every training point
-    campus_composite = campus_collection.median()
-    campus_composite = _add_spectral_indices(campus_composite)
 
     # ── Load training label feature collections ──
     water     = ee.FeatureCollection(FEATURE_COLLECTIONS["water"])
@@ -116,9 +174,19 @@ def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-0
     buildings = ee.FeatureCollection(FEATURE_COLLECTIONS["buildings"])
     all_points = water.merge(forest).merge(soil).merge(buildings)
 
+    # ── Training geometry: the extent the labels actually cover ──
+    # The points span the whole Jabalpur district, so the training composite must
+    # too; building it over a smaller polygon silently drops every point outside it.
+    train_geometry = all_points.geometry().bounds()
+    train_collection = _build_collection(train_geometry, start_date, end_date, cloud_threshold)
+    # Do NOT clip — keep unclipped so sampleRegions can find every training point
+    train_composite = train_collection.median()
+    train_composite = _add_spectral_indices(train_composite)
+    train_composite = _add_sar(train_composite, train_geometry, start_date, end_date)
+
     # ── Sample spectral values at training point locations ──
     training_samples = (
-        campus_composite.select(BANDS)
+        train_composite.select(BANDS)
         .sampleRegions(
             collection=all_points,
             properties=["label"],
@@ -166,7 +234,7 @@ def classify_and_analyze(
     start_time = time.time()
     init_ee()
 
-    # ── 1. Train on campus composite (training labels always live there) ──
+    # ── 1. Train on the labelled-point composite (training labels always live there) ──
     classifier = get_trained_classifier(model_type, start_date, end_date, cloud_threshold)
 
     # ── 2. Build the user's AOI composite for classification ──
