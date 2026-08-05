@@ -143,7 +143,7 @@ def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-0
     elif m == "cart":
         classifier = ee.Classifier.smileCart(maxNodes=20)
     elif m == "knn":
-        classifier = ee.Classifier.smileKnn(k=5)
+        classifier = ee.Classifier.smileKNN(k=5)
     else:
         classifier = ee.Classifier.smileRandomForest(numberOfTrees=200)
 
