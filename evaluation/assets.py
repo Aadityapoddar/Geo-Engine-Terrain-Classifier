@@ -87,4 +87,3 @@ def audit_all_training_assets():
             )
         )
     return records
-

@@ -1,2 +1,1 @@
 """Seasonal model evaluation helpers."""
-
