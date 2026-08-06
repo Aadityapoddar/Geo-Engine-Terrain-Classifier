@@ -1,5 +1,16 @@
 # Changes
 
+## 2026-08-07 — six classes, seasonal evaluation, 19-band cut
+
+- Added Agriculture label 5; retained Forest 0, Water 1, Buildings 2, Soil 3, Sand 4.
+- Current training merges all seven configured assets. `jabalpur_water_points` is the repositioned 1,000-point collection; legacy `water_points` (100) is excluded. The preserved `district_train_table` remains the before snapshot with original 1,000 water geometries.
+- Reduced classifier input from 27 to the validated 19 bands. Excluded `B2`, `B4`, `B8`, `NDVI`, `NDWI`, `NDBI`, `SAVI`, and `s_ent`.
+- Fixed Winter and Summer windows at `2025-01-01`–`2025-02-28` and `2025-03-31`–`2025-04-30`; end dates are exclusive.
+- Added a checkpointed 20-run evaluator: five models × before/after × Winter/Summer. External MP reference uses WorldCover + Dynamic World consensus with WorldCereal, GHSL, and OPERA DSWx refinements; Soil and Sand collapse to Bare only for external metrics.
+- Updated ten model notebooks plus a consolidated seasonal report notebook.
+- Added `/api/config`; both frontends read canonical dates and render API-supplied class rows/colors, including Agriculture.
+- Earth Engine batch IDs and final measured accuracies are recorded in the seasonal manifest/report; queued or quota-blocked work is not reported as completed accuracy.
+
 A plain record of every change made on the `feature/sar-texture-features-and-mp-evaluation` branch, and why.
 
 This file is maintained by hand.

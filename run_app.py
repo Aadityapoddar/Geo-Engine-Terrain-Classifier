@@ -24,7 +24,7 @@ def main():
     print("✨ Features:")
     print("   • Default Map Center: India (20.5937, 78.9629)")
     print("   • Models: Random Forest, SVM, XGBoost, CART, KNN")
-    print("   • Individual Class Areas: Forest, Water, Buildings, Soil (ha, m², %)")
+    print("   • Individual Class Areas: Forest, Water, Buildings, Soil, Sand, Agriculture")
     print("   • Exports: GeoTIFF downloads & GeoJSON reports")
     print("=" * 65)
 

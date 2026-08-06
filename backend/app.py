@@ -13,6 +13,9 @@ try:
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
+        BANDS,
+        SEASONS,
+        TRAINING_SCHEMA_VERSION,
     )
     from backend.gee_classifier import init_ee, classify_and_analyze
 except ModuleNotFoundError:
@@ -22,6 +25,9 @@ except ModuleNotFoundError:
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
+        BANDS,
+        SEASONS,
+        TRAINING_SCHEMA_VERSION,
     )
     from backend.gee_classifier import init_ee, classify_and_analyze
 
@@ -44,8 +50,8 @@ app.add_middleware(
 class ClassifyRequest(BaseModel):
     geometry: Dict[str, Any] = Field(..., description="GeoJSON Geometry (Polygon or Rectangle) marked on map")
     model_type: str = Field("rf", description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
-    start_date: str = Field("2025-03-01", description="Sentinel-2 composite start date (YYYY-MM-DD)")
-    end_date: str = Field("2025-04-30", description="Sentinel-2 composite end date (YYYY-MM-DD)")
+    start_date: str = Field(SEASONS["summer"]["start"], description="Sentinel-2 composite start date (YYYY-MM-DD)")
+    end_date: str = Field(SEASONS["summer"]["end"], description="Sentinel-2 composite end date (YYYY-MM-DD, exclusive)")
     cloud_threshold: float = Field(15.0, description="Max cloud cover percentage filter (1-50%)")
     smoothing: bool = Field(True, description="Enable 1px focal mode spatial smoothing")
 
@@ -84,6 +90,17 @@ def get_models():
             "default": DEFAULT_MAP_CENTER,
             "campus": CAMPUS_MAP_CENTER
         }
+    }
+
+
+@app.get("/api/config")
+def get_config():
+    return {
+        "training_schema_version": TRAINING_SCHEMA_VERSION,
+        "classes": LAND_COVER_CLASSES,
+        "bands": BANDS,
+        "seasons": SEASONS,
+        "default_season": "summer",
     }
 
 

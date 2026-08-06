@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from backend.app import app
+from backend.config import BANDS, LAND_COVER_CLASSES, SEASONS, TRAINING_SCHEMA_VERSION
 
 
 class TestGeoEngineAPI(unittest.TestCase):
@@ -32,6 +33,16 @@ class TestGeoEngineAPI(unittest.TestCase):
         self.assertIn("cart", data["models"])
         self.assertIn("knn", data["models"])
 
+    def test_config_exposes_six_class_training_schema(self):
+        response = self.client.get("/api/config")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data["classes"]), 6)
+        self.assertEqual(len(data["bands"]), 19)
+        self.assertEqual(data["bands"], BANDS)
+        self.assertEqual(data["seasons"], SEASONS)
+        self.assertEqual(data["training_schema_version"], TRAINING_SCHEMA_VERSION)
+
     def test_classification_endpoint(self):
         # Campus study area polygon
         test_geojson = {
@@ -51,7 +62,7 @@ class TestGeoEngineAPI(unittest.TestCase):
         payload = {
             "geometry": test_geojson,
             "model_type": "rf",
-            "start_date": "2025-03-01",
+            "start_date": "2025-03-31",
             "end_date": "2025-04-30",
             "cloud_threshold": 15.0,
             "smoothing": True
@@ -69,7 +80,7 @@ class TestGeoEngineAPI(unittest.TestCase):
         # Verify individual class areas breakdown
         self.assertIn("individual_class_areas", data)
         class_areas = data["individual_class_areas"]
-        self.assertEqual(len(class_areas), 4)
+        self.assertEqual(len(class_areas), len(LAND_COVER_CLASSES))
 
         for item in class_areas:
             self.assertIn("name", item)

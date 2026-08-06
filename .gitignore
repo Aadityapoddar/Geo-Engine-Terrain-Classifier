@@ -13,6 +13,11 @@ __pycache__/
 
 # ...but the frontend's own markup is source, not an exported document
 !frontend/**/*.html
+!frontend-next/**/*.html
+
+# Node
+node_modules/
+frontend-next/dist/
 
 # Scripts
 scripts/

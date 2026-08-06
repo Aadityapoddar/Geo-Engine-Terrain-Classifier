@@ -107,10 +107,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchHealthAndModels() {
     try {
-      const res = await fetch(`${API_BASE}/api/models`);
-      if (res.ok) {
-        const data = await res.json();
-        modelsMetaData = data.models || {};
+      const [modelsRes, configRes] = await Promise.all([
+        fetch(`${API_BASE}/api/models`),
+        fetch(`${API_BASE}/api/config`)
+      ]);
+      if (modelsRes.ok && configRes.ok) {
+        const modelsData = await modelsRes.json();
+        const configData = await configRes.json();
+        modelsMetaData = modelsData.models || {};
+        const defaultSeason = configData.seasons?.[configData.default_season];
+        if (defaultSeason) {
+          inputStartDate.value = defaultSeason.start;
+          inputEndDate.value = defaultSeason.end;
+        }
         updateModelInfo(selectModel.value);
 
         statusDot.classList.add("active");

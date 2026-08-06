@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geo-Engine Terrain Classifier</title>
+  <!-- Inline so the tab mark costs no request, and no 404 when there is no file. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF002B' stroke-width='3'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-left">
+      <svg class="brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      <div class="brand-meta">
+        <h1 class="brand-title">Geo-Engine <span class="highlight">Terrain</span> Classifier</h1>
+        <span class="brand-sub">Sentinel-2 Land Cover Classification · Google Earth Engine</span>
+      </div>
+      <span class="version-tag">v2.0</span>
+    </div>
+
+    <div class="header-right">
+      <form id="search-form" class="search-box">
+        <input id="search-input" type="search" placeholder="Search a place…" autocomplete="off" />
+      </form>
+      <button type="button" id="btn-zoom-india" class="btn-nav">India</button>
+      <button type="button" id="btn-zoom-campus" class="btn-nav">Jabalpur Campus</button>
+      <div class="divider-v"></div>
+      <div class="status-pill">
+        <span id="status-dot" class="status-dot"></span>
+        <span id="status-text">Connecting Earth Engine…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel-card">
+      <div class="panel-card-header"><h2>Control Panel</h2></div>
+      <div class="panel-card-content">
+
+        <section class="control-section">
+          <div class="step-badge-header"><span class="step-number">01</span><span class="step-title">Mark Study Area</span></div>
+          <p class="section-desc">Drag on the map (or click two corners) to draw a rectangle, or click points for a polygon.</p>
+          <div class="draw-mode-row">
+            <button type="button" id="btn-draw-rect" class="btn-secondary">Rectangle</button>
+            <button type="button" id="btn-draw-poly" class="btn-secondary">Polygon</button>
+            <button type="button" id="btn-draw-clear" class="btn-secondary subtle">Clear</button>
+          </div>
+          <div id="drawn-area-status" class="status-callout success" hidden>
+            <span>Region marked - <span id="aoi-size">-</span></span>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="step-badge-header"><span class="step-number">02</span><span class="step-title">Select Classifier</span></div>
+          <div class="form-field">
+            <div class="label-row">
+              <label for="select-model">Model</label>
+              <span id="model-acc-badge" class="metric-badge">Val Acc: -</span>
+            </div>
+            <select id="select-model" class="custom-select">
+              <option value="rf">Random Forest</option>
+              <option value="svm">Support Vector Machine (SVM)</option>
+              <option value="xgb">Gradient Boosted Trees (XGBoost)</option>
+              <option value="cart">Decision Tree (CART)</option>
+              <option value="knn">K-Nearest Neighbors (KNN)</option>
+            </select>
+          </div>
+          <div id="model-info-box" class="info-card">Loading model metadata…</div>
+        </section>
+
+        <section class="control-section">
+          <div class="step-badge-header"><span class="step-number">03</span><span class="step-title">Imagery Parameters</span></div>
+          <div class="date-range-grid">
+            <div class="input-with-label">
+              <label class="sub-label" for="input-start-date">Start Date</label>
+              <input type="date" id="input-start-date" class="custom-input" value="2025-03-31" />
+            </div>
+            <div class="input-with-label">
+              <label class="sub-label" for="input-end-date">End Date</label>
+              <input type="date" id="input-end-date" class="custom-input" value="2025-04-30" />
+            </div>
+          </div>
+          <div class="form-field">
+            <div class="label-row">
+              <label for="range-cloud">Cloud Cover Max</label>
+              <span id="cloud-val" class="mono-val">15%</span>
+            </div>
+            <input type="range" id="range-cloud" class="custom-range" min="1" max="50" step="1" value="15" />
+          </div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="check-smoothing" checked />
+            <span>Apply 1px focal mode smoothing</span>
+          </label>
+        </section>
+
+        <section class="control-section">
+          <div class="step-badge-header"><span class="step-number">04</span><span class="step-title">Run Inference</span></div>
+          <button type="button" id="btn-run-classify" class="btn-primary" disabled>Classify Marked Region</button>
+          <div id="run-progress" class="run-progress" hidden>
+            <div class="run-progress-bar"><span id="run-progress-fill"></span></div>
+            <span id="run-progress-label" class="run-progress-label">Training classifier…</span>
+          </div>
+        </section>
+
+      </div>
+    </aside>
+
+    <!-- Floating cards anchor to the map, not to the workspace, or they sit on
+         top of the control panel. -->
+    <div class="map-area">
+      <div id="map"></div>
+
+      <div id="layer-controls" class="floating-card" hidden>
+      <div class="card-title">Layer Opacity</div>
+      <div class="layer-slider-row">
+        <div class="layer-meta"><span>Classified Terrain</span><span id="opacity-terrain-val" class="mono-val">100%</span></div>
+        <input type="range" id="range-opacity-terrain" class="custom-range" min="0" max="100" step="1" value="100" />
+      </div>
+      <div class="layer-slider-row">
+        <div class="layer-meta"><span>Sentinel-2 RGB</span><span id="opacity-rgb-val" class="mono-val">0%</span></div>
+        <input type="range" id="range-opacity-rgb" class="custom-range" min="0" max="100" step="1" value="0" />
+      </div>
+      <p class="hint">Sentinel-2 RGB streams live tiles - it loads only when you raise its opacity.</p>
+    </div>
+
+    <section id="analytics-panel" class="analytics-card" hidden>
+      <div id="panel-header-toggle" class="analytics-card-header">
+        <h3>Terrain Analytics</h3>
+        <button type="button" id="btn-toggle-panel" class="btn-icon" aria-label="Toggle analytics panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+      <div class="analytics-card-body">
+        <div class="metrics-grid">
+          <div class="metric-card"><span class="metric-label">Total Area</span><span id="stat-total-ha" class="metric-value">-</span></div>
+          <div class="metric-card"><span class="metric-label">Dominant Class</span><span id="stat-dominant" class="metric-value">-</span></div>
+          <div class="metric-card"><span class="metric-label">Model</span><span id="stat-model-name" class="metric-value">-</span></div>
+          <div class="metric-card"><span class="metric-label">Processing Time</span><span id="stat-proc-time" class="metric-value">-</span></div>
+        </div>
+        <div id="donut-wrapper" class="chart-wrapper"></div>
+        <div class="class-list-header"><h4>Individual Class Areas</h4></div>
+        <div id="class-areas-list" class="class-cards-container"></div>
+        <div class="export-actions-row">
+          <button type="button" id="btn-export-geotiff" class="btn-outline">GeoTIFF</button>
+          <button type="button" id="btn-export-png" class="btn-outline">Classified PNG</button>
+          <button type="button" id="btn-export-geojson" class="btn-outline">GeoJSON</button>
+        </div>
+      </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

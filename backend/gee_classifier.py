@@ -204,7 +204,7 @@ def _build_collection(geometry, start_date, end_date, cloud_threshold):
     return collection
 
 
-def build_sentinel_composite(geometry, start_date="2025-03-01", end_date="2025-04-30", cloud_threshold=15):
+def build_sentinel_composite(geometry, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):
     """Build a Sentinel-2 median composite clipped to `geometry` with spectral indices."""
     init_ee()
     collection = _build_collection(geometry, start_date, end_date, cloud_threshold)
@@ -216,7 +216,7 @@ def build_sentinel_composite(geometry, start_date="2025-03-01", end_date="2025-0
 
 def sample_training_points(
     points,
-    start_date="2025-03-01",
+    start_date="2025-03-31",
     end_date="2025-04-30",
     cloud_threshold=15,
 ):
@@ -239,7 +239,7 @@ def sample_training_points(
     )
 
 
-def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-04-30", cloud_threshold=15):
+def get_trained_classifier(model_type, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):
     """
     ALWAYS train on the composite covering the labelled training points.
     The classifier is then applied to any user-supplied AOI.
@@ -335,7 +335,7 @@ def _static_overlay(classified, user_geometry, geometry_dict, max_px=2048):
 def classify_and_analyze(
     geometry_dict,
     model_type="rf",
-    start_date="2025-03-01",
+    start_date="2025-03-31",
     end_date="2025-04-30",
     cloud_threshold=15,
     smoothing=True

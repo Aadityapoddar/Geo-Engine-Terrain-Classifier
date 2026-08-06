@@ -190,8 +190,13 @@ const MapController = (function () {
     return currentGeoJSON;
   }
 
+  function getMap() {
+    return map;
+  }
+
   return {
     initMap,
+    getMap,
     startDrawingPolygon,
     zoomToIndia,
     zoomToCampus,

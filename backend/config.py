@@ -48,8 +48,8 @@ BANDS = ["B3", "B11", "B12", "BSI", "UI", "IBI", "SWIRratio", "BAEI",
          "g_contrast", "g_ent", "g_var", "g_idm", "g_diss", "g_asm",
          "VV", "VH", "VVVH", "s_contrast", "s_var"]
 
-# District-wide Jabalpur training points (1000 per class), not the old campus-only set,
-# plus 1000 soil points collected across MP. Jabalpur soil alone does not cover the
+# District-wide Jabalpur training points, not the old campus-only set, plus MP soil,
+# MP sand, and Agriculture. Jabalpur soil alone does not cover the
 # bright dry bare ground of Malwa, Chambal and Bundelkhand, which is exactly the
 # terrain the model was reading as built-up outside the training area.
 FEATURE_COLLECTIONS = {

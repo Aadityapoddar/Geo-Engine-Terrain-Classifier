@@ -4,11 +4,13 @@
 const ChartsController = (function () {
   let donutChart = null;
 
-  const COLOR_MAP = {
+  const FALLBACK_COLOR_MAP = {
     "Forest": "#10b981",
     "Water": "#3b82f6",
     "Buildings": "#f43f5e",
-    "Soil": "#d97706"
+    "Soil": "#d97706",
+    "Sand": "#fbbf24",
+    "Agriculture": "#F59E0B"
   };
 
   function renderTerrainAnalytics(summaryData, classAreasList) {
@@ -44,7 +46,7 @@ const ChartsController = (function () {
 
     const labels = classAreasList.map((c) => c.name);
     const dataValues = classAreasList.map((c) => c.area_ha);
-    const backgroundColors = classAreasList.map((c) => COLOR_MAP[c.name] || c.color);
+    const backgroundColors = classAreasList.map((c) => c.color || FALLBACK_COLOR_MAP[c.name]);
 
     if (donutChart) {
       donutChart.destroy();
@@ -123,7 +125,7 @@ const ChartsController = (function () {
       const classKey = cls.name.toLowerCase();
       card.className = `class-area-card ${classKey}`;
 
-      const classColor = COLOR_MAP[cls.name] || cls.color;
+      const classColor = cls.color || FALLBACK_COLOR_MAP[cls.name];
 
       card.innerHTML = `
         <div class="class-card-header">
