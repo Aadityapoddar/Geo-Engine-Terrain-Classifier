@@ -1,3 +1,4 @@
+import math
 import os
 import sys
 import time
@@ -12,6 +13,7 @@ try:
         BANDS,
         FEATURE_COLLECTIONS,
         MODEL_METADATA,
+        TRAINING_SCHEMA_VERSION,
     )
 except ModuleNotFoundError:
     # Fallback: add parent dir to path so relative imports resolve
@@ -23,9 +25,61 @@ except ModuleNotFoundError:
         BANDS,
         FEATURE_COLLECTIONS,
         MODEL_METADATA,
+        TRAINING_SCHEMA_VERSION,
     )
 
 _EE_INITIALIZED = False
+
+# Training never depends on the drawn AOI -- same points, same composite, same result
+# every request -- so the trained classifier is reusable across AOIs.
+# ponytail: plain dict, no eviction; five models x a handful of date windows is bounded.
+_CLASSIFIER_CACHE = {}
+
+
+def _classifier_cache_key(model_type, start_date, end_date, cloud_threshold):
+    return (
+        model_type.lower(),
+        start_date,
+        end_date,
+        cloud_threshold,
+        TRAINING_SCHEMA_VERSION,
+    )
+
+
+def make_classifier(model_type):
+    """Build one of the five supported classifiers with canonical parameters."""
+    model = model_type.lower()
+    if model == "rf":
+        return ee.Classifier.smileRandomForest(
+            numberOfTrees=200,
+            minLeafPopulation=1,
+            bagFraction=0.3,
+            maxNodes=10,
+        )
+    if model == "svm":
+        return ee.Classifier.libsvm(kernelType="RBF", gamma=1.0, cost=100.0)
+    if model == "xgb":
+        return ee.Classifier.smileGradientTreeBoost(
+            numberOfTrees=100,
+            shrinkage=0.1,
+            maxNodes=10,
+        )
+    if model == "cart":
+        return ee.Classifier.smileCart(maxNodes=20)
+    if model == "knn":
+        return ee.Classifier.smileKNN(k=5)
+    raise ValueError(f"Unsupported model: {model_type}")
+
+
+def merge_feature_collections(paths):
+    """Load and merge asset paths in deterministic order."""
+    paths = list(paths)
+    if not paths:
+        raise ValueError("At least one training collection is required")
+    merged = ee.FeatureCollection(paths[0])
+    for path in paths[1:]:
+        merged = merged.merge(ee.FeatureCollection(path))
+    return merged
 
 
 def init_ee():
@@ -160,6 +214,31 @@ def build_sentinel_composite(geometry, start_date="2025-03-01", end_date="2025-0
     return composite
 
 
+def sample_training_points(
+    points,
+    start_date="2025-03-01",
+    end_date="2025-04-30",
+    cloud_threshold=15,
+):
+    """Sample the canonical feature stack for a labelled point collection."""
+    train_geometry = points.geometry().bounds()
+    train_collection = _build_collection(
+        train_geometry, start_date, end_date, cloud_threshold)
+    train_composite = _add_spectral_indices(train_collection.median())
+    train_composite = _add_sar(
+        train_composite, train_geometry, start_date, end_date)
+    return (
+        train_composite.select(BANDS)
+        .sampleRegions(
+            collection=points,
+            properties=["label"],
+            scale=10,
+            tileScale=4,
+        )
+        .filter(ee.Filter.notNull(BANDS + ["label"]))
+    )
+
+
 def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-04-30", cloud_threshold=15):
     """
     ALWAYS train on the composite covering the labelled training points.
@@ -167,60 +246,90 @@ def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-0
     """
     init_ee()
 
+    cache_key = _classifier_cache_key(
+        model_type, start_date, end_date, cloud_threshold)
+    if cache_key in _CLASSIFIER_CACHE:
+        return _CLASSIFIER_CACHE[cache_key]
+
     # ── Load training label feature collections ──
-    water     = ee.FeatureCollection(FEATURE_COLLECTIONS["water"])
-    forest    = ee.FeatureCollection(FEATURE_COLLECTIONS["forest"])
-    soil      = ee.FeatureCollection(FEATURE_COLLECTIONS["soil"])
-    buildings = ee.FeatureCollection(FEATURE_COLLECTIONS["buildings"])
-    all_points = water.merge(forest).merge(soil).merge(buildings)
-
-    # ── Training geometry: the extent the labels actually cover ──
-    # The points span the whole Jabalpur district, so the training composite must
-    # too; building it over a smaller polygon silently drops every point outside it.
-    train_geometry = all_points.geometry().bounds()
-    train_collection = _build_collection(train_geometry, start_date, end_date, cloud_threshold)
-    # Do NOT clip — keep unclipped so sampleRegions can find every training point
-    train_composite = train_collection.median()
-    train_composite = _add_spectral_indices(train_composite)
-    train_composite = _add_sar(train_composite, train_geometry, start_date, end_date)
-
-    # ── Sample spectral values at training point locations ──
-    training_samples = (
-        train_composite.select(BANDS)
-        .sampleRegions(
-            collection=all_points,
-            properties=["label"],
-            scale=10,
-            tileScale=4
-        )
-        .filter(ee.Filter.notNull(BANDS + ["label"]))
+    # Merged generically so adding a collection to FEATURE_COLLECTIONS is enough;
+    # every asset carries its own `label`, so class identity travels with the points.
+    all_points = merge_feature_collections(FEATURE_COLLECTIONS.values())
+    training_samples = sample_training_points(
+        all_points,
+        start_date=start_date,
+        end_date=end_date,
+        cloud_threshold=cloud_threshold,
     )
 
     # ── Instantiate the requested classifier ──
-    m = model_type.lower()
-    if m == "rf":
-        classifier = ee.Classifier.smileRandomForest(
-            numberOfTrees=200, minLeafPopulation=1, bagFraction=0.3, maxNodes=10
-        )
-    elif m == "svm":
-        classifier = ee.Classifier.libsvm(kernelType="RBF", gamma=1.0, cost=100.0)
-    elif m == "xgb":
-        classifier = ee.Classifier.smileGradientTreeBoost(
-            numberOfTrees=100, shrinkage=0.1, maxNodes=10
-        )
-    elif m == "cart":
-        classifier = ee.Classifier.smileCart(maxNodes=20)
-    elif m == "knn":
-        classifier = ee.Classifier.smileKNN(k=5)
-    else:
-        classifier = ee.Classifier.smileRandomForest(numberOfTrees=200)
+    classifier = make_classifier(model_type)
 
     trained_classifier = classifier.train(
         features=training_samples,
         classProperty="label",
         inputProperties=BANDS
     )
+    _CLASSIFIER_CACHE[cache_key] = trained_classifier
     return trained_classifier
+
+
+def _iter_coords(coords):
+    """Yield (lon, lat) pairs from an arbitrarily nested GeoJSON coordinate list."""
+    if coords and isinstance(coords[0], (int, float)):
+        yield coords[0], coords[1]
+        return
+    for part in coords:
+        yield from _iter_coords(part)
+
+
+def _static_overlay(classified, user_geometry, geometry_dict, max_px=2048):
+    """Render the classified AOI once, as a single image.
+
+    The XYZ endpoints above are *live inference*: every 256px tile the map asks
+    for re-runs the whole composite -> SAR -> texture -> classify chain on GEE.
+    A viewport needs dozens of them, so the map paints in one square at a time
+    and pays the whole bill again on every pan and zoom.
+
+    An AOI is bounded, though, and Sentinel-2 is 10 m -- a 5 km box is only
+    ~500 px of real data. So render it once and hand the client a flat image.
+    EPSG:3857 so the result drops onto a Web-Mercator map as a plain rectangle
+    with no reprojection, and PNG so everything outside the AOI stays
+    transparent.
+    """
+    # Computed locally: the AOI came from the client as plain GeoJSON, so asking
+    # Earth Engine for its own bounding box would be a network round trip to
+    # learn something already sitting in memory.
+    pts = list(_iter_coords(geometry_dict["coordinates"]))
+    lons = [p[0] for p in pts]
+    lats = [p[1] for p in pts]
+    west, east = min(lons), max(lons)
+    south, north = min(lats), max(lats)
+
+    # Ask for native 10 m resolution, but never more pixels than max_px --
+    # beyond that the image costs more to ship than the detail is worth.
+    width_m = (east - west) * 111320.0 * math.cos(math.radians((north + south) / 2))
+    px = max(256, min(max_px, int(width_m / 10)))
+
+    url = ""
+    try:
+        url = classified.getThumbURL({
+            "region": user_geometry,
+            "dimensions": px,
+            "crs": "EPSG:3857",
+            "format": "png",
+            "min": 0,
+            "max": len(CLASS_PALETTE) - 1,
+            "palette": CLASS_PALETTE,
+        })
+    except Exception as ex:
+        print(f"Static overlay generation notice: {ex}")
+
+    return {
+        "url": url,
+        "bounds": {"west": west, "south": south, "east": east, "north": north},
+        "width_px": px,
+    }
 
 
 def classify_and_analyze(
@@ -253,10 +362,13 @@ def classify_and_analyze(
 
     # ── 4. Generate GEE Tile URLs (streamed via XYZ tiles into Leaflet) ──
     rgb_map_id     = aoi_composite.getMapId({"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3})
-    terrain_map_id = classified.getMapId({"min": 0, "max": 3, "palette": CLASS_PALETTE})
+    terrain_map_id = classified.getMapId(
+        {"min": 0, "max": len(CLASS_PALETTE) - 1, "palette": CLASS_PALETTE})
 
     rgb_tile_url     = rgb_map_id["tile_fetcher"].url_format
     terrain_tile_url = terrain_map_id["tile_fetcher"].url_format
+
+    overlay = _static_overlay(classified, user_geometry, geometry_dict)
 
     # ── 5. Compute individual class surface areas ──
     histogram = classified.reduceRegion(
@@ -275,7 +387,7 @@ def classify_and_analyze(
     total_area_acres = total_area_sqm / 4046.856
 
     individual_class_areas = []
-    for class_id in range(4):
+    for class_id in LAND_COVER_CLASSES:
         class_info  = LAND_COVER_CLASSES[class_id]
         # GEE may return int or string keys
         pixel_count = int(
@@ -329,6 +441,7 @@ def classify_and_analyze(
             "sentinel_rgb":       rgb_tile_url,
             "terrain_classified": terrain_tile_url
         },
+        "terrain_overlay": overlay,
         "summary": {
             "total_pixels":      total_pixels,
             "total_area_sqm":    round(total_area_sqm, 2),
