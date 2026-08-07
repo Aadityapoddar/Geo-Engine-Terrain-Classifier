@@ -42,6 +42,18 @@ def _write_json(path, value):
     os.replace(temporary, path)
 
 
+def _call_with_retry(label, function, retries):
+    error = None
+    for attempt in range(1, retries + 1):
+        try:
+            return function()
+        except ee.EEException as caught:
+            error = caught
+            print(f"retry {label} attempt={attempt}: {caught}", flush=True)
+            time.sleep(5 * attempt)
+    raise error
+
+
 def _district_external(district, name, season, leakage):
     dates = SEASONS[season]
     region = district.geometry()
@@ -140,11 +152,15 @@ def _evaluate_resilient(external, classifiers, keys, retries, shard_id):
 
 
 def run(args):
-    init_ee()
+    _call_with_retry("initialize", init_ee, args.retries)
     populations = _populations(args.agriculture_geojson.resolve())
     leakage = populations["before"].merge(populations["after"])
     districts = madhya_pradesh_districts()
-    names = districts.aggregate_array("ADM2_NAME").sort().getInfo()
+    names = _call_with_retry(
+        "district-list",
+        lambda: districts.aggregate_array("ADM2_NAME").sort().getInfo(),
+        args.retries,
+    )
     assigned = [
         name for index, name in enumerate(names)
         if index % args.worker_count == args.worker_index
@@ -161,7 +177,11 @@ def run(args):
         "shards": {},
     }
     for season in ("winter", "summer"):
-        classifiers = _classifiers(populations, season)
+        classifiers = _call_with_retry(
+            f"{season}-classifiers",
+            lambda: _classifiers(populations, season),
+            args.retries,
+        )
         for name in assigned:
             shard_id = f"{season}:{name}"
             if shard_id in state["shards"]:
