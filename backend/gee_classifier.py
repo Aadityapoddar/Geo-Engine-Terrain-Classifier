@@ -159,16 +159,17 @@ def _add_sar(composite, geometry, start_date, end_date):
         .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
         .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
     )
-    if s1.size().getInfo() == 0:
-        print("No Sentinel-1 scenes in range; widening SAR date window.")
-        s1 = (
-            ee.ImageCollection("COPERNICUS/S1_GRD")
-            .filterBounds(geometry)
-            .filterDate("2024-01-01", "2025-12-31")
-            .filter(ee.Filter.eq("instrumentMode", "IW"))
-            .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
-            .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
-        )
+    sar_fallback = (
+        ee.ImageCollection("COPERNICUS/S1_GRD")
+        .filterBounds(geometry)
+        .filterDate("2024-01-01", "2025-12-31")
+        .filter(ee.Filter.eq("instrumentMode", "IW"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+    )
+    s1 = ee.ImageCollection(
+        ee.Algorithms.If(s1.size().gt(0), s1, sar_fallback)
+    )
 
     sar = s1.select(["VV", "VH"]).median()
     vv_db, vh_db = sar.select("VV"), sar.select("VH")
@@ -190,18 +191,16 @@ def _build_collection(geometry, start_date, end_date, cloud_threshold):
         .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", cloud_threshold))
         .map(mask_s2_clouds)
     )
-    # Fallback to a wider window if the strict filter yields no images
-    count = collection.size().getInfo()
-    if count == 0:
-        print(f"No images in [{start_date} – {end_date}] with cloud < {cloud_threshold}%. Using fallback date range.")
-        collection = (
-            ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
-            .filterDate("2024-01-01", "2025-12-31")
-            .filterBounds(geometry)
-            .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 30))
-            .map(mask_s2_clouds)
-        )
-    return collection
+    fallback = (
+        ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+        .filterDate("2024-01-01", "2025-12-31")
+        .filterBounds(geometry)
+        .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 30))
+        .map(mask_s2_clouds)
+    )
+    return ee.ImageCollection(
+        ee.Algorithms.If(collection.size().gt(0), collection, fallback)
+    )
 
 
 def build_sentinel_composite(geometry, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):

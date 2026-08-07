@@ -39,3 +39,34 @@ def test_exportable_training_samples_retain_point_geometry():
     encoded = json.dumps(ee.serializer.encode(samples), separators=(",", ":"))
 
     assert '"geometries":{"constantValue":true}' in encoded
+
+
+def test_sentinel_collection_fallback_is_server_side(monkeypatch):
+    class FakeNumber:
+        def gt(self, value):
+            return ("gt", value)
+
+    class FakeCollection:
+        def filterDate(self, *args):
+            return self
+
+        def filterBounds(self, *args):
+            return self
+
+        def filter(self, *args):
+            return self
+
+        def map(self, *args):
+            return self
+
+        def size(self):
+            return FakeNumber()
+
+    collection = FakeCollection()
+    monkeypatch.setattr(gc.ee, "ImageCollection", lambda value: collection)
+    monkeypatch.setattr(gc.ee.Filter, "lt", lambda *args: args)
+    monkeypatch.setattr(
+        gc.ee.Algorithms, "If", lambda condition, yes, no: yes, raising=False
+    )
+
+    assert gc._build_collection("geometry", "start", "end", 15) is collection
