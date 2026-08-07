@@ -11,5 +11,11 @@ __pycache__/
 *.html
 *.csv
 
+# ...but the frontend's own markup is source, not an exported document
+!frontend/**/*.html
+
 # Scripts
 scripts/
+
+# macOS
+.DS_Store

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geo-Engine Terrain Classifier</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css" />
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div id="app-container">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <svg class="icon-brand brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+        <div class="brand-meta">
+          <h1 class="brand-title">Geo-Engine <span class="highlight">Terrain</span> Classifier</h1>
+          <span class="brand-sub">Sentinel-2 Land Cover Classification · Google Earth Engine</span>
+        </div>
+        <span class="version-tag">v1.0</span>
+      </div>
+
+      <div class="header-right">
+        <button type="button" id="btn-zoom-india" class="btn-location-nav">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+          <span>India</span>
+        </button>
+        <button type="button" id="btn-zoom-campus" class="btn-location-nav">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          </svg>
+          <span>Jabalpur Campus</span>
+        </button>
+
+        <div class="divider-v"></div>
+
+        <div class="status-pill">
+          <span id="status-dot" class="status-dot"></span>
+          <span id="status-text">Connecting Earth Engine...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Workspace -->
+    <main class="workspace">
+
+      <!-- Sidebar controls -->
+      <aside id="sidebar" class="panel-card">
+        <div class="panel-card-header">
+          <div class="header-title-group">
+            <h2>Control Panel</h2>
+          </div>
+        </div>
+
+        <div class="panel-card-content">
+
+          <!-- Step 01 — Area of interest -->
+          <section class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">01</span>
+              <span class="step-title">Mark Study Area</span>
+            </div>
+
+            <div class="aoi-draw-box">
+              <p class="section-desc">
+                Draw a polygon or rectangle over the region you want classified. Use the map toolbar or the button below.
+              </p>
+
+              <button type="button" id="btn-draw-polygon" class="btn-secondary-action">
+                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                </svg>
+                <span>Draw Region Polygon</span>
+              </button>
+
+              <div id="drawn-area-status" class="status-callout success" style="display: none;">
+                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Region marked — ready to classify</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 02 — Model -->
+          <section class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">02</span>
+              <span class="step-title">Select Classifier</span>
+            </div>
+
+            <div class="form-field">
+              <div class="label-row">
+                <label for="select-model">Model</label>
+                <span id="model-acc-badge" class="metric-badge">Val Acc: —</span>
+              </div>
+              <div class="select-wrapper">
+                <select id="select-model" class="custom-select">
+                  <option value="rf">Random Forest</option>
+                  <option value="svm">Support Vector Machine (SVM)</option>
+                  <option value="xgb">Gradient Boosted Trees (XGBoost)</option>
+                  <option value="cart">Decision Tree (CART)</option>
+                  <option value="knn">K-Nearest Neighbors (KNN)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="model-info-box" class="info-card">
+              Loading model metadata…
+            </div>
+          </section>
+
+          <!-- Step 03 — Imagery parameters -->
+          <section class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">03</span>
+              <span class="step-title">Imagery Parameters</span>
+            </div>
+
+            <div class="date-range-grid">
+              <div class="input-with-label">
+                <label class="sub-label" for="input-start-date">Start Date</label>
+                <input type="date" id="input-start-date" class="custom-input" value="2025-03-01" />
+              </div>
+              <div class="input-with-label">
+                <label class="sub-label" for="input-end-date">End Date</label>
+                <input type="date" id="input-end-date" class="custom-input" value="2025-04-30" />
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="label-row">
+                <label for="range-cloud">Cloud Cover Max</label>
+                <span id="cloud-val" class="mono-val">15%</span>
+              </div>
+              <input type="range" id="range-cloud" class="custom-range" min="1" max="50" step="1" value="15" />
+            </div>
+
+            <label class="custom-checkbox-container" for="check-smoothing">
+              <input type="checkbox" id="check-smoothing" checked />
+              <span class="checkmark"></span>
+              <span class="checkbox-label">Apply 1px focal mode smoothing</span>
+            </label>
+          </section>
+
+          <!-- Step 04 — Run -->
+          <section class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">04</span>
+              <span class="step-title">Run Inference</span>
+            </div>
+
+            <button type="button" id="btn-run-classify" class="btn-primary-launch" disabled>
+              <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              <span>Classify Marked Region</span>
+            </button>
+          </section>
+
+        </div>
+      </aside>
+
+      <!-- Map -->
+      <div id="map"></div>
+
+      <!-- Floating layer opacity controls -->
+      <div id="layer-controls" class="floating-control-card" style="display: none;">
+        <div class="card-title">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          </svg>
+          <span>Layer Opacity</span>
+        </div>
+
+        <div class="layer-slider-row">
+          <div class="layer-meta">
+            <span class="layer-name">Classified Terrain</span>
+            <span id="opacity-terrain-val" class="mono-val">100%</span>
+          </div>
+          <input type="range" id="range-opacity-terrain" class="custom-range" min="0" max="100" step="1" value="100" />
+        </div>
+
+        <div class="layer-slider-row">
+          <div class="layer-meta">
+            <span class="layer-name">Sentinel-2 RGB</span>
+            <span id="opacity-rgb-val" class="mono-val">80%</span>
+          </div>
+          <input type="range" id="range-opacity-rgb" class="custom-range" min="0" max="100" step="1" value="80" />
+        </div>
+      </div>
+
+      <!-- Analytics drawer -->
+      <section id="analytics-panel" class="analytics-card" style="display: none;">
+        <div id="panel-header-toggle" class="analytics-card-header">
+          <div class="header-left-title">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            <h3>Terrain Analytics</h3>
+          </div>
+          <button type="button" id="btn-toggle-panel" class="btn-icon-toggle" aria-label="Toggle analytics panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="analytics-card-body">
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Total Area</span>
+              <span id="stat-total-ha" class="metric-value">—</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Dominant Class</span>
+              <span id="stat-dominant" class="metric-value">—</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Model</span>
+              <span id="stat-model-name" class="metric-value">—</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Processing Time</span>
+              <span id="stat-proc-time" class="metric-value">—</span>
+            </div>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="chart-terrain-distribution"></canvas>
+          </div>
+
+          <div class="class-list-header">
+            <h4>Individual Class Areas</h4>
+          </div>
+          <div id="class-areas-list" class="class-cards-container"></div>
+
+          <div class="export-actions-row">
+            <button type="button" id="btn-export-geotiff" class="btn-outline-export">
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+              </svg>
+              <span>GeoTIFF</span>
+            </button>
+            <button type="button" id="btn-export-geojson" class="btn-outline-export">
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              <span>GeoJSON</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.min.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script src="/static/js/map.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
