@@ -1,5 +1,7 @@
+import json
 from unittest.mock import patch
 
+import ee
 import pytest
 
 from backend import gee_classifier as gc
@@ -24,3 +26,16 @@ def test_unknown_model_is_rejected():
 def test_empty_collection_list_is_rejected():
     with pytest.raises(ValueError, match="At least one training collection"):
         gc.merge_feature_collections([])
+
+
+def test_exportable_training_samples_retain_point_geometry():
+    gc.init_ee()
+    image = ee.Image.constant(list(range(len(gc.BANDS)))).rename(gc.BANDS)
+    points = ee.FeatureCollection([
+        ee.Feature(ee.Geometry.Point([80.0, 23.0]), {"label": 0})
+    ])
+
+    samples = gc._sample_regions_with_geometry(image, points)
+    encoded = json.dumps(ee.serializer.encode(samples), separators=(",", ":"))
+
+    assert '"geometries":{"constantValue":true}' in encoded

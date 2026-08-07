@@ -227,13 +227,18 @@ def sample_training_points(
     train_composite = _add_spectral_indices(train_collection.median())
     train_composite = _add_sar(
         train_composite, train_geometry, start_date, end_date)
+    return _sample_regions_with_geometry(train_composite.select(BANDS), points)
+
+
+def _sample_regions_with_geometry(image, points):
+    """Sample labelled points into an exportable table with point geometries."""
     return (
-        train_composite.select(BANDS)
-        .sampleRegions(
+        image.sampleRegions(
             collection=points,
             properties=["label"],
             scale=10,
             tileScale=4,
+            geometries=True,
         )
         .filter(ee.Filter.notNull(BANDS + ["label"]))
     )
