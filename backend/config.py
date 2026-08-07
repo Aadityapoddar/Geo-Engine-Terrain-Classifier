@@ -65,7 +65,7 @@ FEATURE_COLLECTIONS = {
     # import and carried no attributes at all: every feature had a null label,
     # which merges without complaint and trains a silently broken class.
     "sand_mp": f"{EE_ASSET_ROOT}/sand_points_mp_labelled",
-    "agriculture": f"{EE_ASSET_ROOT}/jabalpur_agriculture_points",
+    "agriculture": f"{EE_ASSET_ROOT}/jabalpur_agriculture_points_updated",
 }
 
 EXPECTED_ASSET_LABELS = {
@@ -76,6 +76,10 @@ EXPECTED_ASSET_LABELS = {
     "soil_mp": 3,
     "sand_mp": 4,
     "agriculture": 5,
+}
+
+EXPECTED_ASSET_COUNTS = {
+    "agriculture": 1000,
 }
 
 MODEL_METADATA = {

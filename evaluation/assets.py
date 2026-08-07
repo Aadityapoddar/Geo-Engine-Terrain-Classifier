@@ -4,6 +4,7 @@ import ee
 
 from backend.config import (
     BEFORE_TRAINING_TABLE,
+    EXPECTED_ASSET_COUNTS,
     EXPECTED_ASSET_LABELS,
     FEATURE_COLLECTIONS,
     SEASONS,
@@ -24,11 +25,14 @@ def training_points(condition):
     raise ValueError(f"Unknown training condition: {condition}")
 
 
-def validate_audit_record(record, expected_label=None):
+def validate_audit_record(record, expected_label=None, expected_count=None):
     """Reject records that cannot safely participate in model training."""
     name = record.get("name", "asset")
     if record.get("size", 0) <= 0:
         raise ValueError(f"{name} is empty")
+    if expected_count is not None and record["size"] != expected_count:
+        raise ValueError(
+            f"{name} expected {expected_count} features, got {record['size']}")
 
     geometry_types = record.get("geometry_types", {})
     if set(geometry_types) != {"Point"}:
@@ -49,7 +53,9 @@ def validate_audit_record(record, expected_label=None):
     return record
 
 
-def audit_feature_collection(name, collection, expected_label=None):
+def audit_feature_collection(
+    name, collection, expected_label=None, expected_count=None
+):
     """Collect counts, geometry/label integrity, bounds, and seasonal samples."""
     init_ee()
     collection = ee.FeatureCollection(collection)
@@ -67,11 +73,12 @@ def audit_feature_collection(name, collection, expected_label=None):
         samples = sample_training_points(
             collection, start_date=dates["start"], end_date=dates["end"])
         record["seasonal_valid_samples"][season] = samples.size().getInfo()
-    return validate_audit_record(record, expected_label)
+    return validate_audit_record(record, expected_label, expected_count)
 
 
 def audit_all_training_assets():
     """Audit the preserved Before table and every configured After source."""
+    init_ee()
     records = [
         audit_feature_collection(
             "before:district_train_table",
@@ -84,6 +91,7 @@ def audit_all_training_assets():
                 f"after:{name}",
                 ee.FeatureCollection(path),
                 EXPECTED_ASSET_LABELS[name],
+                EXPECTED_ASSET_COUNTS.get(name),
             )
         )
     return records
