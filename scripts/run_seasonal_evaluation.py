@@ -77,6 +77,9 @@ def asset_ids():
     assets = {}
     for season in SEASONS:
         for condition in ("before", "after"):
+            assets[f"{season}-{condition}-full"] = (
+                f"{prefix}_{season}_{condition}_full_train"
+            )
             assets[f"{season}-{condition}-train"] = (
                 f"{prefix}_{season}_{condition}_blocked_train"
             )
@@ -139,6 +142,13 @@ def _table_for_key(key):
     if parts[1] == "external":
         return _external_table(season)
     condition, kind = parts[1], parts[2]
+    if kind == "full":
+        dates = SEASONS[season]
+        return sample_training_points(
+            training_points(condition),
+            start_date=dates["start"],
+            end_date=dates["end"],
+        )
     train, heldout = _training_and_heldout_tables(condition, season)
     return train if kind == "train" else heldout
 
@@ -254,14 +264,24 @@ def _matrix_payload(classified, actual, predicted, order, district_field=None):
 
 
 def _evaluate_run(spec, assets):
-    train = ee.FeatureCollection(assets[f"{spec.season}-{spec.condition}-train"])
+    full_train = ee.FeatureCollection(
+        assets[f"{spec.season}-{spec.condition}-full"]
+    )
+    split_train = ee.FeatureCollection(
+        assets[f"{spec.season}-{spec.condition}-train"]
+    )
     external = ee.FeatureCollection(assets[f"{spec.season}-external"])
     heldout = ee.FeatureCollection(assets[f"{spec.season}-{spec.condition}-heldout"])
-    classifier = make_classifier(spec.model).train(
-        features=train, classProperty="label", inputProperties=BANDS
+    external_classifier = make_classifier(spec.model).train(
+        features=full_train, classProperty="label", inputProperties=BANDS
     )
-    external_classified = _collapsed_external_predictions(external.classify(classifier))
-    heldout_classified = heldout.classify(classifier)
+    heldout_classifier = make_classifier(spec.model).train(
+        features=split_train, classProperty="label", inputProperties=BANDS
+    )
+    external_classified = _collapsed_external_predictions(
+        external.classify(external_classifier)
+    )
+    heldout_classified = heldout.classify(heldout_classifier)
     external_payload = _matrix_payload(
         external_classified, "reference", "external_prediction",
         list(REFERENCE_LABELS), district_field="district",
@@ -282,7 +302,8 @@ def _evaluate_run(spec, assets):
         "season": spec.season,
         "condition": spec.condition,
         "model": spec.model,
-        "training_count": train.size().getInfo(),
+        "training_count": full_train.size().getInfo(),
+        "heldout_training_count": split_train.size().getInfo(),
         "metrics": {
             "external_five_class": external_metrics,
             "heldout_six_class": heldout_metrics,

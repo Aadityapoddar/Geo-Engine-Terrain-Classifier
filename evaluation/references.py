@@ -22,7 +22,8 @@ PROJECT_TO_REFERENCE_LABEL = {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 4}
 
 WORLD_COVER_ID = "ESA/WorldCover/v200"
 DYNAMIC_WORLD_ID = "GOOGLE/DYNAMICWORLD/V1"
-WORLD_CEREAL_ID = "ESA/WorldCereal/2021/MARKERS/v100"
+WORLD_CEREAL_ID = "ESA/WorldCereal/2021/MODELS/v100"
+WORLD_CEREAL_PRODUCT = "temporarycrops"
 GHSL_ID = "JRC/GHSL/P2023A/GHS_BUILT_S_10m/2018"
 OPERA_DSWX_ID = "OPERA/DSWX/L3_V1/HLS"
 OPERA_WATER_BAND = "WTR_Water_classification"
@@ -56,12 +57,15 @@ def _dynamic_world(region, start_date, end_date):
 
 
 def _world_cereal(region, season):
+    # The seasonal active-marker product has no valid crop pixels across MP for
+    # the requested periods. Use WorldCereal's global temporary-crops product;
+    # seasonality still comes from the date-matched Dynamic World/composite.
     return (
         ee.ImageCollection(WORLD_CEREAL_ID)
         .filterBounds(region)
-        .filter(ee.Filter.eq("season", WORLD_CEREAL_SEASON[season]))
+        .filter(ee.Filter.eq("product", WORLD_CEREAL_PRODUCT))
         .select("classification")
-        .max()
+        .mosaic()
         .eq(100)
     )
 
@@ -96,9 +100,9 @@ def build_consensus_reference(region, season, start_date, end_date):
         world_cover.eq(10).And(dw_label.eq(1)).And(confident),
         world_cover.eq(80).And(dw_label.eq(0)).And(confident).And(opera_water),
         world_cover.eq(50).And(dw_label.eq(6)).And(confident).And(ghsl),
-        world_cover.eq(60).And(dw_label.eq(7)).And(confident)
+        world_cover.eq(60).And(dw_label.eq(7))
         .And(specialist_conflict.Not()),
-        world_cover.eq(40).And(dw_label.eq(4)).And(confident).And(crops),
+        world_cover.eq(40).And(crops),
     )
     reference = ee.Image(0).updateMask(masks[0]).rename("reference")
     for label, mask in enumerate(masks[1:], start=1):

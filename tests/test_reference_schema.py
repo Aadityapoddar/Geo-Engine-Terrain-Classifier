@@ -3,6 +3,8 @@ from evaluation.references import (
     GHSL_MIN_BUILT_SQM,
     PROJECT_TO_REFERENCE_LABEL,
     REFERENCE_LABELS,
+    WORLD_CEREAL_ID,
+    WORLD_CEREAL_PRODUCT,
     WORLD_CEREAL_SEASON,
     collapse_project_prediction,
 )
@@ -23,6 +25,8 @@ def test_reference_schema_and_thresholds_are_fixed():
         "winter": "tc-wintercereals",
         "summer": "tc-maize-main",
     }
+    assert WORLD_CEREAL_ID == "ESA/WorldCereal/2021/MODELS/v100"
+    assert WORLD_CEREAL_PRODUCT == "temporarycrops"
 
 
 def test_soil_and_sand_collapse_only_for_external_reference():
