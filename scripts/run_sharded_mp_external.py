@@ -94,14 +94,49 @@ def _classifiers(populations, season):
     return output
 
 
-def _evaluate_district(external, classifiers):
+def _evaluate_district(external, classifiers, keys=None):
+    keys = list(classifiers) if keys is None else list(keys)
     payload = {"sample_count": external.size()}
-    for key, classifier in classifiers.items():
+    for key in keys:
+        classifier = classifiers[key]
         classified = _collapsed_external_predictions(external.classify(classifier))
         payload[key] = classified.errorMatrix(
             "reference", "external_prediction", list(REFERENCE_LABELS)
         ).array().toList()
     return ee.Dictionary(payload).getInfo()
+
+
+def _evaluate_resilient(external, classifiers, keys, retries, shard_id):
+    """Split classifier batches when a district exceeds interactive limits."""
+    error = None
+    for attempt in range(1, retries + 1):
+        try:
+            print(
+                f"evaluate {shard_id} classifiers={len(keys)} attempt={attempt}",
+                flush=True,
+            )
+            return _evaluate_district(external, classifiers, keys)
+        except ee.EEException as caught:
+            error = caught
+            print(f"retry {shard_id}: {caught}", flush=True)
+            time.sleep(5 * attempt)
+    if len(keys) == 1:
+        raise error
+    midpoint = len(keys) // 2
+    print(f"split {shard_id} classifiers={len(keys)}", flush=True)
+    left = _evaluate_resilient(
+        external, classifiers, keys[:midpoint], retries, shard_id
+    )
+    right = _evaluate_resilient(
+        external, classifiers, keys[midpoint:], retries, shard_id
+    )
+    if left["sample_count"] != right["sample_count"]:
+        raise ValueError(f"Sample count changed while splitting {shard_id}")
+    return {
+        "sample_count": left["sample_count"],
+        **{key: value for key, value in left.items() if key != "sample_count"},
+        **{key: value for key, value in right.items() if key != "sample_count"},
+    }
 
 
 def run(args):
@@ -134,16 +169,13 @@ def run(args):
                 continue
             district = districts.filter(ee.Filter.eq("ADM2_NAME", name)).first()
             external = _district_external(district, name, season, leakage)
-            for attempt in range(1, args.retries + 1):
-                try:
-                    print(f"evaluate {shard_id} attempt={attempt}", flush=True)
-                    payload = _evaluate_district(external, classifiers)
-                    break
-                except ee.EEException as error:
-                    if attempt == args.retries:
-                        raise
-                    print(f"retry {shard_id}: {error}", flush=True)
-                    time.sleep(5 * attempt)
+            payload = _evaluate_resilient(
+                external,
+                classifiers,
+                list(classifiers),
+                args.retries,
+                shard_id,
+            )
             state["shards"][shard_id] = {
                 "season": season,
                 "district": name,
