@@ -1,13 +1,3 @@
----
-title: Geo-Engine Terrain Classifier
-emoji: 🌍
-colorFrom: green
-colorTo: blue
-sdk: docker
-app_port: 8000
-pinned: false
----
-
 # Geo-Engine Terrain Classifier
 
 Five-class land cover classification (Forest, Water, Buildings, Barren Land, Agriculture) from Sentinel-2 and Sentinel-1 imagery, served as a web dashboard on top of Google Earth Engine.

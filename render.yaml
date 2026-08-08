@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: geo-engine
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /api/health
+    envVars:
+      # sync: false means Render prompts for these at deploy time and stores
+      # them encrypted, rather than reading them from this file. The service
+      # account key must never live in the repo.
+      - key: EE_PROJECT_ID
+        sync: false
+      - key: EE_ASSET_ROOT
+        sync: false
+      - key: EE_SERVICE_ACCOUNT_KEY
+        sync: false
