@@ -139,6 +139,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const modelsData = await modelsRes.json();
         const configData = await configRes.json();
         modelsMetaData = modelsData.models || {};
+        if (modelsData.default_model) {
+          selectModel.value = modelsData.default_model;
+        }
         const defaultSeason = configData.seasons?.[configData.default_season];
         if (defaultSeason) {
           inputStartDate.value = defaultSeason.start;

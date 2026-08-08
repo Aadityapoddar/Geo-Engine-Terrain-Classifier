@@ -20,6 +20,10 @@ SEASONS = {
     "summer": {"start": "2025-03-31", "end": "2025-04-30"},
 }
 
+# Best current whole-MP external model in both validated seasons. It also lowers
+# Indore Water false positives versus RF on the same independent reference.
+DEFAULT_MODEL = "xgb"
+
 BEFORE_TRAINING_TABLE = f"{EE_ASSET_ROOT}/district_train_table"
 
 DEFAULT_MAP_CENTER = {

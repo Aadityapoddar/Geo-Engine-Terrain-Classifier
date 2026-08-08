@@ -13,6 +13,7 @@ try:
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
+        DEFAULT_MODEL,
         BANDS,
         SEASONS,
         TRAINING_SCHEMA_VERSION,
@@ -25,6 +26,7 @@ except ModuleNotFoundError:
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
+        DEFAULT_MODEL,
         BANDS,
         SEASONS,
         TRAINING_SCHEMA_VERSION,
@@ -49,7 +51,7 @@ app.add_middleware(
 
 class ClassifyRequest(BaseModel):
     geometry: Dict[str, Any] = Field(..., description="GeoJSON Geometry (Polygon or Rectangle) marked on map")
-    model_type: str = Field("rf", description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
+    model_type: str = Field(DEFAULT_MODEL, description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
     start_date: str = Field(SEASONS["summer"]["start"], description="Sentinel-2 composite start date (YYYY-MM-DD)")
     end_date: str = Field(SEASONS["summer"]["end"], description="Sentinel-2 composite end date (YYYY-MM-DD, exclusive)")
     cloud_threshold: float = Field(15.0, description="Max cloud cover percentage filter (1-50%)")
@@ -83,7 +85,7 @@ def get_health():
 @app.get("/api/models")
 def get_models():
     return {
-        "default_model": "rf",
+        "default_model": DEFAULT_MODEL,
         "models": MODEL_METADATA,
         "classes": LAND_COVER_CLASSES,
         "map_centers": {
