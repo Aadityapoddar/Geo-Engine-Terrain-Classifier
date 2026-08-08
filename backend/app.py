@@ -10,18 +10,26 @@ from pydantic import BaseModel, Field
 try:
     from backend.config import (
         DEFAULT_MAP_CENTER,
+        JABALPUR_MAP_CENTER,
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
+        DEFAULT_START_DATE,
+        DEFAULT_END_DATE,
+        DEFAULT_CLOUD_THRESHOLD
     )
     from backend.gee_classifier import init_ee, classify_and_analyze
 except ModuleNotFoundError:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     from backend.config import (
         DEFAULT_MAP_CENTER,
+        JABALPUR_MAP_CENTER,
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
+        DEFAULT_START_DATE,
+        DEFAULT_END_DATE,
+        DEFAULT_CLOUD_THRESHOLD
     )
     from backend.gee_classifier import init_ee, classify_and_analyze
 
@@ -70,6 +78,7 @@ def get_health():
         "status": "online",
         "gee_initialized": ee_status,
         "default_map_center": DEFAULT_MAP_CENTER,
+        "jabalpur_map_center": JABALPUR_MAP_CENTER,
         "campus_map_center": CAMPUS_MAP_CENTER
     }
 
@@ -82,8 +91,12 @@ def get_models():
         "classes": LAND_COVER_CLASSES,
         "map_centers": {
             "default": DEFAULT_MAP_CENTER,
+            "jabalpur": JABALPUR_MAP_CENTER,
             "campus": CAMPUS_MAP_CENTER
-        }
+        },
+        "default_start_date": DEFAULT_START_DATE,
+        "default_end_date": DEFAULT_END_DATE,
+        "default_cloud_threshold": DEFAULT_CLOUD_THRESHOLD
     }
 
 

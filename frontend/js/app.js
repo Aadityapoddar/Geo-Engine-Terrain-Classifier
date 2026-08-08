@@ -113,6 +113,13 @@ document.addEventListener("DOMContentLoaded", function () {
         modelsMetaData = data.models || {};
         updateModelInfo(selectModel.value);
 
+        if (data.default_start_date) inputStartDate.value = data.default_start_date;
+        if (data.default_end_date) inputEndDate.value = data.default_end_date;
+        if (data.default_cloud_threshold) {
+          rangeCloud.value = data.default_cloud_threshold;
+          cloudVal.textContent = `${data.default_cloud_threshold}%`;
+        }
+
         statusDot.classList.add("active");
         statusText.textContent = "Earth Engine Connected";
       } else {

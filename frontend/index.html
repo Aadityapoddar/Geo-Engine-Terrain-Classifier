@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geo-Engine Terrain Classifier | Sentinel-2 Remote Sensing Platform</title>
+  <meta name="description"
+    content="Classify terrain regions using Sentinel-2 satellite imagery and machine learning. Built on Google Earth Engine with Random Forest, SVM, and XGBoost classifiers.">
+
+  <!-- Inter — single neutral sans-serif typeface -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet Geoman Drawing CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.14.2/dist/leaflet-geoman.css" />
+  <!-- Leaflet Geocoder CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+  <!-- Custom App CSS -->
+  <link rel="stylesheet" href="/static/css/style.css?v=swiss_2.1" />
+</head>
+
+<body>
+  <div id="app-container">
+
+    <!-- Header — Ultra-Clean Swiss Navigation -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-logo">
+          <svg class="icon-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-title">Geo-Engine <span class="highlight">Terrain Classifier</span></span>
+          <span class="brand-sub">Sentinel-2 Surface Reflectance Analytics</span>
+        </div>
+        <div class="version-tag">v1.0 • GEE Engine</div>
+      </div>
+
+      <div class="header-right">
+        <button id="btn-zoom-india" class="btn-location-nav" title="Center map over India">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 21.7C17.3 16.5 20 12.3 20 9a8 8 0 1 0-16 0c0 3.3 2.7 7.5 8 12.7z" />
+            <circle cx="12" cy="9" r="3" />
+          </svg>
+          <span>India View</span>
+        </button>
+
+        <button id="btn-zoom-campus" class="btn-location-nav" title="Zoom to Jabalpur Campus Benchmark Region">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg>
+          <span>Campus Study Region</span>
+        </button>
+
+        <div class="divider-v"></div>
+
+        <div class="status-pill">
+          <span id="status-dot" class="status-dot"></span>
+          <span id="status-text">Connecting Earth Engine...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace — CSS Grid: Sidebar (4 cols) + Map (8 cols) -->
+    <main class="workspace">
+
+      <!-- Leaflet Map Container -->
+      <div id="map"></div>
+
+      <!-- Sidebar: Classification Pipeline Controls -->
+      <aside id="sidebar" class="panel-card">
+        <div class="panel-card-header">
+          <div class="header-title-group">
+            <svg class="icon-md text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            <h2>Classification Pipeline</h2>
+          </div>
+        </div>
+
+        <div class="panel-card-content">
+
+          <!-- Step 1: Area Marking -->
+          <div class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">1</span>
+              <span class="step-title">Mark Area of Interest</span>
+            </div>
+
+            <div class="aoi-draw-box">
+              <p class="section-desc">Select draw tool on map toolbar or click below to mark your target terrain
+                polygon.</p>
+
+              <button id="btn-draw-polygon" class="btn-secondary-action">
+                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                </svg>
+                <span>Draw Target Polygon</span>
+              </button>
+
+              <div id="drawn-area-status" class="status-callout success" style="display:none;">
+                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>AOI Polygon Defined. Ready for Inference.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Model Configuration -->
+          <div class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">2</span>
+              <span class="step-title">Select Machine Learning Model</span>
+            </div>
+
+            <div class="form-field">
+              <div class="label-row">
+                <label for="select-model">Model Algorithm</label>
+                <span id="model-acc-badge" class="metric-badge">Val Acc: 97.27%</span>
+              </div>
+              <div class="select-wrapper">
+                <select id="select-model" class="custom-select">
+                  <option value="xgb" selected>XGBoost Gradient Boosted Trees (Recommended • 97.27%)</option>
+                  <option value="rf">Random Forest (93.89%)</option>
+                  <option value="svm">Support Vector Machine (SVM RBF • 98.43%)</option>
+                  <option value="cart">Decision Tree (CART • 94.14%)</option>
+                  <option value="knn">K-Nearest Neighbors (KNN • 96.53%)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="model-info-box" class="info-card">
+              Random Forest classifier trained on Sentinel-2 multispectral bands &amp; indices (NDVI, NDWI, NDBI, SAVI, BSI).
+            </div>
+          </div>
+
+          <!-- Step 3: Satellite Imagery Parameters -->
+          <div class="control-section">
+            <div class="step-badge-header">
+              <span class="step-number">3</span>
+              <span class="step-title">Sentinel-2 Imagery Settings</span>
+            </div>
+
+            <div class="form-field">
+              <label>Date Range Composite</label>
+              <div class="date-range-grid">
+                <div class="input-with-label">
+                  <span class="sub-label">From</span>
+                  <input type="date" id="input-start-date" value="2025-03-01" class="custom-input" />
+                </div>
+                <div class="input-with-label">
+                  <span class="sub-label">To</span>
+                  <input type="date" id="input-end-date" value="2025-04-30" class="custom-input" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="label-row">
+                <label for="range-cloud">Max Cloud Threshold</label>
+                <span id="cloud-val" class="mono-val">15%</span>
+              </div>
+              <input type="range" id="range-cloud" min="1" max="50" value="15" class="custom-range" />
+            </div>
+
+            <div class="form-field">
+              <label class="custom-checkbox-container">
+                <input type="checkbox" id="check-smoothing" checked />
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Apply 1px Focal Mode Spatial Filter</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button id="btn-run-classify" class="btn-primary-launch" disabled>
+            <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <span>Classify Terrain Region</span>
+          </button>
+
+        </div>
+      </aside>
+
+      <!-- Floating Opacity & Layer Control Panel (Top Right) -->
+      <div id="layer-controls" class="floating-control-card" style="display: none;">
+        <div class="card-title">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg>
+          <span>Map Overlays Opacity</span>
+        </div>
+
+        <div class="layer-slider-row">
+          <div class="layer-meta">
+            <span class="layer-name">Terrain Classification</span>
+            <span id="opacity-terrain-val" class="mono-val">100%</span>
+          </div>
+          <input type="range" id="range-opacity-terrain" min="0" max="100" value="100" class="custom-range" />
+        </div>
+
+        <div class="layer-slider-row">
+          <div class="layer-meta">
+            <span class="layer-name">Sentinel-2 True Color (RGB)</span>
+            <span id="opacity-rgb-val" class="mono-val">80%</span>
+          </div>
+          <input type="range" id="range-opacity-rgb" min="0" max="100" value="80" class="custom-range" />
+        </div>
+      </div>
+
+      <!-- Analytics Dashboard Panel (Bottom Right) -->
+      <section id="analytics-panel" class="analytics-card collapsed" style="display: none;">
+        <div class="analytics-card-header" id="panel-header-toggle">
+          <div class="header-left-title">
+            <svg class="icon-md text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            <h3>Terrain Analysis &amp; Class Breakdown</h3>
+          </div>
+          <button id="btn-toggle-panel" class="btn-icon-toggle" aria-label="Toggle Panel">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="18 15 12 9 6 15" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="analytics-card-body">
+
+          <!-- Key Metrics Grid -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Total ROI Area</span>
+              <span id="stat-total-ha" class="metric-value mono">0.00 ha</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Dominant Class</span>
+              <span id="stat-dominant" class="metric-value">None</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Active Model</span>
+              <span id="stat-model-name" class="metric-value">Random Forest</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Inference Time</span>
+              <span id="stat-proc-time" class="metric-value mono">0.0s</span>
+            </div>
+          </div>
+
+          <!-- Chart Section -->
+          <div class="chart-wrapper">
+            <canvas id="chart-terrain-distribution"></canvas>
+          </div>
+
+          <!-- Individual Terrain Class List -->
+          <div class="class-list-header">
+            <h4>Individual Terrain Area Breakdown</h4>
+          </div>
+          <div id="class-areas-list" class="class-cards-container">
+            <!-- Dynamically populated class area cards -->
+          </div>
+
+          <!-- Export Actions -->
+          <div class="export-actions-row">
+            <button id="btn-export-geotiff" class="btn-outline-export">
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Export GeoTIFF</span>
+            </button>
+            <button id="btn-export-geojson" class="btn-outline-export">
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              <span>Export GeoJSON</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet Geoman JS -->
+  <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.14.2/dist/leaflet-geoman.min.js"></script>
+  <!-- Leaflet Geocoder JS -->
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <!-- Application Script Modules -->
+  <script src="/static/js/map.js?v=swiss_2.0"></script>
+  <script src="/static/js/charts.js?v=swiss_2.0"></script>
+  <script src="/static/js/app.js?v=swiss_2.0"></script>
+</body>
+
+</html>

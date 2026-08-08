@@ -69,7 +69,7 @@ class TestGeoEngineAPI(unittest.TestCase):
         # Verify individual class areas breakdown
         self.assertIn("individual_class_areas", data)
         class_areas = data["individual_class_areas"]
-        self.assertEqual(len(class_areas), 4)
+        self.assertEqual(len(class_areas), 5)
 
         for item in class_areas:
             self.assertIn("name", item)
