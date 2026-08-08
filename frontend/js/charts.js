@@ -12,6 +12,16 @@ const ChartsController = (function () {
     "Agriculture": "#F59E0B"
   };
 
+  const CLASS_DISPLAY_NAMES = {
+    "Forest": "Vegetation",
+    "Buildings": "Built Area",
+    "Barren Land": "Open Land"
+  };
+
+  function displayClassName(name) {
+    return CLASS_DISPLAY_NAMES[name] || name;
+  }
+
   function renderTerrainAnalytics(summaryData, classAreasList) {
     // 1. Update Top Level Summary Stat Cards
     document.getElementById("stat-total-ha").textContent = `${summaryData.total_area_ha.toLocaleString()} ha`;
@@ -24,7 +34,7 @@ const ChartsController = (function () {
       classAreasList.forEach((cls) => {
         if (cls.percentage > maxPct) {
           maxPct = cls.percentage;
-          dominantClass = `${cls.name} (${cls.percentage}%)`;
+          dominantClass = `${displayClassName(cls.name)} (${cls.percentage}%)`;
         }
       });
     }
@@ -43,7 +53,7 @@ const ChartsController = (function () {
 
     const ctx = canvas.getContext("2d");
 
-    const labels = classAreasList.map((c) => c.name);
+    const labels = classAreasList.map((c) => displayClassName(c.name));
     const dataValues = classAreasList.map((c) => c.area_ha);
     const backgroundColors = classAreasList.map((c) => c.color || FALLBACK_COLOR_MAP[c.name]);
 
@@ -103,7 +113,7 @@ const ChartsController = (function () {
             callbacks: {
               label: function (context) {
                 const cls = classAreasList[context.dataIndex];
-                return ` ${cls.name}: ${cls.area_ha.toLocaleString()} ha (${cls.percentage}%)`;
+                return ` ${displayClassName(cls.name)}: ${cls.area_ha.toLocaleString()} ha (${cls.percentage}%)`;
               }
             }
           }
@@ -130,7 +140,7 @@ const ChartsController = (function () {
         <div class="class-card-header">
           <span class="class-name">
             <span class="class-badge" style="background-color: ${classColor};"></span>
-            ${cls.name}
+            ${displayClassName(cls.name)}
           </span>
           <span class="class-pct">${cls.percentage}%</span>
         </div>
