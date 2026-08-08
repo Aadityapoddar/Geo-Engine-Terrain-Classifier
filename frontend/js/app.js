@@ -110,6 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Callback when a shape is drawn on map
   function onShapeDrawn(geometry) {
     if (geometry) {
+      if (currentResults) {
+        currentResults = null;
+        layerControls.style.display = "none";
+        analyticsPanel.style.display = "none";
+      }
       drawnAreaStatus.style.display = "flex";
       btnRunClassify.disabled = false;
       btnRunClassify.innerHTML = `
@@ -155,7 +160,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateModelInfo(modelKey) {
     const meta = modelsMetaData[modelKey];
     if (meta) {
-      modelAccBadge.textContent = `Val Acc: ${meta.internal_accuracy}%`;
+      const benchmark = meta.benchmark;
+      modelAccBadge.textContent = benchmark
+        ? `MP OA: W ${benchmark.winter.toFixed(1)}% · S ${benchmark.summer.toFixed(1)}%`
+        : "MP OA: unavailable";
       modelInfoBox.innerHTML = `<strong>${meta.name} (${meta.type})</strong><br/>${meta.description}`;
     }
   }

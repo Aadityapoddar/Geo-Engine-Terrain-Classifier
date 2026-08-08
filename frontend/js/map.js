@@ -9,6 +9,26 @@ const MapController = (function () {
   let rgbTileLayer = null;
   let terrainTileLayer = null;
 
+  function clearOverlays() {
+    if (rgbTileLayer) {
+      map.removeLayer(rgbTileLayer);
+      rgbTileLayer = null;
+    }
+    if (terrainTileLayer) {
+      map.removeLayer(terrainTileLayer);
+      terrainTileLayer = null;
+    }
+  }
+
+  function setSelectionFill(fillOpacity) {
+    if (!drawnItems) return;
+    drawnItems.eachLayer((layer) => {
+      if (typeof layer.setStyle === "function") {
+        layer.setStyle({ fillOpacity });
+      }
+    });
+  }
+
   const INDIA_CENTER = [20.5937, 78.9629];
   const INDIA_ZOOM = 5;
 
@@ -91,10 +111,12 @@ const MapController = (function () {
 
     // Handle Shape Draw Events
     map.on('pm:create', function (e) {
+      clearOverlays();
       // Remove previous drawn shapes to maintain a single ROI
       drawnItems.clearLayers();
       
       const layer = e.layer;
+      layer.setStyle({ fillOpacity: 0.2 });
       drawnItems.addLayer(layer);
 
       const geojson = layer.toGeoJSON();
@@ -138,6 +160,7 @@ const MapController = (function () {
       return false;
     }
 
+    clearOverlays();
     drawnItems.clearLayers();
     const layer = L.geoJSON(geometry, {
       style: { color: '#FF002B', fillColor: '#FF002B', fillOpacity: 0.2, weight: 3 }
@@ -182,14 +205,7 @@ const MapController = (function () {
   function updateOverlays(rgbOverlay, terrainOverlay) {
     if (!map) return;
 
-    if (rgbTileLayer) {
-      map.removeLayer(rgbTileLayer);
-      rgbTileLayer = null;
-    }
-    if (terrainTileLayer) {
-      map.removeLayer(terrainTileLayer);
-      terrainTileLayer = null;
-    }
+    clearOverlays();
 
     function overlayBounds(b) {
       return [[b.south, b.west], [b.north, b.east]];
@@ -208,6 +224,10 @@ const MapController = (function () {
         zIndex: 100
       }).addTo(map);
     }
+
+    // Keep the AOI outline for context, but remove its red fill. Otherwise the
+    // map stays red even when the Classified Terrain slider is at 0%.
+    setSelectionFill(0);
 
     // Zoom map bounds to fit drawn shape
     if (drawnItems && drawnItems.getLayers().length > 0) {
@@ -246,6 +266,7 @@ const MapController = (function () {
     zoomToIndia,
     zoomToCampus,
     updateOverlays,
+    clearOverlays,
     setRGBOpacity,
     setTerrainOpacity,
     getCurrentGeoJSON

@@ -461,8 +461,7 @@ def classify_and_analyze(
             "name":              model_meta["name"],
             "type":              model_meta["type"],
             "description":       model_meta["description"],
-            "internal_accuracy": model_meta["internal_accuracy"],
-            "external_accuracy": model_meta["external_accuracy"]
+            "benchmark":         model_meta["benchmark"],
         },
         "rgb_overlay": rgb_overlay,
         "terrain_overlay": overlay,

@@ -95,13 +95,32 @@ EXPECTED_ASSET_COUNTS = {
     "agriculture": 1000,
 }
 
+# Current v3 After-condition whole-Madhya-Pradesh results. These are agreement
+# with the five-class public-map consensus, not random-split training accuracy.
+# Source: doc/assets/mp_external_results_v3.json (96/96 district-season shards).
+MODEL_BENCHMARKS = {
+    "rf": {"winter": 78.04470440777105, "summer": 62.02723146747352},
+    "svm": {"winter": 71.33904324211406, "summer": 61.14112816079533},
+    "xgb": {"winter": 84.98015458533528, "summer": 70.45601901880268},
+    "cart": {"winter": 71.35993315228745, "summer": 61.14112816079533},
+    "knn": {"winter": 73.67871318153331, "summer": 61.33563864274908},
+}
+
+
+def _benchmark(model):
+    return {
+        "training_schema_version": TRAINING_SCHEMA_VERSION,
+        "metric": "whole_mp_external_five_class_overall_accuracy",
+        "scope": "48 MP districts; public-map consensus; not field ground truth",
+        **MODEL_BENCHMARKS[model],
+    }
+
 MODEL_METADATA = {
     "rf": {
         "name": "Random Forest",
         "type": "Ensemble Trees",
-        "description": "200 decision trees trained with bagging fraction 0.3 & max nodes 10. Highest internal baseline accuracy.",
-        "internal_accuracy": 99.35,
-        "external_accuracy": 87.50,
+        "description": "200 decision trees with bagging fraction 0.3 and max nodes 10.",
+        "benchmark": _benchmark("rf"),
         "params": {
             "numberOfTrees": 200,
             "minLeafPopulation": 1,
@@ -112,9 +131,8 @@ MODEL_METADATA = {
     "svm": {
         "name": "Support Vector Machine (SVM)",
         "type": "Kernel-based Classifier",
-        "description": "RBF kernel with C=100 & Gamma=1.0. Tied for highest generalization accuracy on unseen terrain.",
-        "internal_accuracy": 98.70,
-        "external_accuracy": 91.67,
+        "description": "RBF kernel with C=100 and gamma=1.0.",
+        "benchmark": _benchmark("svm"),
         "params": {
             "kernelType": "RBF",
             "gamma": 1.0,
@@ -124,9 +142,8 @@ MODEL_METADATA = {
     "xgb": {
         "name": "Gradient Boosted Trees (XGBoost)",
         "type": "Gradient Boosting",
-        "description": "100 gradient boosted trees with shrinkage rate 0.1. Strong generalization performance.",
-        "internal_accuracy": 98.90,
-        "external_accuracy": 91.67,
+        "description": "100 gradient-boosted trees with shrinkage rate 0.1.",
+        "benchmark": _benchmark("xgb"),
         "params": {
             "numberOfTrees": 100,
             "shrinkage": 0.1,
@@ -136,9 +153,8 @@ MODEL_METADATA = {
     "cart": {
         "name": "Decision Tree (CART)",
         "type": "Single Tree",
-        "description": "Classification and Regression Tree algorithm with maxNodes=20. Fast and interpretable baseline.",
-        "internal_accuracy": 94.20,
-        "external_accuracy": 82.50,
+        "description": "Classification and Regression Tree with max nodes 20.",
+        "benchmark": _benchmark("cart"),
         "params": {
             "maxNodes": 20
         }
@@ -146,9 +162,8 @@ MODEL_METADATA = {
     "knn": {
         "name": "K-Nearest Neighbors (KNN)",
         "type": "Instance-based",
-        "description": "K=5 nearest neighbors using Euclidean distance across spectral index feature space.",
-        "internal_accuracy": 93.50,
-        "external_accuracy": 79.17,
+        "description": "K=5 nearest neighbors over the canonical 19-band feature space.",
+        "benchmark": _benchmark("knn"),
         "params": {
             "k": 5
         }
