@@ -3,6 +3,19 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[1]
+ASSET_VERSION = "20260809-1"
+
+
+def test_local_frontend_assets_are_cache_busted():
+    source = (REPO / "frontend/index.html").read_text()
+
+    for asset in (
+        "css/style.css",
+        "js/map.js",
+        "js/charts.js",
+        "js/app.js",
+    ):
+        assert f'/static/{asset}?v={ASSET_VERSION}' in source
 
 
 def test_frontend_uses_requested_class_display_names():
