@@ -8,8 +8,7 @@ const ChartsController = (function () {
     "Forest": "#10b981",
     "Water": "#3b82f6",
     "Buildings": "#f43f5e",
-    "Soil": "#d97706",
-    "Sand": "#fbbf24",
+    "Barren Land": "#d97706",
     "Agriculture": "#F59E0B"
   };
 

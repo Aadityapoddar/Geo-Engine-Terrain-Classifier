@@ -86,6 +86,16 @@
                 <span>Draw Region Polygon</span>
               </button>
 
+              <button type="button" id="btn-upload-geojson" class="btn-secondary-action">
+                <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                <span>Upload GeoJSON Area</span>
+              </button>
+              <input type="file" id="input-geojson-file" accept=".geojson,.json,application/geo+json" style="display: none;" />
+
               <div id="drawn-area-status" class="status-callout success" style="display: none;">
                 <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="20 6 9 17 4 12" />

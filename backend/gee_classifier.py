@@ -1,7 +1,9 @@
+import json
 import math
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 import ee
 
 # Support both `python run_app.py` (root in sys.path) and direct module execution
@@ -86,7 +88,19 @@ def init_ee():
     global _EE_INITIALIZED
     if not _EE_INITIALIZED:
         try:
-            ee.Initialize(project=EE_PROJECT_ID)
+            # Hosted deployments have no browser to run `earthengine authenticate`
+            # and no credentials file. The key arrives whole as an env var because
+            # secret stores (HF Spaces, Render) expose secrets as env vars, not
+            # files, so pass it through as key_data rather than staging a tempfile.
+            key_data = os.getenv("EE_SERVICE_ACCOUNT_KEY")
+            if key_data:
+                email = json.loads(key_data)["client_email"]
+                ee.Initialize(
+                    ee.ServiceAccountCredentials(email, key_data=key_data),
+                    project=EE_PROJECT_ID,
+                )
+            else:
+                ee.Initialize(project=EE_PROJECT_ID)
             _EE_INITIALIZED = True
             print(f"Google Earth Engine initialized successfully with project '{EE_PROJECT_ID}'")
         except Exception as e:
@@ -287,10 +301,10 @@ def _iter_coords(coords):
         yield from _iter_coords(part)
 
 
-def _static_overlay(classified, user_geometry, geometry_dict, max_px=2048):
-    """Render the classified AOI once, as a single image.
+def _static_overlay(image, user_geometry, geometry_dict, vis_params, max_px=2048):
+    """Render an AOI layer once, as a single image.
 
-    The XYZ endpoints above are *live inference*: every 256px tile the map asks
+    GEE's XYZ tile endpoints are *live inference*: every 256px tile the map asks
     for re-runs the whole composite -> SAR -> texture -> classify chain on GEE.
     A viewport needs dozens of them, so the map paints in one square at a time
     and pays the whole bill again on every pan and zoom.
@@ -317,14 +331,12 @@ def _static_overlay(classified, user_geometry, geometry_dict, max_px=2048):
 
     url = ""
     try:
-        url = classified.getThumbURL({
+        url = image.getThumbURL({
             "region": user_geometry,
             "dimensions": px,
             "crs": "EPSG:3857",
             "format": "png",
-            "min": 0,
-            "max": len(CLASS_PALETTE) - 1,
-            "palette": CLASS_PALETTE,
+            **vis_params,
         })
     except Exception as ex:
         print(f"Static overlay generation notice: {ex}")
@@ -364,23 +376,47 @@ def classify_and_analyze(
     if smoothing:
         classified = classified.focalMode(radius=1, kernelType="square", units="pixels")
 
-    # ── 4. Generate GEE Tile URLs (streamed via XYZ tiles into Leaflet) ──
-    rgb_map_id     = aoi_composite.getMapId({"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3})
-    terrain_map_id = classified.getMapId(
-        {"min": 0, "max": len(CLASS_PALETTE) - 1, "palette": CLASS_PALETTE})
+    # ── 4. Render overlays, class histogram and export URL, in parallel ──
+    # Each of these is an independent synchronous HTTPS round trip to GEE
+    # (~1-2s each); run sequentially the API latency is their sum, in parallel
+    # it is their max.
+    def _histogram():
+        return classified.reduceRegion(
+            reducer=ee.Reducer.frequencyHistogram(),
+            geometry=user_geometry,
+            scale=10,
+            maxPixels=1e9
+        ).getInfo()
 
-    rgb_tile_url     = rgb_map_id["tile_fetcher"].url_format
-    terrain_tile_url = terrain_map_id["tile_fetcher"].url_format
+    def _geotiff_url():
+        try:
+            return classified.getDownloadURL({
+                "name":   f"terrain_classified_{model_type}",
+                "scale":  10,
+                "crs":    "EPSG:4326",
+                "region": user_geometry,
+                "format": "GEO_TIFF"
+            })
+        except Exception as ex:
+            print(f"GeoTIFF URL generation notice: {ex}")
+            return ""
 
-    overlay = _static_overlay(classified, user_geometry, geometry_dict)
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        rgb_future = pool.submit(
+            _static_overlay, aoi_composite, user_geometry, geometry_dict,
+            {"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3})
+        terrain_future = pool.submit(
+            _static_overlay, classified, user_geometry, geometry_dict,
+            {"min": 0, "max": len(CLASS_PALETTE) - 1, "palette": CLASS_PALETTE})
+        histogram_future = pool.submit(_histogram)
+        download_future = pool.submit(_geotiff_url)
+
+    rgb_overlay = rgb_future.result()
+    overlay = terrain_future.result()
+    histogram = histogram_future.result()
+    download_url = download_future.result()
 
     # ── 5. Compute individual class surface areas ──
-    histogram = classified.reduceRegion(
-        reducer=ee.Reducer.frequencyHistogram(),
-        geometry=user_geometry,
-        scale=10,
-        maxPixels=1e9
-    ).getInfo()
 
     class_counts = histogram.get("classification", {}) or {}
 
@@ -415,19 +451,6 @@ def classify_and_analyze(
             "percentage":  round(pct, 2)
         })
 
-    # ── 6. GeoTIFF export link ──
-    download_url = ""
-    try:
-        download_url = classified.getDownloadURL({
-            "name":   f"terrain_classified_{model_type}",
-            "scale":  10,
-            "crs":    "EPSG:4326",
-            "region": user_geometry,
-            "format": "GEO_TIFF"
-        })
-    except Exception as ex:
-        print(f"GeoTIFF URL generation notice: {ex}")
-
     elapsed_sec = round(time.time() - start_time, 2)
     model_meta  = MODEL_METADATA.get(model_type.lower(), MODEL_METADATA["rf"])
 
@@ -441,10 +464,7 @@ def classify_and_analyze(
             "internal_accuracy": model_meta["internal_accuracy"],
             "external_accuracy": model_meta["external_accuracy"]
         },
-        "tile_urls": {
-            "sentinel_rgb":       rgb_tile_url,
-            "terrain_classified": terrain_tile_url
-        },
+        "rgb_overlay": rgb_overlay,
         "terrain_overlay": overlay,
         "summary": {
             "total_pixels":      total_pixels,

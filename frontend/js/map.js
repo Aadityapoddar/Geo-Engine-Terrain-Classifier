@@ -4,6 +4,7 @@ const MapController = (function () {
   let map = null;
   let drawnItems = null;
   let currentGeoJSON = null;
+  let shapeDrawnCallback = null;
 
   let rgbTileLayer = null;
   let terrainTileLayer = null;
@@ -15,6 +16,7 @@ const MapController = (function () {
   const CAMPUS_ZOOM = 15;
 
   function initMap(containerId, onShapeDrawnCallback) {
+    shapeDrawnCallback = onShapeDrawnCallback;
     // 1. Initialize Leaflet Map over India by default
     map = L.map(containerId, {
       center: INDIA_CENTER,
@@ -115,6 +117,44 @@ const MapController = (function () {
     return map;
   }
 
+  // Load an uploaded GeoJSON (Feature, FeatureCollection or bare Geometry) as
+  // the marked area. Uses the first Polygon/MultiPolygon found.
+  function loadGeoJSON(geojson) {
+    if (!map) return false;
+
+    let geometry = null;
+    if (geojson.type === "FeatureCollection") {
+      const feat = (geojson.features || []).find(
+        (f) => f.geometry && /Polygon$/.test(f.geometry.type)
+      );
+      geometry = feat ? feat.geometry : null;
+    } else if (geojson.type === "Feature") {
+      geometry = geojson.geometry;
+    } else if (/Polygon$/.test(geojson.type)) {
+      geometry = geojson;
+    }
+
+    if (!geometry || !/Polygon$/.test(geometry.type)) {
+      return false;
+    }
+
+    drawnItems.clearLayers();
+    const layer = L.geoJSON(geometry, {
+      style: { color: '#FF002B', fillColor: '#FF002B', fillOpacity: 0.2, weight: 3 }
+    });
+    layer.getLayers().forEach((l) => drawnItems.addLayer(l));
+
+    currentGeoJSON = geometry;
+    const bounds = drawnItems.getBounds();
+    if (bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+    }
+    if (shapeDrawnCallback) {
+      shapeDrawnCallback(currentGeoJSON);
+    }
+    return true;
+  }
+
   function startDrawingPolygon() {
     if (map && map.pm) {
       map.pm.enableDraw('Polygon', {
@@ -136,10 +176,12 @@ const MapController = (function () {
     }
   }
 
-  function updateTileOverlays(rgbUrl, terrainUrl) {
+  // Overlays are single pre-rendered PNGs from the backend, not live GEE XYZ
+  // tiles: one HTTP request per layer instead of dozens of per-tile inference
+  // calls on every pan/zoom.
+  function updateOverlays(rgbOverlay, terrainOverlay) {
     if (!map) return;
 
-    // Remove existing tile layers if present
     if (rgbTileLayer) {
       map.removeLayer(rgbTileLayer);
       rgbTileLayer = null;
@@ -149,17 +191,19 @@ const MapController = (function () {
       terrainTileLayer = null;
     }
 
-    if (rgbUrl) {
-      rgbTileLayer = L.tileLayer(rgbUrl, {
-        maxZoom: 19,
+    function overlayBounds(b) {
+      return [[b.south, b.west], [b.north, b.east]];
+    }
+
+    if (rgbOverlay && rgbOverlay.url) {
+      rgbTileLayer = L.imageOverlay(rgbOverlay.url, overlayBounds(rgbOverlay.bounds), {
         opacity: 0.8,
         zIndex: 50
       }).addTo(map);
     }
 
-    if (terrainUrl) {
-      terrainTileLayer = L.tileLayer(terrainUrl, {
-        maxZoom: 19,
+    if (terrainOverlay && terrainOverlay.url) {
+      terrainTileLayer = L.imageOverlay(terrainOverlay.url, overlayBounds(terrainOverlay.bounds), {
         opacity: 1.0,
         zIndex: 100
       }).addTo(map);
@@ -198,9 +242,10 @@ const MapController = (function () {
     initMap,
     getMap,
     startDrawingPolygon,
+    loadGeoJSON,
     zoomToIndia,
     zoomToCampus,
-    updateTileOverlays,
+    updateOverlays,
     setRGBOpacity,
     setTerrainOpacity,
     getCurrentGeoJSON

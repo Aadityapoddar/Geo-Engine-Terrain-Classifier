@@ -56,6 +56,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   btnDrawPolygon.addEventListener("click", () => MapController.startDrawingPolygon());
 
+  // GeoJSON upload as an alternative to drawing the area
+  const btnUploadGeoJSON = document.getElementById("btn-upload-geojson");
+  const inputGeoJSONFile = document.getElementById("input-geojson-file");
+  btnUploadGeoJSON.addEventListener("click", () => inputGeoJSONFile.click());
+  inputGeoJSONFile.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const geojson = JSON.parse(await file.text());
+      if (!MapController.loadGeoJSON(geojson)) {
+        alert("No Polygon or MultiPolygon geometry found in that GeoJSON file.");
+      }
+    } catch (err) {
+      alert(`Could not read GeoJSON file: ${err.message}`);
+    } finally {
+      e.target.value = "";
+    }
+  });
+
   rangeCloud.addEventListener("input", (e) => {
     cloudVal.textContent = `${e.target.value}%`;
   });
@@ -175,11 +194,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const results = await response.json();
       currentResults = results;
 
-      // Update Map Tiles
-      MapController.updateTileOverlays(
-        results.tile_urls.sentinel_rgb,
-        results.tile_urls.terrain_classified
-      );
+      // Update map overlays (single pre-rendered images, not live GEE tiles)
+      MapController.updateOverlays(results.rgb_overlay, results.terrain_overlay);
 
       // Show Layer Controls
       layerControls.style.display = "flex";
