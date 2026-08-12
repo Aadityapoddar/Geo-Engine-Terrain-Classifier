@@ -4,15 +4,21 @@ from dotenv import load_dotenv
 load_dotenv()
 
 EE_PROJECT_ID = os.getenv("EE_PROJECT_ID")
-EE_ASSET_ROOT = os.getenv("EE_ASSET_ROOT", "users/ashutoshsaxena703")
+if not EE_PROJECT_ID:
+    raise RuntimeError(
+        "EE_PROJECT_ID is not set. Copy .env.example to .env and fill it in."
+    )
+
+# Every asset lives in this project. Nothing is read from anywhere else.
+EE_ASSET_ROOT = f"projects/{EE_PROJECT_ID}/assets"
 
 
 def _asset(key, default_name):
-    """Path of one training asset.
+    """Path of one class's training asset.
 
-    `EE_ASSET_<KEY>` wins when set, so a deployment against a different Earth
-    Engine project can name every class asset exactly, whatever it was called
-    on import. Otherwise the name is assumed unchanged under EE_ASSET_ROOT.
+    `EE_ASSET_<KEY>` in .env names the asset exactly, so renaming an asset in
+    the project is a one-line edit. Without it the name is assumed unchanged
+    under this project's asset root.
     """
     return os.getenv(f"EE_ASSET_{key.upper()}") or f"{EE_ASSET_ROOT}/{default_name}"
 
@@ -33,8 +39,6 @@ SEASONS = {
 # Best current whole-MP external model in both validated seasons. It also lowers
 # Indore Water false positives versus RF on the same independent reference.
 DEFAULT_MODEL = "xgb"
-
-BEFORE_TRAINING_TABLE = _asset("before_table", "district_train_table")
 
 DEFAULT_MAP_CENTER = {
     "lat": 20.5937,
