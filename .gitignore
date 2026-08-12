@@ -11,16 +11,17 @@ __pycache__/
 *.html
 *.csv
 
-# ...but the frontend's own markup is source, not an exported document
-!frontend/**/*.html
+# ...but markup that is source rather than an exported document stays tracked
+!**/frontend/**/*.html
 !frontend-next/**/*.html
+!scripts/*.html
 
 # Node
 node_modules/
 frontend-next/dist/
 
-# Scripts
-scripts/
-
 # macOS
 .DS_Store
+
+# IDEs
+.idea/
