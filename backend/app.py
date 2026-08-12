@@ -10,26 +10,26 @@ from pydantic import BaseModel, Field
 try:
     from backend.config import (
         DEFAULT_MAP_CENTER,
-        JABALPUR_MAP_CENTER,
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
-        DEFAULT_START_DATE,
-        DEFAULT_END_DATE,
-        DEFAULT_CLOUD_THRESHOLD
+        DEFAULT_MODEL,
+        BANDS,
+        SEASONS,
+        TRAINING_SCHEMA_VERSION,
     )
     from backend.gee_classifier import init_ee, classify_and_analyze
 except ModuleNotFoundError:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     from backend.config import (
         DEFAULT_MAP_CENTER,
-        JABALPUR_MAP_CENTER,
         CAMPUS_MAP_CENTER,
         LAND_COVER_CLASSES,
         MODEL_METADATA,
-        DEFAULT_START_DATE,
-        DEFAULT_END_DATE,
-        DEFAULT_CLOUD_THRESHOLD
+        DEFAULT_MODEL,
+        BANDS,
+        SEASONS,
+        TRAINING_SCHEMA_VERSION,
     )
     from backend.gee_classifier import init_ee, classify_and_analyze
 
@@ -51,9 +51,9 @@ app.add_middleware(
 
 class ClassifyRequest(BaseModel):
     geometry: Dict[str, Any] = Field(..., description="GeoJSON Geometry (Polygon or Rectangle) marked on map")
-    model_type: str = Field("rf", description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
-    start_date: str = Field("2025-03-01", description="Sentinel-2 composite start date (YYYY-MM-DD)")
-    end_date: str = Field("2025-04-30", description="Sentinel-2 composite end date (YYYY-MM-DD)")
+    model_type: str = Field(DEFAULT_MODEL, description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
+    start_date: str = Field(SEASONS["summer"]["start"], description="Sentinel-2 composite start date (YYYY-MM-DD)")
+    end_date: str = Field(SEASONS["summer"]["end"], description="Sentinel-2 composite end date (YYYY-MM-DD, exclusive)")
     cloud_threshold: float = Field(15.0, description="Max cloud cover percentage filter (1-50%)")
     smoothing: bool = Field(True, description="Enable 1px focal mode spatial smoothing")
 
@@ -78,7 +78,6 @@ def get_health():
         "status": "online",
         "gee_initialized": ee_status,
         "default_map_center": DEFAULT_MAP_CENTER,
-        "jabalpur_map_center": JABALPUR_MAP_CENTER,
         "campus_map_center": CAMPUS_MAP_CENTER
     }
 
@@ -86,17 +85,24 @@ def get_health():
 @app.get("/api/models")
 def get_models():
     return {
-        "default_model": "rf",
+        "default_model": DEFAULT_MODEL,
         "models": MODEL_METADATA,
         "classes": LAND_COVER_CLASSES,
         "map_centers": {
             "default": DEFAULT_MAP_CENTER,
-            "jabalpur": JABALPUR_MAP_CENTER,
             "campus": CAMPUS_MAP_CENTER
-        },
-        "default_start_date": DEFAULT_START_DATE,
-        "default_end_date": DEFAULT_END_DATE,
-        "default_cloud_threshold": DEFAULT_CLOUD_THRESHOLD
+        }
+    }
+
+
+@app.get("/api/config")
+def get_config():
+    return {
+        "training_schema_version": TRAINING_SCHEMA_VERSION,
+        "classes": LAND_COVER_CLASSES,
+        "bands": BANDS,
+        "seasons": SEASONS,
+        "default_season": "summer",
     }
 
 

@@ -1,42 +1,67 @@
-# Campus Land Cover Classification with Sentinel-2
+# Geo-Engine Terrain Classifier - self-contained app
 
-This project performs binary land cover classification (Forest vs. Non-Forest) over a university campus area using Google Earth Engine and machine learning algorithms.
+Sentinel-2 + Sentinel-1 land cover classification on Google Earth Engine, served as a web app.
+Everything needed to run it is in this folder: the API backend, the web frontend, and the notebooks.
 
-## Overview
-Using Sentinel-2 Surface Reflectance data, the project filters images to a strict **1% cloud cover threshold (QA60 masking)** and evaluates three classifiers:
-- **Random Forest**
-- **Support Vector Machine (SVM) (RBF Kernel)**
-- **XGBoost (Gradient Boosted Trees)**
+## Setup
 
-## Key Findings
-- Internal validation (Campus bounds) demonstrates **Random Forest** as the strongest baseline (99.35%).
-- External validation (Test Area unseen land) demonstrates that **SVM** and **XGBoost** tie for the highest generalization accuracy (91.67%).
-- **Winter imagery** provides the most accurate spectral separability for the study area.
-- 250 points per label were used for internal training/validation (70/30 split), and 240 points per label were evaluated externally.
+Requires Python 3.10+ and a Google account with Earth Engine access to project `earth-engine-484907`.
 
-## Repository Structure
-- `fe/`: Feature extraction and temporal/cloud sensitivity analysis notebooks.
-- `nb/`:
-  - `rf/`, `svm/`, `xgb/`: Classifier training, hyperparameter tuning, and spatial mapping notebooks.
-  - `cal_area/`: Unseen test area validation notebooks for each classifier.
-- `assets/`: Generated charts, heatmaps, and classified maps.
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+earthengine authenticate
+python run_app.py
+```
 
-## Setup Instructions
+That opens http://127.0.0.1:8000 in your browser.
+Draw a rectangle on the map, pick a model, and classify.
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Configuration
 
-2. **Google Earth Engine Authentication:**
-   Authenticate your local Earth Engine environment:
-   ```bash
-   earthengine authenticate
-   ```
-   Ensure your `.env` file contains your Earth Engine Project ID:
-   ```env
-   EE_PROJECT_ID=your-project-id
-   ```
+All Earth Engine settings live in `.env` (copied from `.env.example`).
 
-3. **Run Notebooks:**
-   Open Jupyter notebooks to explore feature extraction, hyperparameter grid search, and final classification outputs.
+Each land cover class points at one asset, named exactly.
+If an asset is called something else in your project, change that one line - nothing else needs editing.
+
+| Variable | Class | Label |
+| --- | --- | --- |
+| `EE_ASSET_FOREST` | Forest | 0 |
+| `EE_ASSET_WATER` | Water | 1 |
+| `EE_ASSET_BUILDINGS` | Buildings | 2 |
+| `EE_ASSET_BARREN` | Barren Land | 3 |
+| `EE_ASSET_AGRICULTURE` | Agriculture | 4 |
+
+`EE_PROJECT_ID` is the project that runs the compute.
+`EE_ASSET_ROOT` is only a fallback for any class variable you delete.
+
+Every asset must be a `FeatureCollection` of points carrying a numeric `label` property matching the table above.
+An asset with no `label` attribute is dropped silently at sampling time, and the model trains without that class.
+
+## What is here
+
+| Path | Contents |
+| --- | --- |
+| `backend/` | FastAPI app, Earth Engine classifier, class and model config |
+| `frontend/` | Map UI, served by the backend at `/` |
+| `model_training/` | Notebooks that train each classifier |
+| `model_testing/` | Notebooks that score them over Jabalpur and Madhya Pradesh |
+| `feature_engineering/` | Notebooks behind the band, season, and cloud-threshold choices |
+
+Run notebooks from this folder, not from inside their subdirectories, so they can import `backend` and read `.env`:
+
+```bash
+source .venv/bin/activate
+pip install jupyter
+jupyter lab
+```
+
+## Models
+
+Five classifiers over the same 19-band feature space (spectral + indices + GLCM texture + Sentinel-1 radar).
+XGBoost is the default: 85.1% winter and 70.3% summer agreement with the five-class public-map consensus across 48 Madhya Pradesh districts.
+
+## Hosted deployment
+
+Set `EE_SERVICE_ACCOUNT_KEY` to the full service-account JSON instead of running `earthengine authenticate`.
+Secret stores expose secrets as env vars, so the key is passed through whole rather than staged as a file.

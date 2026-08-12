@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from backend.config import LAND_COVER_CLASSES  # noqa: E402
+
 def main():
     print("=" * 65)
     print("🚀 Starting Geo-Engine Terrain Classifier Web Application")
@@ -24,7 +26,8 @@ def main():
     print("✨ Features:")
     print("   • Default Map Center: India (20.5937, 78.9629)")
     print("   • Models: Random Forest, SVM, XGBoost, CART, KNN")
-    print("   • Individual Class Areas: Forest, Water, Buildings, Soil (ha, m², %)")
+    classes = ", ".join(c["name"] for c in LAND_COVER_CLASSES.values())
+    print(f"   • Individual Class Areas: {classes}")
     print("   • Exports: GeoTIFF downloads & GeoJSON reports")
     print("=" * 65)
 

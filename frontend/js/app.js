@@ -56,6 +56,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   btnDrawPolygon.addEventListener("click", () => MapController.startDrawingPolygon());
 
+  // GeoJSON upload as an alternative to drawing the area
+  const btnUploadGeoJSON = document.getElementById("btn-upload-geojson");
+  const inputGeoJSONFile = document.getElementById("input-geojson-file");
+  btnUploadGeoJSON.addEventListener("click", () => inputGeoJSONFile.click());
+  inputGeoJSONFile.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const geojson = JSON.parse(await file.text());
+      if (!MapController.loadGeoJSON(geojson)) {
+        alert("No Polygon or MultiPolygon geometry found in that GeoJSON file.");
+      }
+    } catch (err) {
+      alert(`Could not read GeoJSON file: ${err.message}`);
+    } finally {
+      e.target.value = "";
+    }
+  });
+
   rangeCloud.addEventListener("input", (e) => {
     cloudVal.textContent = `${e.target.value}%`;
   });
@@ -91,6 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Callback when a shape is drawn on map
   function onShapeDrawn(geometry) {
     if (geometry) {
+      if (currentResults) {
+        currentResults = null;
+        layerControls.style.display = "none";
+        analyticsPanel.style.display = "none";
+      }
       drawnAreaStatus.style.display = "flex";
       btnRunClassify.disabled = false;
       btnRunClassify.innerHTML = `
@@ -107,18 +131,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchHealthAndModels() {
     try {
-      const res = await fetch(`${API_BASE}/api/models`);
-      if (res.ok) {
-        const data = await res.json();
-        modelsMetaData = data.models || {};
-        updateModelInfo(selectModel.value);
-
-        if (data.default_start_date) inputStartDate.value = data.default_start_date;
-        if (data.default_end_date) inputEndDate.value = data.default_end_date;
-        if (data.default_cloud_threshold) {
-          rangeCloud.value = data.default_cloud_threshold;
-          cloudVal.textContent = `${data.default_cloud_threshold}%`;
+      const [modelsRes, configRes] = await Promise.all([
+        fetch(`${API_BASE}/api/models`),
+        fetch(`${API_BASE}/api/config`)
+      ]);
+      if (modelsRes.ok && configRes.ok) {
+        const modelsData = await modelsRes.json();
+        const configData = await configRes.json();
+        modelsMetaData = modelsData.models || {};
+        if (modelsData.default_model) {
+          selectModel.value = modelsData.default_model;
         }
+        const defaultSeason = configData.seasons?.[configData.default_season];
+        if (defaultSeason) {
+          inputStartDate.value = defaultSeason.start;
+          inputEndDate.value = defaultSeason.end;
+        }
+        updateModelInfo(selectModel.value);
 
         statusDot.classList.add("active");
         statusText.textContent = "Earth Engine Connected";
@@ -134,7 +163,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateModelInfo(modelKey) {
     const meta = modelsMetaData[modelKey];
     if (meta) {
-      modelAccBadge.textContent = `Val Acc: ${meta.internal_accuracy}%`;
+      const benchmark = meta.benchmark;
+      modelAccBadge.textContent = benchmark
+        ? `MP OA: W ${benchmark.winter.toFixed(1)}% · S ${benchmark.summer.toFixed(1)}%`
+        : "MP OA: unavailable";
       modelInfoBox.innerHTML = `<strong>${meta.name} (${meta.type})</strong><br/>${meta.description}`;
     }
   }
@@ -173,11 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const results = await response.json();
       currentResults = results;
 
-      // Update Map Tiles
-      MapController.updateTileOverlays(
-        results.tile_urls.sentinel_rgb,
-        results.tile_urls.terrain_classified
-      );
+      // Update map overlays (single pre-rendered images, not live GEE tiles)
+      MapController.updateOverlays(results.rgb_overlay, results.terrain_overlay);
 
       // Show Layer Controls
       layerControls.style.display = "flex";

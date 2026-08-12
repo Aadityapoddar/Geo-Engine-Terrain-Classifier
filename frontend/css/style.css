@@ -20,10 +20,11 @@
   --color-input-bg:  #f5f5f5;
 
   /* Terrain class palette (functional, data-driven — not decorative) */
-  --color-forest:    #10b981;
+  --color-forest:    #006400;
   --color-water:     #3b82f6;
   --color-buildings: #f43f5e;
   --color-soil:      #d97706;
+  --color-agriculture: #90EE90;
 
   /* Typography — single family, dramatic scale */
   --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -1001,6 +1002,7 @@ h1, h2, h3, h4, h5, h6, p, label, span, li {
 .class-area-card.water   { border-left-color: var(--color-water); }
 .class-area-card.buildings { border-left-color: var(--color-buildings); }
 .class-area-card.soil    { border-left-color: var(--color-soil); }
+.class-area-card.agriculture { border-left-color: var(--color-agriculture); }
 
 .class-card-header {
   display: flex;

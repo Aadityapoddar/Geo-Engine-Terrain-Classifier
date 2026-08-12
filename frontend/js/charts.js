@@ -4,7 +4,23 @@
 const ChartsController = (function () {
   let donutChart = null;
 
-  // Colors dynamically fetched from API backend
+  const FALLBACK_COLOR_MAP = {
+    "Forest": "#006400",
+    "Water": "#3b82f6",
+    "Buildings": "#f43f5e",
+    "Barren Land": "#d97706",
+    "Agriculture": "#90EE90"
+  };
+
+  const CLASS_DISPLAY_NAMES = {
+    "Forest": "Vegetation",
+    "Buildings": "Built Area",
+    "Barren Land": "Open Land"
+  };
+
+  function displayClassName(name) {
+    return CLASS_DISPLAY_NAMES[name] || name;
+  }
 
   function renderTerrainAnalytics(summaryData, classAreasList) {
     // 1. Update Top Level Summary Stat Cards
@@ -18,7 +34,7 @@ const ChartsController = (function () {
       classAreasList.forEach((cls) => {
         if (cls.percentage > maxPct) {
           maxPct = cls.percentage;
-          dominantClass = `${cls.name} (${cls.percentage}%)`;
+          dominantClass = `${displayClassName(cls.name)} (${cls.percentage}%)`;
         }
       });
     }
@@ -37,9 +53,9 @@ const ChartsController = (function () {
 
     const ctx = canvas.getContext("2d");
 
-    const labels = classAreasList.map((c) => c.name);
+    const labels = classAreasList.map((c) => displayClassName(c.name));
     const dataValues = classAreasList.map((c) => c.area_ha);
-    const backgroundColors = classAreasList.map((c) => c.color);
+    const backgroundColors = classAreasList.map((c) => c.color || FALLBACK_COLOR_MAP[c.name]);
 
     if (donutChart) {
       donutChart.destroy();
@@ -97,7 +113,7 @@ const ChartsController = (function () {
             callbacks: {
               label: function (context) {
                 const cls = classAreasList[context.dataIndex];
-                return ` ${cls.name}: ${cls.area_ha.toLocaleString()} ha (${cls.percentage}%)`;
+                return ` ${displayClassName(cls.name)}: ${cls.area_ha.toLocaleString()} ha (${cls.percentage}%)`;
               }
             }
           }
@@ -118,14 +134,13 @@ const ChartsController = (function () {
       const classKey = cls.name.toLowerCase();
       card.className = `class-area-card ${classKey}`;
 
-      const classColor = cls.color;
-      card.style.borderLeftColor = classColor;
+      const classColor = cls.color || FALLBACK_COLOR_MAP[cls.name];
 
       card.innerHTML = `
         <div class="class-card-header">
           <span class="class-name">
             <span class="class-badge" style="background-color: ${classColor};"></span>
-            ${cls.name}
+            ${displayClassName(cls.name)}
           </span>
           <span class="class-pct">${cls.percentage}%</span>
         </div>

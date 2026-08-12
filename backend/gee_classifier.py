@@ -1,6 +1,9 @@
+import json
+import math
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 import ee
 
 # Support both `python run_app.py` (root in sys.path) and direct module execution
@@ -11,10 +14,8 @@ try:
         CLASS_PALETTE,
         BANDS,
         FEATURE_COLLECTIONS,
-        JABALPUR_GEOJSON,
-        CAMPUS_GEOJSON,
         MODEL_METADATA,
-        BASE_BANDS,
+        TRAINING_SCHEMA_VERSION,
     )
 except ModuleNotFoundError:
     # Fallback: add parent dir to path so relative imports resolve
@@ -25,20 +26,81 @@ except ModuleNotFoundError:
         CLASS_PALETTE,
         BANDS,
         FEATURE_COLLECTIONS,
-        JABALPUR_GEOJSON,
-        CAMPUS_GEOJSON,
         MODEL_METADATA,
-        BASE_BANDS,
+        TRAINING_SCHEMA_VERSION,
     )
 
 _EE_INITIALIZED = False
+
+# Training never depends on the drawn AOI -- same points, same composite, same result
+# every request -- so the trained classifier is reusable across AOIs.
+# ponytail: plain dict, no eviction; five models x a handful of date windows is bounded.
+_CLASSIFIER_CACHE = {}
+
+
+def _classifier_cache_key(model_type, start_date, end_date, cloud_threshold):
+    return (
+        model_type.lower(),
+        start_date,
+        end_date,
+        cloud_threshold,
+        TRAINING_SCHEMA_VERSION,
+    )
+
+
+def make_classifier(model_type):
+    """Build one of the five supported classifiers with canonical parameters."""
+    model = model_type.lower()
+    if model == "rf":
+        return ee.Classifier.smileRandomForest(
+            numberOfTrees=200,
+            minLeafPopulation=1,
+            bagFraction=0.3,
+            maxNodes=10,
+        )
+    if model == "svm":
+        return ee.Classifier.libsvm(kernelType="RBF", gamma=1.0, cost=100.0)
+    if model == "xgb":
+        return ee.Classifier.smileGradientTreeBoost(
+            numberOfTrees=100,
+            shrinkage=0.1,
+            maxNodes=10,
+        )
+    if model == "cart":
+        return ee.Classifier.smileCart(maxNodes=20)
+    if model == "knn":
+        return ee.Classifier.smileKNN(k=5)
+    raise ValueError(f"Unsupported model: {model_type}")
+
+
+def merge_feature_collections(paths):
+    """Load and merge asset paths in deterministic order."""
+    paths = list(paths)
+    if not paths:
+        raise ValueError("At least one training collection is required")
+    merged = ee.FeatureCollection(paths[0])
+    for path in paths[1:]:
+        merged = merged.merge(ee.FeatureCollection(path))
+    return merged
 
 
 def init_ee():
     global _EE_INITIALIZED
     if not _EE_INITIALIZED:
         try:
-            ee.Initialize(project=EE_PROJECT_ID)
+            # Hosted deployments have no browser to run `earthengine authenticate`
+            # and no credentials file. The key arrives whole as an env var because
+            # secret stores (HF Spaces, Render) expose secrets as env vars, not
+            # files, so pass it through as key_data rather than staging a tempfile.
+            key_data = os.getenv("EE_SERVICE_ACCOUNT_KEY")
+            if key_data:
+                email = json.loads(key_data)["client_email"]
+                ee.Initialize(
+                    ee.ServiceAccountCredentials(email, key_data=key_data),
+                    project=EE_PROJECT_ID,
+                )
+            else:
+                ee.Initialize(project=EE_PROJECT_ID)
             _EE_INITIALIZED = True
             print(f"Google Earth Engine initialized successfully with project '{EE_PROJECT_ID}'")
         except Exception as e:
@@ -55,8 +117,61 @@ def mask_s2_clouds(image):
     return image.updateMask(mask).divide(10000)
 
 
+# Bands that are not already 0-1. The GLCM moments are the reason this exists:
+# raw g_var reaches 143 and s_var 98, so those two plus g_contrast/s_contrast
+# were 97% of the Euclidean distance that smileKNN and the libsvm RBF kernel
+# operate on, drowning every optical and radar band; g_var alone was 51%. After
+# rescaling those four are 21% and no band exceeds 16%. SWIRratio and BAEI are
+# ratios with no upper bound at all, so the clamp is protection as much as
+# scaling. Trees split on thresholds and are almost unaffected -- they moved by
+# at most 0.4 points, which is the clamp tying the top 1% together and removing
+# the few splits that lived inside that tail.
+#
+# Bounds are the winter p99 of the labelled training samples, rounded up
+# (winter has the wider tails). They must come from that class-stratified
+# sample and not from a district-wide pixel sweep: districts are mostly
+# vegetation and cropland, so a district p99 badly understates a built-up index
+# on the class-balanced set the classifier actually sees. BAEI measured 2.7 on
+# districts against 8.1 on the training samples, and a bound of 3.0 clamped
+# 12% of winter rows to a single tied value -- cutting into the body of the
+# distribution rather than trimming a tail. Bounds that are too wide are the
+# opposite failure and just as real: they compress a band into a fraction of
+# the scale and quietly under-weight it in the same distance metric this table
+# exists to balance. Verify with the saturation check before trusting a bound:
+# every band should sit near 1% saturated, neither 12% nor 0%.
+FEATURE_RANGES = {
+    "SWIRratio": (0.0, 2.5),
+    "BAEI": (0.0, 9.0),
+    "g_contrast": (0.0, 22.0),
+    "g_ent": (0.0, 4.2),
+    "g_var": (0.0, 42.0),
+    "g_diss": (0.0, 3.6),
+    "s_contrast": (0.0, 13.5),
+    "s_var": (0.0, 34.0),
+    "s_ent": (0.0, 4.0),
+}
+
+
+def _unit_range(image, name):
+    """Map one band onto 0-1 using its entry in FEATURE_RANGES."""
+    low, high = FEATURE_RANGES[name]
+    return image.select(name).unitScale(low, high).clamp(0, 1).rename(name)
+
+
+def _rescale_bands(image, names):
+    for name in names:
+        image = image.addBands(_unit_range(image, name), overwrite=True)
+    return image
+
+
 def _add_spectral_indices(composite):
-    """Add NDVI, NDWI, NDBI, SAVI index bands to a composite."""
+    """Add index bands plus GLCM texture to a composite.
+
+    Bare soil and built-up overlap almost completely in per-pixel reflectance, so
+    the separation has to come from somewhere else: bareness/built indices that
+    exploit the SWIR slope, and texture, which measures local structure rather
+    than brightness.
+    """
     ndvi = composite.normalizedDifference(["B8", "B4"]).rename("NDVI")
     ndwi = composite.normalizedDifference(["B3", "B8"]).rename("NDWI")
     ndbi = composite.normalizedDifference(["B11", "B8"]).rename("NDBI")
@@ -64,18 +179,81 @@ def _add_spectral_indices(composite):
         "1.5 * (NIR - RED) / (NIR + RED + 0.5)",
         {"NIR": composite.select("B8"), "RED": composite.select("B4")}
     ).rename("SAVI")
-    
-    bsi = composite.expression(
-        "((SWIR1 + RED) - (NIR + BLUE)) / ((SWIR1 + RED) + (NIR + BLUE))",
-        {
-            "SWIR1": composite.select("B11"),
-            "RED": composite.select("B4"),
-            "NIR": composite.select("B8"),
-            "BLUE": composite.select("B2")
-        }
-    ).rename("BSI")
-    
-    return composite.addBands([ndvi, ndwi, ndbi, savi, bsi])
+    composite = composite.addBands([ndvi, ndwi, ndbi, savi])
+
+    b2, b3, b4 = composite.select("B2"), composite.select("B3"), composite.select("B4")
+    b8, b11, b12 = composite.select("B8"), composite.select("B11"), composite.select("B12")
+
+    bsi = (b11.add(b4).subtract(b8.add(b2))) \
+        .divide(b11.add(b4).add(b8).add(b2)).rename("BSI")
+    ui = (b12.subtract(b8)).divide(b12.add(b8)).rename("UI")
+    t1 = b11.multiply(2).divide(b11.add(b8))
+    t2 = b8.divide(b8.add(b4)).add(b3.divide(b3.add(b11)))
+    ibi = (t1.subtract(t2)).divide(t1.add(t2)).rename("IBI")
+    swir_ratio = b11.divide(b12.add(1e-6)).rename("SWIRratio")
+    baei = (b4.add(0.3)).divide(b3.add(b11).add(1e-6)).rename("BAEI")
+    composite = composite.addBands([bsi, ui, ibi, swir_ratio, baei])
+    composite = _rescale_bands(composite, ("SWIRratio", "BAEI"))
+
+    # GLCM needs a small number of grey levels; 32 keeps the co-occurrence matrix
+    # dense enough that entropy and homogeneity stay meaningful.
+    grey = composite.select("B8").unitScale(0, 0.5).clamp(0, 1) \
+        .multiply(31).toByte().rename("g")
+    texture = grey.glcmTexture(size=3).select(
+        ["g_contrast", "g_ent", "g_var", "g_idm", "g_diss", "g_asm"])
+    texture = _rescale_bands(texture, ("g_contrast", "g_ent", "g_var", "g_diss"))
+    return composite.addBands(texture)
+
+
+def _add_sar(composite, geometry, start_date, end_date):
+    """Add Sentinel-1 C-band radar bands.
+
+    Buildings produce a double-bounce return that bare soil cannot, at any
+    brightness, so radar separates the two by physical mechanism rather than by
+    appearance. Values are rescaled from dB into roughly 0-1 so they sit on the
+    same scale as reflectance -- an RBF SVM is distance-based and unscaled dB
+    (-25..5) would otherwise dominate the kernel.
+    """
+    s1 = (
+        ee.ImageCollection("COPERNICUS/S1_GRD")
+        .filterBounds(geometry)
+        .filterDate(start_date, end_date)
+        .filter(ee.Filter.eq("instrumentMode", "IW"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+    )
+    sar_fallback = (
+        ee.ImageCollection("COPERNICUS/S1_GRD")
+        .filterBounds(geometry)
+        .filterDate("2024-01-01", "2025-12-31")
+        .filter(ee.Filter.eq("instrumentMode", "IW"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+    )
+    s1 = ee.ImageCollection(
+        ee.Algorithms.If(s1.size().gt(0), s1, sar_fallback)
+    )
+
+    return add_sar_bands(composite, s1.select(["VV", "VH"]).median())
+
+
+def add_sar_bands(composite, sar):
+    """Append the rescaled radar amplitude and texture bands from a VV/VH median.
+
+    Split out from _add_sar so scripts/band_ablation.py, which selects its own
+    Sentinel-1 collection to avoid _add_sar's per-tile .getInfo() probes, shares
+    this band maths instead of copying it. It previously copied it, and the copy
+    silently missed the texture rescaling.
+    """
+    vv_db, vh_db = sar.select("VV"), sar.select("VH")
+    ratio = vv_db.subtract(vh_db).unitScale(-5, 20).clamp(0, 1).rename("VVVH")
+    vv = vv_db.unitScale(-25, 5).clamp(0, 1).rename("VV")
+    vh = vh_db.unitScale(-30, 0).clamp(0, 1).rename("VH")
+
+    grey = vv_db.unitScale(-25, 5).clamp(0, 1).multiply(31).toByte().rename("s")
+    texture = grey.glcmTexture(size=3).select(["s_contrast", "s_var", "s_ent"])
+    texture = _rescale_bands(texture, ("s_contrast", "s_var", "s_ent"))
+    return composite.addBands([vv, vh, ratio]).addBands(texture)
 
 
 def _build_collection(geometry, start_date, end_date, cloud_threshold):
@@ -87,157 +265,153 @@ def _build_collection(geometry, start_date, end_date, cloud_threshold):
         .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", cloud_threshold))
         .map(mask_s2_clouds)
     )
-    # Fallback to a wider window if the strict filter yields no images
-    count = collection.size().getInfo()
-    if count == 0:
-        print(f"No images in [{start_date} – {end_date}] with cloud < {cloud_threshold}%. Using fallback date range.")
-        collection = (
-            ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
-            .filterDate("2024-01-01", "2025-12-31")
-            .filterBounds(geometry)
-            .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 30))
-            .map(mask_s2_clouds)
-        )
-    return collection
+    fallback = (
+        ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+        .filterDate("2024-01-01", "2025-12-31")
+        .filterBounds(geometry)
+        .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 30))
+        .map(mask_s2_clouds)
+    )
+    return ee.ImageCollection(
+        ee.Algorithms.If(collection.size().gt(0), collection, fallback)
+    )
 
 
-def _add_topography(composite, geometry):
-    """
-    Adds SRTM elevation and slope bands to help the classifier
-    distinguish low-lying river beds from elevated urban structures.
-
-    NOTE: The DEM must NOT be clipped before computing slope.
-    ee.Terrain.slope() requires a full 3x3 pixel neighbourhood.
-    Clipping first masks out boundary neighbours, producing corrupted
-    slope values across the entire (small) user AOI on the live website.
-    Adding un-clipped bands to an already-clipped composite automatically
-    bounds them to the composite's footprint.
-    """
-    dem = ee.Image("USGS/SRTMGL1_003")   # global DEM — do NOT clip here
-    elevation = dem.select("elevation").rename("ELEVATION")
-    slope = ee.Terrain.slope(dem).rename("SLOPE")   # neighbours intact
-    return composite.addBands([elevation, slope])
-
-
-def build_sentinel_composite(geometry, start_date="2025-03-01", end_date="2025-04-30", cloud_threshold=15):
+def build_sentinel_composite(geometry, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):
     """Build a Sentinel-2 median composite clipped to `geometry` with spectral indices."""
     init_ee()
     collection = _build_collection(geometry, start_date, end_date, cloud_threshold)
     composite = collection.median().clip(geometry)
     composite = _add_spectral_indices(composite)
-    composite = _add_topography(composite, geometry)
+    composite = _add_sar(composite, geometry, start_date, end_date)
     return composite
 
 
-def build_multi_temporal_stack(geometry, year="2025", cloud_threshold=50):
-    """
-    Builds a 30-band Multi-Temporal Stack combining Winter, Summer, 
-    and Post-Monsoon Sentinel-2 composites with spectral indices.
-    """
-    seasons = {
-        "winter": (f"{int(year)-1}-12-01", f"{year}-02-28"),
-        "summer": (f"{year}-03-01", f"{year}-05-31"),
-        "postmonsoon": (f"{year}-09-01", f"{year}-11-30")
-    }
-    
-    stacked_image = None
-    
-    for season_name, (start_date, end_date) in seasons.items():
-        collection = _build_collection(geometry, start_date, end_date, cloud_threshold)
-        composite = collection.median().clip(geometry)
-        composite = _add_spectral_indices(composite)
-        composite = _add_topography(composite, geometry)
-        
-        seasonal_composite = composite.select(BASE_BANDS)
-        new_names = [f"{band}_{season_name}" for band in BASE_BANDS]
-        seasonal_composite = seasonal_composite.rename(new_names)
-        
-        if stacked_image is None:
-            stacked_image = seasonal_composite
-        else:
-            stacked_image = stacked_image.addBands(seasonal_composite)
-            
-    return stacked_image
+def sample_training_points(
+    points,
+    start_date="2025-03-31",
+    end_date="2025-04-30",
+    cloud_threshold=15,
+):
+    """Sample the canonical feature stack for a labelled point collection."""
+    train_geometry = points.geometry().bounds()
+    train_collection = _build_collection(
+        train_geometry, start_date, end_date, cloud_threshold)
+    train_composite = _add_spectral_indices(train_collection.median())
+    train_composite = _add_sar(
+        train_composite, train_geometry, start_date, end_date)
+    return _sample_regions_with_geometry(train_composite.select(BANDS), points)
 
 
-def get_trained_classifier(model_type, start_date="2025-03-01", end_date="2025-04-30", cloud_threshold=15):
+def _sample_regions_with_geometry(image, points):
+    """Sample labelled points into an exportable table with point geometries."""
+    return (
+        image.sampleRegions(
+            collection=points,
+            properties=["label"],
+            scale=10,
+            tileScale=4,
+            geometries=True,
+        )
+        .filter(ee.Filter.notNull(BANDS + ["label"]))
+    )
+
+
+def get_trained_classifier(model_type, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):
     """
-    ALWAYS train on the Jabalpur regional composite where labelled training points exist.
+    ALWAYS train on the composite covering the labelled training points.
     The classifier is then applied to any user-supplied AOI.
     """
     init_ee()
 
-    # ── Training geometry: Jabalpur region ──
-    training_geometry = ee.Geometry(JABALPUR_GEOJSON)
-    year = start_date[:4] if start_date else "2025"
-    training_composite = build_multi_temporal_stack(
-        geometry=training_geometry,
-        year=year,
-        cloud_threshold=50.0
+    cache_key = _classifier_cache_key(
+        model_type, start_date, end_date, cloud_threshold)
+    if cache_key in _CLASSIFIER_CACHE:
+        return _CLASSIFIER_CACHE[cache_key]
+
+    # ── Load training label feature collections ──
+    # Merged generically so adding a collection to FEATURE_COLLECTIONS is enough;
+    # every asset carries its own `label`, so class identity travels with the points.
+    all_points = merge_feature_collections(FEATURE_COLLECTIONS.values())
+    training_samples = sample_training_points(
+        all_points,
+        start_date=start_date,
+        end_date=end_date,
+        cloud_threshold=cloud_threshold,
     )
-
-    # ── Load training label feature collections & set numeric class IDs explicitly ──
-    forest      = ee.FeatureCollection(FEATURE_COLLECTIONS["forest"]).map(lambda f: f.set("label", 0))
-    water       = ee.FeatureCollection(FEATURE_COLLECTIONS["water"]).map(lambda f: f.set("label", 1))
-    buildings   = ee.FeatureCollection(FEATURE_COLLECTIONS["buildings"]).map(lambda f: f.set("label", 2))
-    
-    # Merge sand points into barren land
-    barren_base = ee.FeatureCollection(FEATURE_COLLECTIONS["barren"])
-    sand_base   = ee.FeatureCollection(FEATURE_COLLECTIONS["sand"])
-    barren      = barren_base.merge(sand_base).map(lambda f: f.set("label", 3))
-    
-    agriculture = ee.FeatureCollection(FEATURE_COLLECTIONS["agriculture"]).map(lambda f: f.set("label", 4))
-
-    all_points = forest.merge(water).merge(buildings).merge(barren).merge(agriculture)
 
     # ── Instantiate the requested classifier ──
-    m = model_type.lower()
-    
-    training_bands = BANDS.copy()
-    if m in ["svm", "knn"]:
-        training_bands = [b for b in training_bands if "ELEVATION" not in b and "SLOPE" not in b]
-
-    # ── Sample spectral values at training point locations ──
-    training_samples = (
-        training_composite.select(training_bands)
-        .sampleRegions(
-            collection=all_points,
-            properties=["label"],
-            scale=10,
-            tileScale=4
-        )
-        .filter(ee.Filter.notNull(training_bands + ["label"]))
-    )
-
-    if m == "rf":
-        classifier = ee.Classifier.smileRandomForest(
-            numberOfTrees=100, minLeafPopulation=1, bagFraction=0.3, maxNodes=75
-        )
-    elif m == "svm":
-        classifier = ee.Classifier.libsvm(kernelType="RBF", gamma=1.0, cost=100.0)
-    elif m == "xgb":
-        classifier = ee.Classifier.smileGradientTreeBoost(
-            numberOfTrees=100, shrinkage=0.1, maxNodes=10
-        )
-    elif m == "cart":
-        classifier = ee.Classifier.smileCart(maxNodes=20)
-    elif m == "knn":
-        classifier = ee.Classifier.smileKNN(k=5)
-    else:
-        classifier = ee.Classifier.smileRandomForest(numberOfTrees=100, maxNodes=75)
+    classifier = make_classifier(model_type)
 
     trained_classifier = classifier.train(
         features=training_samples,
         classProperty="label",
-        inputProperties=training_bands
+        inputProperties=BANDS
     )
-    return trained_classifier, training_bands
+    _CLASSIFIER_CACHE[cache_key] = trained_classifier
+    return trained_classifier
+
+
+def _iter_coords(coords):
+    """Yield (lon, lat) pairs from an arbitrarily nested GeoJSON coordinate list."""
+    if coords and isinstance(coords[0], (int, float)):
+        yield coords[0], coords[1]
+        return
+    for part in coords:
+        yield from _iter_coords(part)
+
+
+def _static_overlay(image, user_geometry, geometry_dict, vis_params, max_px=2048):
+    """Render an AOI layer once, as a single image.
+
+    GEE's XYZ tile endpoints are *live inference*: every 256px tile the map asks
+    for re-runs the whole composite -> SAR -> texture -> classify chain on GEE.
+    A viewport needs dozens of them, so the map paints in one square at a time
+    and pays the whole bill again on every pan and zoom.
+
+    An AOI is bounded, though, and Sentinel-2 is 10 m -- a 5 km box is only
+    ~500 px of real data. So render it once and hand the client a flat image.
+    EPSG:3857 so the result drops onto a Web-Mercator map as a plain rectangle
+    with no reprojection, and PNG so everything outside the AOI stays
+    transparent.
+    """
+    # Computed locally: the AOI came from the client as plain GeoJSON, so asking
+    # Earth Engine for its own bounding box would be a network round trip to
+    # learn something already sitting in memory.
+    pts = list(_iter_coords(geometry_dict["coordinates"]))
+    lons = [p[0] for p in pts]
+    lats = [p[1] for p in pts]
+    west, east = min(lons), max(lons)
+    south, north = min(lats), max(lats)
+
+    # Ask for native 10 m resolution, but never more pixels than max_px --
+    # beyond that the image costs more to ship than the detail is worth.
+    width_m = (east - west) * 111320.0 * math.cos(math.radians((north + south) / 2))
+    px = max(256, min(max_px, int(width_m / 10)))
+
+    url = ""
+    try:
+        url = image.getThumbURL({
+            "region": user_geometry,
+            "dimensions": px,
+            "crs": "EPSG:3857",
+            "format": "png",
+            **vis_params,
+        })
+    except Exception as ex:
+        print(f"Static overlay generation notice: {ex}")
+
+    return {
+        "url": url,
+        "bounds": {"west": west, "south": south, "east": east, "north": north},
+        "width_px": px,
+    }
 
 
 def classify_and_analyze(
     geometry_dict,
     model_type="rf",
-    start_date="2025-03-01",
+    start_date="2025-03-31",
     end_date="2025-04-30",
     cloud_threshold=15,
     smoothing=True
@@ -245,37 +419,64 @@ def classify_and_analyze(
     start_time = time.time()
     init_ee()
 
-    # ── 1. Train on Jabalpur regional composite (training labels live there) ──
-    classifier, training_bands = get_trained_classifier(model_type, start_date, end_date, cloud_threshold)
+    # ── 1. Train on the labelled-point composite (training labels always live there) ──
+    classifier = get_trained_classifier(model_type, start_date, end_date, cloud_threshold)
 
     # ── 2. Build the user's AOI composite for classification ──
     user_geometry = ee.Geometry(geometry_dict)
-    year = start_date[:4] if start_date else "2025"
-    aoi_composite = build_multi_temporal_stack(
+    aoi_composite = build_sentinel_composite(
         geometry=user_geometry,
-        year=year,
+        start_date=start_date,
+        end_date=end_date,
         cloud_threshold=cloud_threshold
     )
 
     # ── 3. Classify the user's AOI ──
-    classified = aoi_composite.select(training_bands).classify(classifier)
+    classified = aoi_composite.select(BANDS).classify(classifier)
     if smoothing:
         classified = classified.focalMode(radius=1, kernelType="square", units="pixels")
 
-    # ── 4. Generate GEE Tile URLs (streamed via XYZ tiles into Leaflet) ──
-    rgb_map_id     = aoi_composite.getMapId({"bands": ["B4_winter", "B3_winter", "B2_winter"], "min": 0, "max": 0.3})
-    terrain_map_id = classified.getMapId({"min": 0, "max": 4, "palette": CLASS_PALETTE})
+    # ── 4. Render overlays, class histogram and export URL, in parallel ──
+    # Each of these is an independent synchronous HTTPS round trip to GEE
+    # (~1-2s each); run sequentially the API latency is their sum, in parallel
+    # it is their max.
+    def _histogram():
+        return classified.reduceRegion(
+            reducer=ee.Reducer.frequencyHistogram(),
+            geometry=user_geometry,
+            scale=10,
+            maxPixels=1e9
+        ).getInfo()
 
-    rgb_tile_url     = rgb_map_id["tile_fetcher"].url_format
-    terrain_tile_url = terrain_map_id["tile_fetcher"].url_format
+    def _geotiff_url():
+        try:
+            return classified.getDownloadURL({
+                "name":   f"terrain_classified_{model_type}",
+                "scale":  10,
+                "crs":    "EPSG:4326",
+                "region": user_geometry,
+                "format": "GEO_TIFF"
+            })
+        except Exception as ex:
+            print(f"GeoTIFF URL generation notice: {ex}")
+            return ""
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        rgb_future = pool.submit(
+            _static_overlay, aoi_composite, user_geometry, geometry_dict,
+            {"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3})
+        terrain_future = pool.submit(
+            _static_overlay, classified, user_geometry, geometry_dict,
+            {"min": 0, "max": len(CLASS_PALETTE) - 1, "palette": CLASS_PALETTE})
+        histogram_future = pool.submit(_histogram)
+        download_future = pool.submit(_geotiff_url)
+
+    rgb_overlay = rgb_future.result()
+    overlay = terrain_future.result()
+    histogram = histogram_future.result()
+    download_url = download_future.result()
 
     # ── 5. Compute individual class surface areas ──
-    histogram = classified.reduceRegion(
-        reducer=ee.Reducer.frequencyHistogram(),
-        geometry=user_geometry,
-        scale=10,
-        maxPixels=1e9
-    ).getInfo()
 
     class_counts = histogram.get("classification", {}) or {}
 
@@ -286,7 +487,7 @@ def classify_and_analyze(
     total_area_acres = total_area_sqm / 4046.856
 
     individual_class_areas = []
-    for class_id in range(5):
+    for class_id in LAND_COVER_CLASSES:
         class_info  = LAND_COVER_CLASSES[class_id]
         # GEE may return int or string keys
         pixel_count = int(
@@ -310,19 +511,6 @@ def classify_and_analyze(
             "percentage":  round(pct, 2)
         })
 
-    # ── 6. GeoTIFF export link ──
-    download_url = ""
-    try:
-        download_url = classified.getDownloadURL({
-            "name":   f"terrain_classified_{model_type}",
-            "scale":  10,
-            "crs":    "EPSG:4326",
-            "region": user_geometry,
-            "format": "GEO_TIFF"
-        })
-    except Exception as ex:
-        print(f"GeoTIFF URL generation notice: {ex}")
-
     elapsed_sec = round(time.time() - start_time, 2)
     model_meta  = MODEL_METADATA.get(model_type.lower(), MODEL_METADATA["rf"])
 
@@ -333,13 +521,10 @@ def classify_and_analyze(
             "name":              model_meta["name"],
             "type":              model_meta["type"],
             "description":       model_meta["description"],
-            "internal_accuracy": model_meta["internal_accuracy"],
-            "external_accuracy": model_meta["external_accuracy"]
+            "benchmark":         model_meta["benchmark"],
         },
-        "tile_urls": {
-            "sentinel_rgb":       rgb_tile_url,
-            "terrain_classified": terrain_tile_url
-        },
+        "rgb_overlay": rgb_overlay,
+        "terrain_overlay": overlay,
         "summary": {
             "total_pixels":      total_pixels,
             "total_area_sqm":    round(total_area_sqm, 2),

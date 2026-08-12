@@ -4,9 +4,30 @@ const MapController = (function () {
   let map = null;
   let drawnItems = null;
   let currentGeoJSON = null;
+  let shapeDrawnCallback = null;
 
   let rgbTileLayer = null;
   let terrainTileLayer = null;
+
+  function clearOverlays() {
+    if (rgbTileLayer) {
+      map.removeLayer(rgbTileLayer);
+      rgbTileLayer = null;
+    }
+    if (terrainTileLayer) {
+      map.removeLayer(terrainTileLayer);
+      terrainTileLayer = null;
+    }
+  }
+
+  function setSelectionFill(fillOpacity) {
+    if (!drawnItems) return;
+    drawnItems.eachLayer((layer) => {
+      if (typeof layer.setStyle === "function") {
+        layer.setStyle({ fillOpacity });
+      }
+    });
+  }
 
   const INDIA_CENTER = [20.5937, 78.9629];
   const INDIA_ZOOM = 5;
@@ -15,6 +36,7 @@ const MapController = (function () {
   const CAMPUS_ZOOM = 15;
 
   function initMap(containerId, onShapeDrawnCallback) {
+    shapeDrawnCallback = onShapeDrawnCallback;
     // 1. Initialize Leaflet Map over India by default
     map = L.map(containerId, {
       center: INDIA_CENTER,
@@ -89,10 +111,12 @@ const MapController = (function () {
 
     // Handle Shape Draw Events
     map.on('pm:create', function (e) {
+      clearOverlays();
       // Remove previous drawn shapes to maintain a single ROI
       drawnItems.clearLayers();
       
       const layer = e.layer;
+      layer.setStyle({ fillOpacity: 0.2 });
       drawnItems.addLayer(layer);
 
       const geojson = layer.toGeoJSON();
@@ -113,6 +137,45 @@ const MapController = (function () {
     });
 
     return map;
+  }
+
+  // Load an uploaded GeoJSON (Feature, FeatureCollection or bare Geometry) as
+  // the marked area. Uses the first Polygon/MultiPolygon found.
+  function loadGeoJSON(geojson) {
+    if (!map) return false;
+
+    let geometry = null;
+    if (geojson.type === "FeatureCollection") {
+      const feat = (geojson.features || []).find(
+        (f) => f.geometry && /Polygon$/.test(f.geometry.type)
+      );
+      geometry = feat ? feat.geometry : null;
+    } else if (geojson.type === "Feature") {
+      geometry = geojson.geometry;
+    } else if (/Polygon$/.test(geojson.type)) {
+      geometry = geojson;
+    }
+
+    if (!geometry || !/Polygon$/.test(geometry.type)) {
+      return false;
+    }
+
+    clearOverlays();
+    drawnItems.clearLayers();
+    const layer = L.geoJSON(geometry, {
+      style: { color: '#FF002B', fillColor: '#FF002B', fillOpacity: 0.2, weight: 3 }
+    });
+    layer.getLayers().forEach((l) => drawnItems.addLayer(l));
+
+    currentGeoJSON = geometry;
+    const bounds = drawnItems.getBounds();
+    if (bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+    }
+    if (shapeDrawnCallback) {
+      shapeDrawnCallback(currentGeoJSON);
+    }
+    return true;
   }
 
   function startDrawingPolygon() {
@@ -136,34 +199,35 @@ const MapController = (function () {
     }
   }
 
-  function updateTileOverlays(rgbUrl, terrainUrl) {
+  // Overlays are single pre-rendered PNGs from the backend, not live GEE XYZ
+  // tiles: one HTTP request per layer instead of dozens of per-tile inference
+  // calls on every pan/zoom.
+  function updateOverlays(rgbOverlay, terrainOverlay) {
     if (!map) return;
 
-    // Remove existing tile layers if present
-    if (rgbTileLayer) {
-      map.removeLayer(rgbTileLayer);
-      rgbTileLayer = null;
-    }
-    if (terrainTileLayer) {
-      map.removeLayer(terrainTileLayer);
-      terrainTileLayer = null;
+    clearOverlays();
+
+    function overlayBounds(b) {
+      return [[b.south, b.west], [b.north, b.east]];
     }
 
-    if (rgbUrl) {
-      rgbTileLayer = L.tileLayer(rgbUrl, {
-        maxZoom: 19,
+    if (rgbOverlay && rgbOverlay.url) {
+      rgbTileLayer = L.imageOverlay(rgbOverlay.url, overlayBounds(rgbOverlay.bounds), {
         opacity: 0.8,
         zIndex: 50
       }).addTo(map);
     }
 
-    if (terrainUrl) {
-      terrainTileLayer = L.tileLayer(terrainUrl, {
-        maxZoom: 19,
+    if (terrainOverlay && terrainOverlay.url) {
+      terrainTileLayer = L.imageOverlay(terrainOverlay.url, overlayBounds(terrainOverlay.bounds), {
         opacity: 1.0,
         zIndex: 100
       }).addTo(map);
     }
+
+    // Keep the AOI outline for context, but remove its red fill. Otherwise the
+    // map stays red even when the Classified Terrain slider is at 0%.
+    setSelectionFill(0);
 
     // Zoom map bounds to fit drawn shape
     if (drawnItems && drawnItems.getLayers().length > 0) {
@@ -190,12 +254,19 @@ const MapController = (function () {
     return currentGeoJSON;
   }
 
+  function getMap() {
+    return map;
+  }
+
   return {
     initMap,
+    getMap,
     startDrawingPolygon,
+    loadGeoJSON,
     zoomToIndia,
     zoomToCampus,
-    updateTileOverlays,
+    updateOverlays,
+    clearOverlays,
     setRGBOpacity,
     setTerrainOpacity,
     getCurrentGeoJSON
