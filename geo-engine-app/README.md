@@ -19,10 +19,7 @@ Draw a rectangle on the map, pick a model, and classify.
 
 ## Configuration
 
-All Earth Engine settings live in `.env` (copied from `.env.example`).
-
-Each land cover class points at one asset, named exactly.
-If an asset is called something else in your project, change that one line - nothing else needs editing.
+Copy `.env.example` to `.env`. Every asset lives in the Earth Engine project named by `EE_PROJECT_ID`, and each class points at one of them by exact name:
 
 | Variable | Class | Label |
 | --- | --- | --- |
@@ -32,11 +29,10 @@ If an asset is called something else in your project, change that one line - not
 | `EE_ASSET_BARREN` | Barren Land | 3 |
 | `EE_ASSET_AGRICULTURE` | Agriculture | 4 |
 
-`EE_PROJECT_ID` is the project that runs the compute.
-`EE_ASSET_ROOT` is only a fallback for any class variable you delete.
+Renaming an asset in the project is a one-line edit here, not a code change.
 
-Every asset must be a `FeatureCollection` of points carrying a numeric `label` property matching the table above.
-An asset with no `label` attribute is dropped silently at sampling time, and the model trains without that class.
+Each asset must be a `FeatureCollection` of points carrying a numeric `label` matching the table above.
+An asset with no `label` attribute is dropped silently at sampling time and the model trains without that class, so check that first if a class comes back empty.
 
 ## What is here
 
@@ -64,4 +60,3 @@ XGBoost is the default: 85.1% winter and 70.3% summer agreement with the five-cl
 ## Hosted deployment
 
 Set `EE_SERVICE_ACCOUNT_KEY` to the full service-account JSON instead of running `earthengine authenticate`.
-Secret stores expose secrets as env vars, so the key is passed through whole rather than staged as a file.
