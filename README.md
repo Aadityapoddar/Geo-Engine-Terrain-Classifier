@@ -57,6 +57,16 @@ jupyter lab
 Five classifiers over the same 19-band feature space (spectral + indices + GLCM texture + Sentinel-1 radar).
 XGBoost is the default: 85.1% winter and 70.3% summer agreement with the five-class public-map consensus across 48 Madhya Pradesh districts.
 
-## Hosted deployment
+## Hosted deployment (Render)
 
-Set `EE_SERVICE_ACCOUNT_KEY` to the full service-account JSON instead of running `earthengine authenticate`.
+`earthengine authenticate` only works on your laptop. On Render, set these environment variables:
+
+| Variable | Value |
+| --- | --- |
+| `EE_PROJECT_ID` | The Cloud project registered with Earth Engine (must match the assets below) |
+| `EE_SERVICE_ACCOUNT_KEY` | Full service-account JSON, pasted as one secret |
+| `EE_ASSET_*` | Same asset paths as `.env.example` if they are not the defaults |
+
+Start command: `python run_app.py` (binds `0.0.0.0` and `$PORT` automatically on Render).
+
+The service account must be registered for Earth Engine and able to read those assets. Create a key in Google Cloud IAM, then in Earth Engine register that `client_email` on the same project. Do not use your personal `earthengine authenticate` credentials on the server.

@@ -18,8 +18,10 @@ def main():
     ee_project = os.getenv("EE_PROJECT_ID")
     print(f"🌍 Earth Engine Project ID: {ee_project}")
 
-    host = "127.0.0.1"
-    port = 8000
+    # Render (and most PaaS) set PORT and scan 0.0.0.0. Local runs stay on loopback.
+    hosted = bool(os.getenv("RENDER") or os.getenv("PORT"))
+    host = "0.0.0.0" if hosted else "127.0.0.1"
+    port = int(os.getenv("PORT", "8000"))
     url = f"http://{host}:{port}"
 
     print(f"📡 Serving Web Frontend & API Backend at: {url}")
@@ -31,16 +33,16 @@ def main():
     print("   • Exports: GeoTIFF downloads & GeoJSON reports")
     print("=" * 65)
 
-    # Attempt to launch default web browser
-    try:
-        def open_browser():
-            time.sleep(1.5)
-            webbrowser.open(url)
-        
-        import threading
-        threading.Thread(target=open_browser, daemon=True).start()
-    except Exception as e:
-        print(f"Note: Automatic browser opening skipped ({e}).")
+    if not hosted:
+        try:
+            def open_browser():
+                time.sleep(1.5)
+                webbrowser.open(url)
+
+            import threading
+            threading.Thread(target=open_browser, daemon=True).start()
+        except Exception as e:
+            print(f"Note: Automatic browser opening skipped ({e}).")
 
     uvicorn.run("backend.app:app", host=host, port=port, reload=False)
 

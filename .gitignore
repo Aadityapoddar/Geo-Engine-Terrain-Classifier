@@ -1,5 +1,8 @@
 .env
 .venv/
+# Google Cloud service-account keys — never commit
+*-*.json
+!*.geojson
 venv/
 __pycache__/
 .ipynb_checkpoints/
