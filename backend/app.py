@@ -18,7 +18,12 @@ try:
         SEASONS,
         TRAINING_SCHEMA_VERSION,
     )
-    from backend.gee_classifier import init_ee, classify_and_analyze
+    from backend.gee_classifier import (
+        init_ee,
+        classify_and_analyze,
+        overlay_status,
+        OVERLAY_CACHE_DIR,
+    )
 except ModuleNotFoundError:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     from backend.config import (
@@ -31,7 +36,12 @@ except ModuleNotFoundError:
         SEASONS,
         TRAINING_SCHEMA_VERSION,
     )
-    from backend.gee_classifier import init_ee, classify_and_analyze
+    from backend.gee_classifier import (
+        init_ee,
+        classify_and_analyze,
+        overlay_status,
+        OVERLAY_CACHE_DIR,
+    )
 
 app = FastAPI(
     title="Geo-Engine Terrain Classifier API",
@@ -130,6 +140,18 @@ def run_classification(payload: ClassifyRequest):
         raise HTTPException(status_code=500, detail=f"Earth Engine classification failed: {str(e)}")
 
 
+@app.get("/api/overlay/{key}")
+def get_overlay_status(key: str):
+    """How far the AOI's terrain render has got.
+
+    The overlay is rendered at the classifier's 10 m training scale, which for a
+    district is minutes of Earth Engine compute -- far longer than a request can
+    wait -- so `/api/classify` returns the statistics immediately and the
+    frontend polls this until the PNG lands in the cache.
+    """
+    return overlay_status(key)
+
+
 @app.post("/api/export")
 def export_report(payload: ClassifyRequest):
     try:
@@ -156,6 +178,11 @@ def export_report(payload: ClassifyRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Export generation failed: {str(e)}")
 
+
+# Rendered terrain overlays. Cached on disk and served flat, so panning and
+# zooming costs the client one HTTP request and Earth Engine nothing.
+os.makedirs(OVERLAY_CACHE_DIR, exist_ok=True)
+app.mount("/overlays", StaticFiles(directory=OVERLAY_CACHE_DIR), name="overlays")
 
 # Serve static frontend files
 frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))

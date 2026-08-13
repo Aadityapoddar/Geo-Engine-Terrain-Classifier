@@ -4,3 +4,6 @@ venv/
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
+
+# Rendered terrain overlays (cache, rebuilt on demand)
+.overlay_cache/

@@ -2,6 +2,8 @@ earthengine-api
 geemap
 folium
 numpy
+# Stitching the tiled 10 m terrain render into one cached PNG.
+pillow
 python-dotenv
 seaborn
 tabulate

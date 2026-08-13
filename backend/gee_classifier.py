@@ -1,10 +1,21 @@
+import hashlib
+import io
 import json
 import math
 import os
 import sys
+import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
+import urllib.error
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import ee
+from PIL import Image
+
+# A district at 10 m is ~90 megapixels, just over Pillow's default
+# decompression-bomb threshold. The big image is one we build ourselves from
+# tiles Earth Engine sent us, so the guard is only firing on our own output.
+Image.MAX_IMAGE_PIXELS = None
 
 # Support both `python run_app.py` (root in sys.path) and direct module execution
 try:
@@ -364,6 +375,11 @@ def _iter_coords(coords):
 def _static_overlay(image, user_geometry, geometry_dict, vis_params, max_px=2048):
     """Render an AOI layer once, as a single image.
 
+    True-colour only. Downsampling reflectance is meaningful -- the average of
+    four green pixels is still green -- but downsampling a *classification* is
+    not, and asking Earth Engine for one at display scale silently re-runs the
+    model there. See the note above `render_overlay_png`.
+
     GEE's XYZ tile endpoints are *live inference*: every 256px tile the map asks
     for re-runs the whole composite -> SAR -> texture -> classify chain on GEE.
     A viewport needs dozens of them, so the map paints in one square at a time
@@ -408,6 +424,321 @@ def _static_overlay(image, user_geometry, geometry_dict, vis_params, max_px=2048
     }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Native-resolution overlay rendering
+#
+# The classifier is only valid at the scale it was trained at. Training points
+# were sampled with `scale=10`, and two of the nineteen features are GLCM
+# textures over a 3x3 *pixel* window -- so "3x3" means 30 m on the training grid
+# and 180 m on a 60 m grid. Ask Earth Engine for the classified image at any
+# other scale and the whole chain (composite -> indices -> texture -> classify)
+# is re-evaluated there, on mean-pyramided reflectance, and the model answers a
+# question it was never trained on.
+#
+# Measured on Jabalpur district, same request, water as a share of the AOI:
+#
+#     scale     10 m    30 m    50 m    100 m
+#     water    5.65%  31.99%  28.54%   26.52%
+#
+# That is not a rendering artefact -- every pixel came back an exact palette
+# colour, so nothing was blended. It is a different classification. The old
+# renderer capped the thumbnail at 2048 px, which for a district is ~60 m/px,
+# so the picture on the map disagreed with the numbers beside it by 6x on
+# Water, and the numbers were the trustworthy half.
+#
+# So the overlay is rendered at the training scale and nowhere else. Earth
+# Engine will not do that in one request -- a district on a 10 m grid is
+# ~13700x7700 px and it answers "Reprojection output too large" -- so the AOI is
+# cut into tiles, each rendered at 10 m, and stitched back together here. It is
+# slow (~2 min per tile, and EE starts returning 429 above three at a time), so
+# it runs once in the background and the result is cached on disk: the frontend
+# gets a flat PNG it can pan and zoom over for free, exactly as before.
+# ─────────────────────────────────────────────────────────────────────────────
+
+OVERLAY_CACHE_DIR = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", ".overlay_cache"))
+
+# One tile is ~2.6 MP of inference and takes ~2 min. Bigger tiles mean fewer
+# round trips but EE fails the whole tile on a memory limit somewhere above
+# ~4 MP, and a failed tile is a hole in the map.
+TILE_PX = 1792
+
+# Measured ceiling: EE returns 429 on the fourth concurrent thumbnail. Projects
+# in Restricted Mode share that budget with everything else the app is doing, so
+# a render at full tilt will starve incoming classify requests -- drop this to 1
+# on a constrained tier.
+RENDER_WORKERS = int(os.getenv("OVERLAY_RENDER_WORKERS", "3"))
+
+_EARTH_RADIUS_M = 6378137.0
+
+# GLCM uses a 3x3 window and focalMode another; 24 px of overlap is far more
+# than either needs and costs nothing, the padding is cropped away.
+_EDGE_PAD_PX = 24
+
+# ponytail: plain dict + lock. One entry per rendered AOI, a handful per session.
+_RENDER_JOBS = {}
+_RENDER_LOCK = threading.Lock()
+
+
+def _merc_x(lon):
+    return math.radians(lon) * _EARTH_RADIUS_M
+
+
+def _merc_y(lat):
+    return math.log(math.tan(math.pi / 4 + math.radians(lat) / 2)) * _EARTH_RADIUS_M
+
+
+def _inv_merc_x(x):
+    return math.degrees(x / _EARTH_RADIUS_M)
+
+
+def _inv_merc_y(y):
+    return math.degrees(2 * math.atan(math.exp(y / _EARTH_RADIUS_M)) - math.pi / 2)
+
+
+def _aoi_bounds(geometry_dict):
+    """Bounding box of a GeoJSON geometry, computed locally.
+
+    The AOI arrived from the client as plain GeoJSON, so asking Earth Engine for
+    its own bounding box would be a network round trip to learn something
+    already sitting in memory.
+    """
+    pts = list(_iter_coords(geometry_dict["coordinates"]))
+    lons = [p[0] for p in pts]
+    lats = [p[1] for p in pts]
+    return min(lons), min(lats), max(lons), max(lats)
+
+
+def overlay_cache_key(geometry_dict, model_type, start_date, end_date,
+                      cloud_threshold, smoothing):
+    """Stable id for one rendered overlay.
+
+    Everything that changes a pixel is in the key, the schema version included,
+    so a cached PNG from an older class inventory can never be served against
+    new numbers.
+    """
+    payload = json.dumps({
+        "geometry": geometry_dict,
+        "model": model_type.lower(),
+        "start": start_date,
+        "end": end_date,
+        "cloud": cloud_threshold,
+        "smoothing": bool(smoothing),
+        "schema": TRAINING_SCHEMA_VERSION,
+    }, sort_keys=True)
+    return hashlib.sha1(payload.encode()).hexdigest()[:16]
+
+
+def overlay_cache_path(key):
+    return os.path.join(OVERLAY_CACHE_DIR, f"{key}.png")
+
+
+def _render_grid(geometry_dict, scale_m=10.0):
+    """Pixel grid for the AOI at `scale_m` ground metres, in Web Mercator.
+
+    Web Mercator metres are inflated by 1/cos(lat), so a request for "10 m" in
+    EPSG:3857 buys ~9.2 ground metres at Jabalpur's latitude. The grid is built
+    the other way round -- pick the mercator scale that lands on 10 ground
+    metres -- so the render sits on the same grid the model was trained on
+    rather than merely near it.
+    """
+    west, south, east, north = _aoi_bounds(geometry_dict)
+    lat_mid = (north + south) / 2.0
+    merc_scale = scale_m / math.cos(math.radians(lat_mid))
+
+    x0, x1 = _merc_x(west), _merc_x(east)
+    y0, y1 = _merc_y(south), _merc_y(north)
+    width = max(1, int(round((x1 - x0) / merc_scale)))
+    height = max(1, int(round((y1 - y0) / merc_scale)))
+
+    # A whole number of pixels rarely lands exactly on the AOI's corner, so the
+    # image covers a hair more ground than the bbox asked for. Report where the
+    # pixels actually are, anchored at the top-left: hand Leaflet the requested
+    # bbox instead and the overlay sits a fraction of a pixel off true.
+    return {
+        "west": west,
+        "north": north,
+        "east": _inv_merc_x(x0 + width * merc_scale),
+        "south": _inv_merc_y(y1 - height * merc_scale),
+        "x0": x0, "y1": y1, "merc_scale": merc_scale,
+        "width": width, "height": height,
+    }
+
+
+def _tile_boxes(grid):
+    """Split the grid into tile-sized pixel boxes, each with its lon/lat region.
+
+    Tiles are cut on the mercator pixel grid, not on latitude, so every tile is
+    exactly TILE_PX rows tall and the pieces butt together without a seam.
+    """
+    boxes = []
+    for top in range(0, grid["height"], TILE_PX):
+        for left in range(0, grid["width"], TILE_PX):
+            right = min(left + TILE_PX, grid["width"])
+            bottom = min(top + TILE_PX, grid["height"])
+            s = grid["merc_scale"]
+            boxes.append({
+                "px": (left, top, right, bottom),
+                "region": [
+                    _inv_merc_x(grid["x0"] + left * s),
+                    _inv_merc_y(grid["y1"] - bottom * s),
+                    _inv_merc_x(grid["x0"] + right * s),
+                    _inv_merc_y(grid["y1"] - top * s),
+                ],
+            })
+    return boxes
+
+
+def _is_rate_limited(ex):
+    """Is this Earth Engine saying "slow down" rather than "no"?
+
+    The two calls in a tile fail differently: `getThumbURL` goes through the EE
+    API and raises `EEException`, the download that follows raises
+    `urllib.HTTPError`. Both report a 429, and neither is fatal -- a render is
+    half an hour of work, so anything that might just be congestion is worth
+    waiting out rather than discarding the whole job over.
+    """
+    if isinstance(ex, urllib.error.HTTPError):
+        return ex.code == 429
+    text = str(ex).lower()
+    return "too many requests" in text or "concurrency limit" in text
+
+
+def _fetch_tile(image_fn, box, attempts=6):
+    """Render one tile at the training scale, retrying EE's rate limiter.
+
+    429 is the expected steady state, not an error: three concurrent renders is
+    already EE's ceiling, so a fourth in flight -- from another request, or a
+    retry -- backs off rather than failing the tile and punching a hole in the
+    map.
+    """
+    left, top, right, bottom = box["px"]
+    want = (right - left, bottom - top)
+    west, south, east, north = box["region"]
+    region = ee.Geometry.Rectangle(
+        [west, south, east, north], proj="EPSG:4326", geodesic=False)
+
+    # Texture and focalMode read a neighbourhood, so a composite cut to the tile
+    # edge has nothing to read there and every seam comes back misclassified.
+    # Build on a padded region, then crop back to the exact tile.
+    pad_x = (east - west) * _EDGE_PAD_PX / max(1, want[0])
+    pad_y = (north - south) * _EDGE_PAD_PX / max(1, want[1])
+    padded = ee.Geometry.Rectangle(
+        [west - pad_x, south - pad_y, east + pad_x, north + pad_y],
+        proj="EPSG:4326", geodesic=False)
+
+    for attempt in range(attempts):
+        try:
+            url = image_fn(padded).getThumbURL({
+                "region": region,
+                "dimensions": f"{want[0]}x{want[1]}",
+                "crs": "EPSG:3857",
+                "format": "png",
+                "min": 0,
+                "max": len(CLASS_PALETTE) - 1,
+                "palette": CLASS_PALETTE,
+            })
+            data = urllib.request.urlopen(url, timeout=600).read()
+            tile = Image.open(io.BytesIO(data)).convert("RGBA")
+            if tile.size != want:
+                tile = tile.resize(want, Image.NEAREST)
+            return tile
+        except Exception as ex:
+            if attempt == attempts - 1 or not _is_rate_limited(ex):
+                raise
+            # Backing off further than EE needs is free; the alternative is
+            # losing every tile rendered so far.
+            time.sleep(min(120, 5 * 2 ** attempt))
+    raise RuntimeError("tile render exhausted retries")
+
+
+def render_overlay_png(image_fn, geometry_dict, key, progress=None):
+    """Render the AOI at the training scale, tile by tile, and cache the PNG."""
+    grid = _render_grid(geometry_dict)
+    boxes = _tile_boxes(grid)
+    canvas = Image.new("RGBA", (grid["width"], grid["height"]), (0, 0, 0, 0))
+
+    done = 0
+    with ThreadPoolExecutor(max_workers=RENDER_WORKERS) as pool:
+        futures = {pool.submit(_fetch_tile, image_fn, b): b for b in boxes}
+        # As they land, not in submission order: tiles take uneven times, and a
+        # progress readout that only moves when the *next* tile finishes looks
+        # stuck for minutes at a stretch.
+        for future in as_completed(futures):
+            canvas.paste(future.result(), futures[future]["px"][:2])
+            done += 1
+            if progress:
+                progress(done, len(boxes))
+
+    os.makedirs(OVERLAY_CACHE_DIR, exist_ok=True)
+    path = overlay_cache_path(key)
+    # Write beside the target and rename: a reader polling the cache must never
+    # see a half-written PNG.
+    tmp_path = f"{path}.{os.getpid()}.part"
+    try:
+        canvas.save(tmp_path, "PNG", optimize=True)
+        os.replace(tmp_path, path)
+    except BaseException:
+        # Including the interpreter shutting down mid-save: the render runs on a
+        # daemon thread, so a part file outliving it would sit in the directory
+        # the overlays are served from forever.
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        raise
+    return path, grid
+
+
+def overlay_status(key):
+    """Where one overlay render has got to."""
+    if os.path.exists(overlay_cache_path(key)):
+        return {"status": "ready", "url": f"/overlays/{key}.png"}
+    with _RENDER_LOCK:
+        job = _RENDER_JOBS.get(key)
+    if not job:
+        return {"status": "unknown"}
+    return dict(job)
+
+
+def start_overlay_render(image_fn, geometry_dict, key):
+    """Kick off (or join) the background render for one AOI.
+
+    Rendering a district at 10 m is ~25 minutes of Earth Engine compute, which
+    no HTTP request can wait for, so it runs on a thread and the frontend polls.
+    The cached PNG is the whole point: it is paid once per AOI and then panned
+    and zoomed over for free.
+    """
+    if os.path.exists(overlay_cache_path(key)):
+        return {"status": "ready", "url": f"/overlays/{key}.png"}
+
+    with _RENDER_LOCK:
+        if key in _RENDER_JOBS:
+            return dict(_RENDER_JOBS[key])
+        grid = _render_grid(geometry_dict)
+        total = len(_tile_boxes(grid))
+        _RENDER_JOBS[key] = {
+            "status": "rendering", "url": "", "done": 0, "total": total,
+        }
+
+    def _progress(done, total_tiles):
+        with _RENDER_LOCK:
+            _RENDER_JOBS[key].update(done=done, total=total_tiles)
+
+    def _run():
+        try:
+            render_overlay_png(image_fn, geometry_dict, key, _progress)
+            with _RENDER_LOCK:
+                _RENDER_JOBS[key].update(
+                    status="ready", url=f"/overlays/{key}.png")
+        except Exception as ex:
+            print(f"Overlay render failed for {key}: {ex}")
+            with _RENDER_LOCK:
+                _RENDER_JOBS[key].update(status="failed", error=str(ex))
+
+    threading.Thread(target=_run, name=f"overlay-{key}", daemon=True).start()
+    with _RENDER_LOCK:
+        return dict(_RENDER_JOBS[key])
+
+
 def classify_and_analyze(
     geometry_dict,
     model_type="rf",
@@ -432,9 +763,32 @@ def classify_and_analyze(
     )
 
     # ── 3. Classify the user's AOI ──
-    classified = aoi_composite.select(BANDS).classify(classifier)
-    if smoothing:
-        classified = classified.focalMode(radius=1, kernelType="square", units="pixels")
+    def _classify(image, clip_to=None):
+        out = image.select(BANDS).classify(classifier)
+        if smoothing:
+            out = out.focalMode(radius=1, kernelType="square", units="pixels")
+        return out.clip(clip_to) if clip_to is not None else out
+
+    classified = _classify(aoi_composite)
+
+    # The tiled renderer rebuilds the composite per tile rather than reusing the
+    # AOI-wide one: a tile is a different `filterBounds`, and the point is to
+    # keep each request small enough that Earth Engine will evaluate it on the
+    # 10 m grid at all. Clipped back to the AOI so the district keeps its shape
+    # and everything outside it stays transparent.
+    def _tile_image(region):
+        return _classify(
+            build_sentinel_composite(
+                geometry=region,
+                start_date=start_date,
+                end_date=end_date,
+                cloud_threshold=cloud_threshold,
+            ),
+            clip_to=user_geometry,
+        )
+
+    overlay_key = overlay_cache_key(
+        geometry_dict, model_type, start_date, end_date, cloud_threshold, smoothing)
 
     # ── 4. Render overlays, class histogram and export URL, in parallel ──
     # Each of these is an independent synchronous HTTPS round trip to GEE
@@ -466,13 +820,23 @@ def classify_and_analyze(
             _static_overlay, aoi_composite, user_geometry, geometry_dict,
             {"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3})
         terrain_future = pool.submit(
-            _static_overlay, classified, user_geometry, geometry_dict,
-            {"min": 0, "max": len(CLASS_PALETTE) - 1, "palette": CLASS_PALETTE})
+            start_overlay_render, _tile_image, geometry_dict, overlay_key)
         histogram_future = pool.submit(_histogram)
         download_future = pool.submit(_geotiff_url)
 
     rgb_overlay = rgb_future.result()
-    overlay = terrain_future.result()
+    grid = _render_grid(geometry_dict)
+    overlay = {
+        "key": overlay_key,
+        "bounds": {
+            "west": grid["west"], "south": grid["south"],
+            "east": grid["east"], "north": grid["north"],
+        },
+        "width_px": grid["width"],
+        "height_px": grid["height"],
+        "scale_m": 10,
+        **terrain_future.result(),
+    }
     histogram = histogram_future.result()
     download_url = download_future.result()
 
