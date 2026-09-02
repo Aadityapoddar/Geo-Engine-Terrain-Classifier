@@ -3,11 +3,16 @@
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
-from evaluation.metrics import metrics_from_matrix
-from evaluation.references import REFERENCE_LABELS
-from evaluation.runner import MODEL_NAMES
+REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO))
+
+from backend.config import TRAINING_SCHEMA_VERSION  # noqa: E402
+from evaluation.metrics import metrics_from_matrix  # noqa: E402
+from evaluation.references import REFERENCE_LABELS  # noqa: E402
+from evaluation.runner import LEGACY_MODEL_NAMES, MODEL_NAMES  # noqa: E402
 
 
 def _empty_matrix():
@@ -26,6 +31,13 @@ def aggregate(paths):
     expected_total = None
     for path in paths:
         payload = json.loads(path.read_text())
+        recorded = payload.get("training_schema_version")
+        if recorded != TRAINING_SCHEMA_VERSION:
+            raise ValueError(
+                f"{path} holds {recorded or 'unstamped'} shards; current schema "
+                f"is {TRAINING_SCHEMA_VERSION}. These describe different class "
+                "inventories and cannot be summed."
+            )
         expected_districts.update(payload["assigned_districts"])
         if expected_total is None:
             expected_total = payload["district_count_total"]
@@ -41,6 +53,7 @@ def aggregate(paths):
         )
 
     output = {
+        "training_schema_version": TRAINING_SCHEMA_VERSION,
         "district_count": expected_total,
         "shard_count": len(shards),
         "runs": [],
@@ -65,8 +78,10 @@ def aggregate(paths):
             for model in MODEL_NAMES:
                 matrix = _empty_matrix()
                 key = f"{condition}-{model}"
+                legacy = f"{condition}-{LEGACY_MODEL_NAMES.get(model, model)}"
                 for shard in season_shards:
-                    _add_matrix(matrix, shard["matrices"][key])
+                    matrices = shard["matrices"]
+                    _add_matrix(matrix, matrices.get(key) or matrices[legacy])
                 metrics = metrics_from_matrix(matrix, labels)
                 if metrics["sample_count"] != sample_count:
                     raise ValueError(f"Sample-count mismatch for {season}-{key}")

@@ -1,0 +1,159 @@
+{
+  "seasons": {
+    "winter": {
+      "training_schema_version": "five-class-19-band-v4-matched-windows",
+      "season": "winter",
+      "band_stack": "b19",
+      "block_split": 7,
+      "random_train_fraction": 0.7,
+      "protocols": {
+        "random": {
+          "sample_count": 1509,
+          "models": {
+            "cart": {
+              "overall_accuracy": 0.8846918489065606,
+              "kappa": 0.8558480509790809,
+              "macro_f1": 0.8848061830460654
+            },
+            "gtb": {
+              "overall_accuracy": 0.94831013916501,
+              "kappa": 0.9353708289634799,
+              "macro_f1": 0.9481976966571082
+            },
+            "knn": {
+              "overall_accuracy": 0.923790589794566,
+              "kappa": 0.9046922069327241,
+              "macro_f1": 0.9231442973590234
+            },
+            "rf": {
+              "overall_accuracy": 0.8959575878064944,
+              "kappa": 0.8698546946147852,
+              "macro_f1": 0.8951924816475136
+            },
+            "svm": {
+              "overall_accuracy": 0.949635520212061,
+              "kappa": 0.937032239928008,
+              "macro_f1": 0.9496627776623023
+            }
+          },
+          "overall_accuracy_range": [
+            0.8846918489065606,
+            0.949635520212061
+          ]
+        },
+        "spatially_blocked": {
+          "sample_count": 1616,
+          "models": {
+            "cart": {
+              "overall_accuracy": 0.843440594059406,
+              "kappa": 0.7936686732152012,
+              "macro_f1": 0.8178572955205151
+            },
+            "gtb": {
+              "overall_accuracy": 0.8978960396039604,
+              "kappa": 0.8648827377359953,
+              "macro_f1": 0.8892433009167207
+            },
+            "knn": {
+              "overall_accuracy": 0.8935643564356436,
+              "kappa": 0.859453818055314,
+              "macro_f1": 0.8756708651799195
+            },
+            "rf": {
+              "overall_accuracy": 0.8818069306930693,
+              "kappa": 0.8446897402622888,
+              "macro_f1": 0.8648789065967758
+            },
+            "svm": {
+              "overall_accuracy": 0.8935643564356436,
+              "kappa": 0.8591726841052477,
+              "macro_f1": 0.8877650398947908
+            }
+          },
+          "overall_accuracy_range": [
+            0.843440594059406,
+            0.8978960396039604
+          ]
+        }
+      }
+    },
+    "summer": {
+      "training_schema_version": "five-class-19-band-v4-matched-windows",
+      "season": "summer",
+      "band_stack": "b19",
+      "block_split": 7,
+      "random_train_fraction": 0.7,
+      "protocols": {
+        "random": {
+          "sample_count": 1482,
+          "models": {
+            "cart": {
+              "overall_accuracy": 0.8272604588394062,
+              "kappa": 0.7840320372515591,
+              "macro_f1": 0.8265241416532538
+            },
+            "gtb": {
+              "overall_accuracy": 0.9149797570850202,
+              "kappa": 0.8936643467030208,
+              "macro_f1": 0.9155927673807673
+            },
+            "knn": {
+              "overall_accuracy": 0.8859649122807017,
+              "kappa": 0.8574315385858936,
+              "macro_f1": 0.8852652222181862
+            },
+            "rf": {
+              "overall_accuracy": 0.8002699055330634,
+              "kappa": 0.7503653423291768,
+              "macro_f1": 0.7911201102024654
+            },
+            "svm": {
+              "overall_accuracy": 0.9149797570850202,
+              "kappa": 0.8936578670865711,
+              "macro_f1": 0.915457751916328
+            }
+          },
+          "overall_accuracy_range": [
+            0.8002699055330634,
+            0.9149797570850202
+          ]
+        },
+        "spatially_blocked": {
+          "sample_count": 1616,
+          "models": {
+            "cart": {
+              "overall_accuracy": 0.6454207920792079,
+              "kappa": 0.5464818312188011,
+              "macro_f1": 0.655931153827942
+            },
+            "gtb": {
+              "overall_accuracy": 0.7957920792079208,
+              "kappa": 0.7322882158722446,
+              "macro_f1": 0.809128287646123
+            },
+            "knn": {
+              "overall_accuracy": 0.7438118811881188,
+              "kappa": 0.6688444273070298,
+              "macro_f1": 0.7462580948602973
+            },
+            "rf": {
+              "overall_accuracy": 0.713490099009901,
+              "kappa": 0.6336130256473037,
+              "macro_f1": 0.7016465972723542
+            },
+            "svm": {
+              "overall_accuracy": 0.8013613861386139,
+              "kappa": 0.7398319833487975,
+              "macro_f1": 0.8105964070407001
+            }
+          },
+          "overall_accuracy_range": [
+            0.6454207920792079,
+            0.8013613861386139
+          ]
+        }
+      }
+    }
+  },
+  "training_schema_version": "five-class-19-band-v4-matched-windows"
+}

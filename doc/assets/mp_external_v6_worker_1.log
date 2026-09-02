@@ -1,0 +1,54 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+evaluate winter:Ashoknagar classifiers=12 attempt=1
+landed winter:Ashoknagar samples=100
+evaluate winter:Bhind classifiers=12 attempt=1
+landed winter:Bhind samples=100
+evaluate winter:Chhindwara classifiers=12 attempt=1
+landed winter:Chhindwara samples=100
+evaluate winter:Dhar classifiers=12 attempt=1
+landed winter:Dhar samples=100
+evaluate winter:Gwalior classifiers=12 attempt=1
+landed winter:Gwalior samples=100
+evaluate winter:Jabalpur classifiers=12 attempt=1
+landed winter:Jabalpur samples=88
+evaluate winter:Mandsaur classifiers=12 attempt=1
+landed winter:Mandsaur samples=100
+evaluate winter:Panna classifiers=12 attempt=1
+landed winter:Panna samples=100
+evaluate winter:Rewa classifiers=12 attempt=1
+landed winter:Rewa samples=100
+evaluate winter:Seoni classifiers=12 attempt=1
+landed winter:Seoni samples=100
+evaluate winter:Shivpuri classifiers=12 attempt=1
+landed winter:Shivpuri samples=100
+evaluate winter:Umaria classifiers=12 attempt=1
+retry winter:Umaria: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Umaria classifiers=12 attempt=2
+retry winter:Umaria: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Umaria classifiers=12 attempt=3
+landed winter:Umaria samples=100
+evaluate summer:Ashoknagar classifiers=12 attempt=1
+landed summer:Ashoknagar samples=100
+evaluate summer:Bhind classifiers=12 attempt=1
+landed summer:Bhind samples=80
+evaluate summer:Chhindwara classifiers=12 attempt=1
+landed summer:Chhindwara samples=100
+evaluate summer:Dhar classifiers=12 attempt=1
+landed summer:Dhar samples=100
+evaluate summer:Gwalior classifiers=12 attempt=1
+landed summer:Gwalior samples=80
+evaluate summer:Jabalpur classifiers=12 attempt=1
+landed summer:Jabalpur samples=86
+evaluate summer:Mandsaur classifiers=12 attempt=1
+landed summer:Mandsaur samples=100
+evaluate summer:Panna classifiers=12 attempt=1
+landed summer:Panna samples=83
+evaluate summer:Rewa classifiers=12 attempt=1
+landed summer:Rewa samples=100
+evaluate summer:Seoni classifiers=12 attempt=1
+landed summer:Seoni samples=100
+evaluate summer:Shivpuri classifiers=12 attempt=1
+landed summer:Shivpuri samples=87
+evaluate summer:Umaria classifiers=12 attempt=1
+landed summer:Umaria samples=100
+wrote doc/assets/mp_external_shards_v6_worker_1.json

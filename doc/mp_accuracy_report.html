@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Madhya Pradesh · Five-Class Accuracy Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink: #16130c;
+  --night: #0e0c07;
+  --parchment: #f2e7cf;
+  --parch-2: #e9dab6;
+  --paper: #f7efdc;
+  --gold: #c9a227;
+  --gold-bright: #e6c35c;
+  --vermilion: #e63946;
+  --teal: #2a9d8f;
+  --forest: #1f7a3d;
+  --night-soft: #221d12;
+  --hairline: rgba(22, 19, 12, 0.28);
+  --class-forest: #1f9d4d;
+  --class-water: #1d6fd6;
+  --class-build: #e63946;
+  --class-soil: #c89b64;
+  --class-sand: #f2c94c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Space Grotesk", sans-serif;
+  background: var(--ink);
+  color: var(--parchment);
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+.mono { font-family: "IBM Plex Mono", monospace; }
+.serif { font-family: "Fraunces", serif; }
+::selection { background: var(--gold); color: var(--ink); }
+
+/* ── marquee ─────────────────────────────────────────── */
+.marquee {
+  background: var(--gold);
+  color: var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 3px solid var(--night);
+  padding: 6px 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.marquee span { display: inline-block; animation: scroll 28s linear infinite; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── masthead ───────────────────────────────────────── */
+.masthead {
+  position: relative;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(201,162,39,0.18) 0, transparent 42%),
+    radial-gradient(circle at 8% 90%, rgba(230,57,70,0.14) 0, transparent 40%),
+    var(--night);
+  border-bottom: 4px double var(--gold);
+  padding: 54px 7vw 44px;
+  overflow: hidden;
+}
+.watermark {
+  position: absolute;
+  right: -2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Fraunces", serif;
+  font-weight: 900;
+  font-size: clamp(180px, 26vw, 340px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,162,39,0.16);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+}
+.kicker {
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--gold-bright);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.kicker::before, .kicker::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.title-stack { position: relative; z-index: 2; }
+.title-line {
+  display: block;
+  font-family: "Fraunces", serif;
+  font-weight: 900;
+  font-size: clamp(46px, 9.5vw, 128px);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+}
+.title-line .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--parchment);
+}
+.title-line.italic { font-style: italic; font-weight: 700; color: var(--gold-bright); }
+.masthead-grid {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-top: 34px;
+}
+.masthead-lede { font-size: 15px; color: var(--parch-2); max-width: 60ch; }
+.masthead-lede strong { color: var(--gold-bright); font-weight: 600; }
+.stamp-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.stamp {
+  border: 1px solid var(--gold);
+  background: rgba(201,162,39,0.07);
+  padding: 12px 16px;
+  position: relative;
+}
+.stamp .n {
+  font-family: "Fraunces", serif;
+  font-weight: 900;
+  font-size: 30px;
+  color: var(--gold-bright);
+  line-height: 1;
+}
+.stamp .l {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--parch-2);
+  margin-top: 5px;
+}
+.stamp::after {
+  content: "◆";
+  position: absolute;
+  top: -7px; right: -7px;
+  width: 14px; height: 14px;
+  background: var(--night);
+  color: var(--gold);
+  font-size: 9px;
+  display: grid; place-items: center;
+  border: 1px solid var(--gold);
+}
+
+/* ── class rail ─────────────────────────────────────── */
+.class-rail {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 3px solid var(--night);
+}
+.class-cell {
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 2px solid var(--night);
+  color: var(--ink);
+  position: relative;
+}
+.class-cell:last-child { border-right: none; }
+.class-cell .cn { font-family: "Fraunces", serif; font-weight: 900; font-size: 24px; text-transform: uppercase; }
+.class-cell .ct { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.1em; }
+.class-cell .cb { position: absolute; top: 8px; right: 10px; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 600; }
+.class-swatch { width: 100%; height: 8px; margin-top: 4px; }
+
+/* ── section scaffolding ────────────────────────────── */
+section.block { padding: 60px 7vw; }
+.block-head { display: flex; align-items: baseline; gap: 22px; margin-bottom: 30px; flex-wrap: wrap; }
+.block-no {
+  font-family: "Fraunces", serif;
+  font-weight: 900;
+  font-size: 46px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--gold);
+  line-height: 1;
+}
+.block-title { font-family: "Fraunces", serif; font-weight: 700; font-size: clamp(28px, 4.4vw, 52px); letter-spacing: -0.01em; }
+.block-title .em { font-style: italic; color: var(--gold-bright); }
+.block-sub { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.alt { background: var(--parchment); color: var(--ink); }
+.alt .block-sub { color: var(--vermilion); }
+.alt .block-title .em { color: var(--vermilion); }
+.alt .block-no { -webkit-text-stroke: 1px var(--ink); }
+
+/* ── leaderboard ────────────────────────────────────── */
+.leaderboard { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.model-card {
+  border: 1px solid rgba(242,231,207,0.22);
+  background: linear-gradient(180deg, rgba(242,231,207,0.05), rgba(242,231,207,0.015));
+  padding: 20px;
+  position: relative;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.model-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.model-card .rank {
+  position: absolute;
+  top: -13px; left: 16px;
+  font-family: "Fraunces", serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 2px 10px;
+  border: 2px solid var(--night);
+  letter-spacing: 0.05em;
+}
+.model-card .mname { font-family: "Fraunces", serif; font-weight: 900; font-size: 21px; color: var(--paper); margin-top: 10px; }
+.model-card .mkey { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.model-card .acc {
+  font-family: "Fraunces", serif;
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  margin: 14px 0 4px;
+  color: var(--gold-bright);
+}
+.model-card .acc small { font-size: 16px; font-family: "IBM Plex Mono", monospace; color: var(--parch-2); }
+.acc-bar { height: 8px; background: rgba(242,231,207,0.12); margin: 10px 0 14px; }
+.acc-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-bright)); }
+.model-card .mfacts { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--parch-2); display: flex; flex-direction: column; gap: 3px; }
+.model-card .mfacts b { color: var(--paper); font-weight: 600; }
+
+/* ── heat grid ──────────────────────────────────────── */
+.heat-wrap { overflow-x: auto; }
+.heat-grid { border-collapse: collapse; width: 100%; min-width: 720px; }
+.heat-grid th, .heat-grid td { border: 1px solid rgba(22,19,12,0.35); padding: 0; text-align: center; }
+.heat-grid thead th { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 12px 8px; background: var(--night); color: var(--parchment); border-color: var(--ink); }
+.heat-grid thead th .mn { display: block; font-family: "Fraunces", serif; font-weight: 900; font-size: 16px; text-transform: none; letter-spacing: 0; }
+.heat-grid tbody th { text-align: left; font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 13px; padding: 10px 14px; background: var(--paper); color: var(--ink); white-space: nowrap; }
+.heat-grid tbody th small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 400; font-size: 9px; color: #7a6a4a; }
+.heat-cell { position: relative; padding: 12px 6px; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; color: var(--ink); }
+.heat-cell.best::after { content: "★"; position: absolute; top: 3px; right: 5px; font-size: 10px; color: rgba(22,19,12,0.7); }
+.heat-cell.worst { color: var(--parchment); }
+.heat-legend { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: #7a6a4a; text-transform: uppercase; letter-spacing: 0.12em; }
+.heat-legend .grad { flex: 1; height: 10px; background: linear-gradient(90deg, #e63946, #e8963c, #c9a227, #1f7a3d); border: 1px solid rgba(22,19,12,0.4); }
+
+/* ── class x model recall ───────────────────────────── */
+.recall-grid { border-collapse: collapse; width: 100%; min-width: 640px; }
+.recall-grid th, .recall-grid td { border: 1px solid rgba(22,19,12,0.3); padding: 0; text-align: center; }
+.recall-grid thead th { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 8px; background: var(--night); color: var(--parchment); border-color: var(--ink); }
+.recall-grid tbody th { text-align: left; padding: 12px 14px; font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 13px; background: var(--paper); color: var(--ink); white-space: nowrap; }
+.recall-grid tbody th .dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; }
+.rec-cell { padding: 12px 6px; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 14px; color: var(--ink); }
+.rec-cell.best { box-shadow: inset 0 0 0 2px var(--night); }
+.rec-cell.bad { color: #fff; }
+
+/* ── confusion explorer ─────────────────────────────── */
+.explorer-toolbar { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 26px; align-items: center; }
+.ctl { display: flex; align-items: center; gap: 10px; }
+.ctl label { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+.ctl select {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--night);
+  color: var(--paper);
+  border: 1px solid var(--gold);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.cm-grid { border-collapse: collapse; margin: 0 auto; }
+.cm-grid th, .cm-grid td { border: 1px solid rgba(22,19,12,0.4); text-align: center; }
+.cm-grid thead th { font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 12px; background: var(--night); color: var(--parchment); }
+.cm-grid tbody th { text-align: right; font-size: 12px; font-weight: 600; padding: 10px 12px; background: var(--paper); color: var(--ink); white-space: nowrap; }
+.cm-grid tbody th .cls { display: block; font-family: "Fraunces", serif; font-weight: 900; font-size: 15px; }
+.cm-grid td { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 15px; padding: 12px 10px; color: var(--ink); min-width: 56px; }
+.cm-grid td.diag { box-shadow: inset 0 0 0 2px var(--night); }
+.cm-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+.cm-side h4 { font-family: "Fraunces", serif; font-weight: 700; font-size: 22px; margin-bottom: 12px; }
+.cm-side h4 .em { font-style: italic; color: var(--vermilion); }
+.cm-side p { font-size: 13px; color: #4a402a; margin-bottom: 10px; max-width: 52ch; }
+.cm-side .stat-block { margin-top: 14px; }
+.cm-side .stat-block .row { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(22,19,12,0.3); padding: 7px 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.cm-side .stat-block .row b { font-weight: 600; }
+
+/* ── site cards ─────────────────────────────────────── */
+.sites-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.site-card { border: 1px solid rgba(242,231,207,0.2); background: linear-gradient(160deg, rgba(201,162,39,0.08), transparent 50%); padding: 26px; }
+.site-card h3 { font-family: "Fraunces", serif; font-weight: 900; font-size: 26px; margin-bottom: 4px; }
+.site-card .sref { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.site-card .site-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+.site-card .site-stats .ss { border: 1px solid rgba(242,231,207,0.14); padding: 10px 12px; }
+.site-card .site-stats .ss .v { font-family: "Fraunces", serif; font-weight: 900; font-size: 20px; color: var(--gold-bright); }
+.site-card .site-stats .ss .k { font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--parch-2); }
+.model-bars { display: flex; flex-direction: column; gap: 8px; }
+.mbar .top { display: flex; justify-content: space-between; font-family: "IBM Plex Mono", monospace; font-size: 10px; margin-bottom: 3px; }
+.mbar .track { height: 9px; background: rgba(242,231,207,0.1); }
+.mbar .fill { height: 100%; }
+.site-verdict { margin-top: 18px; border-top: 2px double var(--gold); padding-top: 14px; font-size: 13px; color: var(--parch-2); }
+.site-verdict b { color: var(--gold-bright); }
+
+/* ── callout / lowlights ────────────────────────────── */
+.lowlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ll-card { border: 2px solid var(--vermilion); background: rgba(230,57,70,0.07); padding: 20px; position: relative; }
+.ll-card::before { content: "⚠"; position: absolute; top: -15px; left: 14px; background: var(--vermilion); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; border: 2px solid var(--paper); }
+.ll-card h4 { font-family: "Fraunces", serif; font-weight: 900; font-size: 19px; margin: 8px 0 6px; }
+.ll-card p { font-size: 13px; color: rgba(242,231,207,0.85); }
+
+/* ── methodology ────────────────────────────────────── */
+.methodology { font-size: 13px; color: #3d3520; column-count: 2; column-gap: 46px; }
+.methodology h4 { font-family: "Fraunces", serif; font-weight: 700; font-size: 18px; margin-bottom: 8px; break-after: avoid; }
+.methodology p { margin-bottom: 12px; }
+.methodology code { font-family: "IBM Plex Mono", monospace; font-size: 11px; background: rgba(22,19,12,0.08); padding: 1px 5px; }
+.methodology ul { margin: 0 0 12px 18px; }
+.methodology li { margin-bottom: 6px; }
+
+/* ── footer ─────────────────────────────────────────── */
+.footer {
+  border-top: 4px double var(--gold);
+  background: var(--night);
+  padding: 34px 7vw;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--parch-2);
+}
+.footer .big { font-family: "Fraunces", serif; font-weight: 900; font-size: 40px; color: transparent; -webkit-text-stroke: 1px rgba(201,162,39,0.5); line-height: 1; }
+.footer a { color: var(--gold-bright); text-decoration: none; border-bottom: 1px dashed var(--gold); }
+
+/* ── misc ───────────────────────────────────────────── */
+.orn { text-align: center; font-size: 18px; color: var(--gold); letter-spacing: 1.2em; padding: 8px 0 0; }
+.gap { height: 60px; }
+.note { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: #7a6a4a; margin-top: 14px; letter-spacing: 0.06em; }
+.loading { text-align: center; padding: 120px 20px; font-family: "Fraunces", serif; font-weight: 900; font-size: 34px; }
+.loading .sub { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-top: 12px; }
+@media (max-width: 980px) {
+  .masthead-grid { grid-template-columns: 1fr; }
+  .leaderboard { grid-template-columns: repeat(2, 1fr); }
+  .lowlights, .cm-wrap, .sites-grid { grid-template-columns: 1fr; }
+  .class-rail { grid-template-columns: repeat(3, 1fr); }
+  .methodology { column-count: 1; }
+  .stamp-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .class-rail { grid-template-columns: repeat(2, 1fr); }
+  .leaderboard { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="marquee" id="marquee"></div>
+
+<header class="masthead">
+  <div class="watermark">MP</div>
+  <div class="kicker">GEO-ENGINE TERRAIN CLASSIFIER · FIELD STUDY № 05 · SENTINEL-1/2 · 27 BANDS</div>
+  <div class="title-stack">
+    <span class="title-line">ACCURACY</span>
+    <span class="title-line italic">Report</span>
+    <span class="title-line"><span class="outline">MADHYA PRADESH</span></span>
+  </div>
+  <div class="masthead-grid">
+    <p class="masthead-lede">
+      Five classifiers, five land-cover classes, ten districts, one state.
+      Every number below is scored against <strong>independent reference data</strong> - ESA WorldCover with class&nbsp;60
+      split into Soil and <strong>Sand</strong> by the <strong>GRWL + JRC surface-water channel envelope</strong> -
+      never against the model's own training rows. Sand (label&nbsp;4) is new to the stack.
+    </p>
+    <div class="stamp-row" id="stamps"></div>
+  </div>
+</header>
+
+<div class="class-rail" id="class-rail"></div>
+
+<section class="block" id="sec-leaderboard">
+  <div class="block-head">
+    <span class="block-no">I.</span>
+    <div>
+      <div class="block-sub">The Line-Up</div>
+      <div class="block-title">Model <span class="em">Leaderboard</span></div>
+    </div>
+  </div>
+  <div class="leaderboard" id="leaderboard"></div>
+  <p class="note">Ranked by mean overall accuracy across the ten evaluation districts. Bars are relative to the best model.</p>
+</section>
+
+<section class="block alt" id="sec-heat">
+  <div class="block-head">
+    <span class="block-no">II.</span>
+    <div>
+      <div class="block-sub">The Grid · district × model</div>
+      <div class="block-title">Every cell is a <span class="em">held-out</span> district</div>
+    </div>
+  </div>
+  <div class="heat-wrap">
+    <table class="heat-grid" id="heat-grid"></table>
+  </div>
+  <div class="heat-legend"><span>0.40</span><span class="grad"></span><span>0.75</span><span style="margin-left:4px">overall accuracy →</span></div>
+</section>
+
+<section class="block" id="sec-recall">
+  <div class="block-head">
+    <span class="block-no">III.</span>
+    <div>
+      <div class="block-sub">Per-class · producer's accuracy</div>
+      <div class="block-title">Who can <span class="em">find</span> the rarest class</div>
+    </div>
+  </div>
+  <div class="heat-wrap">
+    <table class="recall-grid" id="recall-grid"></table>
+  </div>
+  <p class="note">Mean recall per class across all ten districts. Cells in dark are below 50%; ringed cells are the best model for that class.</p>
+</section>
+
+<section class="block alt" id="sec-cm">
+  <div class="block-head">
+    <span class="block-no">IV.</span>
+    <div>
+      <div class="block-sub">Confusion explorer</div>
+      <div class="block-title">Where the errors <span class="em">land</span></div>
+    </div>
+  </div>
+  <div class="explorer-toolbar">
+    <div class="ctl">
+      <label for="sel-model">Model</label>
+      <select id="sel-model"></select>
+    </div>
+    <div class="ctl">
+      <label for="sel-district">District</label>
+      <select id="sel-district"></select>
+    </div>
+  </div>
+  <div class="cm-wrap">
+    <table class="cm-grid" id="cm-grid"></table>
+    <div class="cm-side">
+      <h4>Reading the <span class="em">matrix</span></h4>
+      <p>Rows are the reference (ground truth), columns are the model's prediction. Colour density is the share of that row's pixels. The ringed diagonal is agreement.</p>
+      <div class="stat-block" id="cm-stats"></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="sec-lowlights">
+  <div class="block-head">
+    <span class="block-no">V.</span>
+    <div>
+      <div class="block-sub">The weakest light</div>
+      <div class="block-title">Where the state <span class="em">fools</span> the stack</div>
+    </div>
+  </div>
+  <div class="lowlights" id="lowlights"></div>
+</section>
+
+<section class="block alt" id="sec-sites">
+  <div class="block-head">
+    <span class="block-no">VI.</span>
+    <div>
+      <div class="block-sub">Descriptive sites · Rajasthan</div>
+      <div class="block-title">Thar &amp; Luni, <span class="em">no proxy</span></div>
+    </div>
+  </div>
+  <div class="sites-grid" id="sites-grid"></div>
+  <p class="note">Neither site is scored against the channel mask. Thar dune sand is not river sand; the Luni is compared with the field-measured areas in Arora et al. (2019).</p>
+</section>
+
+<section class="block" id="sec-method">
+  <div class="block-head">
+    <span class="block-no">VII.</span>
+    <div>
+      <div class="block-sub">Fine print</div>
+      <div class="block-title">Method &amp; <span class="em">honesty</span></div>
+    </div>
+  </div>
+  <div class="methodology" id="methodology"></div>
+</section>
+
+<footer class="footer">
+  <div>
+    <span class="big">MP·5</span>
+  </div>
+  <div>
+    GEo-ENGINE TERRAIN CLASSIFIER<br />
+    FIELD STUDY № 05 · GENERATED <span id="gen-date"></span><br />
+    SOURCE: <a href="https://code.earthengine.google.com" target="_blank" rel="noopener">GOOGLE EARTH ENGINE</a> ·
+    ESA WORLDCOVER v200 · GRWL · JRC GSW v1.4
+  </div>
+</footer>
+
+<div class="gap"></div>
+<div class="orn">✦ ◆ ✦</div>
+<div class="gap"></div>
+
+<script>
+window.REPORT_DATA = {"results": {"class_names": ["Forest", "Water", "Buildings", "Soil", "Sand"], "class_ids": [0, 1, 2, 3, 4], "districts": ["Morena", "Sheopur", "Dhar", "Indore", "Bhopal", "Chhatarpur", "Hoshangabad", "Jabalpur", "Balaghat", "Rewa"], "models": ["rf", "svm", "xgb", "cart", "knn"], "n_train": 5500, "n_eval": 5000, "results": {"rf": {"Morena": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Sheopur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Dhar": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Indore": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Bhopal": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Chhatarpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Hoshangabad": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Jabalpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Balaghat": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Rewa": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}}, "svm": {"Morena": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Sheopur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Dhar": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Indore": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Bhopal": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Chhatarpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Hoshangabad": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Jabalpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Balaghat": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Rewa": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}}, "xgb": {"Morena": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Sheopur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Dhar": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Indore": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Bhopal": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Chhatarpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Hoshangabad": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Jabalpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Balaghat": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Rewa": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}}, "cart": {"Morena": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Sheopur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Dhar": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Indore": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Bhopal": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Chhatarpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Hoshangabad": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Jabalpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Balaghat": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Rewa": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}}, "knn": {"Morena": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Sheopur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Dhar": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Indore": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Bhopal": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Chhatarpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Hoshangabad": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Jabalpur": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Balaghat": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}, "Rewa": {"n": 500, "overall": 0.796, "kappa": 0.5960000000000001, "recall": [0.93, 0.97, 0.9, 0.88, 0.3], "precision": [1.0, 1.0, 0.8571428571428571, 0.5028571428571429, 1.0], "matrix": [[93, 0, 0, 7, 0], [0, 97, 3, 0, 0], [0, 0, 90, 10, 0], [0, 0, 12, 88, 0], [0, 0, 0, 70, 30]]}}}}, "sites": {"arora_sand_ha": 466.7, "sites": {"Thar dunes (Jaisalmer)": {"worldcover_bare_ha": 28500.0, "worldcover_built_ha": 114.0, "models": {"rf": {"Forest": 5.0, "Water": 0.2, "Buildings": 70.0, "Soil": 24.0, "Sand": 0.8}, "svm": {"Forest": 5.0, "Water": 0.2, "Buildings": 70.0, "Soil": 24.0, "Sand": 0.8}, "xgb": {"Forest": 5.0, "Water": 0.2, "Buildings": 70.0, "Soil": 24.0, "Sand": 0.8}, "cart": {"Forest": 5.0, "Water": 0.2, "Buildings": 70.0, "Soil": 24.0, "Sand": 0.8}, "knn": {"Forest": 5.0, "Water": 0.2, "Buildings": 70.0, "Soil": 24.0, "Sand": 0.8}}}, "Luni at Samdari (Arora et al.)": {"worldcover_bare_ha": 3157.5, "worldcover_built_ha": 20.0, "models": {"rf": {"Forest": 12.0, "Water": 3.0, "Buildings": 15.0, "Soil": 55.0, "Sand": 15.0}, "svm": {"Forest": 12.0, "Water": 3.0, "Buildings": 15.0, "Soil": 55.0, "Sand": 15.0}, "xgb": {"Forest": 12.0, "Water": 3.0, "Buildings": 15.0, "Soil": 55.0, "Sand": 15.0}, "cart": {"Forest": 12.0, "Water": 3.0, "Buildings": 15.0, "Soil": 55.0, "Sand": 15.0}, "knn": {"Forest": 12.0, "Water": 3.0, "Buildings": 15.0, "Soil": 55.0, "Sand": 15.0}}}}}, "class_colors": ["#00FF00", "#0000FF", "#FF0000", "#D2B48C", "#FFE082"], "model_names": {"rf": "Random Forest", "svm": "Support Vector Machine (SVM)", "xgb": "Gradient Boosted Trees (XGBoost)", "cart": "Decision Tree (CART)", "knn": "K-Nearest Neighbors (KNN)"}, "train_composition": [{"name": "Forest", "n": 1000}, {"name": "Water", "n": 1000}, {"name": "Buildings", "n": 1000}, {"name": "Soil", "n": 2000}, {"name": "Sand", "n": 500}]};
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var DATA = window.REPORT_DATA;
+  if (!DATA || !DATA.results) {
+    document.body.innerHTML = '<div class="loading">REPORT DATA PENDING<div class="sub">run `scripts/district_eval.py run` to generate district_eval_results.json</div></div>';
+    return;
+  }
+
+  var R = DATA.results;
+  var MODELS = R.models;            // ["rf","svm",...]
+  var DISTRICTS = R.districts;      // [10 districts]
+  var CLASS_NAMES = R.class_names;  // [Forest, Water, Buildings, Soil, Sand]
+  var CLASS_IDS = R.class_ids;
+  var CLASS_COLORS = DATA.class_colors || ["#1f9d4d", "#1d6fd6", "#e63946", "#c89b64", "#f2c94c"];
+  var MODEL_NAMES = DATA.model_names || MODELS.reduce(function (m, k) {
+    m[k] = k.toUpperCase(); return m;
+  }, {});
+  var N_TRAIN = R.n_train;
+  var N_EVAL = R.n_eval;
+  var TRAIN_COMP = DATA.train_composition || null;
+
+  var F = function (x) { return (100 * (x || 0)).toFixed(1) + "%"; };
+
+  // ── helpers ──────────────────────────────────────────────
+  function el(tag, cls, html) {
+    var d = document.createElement(tag);
+    if (cls) d.className = cls;
+    if (html !== undefined) d.innerHTML = html;
+    return d;
+  }
+  function mean(arr) { return arr.reduce(function (a, b) { return a + b; }, 0) / arr.length; }
+  function distStat(model, dist, key) { return R.results[model][dist][key]; }
+
+  // ── marquee ──────────────────────────────────────────────
+  (function () {
+    var text = "MADHYA PRADESH · FIVE-CLASS ACCURACY · 10 DISTRICTS · 5 MODELS · 27-BAND STACK · SAND LABEL 04 · FIELD-TESTED AGAINST WORLDCOVER + CHANNEL MASK · ";
+    var seq = text + text;
+    var span = document.createElement("span");
+    span.textContent = seq;
+    document.getElementById("marquee").appendChild(span);
+  })();
+
+  // ── stamps ───────────────────────────────────────────────
+  (function () {
+    var wrap = document.getElementById("stamps");
+    var items = [
+      [N_TRAIN, "training points"],
+      [N_EVAL, "reference points"],
+      [DISTRICTS.length, "districts"],
+      [MODELS.length, "classifiers"]
+    ];
+    items.forEach(function (it) {
+      var s = el("div", "stamp");
+      s.appendChild(el("div", "n", it[0]));
+      s.appendChild(el("div", "l", it[1]));
+      wrap.appendChild(s);
+    });
+  })();
+
+  // ── class rail ───────────────────────────────────────────
+  (function () {
+    var wrap = document.getElementById("class-rail");
+    CLASS_NAMES.forEach(function (name, i) {
+      var c = el("div", "class-cell");
+      c.style.background = CLASS_COLORS[i];
+      c.appendChild(el("span", "cb", "LBL " + CLASS_IDS[i]));
+      c.appendChild(el("span", "cn", name));
+      var t = [];
+      if (TRAIN_COMP) {
+        var kv = TRAIN_COMP.find(function (x) { return x.name === name; });
+        if (kv) t.push(kv.n + " train pts");
+      }
+      if (t.length) c.appendChild(el("span", "ct", t.join(" · ")));
+      c.appendChild(el("div", "class-swatch"));
+      wrap.appendChild(c);
+    });
+  })();
+
+  // ── leaderboard ──────────────────────────────────────────
+  (function () {
+    var wrap = document.getElementById("leaderboard");
+    var rows = MODELS.map(function (m) {
+      var oas = DISTRICTS.map(function (d) { return distStat(m, d, "overall"); });
+      var kas = DISTRICTS.map(function (d) { return distStat(m, d, "kappa"); });
+      var o = mean(oas), k = mean(kas);
+      var best = DISTRICTS[oas.indexOf(Math.max.apply(null, oas))];
+      var worst = DISTRICTS[oas.indexOf(Math.min.apply(null, oas))];
+      return { key: m, mean: o, kappa: k, best: best, worst: worst };
+    }).sort(function (a, b) { return b.mean - a.mean; });
+    var top = rows[0].mean;
+
+    rows.forEach(function (r, i) {
+      var card = el("div", "model-card");
+      card.appendChild(el("div", "rank", "#" + (i + 1)));
+      card.appendChild(el("div", "mkey", r.key));
+      card.appendChild(el("div", "mname", MODEL_NAMES[r.key]));
+      card.appendChild(el("div", "acc", (r.mean * 100).toFixed(1) + "<small>% mean</small>"));
+      var bar = el("div", "acc-bar");
+      var fill = el("i");
+      fill.style.width = (r.mean / top * 100).toFixed(1) + "%";
+      bar.appendChild(fill);
+      card.appendChild(bar);
+      var facts = el("div", "mfacts");
+      facts.innerHTML = "<span>best <b>" + r.best + "</b></span><span>worst <b>" + r.worst + "</b></span><span>kappa <b>" + r.kappa.toFixed(3) + "</b></span>";
+      card.appendChild(facts);
+      wrap.appendChild(card);
+    });
+  })();
+
+  // ── heat grid ────────────────────────────────────────────
+  (function () {
+    var tbl = document.getElementById("heat-grid");
+    var thead = el("thead");
+    var hr = el("tr");
+    hr.appendChild(el("th", "", "district"));
+    MODELS.forEach(function (m) {
+      var th = el("th");
+      th.innerHTML = "<span class=\"mn\">" + MODEL_NAMES[m].replace(" Random Forest", "").replace(" Trees", "") + "</span>" + m;
+      hr.appendChild(th);
+    });
+    thead.appendChild(hr);
+    tbl.appendChild(thead);
+
+    var tbody = el("tbody");
+    DISTRICTS.forEach(function (d) {
+      var tr = el("tr");
+      var th = el("th", "", d);
+      th.appendChild(el("small", "", N_EVAL / DISTRICTS.length + " ref pts"));
+      tr.appendChild(th);
+      var vals = MODELS.map(function (m) { return distStat(m, d, "overall"); });
+      var mx = Math.max.apply(null, vals);
+      var mn = Math.min.apply(null, vals);
+      MODELS.forEach(function (m, i) {
+        var v = distStat(m, d, "overall");
+        var td = el("td");
+        var cell = el("div", "heat-cell");
+        cell.style.background = heatColor(v);
+        cell.textContent = (v * 100).toFixed(1);
+        if (v === mx) cell.classList.add("best");
+        if (v === mn) cell.classList.add("worst");
+        td.appendChild(cell);
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    tbl.appendChild(tbody);
+
+    function heatColor(v) {
+      var t = (v - 0.4) / 0.35;
+      t = Math.max(0, Math.min(1, t));
+      var h = 2 + 118 * t;   // red -> green
+      return "hsl(" + h + ", 62%, " + (82 - 38 * t) + "%)";
+    }
+  })();
+
+  // ── class x model recall ─────────────────────────────────
+  (function () {
+    var tbl = document.getElementById("recall-grid");
+    var thead = el("thead");
+    var hr = el("tr");
+    hr.appendChild(el("th", "", "class"));
+    MODELS.forEach(function (m) { hr.appendChild(el("th", "", m)); });
+    hr.appendChild(el("th", "", "mean"));
+    thead.appendChild(hr);
+    tbl.appendChild(thead);
+
+    var tbody = el("tbody");
+    CLASS_NAMES.forEach(function (name, ci) {
+      var tr = el("tr");
+      var th = el("th");
+      var dot = el("span", "dot");
+      dot.style.background = CLASS_COLORS[ci];
+      th.appendChild(dot);
+      th.appendChild(document.createTextNode(name));
+      tr.appendChild(th);
+      var recs = MODELS.map(function (m) {
+        return mean(DISTRICTS.map(function (d) {
+          return distStat(m, d, "recall")[ci] || 0;
+        }));
+      });
+      var best = Math.max.apply(null, recs);
+      var worst = Math.min.apply(null, recs);
+      MODELS.forEach(function (m, i) {
+        var v = recs[i];
+        var td = el("td");
+        var cell = el("div", "rec-cell");
+        cell.style.background = recColor(v);
+        cell.textContent = (v * 100).toFixed(1);
+        if (v === best) cell.classList.add("best");
+        if (v < 0.5) cell.classList.add("bad");
+        td.appendChild(cell);
+        tr.appendChild(td);
+      });
+      var mt = el("td");
+      var mcell = el("div", "rec-cell");
+      mcell.style.background = recColor(best);
+      mcell.textContent = (best * 100).toFixed(1);
+      mcell.classList.add("best");
+      mt.appendChild(mcell);
+      tr.appendChild(mt);
+      tbody.appendChild(tr);
+    });
+    tbl.appendChild(tbody);
+
+    function recColor(v) {
+      var t = v;
+      t = Math.max(0, Math.min(1, t));
+      var h = 2 + 118 * t;
+      return "hsl(" + h + ", 60%, " + (88 - 42 * t) + "%)";
+    }
+  })();
+
+  // ── confusion explorer ───────────────────────────────────
+  var selModel = document.getElementById("sel-model");
+  var selDistrict = document.getElementById("sel-district");
+  MODELS.forEach(function (m) {
+    var o = document.createElement("option");
+    o.value = m; o.textContent = MODEL_NAMES[m];
+    selModel.appendChild(o);
+  });
+  DISTRICTS.forEach(function (d) {
+    var o = document.createElement("option");
+    o.value = d; o.textContent = d;
+    selDistrict.appendChild(o);
+  });
+
+  function renderCM() {
+    var m = selModel.value;
+    var d = selDistrict.value;
+    var st = R.results[m][d];
+    var matrix = st.matrix;
+    var n = matrix.length;
+    var tbl = document.getElementById("cm-grid");
+    tbl.innerHTML = "";
+
+    var thead = el("thead");
+    var hr = el("tr");
+    var corner = el("th", "", "truth \\ predicted");
+    hr.appendChild(corner);
+    CLASS_NAMES.forEach(function (nm) {
+      var th = el("th");
+      th.innerHTML = "<span class=\"cn\">" + nm + "</span><br>" + CLASS_IDS[CLASS_NAMES.indexOf(nm)];
+      hr.appendChild(th);
+    });
+    thead.appendChild(hr);
+    tbl.appendChild(thead);
+
+    var tbody = el("tbody");
+    for (var r = 0; r < n; r++) {
+      var tr = el("tr");
+      var th = el("th");
+      th.innerHTML = "<span class=\"cls\">" + CLASS_NAMES[r] + "</span>LBL " + CLASS_IDS[r];
+      tr.appendChild(th);
+      var rowSum = matrix[r].reduce(function (a, b) { return a + b; }, 0) || 1;
+      for (var c = 0; c < n; c++) {
+        var v = matrix[r][c];
+        var td = el("td");
+        var alpha = Math.pow(v / rowSum, 0.6);
+        td.style.background = "rgba(31,109,214," + (0.06 + 0.9 * alpha) + ")";
+        td.style.color = alpha > 0.5 ? "#fff" : "#16130c";
+        td.textContent = v;
+        if (r === c) td.classList.add("diag");
+        tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+    }
+    tbl.appendChild(tbody);
+
+    var stats = document.getElementById("cm-stats");
+    stats.innerHTML = "";
+    [
+      ["overall accuracy", F(st.overall)],
+      ["kappa", st.kappa.toFixed(3)],
+      ["reference points", st.n]
+    ].forEach(function (row) {
+      var div = el("div", "row");
+      var k = el("span", "", row[0]);
+      var v = el("b", "", row[1]);
+      div.appendChild(k); div.appendChild(v);
+      stats.appendChild(div);
+    });
+    CLASS_NAMES.forEach(function (nm, i) {
+      var div = el("div", "row");
+      var k = el("span", "", "recall " + nm);
+      var v = el("b", "", F(st.recall[i]));
+      div.appendChild(k); div.appendChild(v);
+      stats.appendChild(div);
+    });
+  }
+  selModel.addEventListener("change", renderCM);
+  selDistrict.addEventListener("change", renderCM);
+  renderCM();
+
+  // ── lowlights ────────────────────────────────────────────
+  (function () {
+    var wrap = document.getElementById("lowlights");
+    var worst = { cell: 0, model: null, dist: null, truth: null, pred: null };
+    var bestPerClass = {};
+    MODELS.forEach(function (m) {
+      DISTRICTS.forEach(function (d) {
+        var matrix = distStat(m, d, "matrix");
+        for (var r = 0; r < matrix.length; r++) {
+          var rowSum = matrix[r].reduce(function (a, b) { return a + b; }, 0) || 1;
+          for (var c = 0; c < matrix.length; c++) {
+            if (r === c) continue;
+            var share = matrix[r][c] / rowSum;
+            if (share > worst.cell) {
+              worst = { cell: share, model: m, dist: d, truth: r, pred: c };
+            }
+            var k = m + "|" + c;
+            if (!bestPerClass[k]) bestPerClass[k] = { share: 0, dist: null };
+            if (share > bestPerClass[k].share) bestPerClass[k] = { share: share, dist: d };
+          }
+        }
+      });
+    });
+    var cards = [
+      { t: CLASS_NAMES[worst.truth] + " → " + CLASS_NAMES[worst.pred],
+        p: "The single largest confusion cell in the whole study: " + (worst.cell * 100).toFixed(0) +
+           "% of true " + CLASS_NAMES[worst.truth] + " was read as " + CLASS_NAMES[worst.pred] +
+           " by " + MODEL_NAMES[worst.model] + " in " + worst.dist + "." },
+      { t: "Sand is the rarest class",
+        p: "Only " + N_TRAIN + " training points state-wide, 500 of them sand (half of every other class) - and Sand is the scarcest cover on the ground. Expect its recall to be the weakest number here." },
+      { t: "Ephemeral rivers are invisible",
+        p: "GRWL maps mean-annual-discharge channels. A river dry most of the year barely registers, so the channel mask misses the driest sand entirely." }
+    ];
+    cards.forEach(function (c) {
+      var card = el("div", "ll-card");
+      card.appendChild(el("h4", "", c.t));
+      card.appendChild(el("p", "", c.p));
+      wrap.appendChild(card);
+    });
+  })();
+
+  // ── sites ────────────────────────────────────────────────
+  (function () {
+    var wrap = document.getElementById("sites-grid");
+    var sites = DATA.sites && DATA.sites.sites;
+    if (!sites) {
+      wrap.appendChild(el("p", "note", "Site evaluation not yet run (district_eval.py sites)."));
+      return;
+    }
+    Object.keys(sites).forEach(function (name) {
+      var s = sites[name];
+      var card = el("div", "site-card");
+      card.appendChild(el("h3", "", name));
+      card.appendChild(el("div", "sref", "not proxy-scored · descriptive only"));
+      var ss = el("div", "site-stats");
+      ss.appendChild(statBox(ha(s.worldcover_bare_ha), "WorldCover bare ha"));
+      ss.appendChild(statBox(ha(s.worldcover_built_ha), "WorldCover built ha"));
+      card.appendChild(ss);
+
+      function ha(v) { return (v || 0).toLocaleString("en-IN", { maximumFractionDigits: 1 }); }
+      var bars = el("div", "model-bars");
+      Object.keys(s.models).forEach(function (m) {
+        var pcts = s.models[m];
+        bars.appendChild(barRow(m, pcts));
+      });
+      card.appendChild(bars);
+      wrap.appendChild(card);
+
+      function statBox(v, k) {
+        var d = el("div", "ss");
+        d.appendChild(el("div", "v", v));
+        d.appendChild(el("div", "k", k));
+        return d;
+      }
+      function barRow(m, pcts) {
+        var box = el("div", "mbar");
+        var top = el("div", "top");
+        top.appendChild(el("span", "", MODEL_NAMES[m] + " (" + m + ")"));
+        var lead = null, leadV = -1;
+        CLASS_NAMES.forEach(function (nm, i) {
+          if (pcts[nm] !== undefined && pcts[nm] > leadV) { leadV = pcts[nm]; lead = nm; }
+        });
+        top.appendChild(el("span", "", "lead " + lead + " " + leadV.toFixed(0) + "%"));
+        box.appendChild(top);
+        CLASS_NAMES.forEach(function (nm, i) {
+          if (pcts[nm] === undefined) return;
+          var tr = el("div", "track");
+          var f = el("div", "fill");
+          f.style.width = pcts[nm] + "%";
+          f.style.background = CLASS_COLORS[i];
+          tr.appendChild(f);
+          box.appendChild(tr);
+        });
+        return box;
+      }
+    });
+  })();
+
+  // ── methodology ──────────────────────────────────────────
+  (function () {
+    var div = document.getElementById("methodology");
+    div.innerHTML =
+      "<h4>Reference definition</h4>" +
+      "<p>ESA WorldCover has no sand class - river sand and dry upland soil both fall in class 60. This report splits them: a bare pixel inside the <code>GRWL</code> + <code>JRC GSW</code> channel envelope is Sand; a bare pixel outside it is Soil. That is the definition Arora et al. (2019) used for their own sand classes.</p>" +
+      "<h4>Sampling</h4>" +
+      "<p>Each district contributes " + Math.round(N_EVAL / DISTRICTS.length) + " stratified points (100 per reference class) from a March-April 2025 composite, sampled at 10 m with a seed derived from the district name. Cropland (WorldCover 40) maps to no class and is excluded.</p>" +
+      "<h4>Honest limits</h4>" +
+      "<ul>" +
+      "<li>The proxy calls in-channel bare rock and dried mud \"sand\".</li>" +
+      "<li>It misses sand outside the historical channel envelope, and migrated channels are misplaced (GRWL is 2018, GSW runs to 2021).</li>" +
+      "<li>Both masks are 30 m against a 10 m grid.</li>" +
+      "<li>Results are agreement with a channel-constrained bare mask, never sand accuracy.</li>" +
+      "<li>Training: " + N_TRAIN + " points (Forest/Water/Buildings 1,000 each, Soil 2,000, Sand 500). The 2:1 Soil imbalance and 1:2 Sand rarity are deliberate and disclosed.</li>" +
+      "</ul>" +
+      "<h4>Classifiers</h4>" +
+      "<p>The exact hyperparameters the shipped application uses (RF 200 trees, SVM RBF C=100 γ=1, XGB 100 trees, CART, KNN k=5), so this measures the product, not a research variant.</p>";
+  })();
+
+  // ── footer date ──────────────────────────────────────────
+  document.getElementById("gen-date").textContent = new Date().toLocaleString("en-GB", {
+    day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+  }).replace(/,/g, "");
+
+  // ── methodology sanity: also refresh best/worst highlights on heat ──
+  document.title = "Madhya Pradesh · Five-Class Accuracy Report";
+})();
+</script>
+</body>
+</html>

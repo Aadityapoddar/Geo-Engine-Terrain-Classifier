@@ -14,7 +14,7 @@ def test_api_recommends_best_validated_default_model():
     response = TestClient(app).get("/api/models")
 
     assert response.status_code == 200
-    assert DEFAULT_MODEL == "xgb"
+    assert DEFAULT_MODEL == "gtb"
     assert response.json()["default_model"] == DEFAULT_MODEL
 
 

@@ -1,0 +1,17 @@
+=== A. finish leave-one-family-out (Fig. 4) ===
+
+== development, summer ==
+  gtb   best 74.47%  kappa 0.678  minus_bareness_indices
+
+  leave-one-out against gtb:all27 (74.33%), summer:
+  0 bands are not earning their place: none
+
+== development, winter ==
+  gtb   best 86.73%  kappa 0.834  all27
+
+  leave-one-out against gtb:all27 (86.73%), winter:
+  0 bands are not earning their place: none
+
+wrote doc/assets/band_family_ablation_v4.json: 30 shards from 4 workers
+=== B. statewide classifier comparison, tuned models on the new stack ===
+=== chain FAILED (a worker exited non-zero) ===

@@ -1,0 +1,681 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+% Figures are collected into one directory by
+% scripts/update_paper_tex.py, so this compiles from a clean checkout.
+\graphicspath{{figures/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{placeins}
+\usepackage{stfloats}
+
+\makeatletter
+\newcommand{\linebreakand}{%
+  \end{@IEEEauthorhalign}
+  \hfill\mbox{}\par
+  \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
+
+\begin{document}
+
+\title{Five-Class Land Use/Land Cover Mapping using Google Earth Engine and Machine Learning on Sentinel-1 and Sentinel-2 Data}
+
+\author{
+\IEEEauthorblockN{Abhinav Kumar}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+24bcs007@iiitdmj.ac.in}
+\and
+\IEEEauthorblockN{Aaditya Poddar}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+24bcs002@iiitdmj.ac.in}
+\and
+\IEEEauthorblockN{Siddharth Ilayaraja}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+24bcs292@iiitdmj.ac.in}
+\and
+\IEEEauthorblockN{Shivam Dubey}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+23pcse03@iiitdmj.ac.in}
+\linebreakand
+\IEEEauthorblockN{Ashutosh Saxena}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+24bcs041@iiitdmj.ac.in}
+\and
+\IEEEauthorblockN{Akshay Pandey}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+drakshay@iiitdmj.ac.in}
+\and
+\IEEEauthorblockN{Aarav Jain}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+Jabalpur, India \\
+24bcs004@iiitdmj.ac.in}
+\and
+\IEEEauthorblockN{Aniruddha}
+\IEEEauthorblockA{\textit{Department of Computer} \\
+\textit{Science \& Engineering} \\
+\textit{PDPM IIITDM} \\
+Jabalpur, India \\
+aniruddha\_phd@iiitdmj.ac.in}
+}
+
+\maketitle
+
+\begin{abstract}
+Land use/land cover (LULC) maps support urban planning, farm statistics and environmental monitoring, but they are slow to produce by field survey. This paper maps five classes---vegetation, water, built area, open land and agriculture---inside Google Earth Engine (GEE) using machine learning on Sentinel-2 optical images and Sentinel-1 radar. Models are trained on 5,000 labelled points placed in and around Jabalpur district (FAO GAUL 2015 polygon, about $4,021\text{ km}^2$; 872 of the points fall up to 23\,km outside it) and then scored on independent public maps over 44 districts of Madhya Pradesh (about $308,252\text{ km}^2$ in total), split once by spatial block into 15 development districts that every model and feature choice was made on and 29 test districts scored a single time. Five classifiers are compared: Random Forest, Support Vector Machine, Smile GTB, CART and k-nearest neighbours. The hard case is open land versus built area, because dry soil and concrete look almost the same in optical colour. Grey-level texture and radar together raise open-land recall from 42\% to 73\% in winter. Cutting the feature stack from 27 bands to 19, re-tested on districts that took no part in choosing it, is free in winter (+1.93 points, 95\% CI +1.28 to +2.62) but costs 1.92 points in summer (95\% CI +0.52 to +3.46); the earlier finding that it improved accuracy came from selecting the cut on the same data it was scored on. Smile GTB reached 87.41\% overall accuracy (95\% CI 85.07--89.69\%, resampling whole districts) and Kappa 0.843 in winter across the 29 held-out test districts, but is statistically indistinguishable from SVM there. A web dashboard lets a user draw an area and run the same GEE classifiers at 10\,m.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Google Earth Engine, machine learning, Sentinel-1, Sentinel-2, LULC classification, Smile GTB, Madhya Pradesh.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Reliable land use/land cover (LULC) information underpins ecological monitoring, urban growth assessment, agricultural statistics and sustainable land management \cite{r1}, \cite{r3}. Ground surveys are slow, labour-intensive and limited in spatial coverage. Optical satellites such as Sentinel-2 and radar satellites such as Sentinel-1 now give free, repeated coverage of the same ground \cite{r4}, \cite{r6}. Machine learning can map those pixels to named classes \cite{r7}--\cite{r9}, and Google Earth Engine runs that work on large archives without moving the images to a local disk \cite{r10}.
+
+Five classes are used throughout this paper: vegetation, water, built area, open land and agriculture. Water and vegetation are easy in optical data because water is dark in the near infrared and green plants are bright there \cite{r2}. Built area and open land are not. We measured red reflectance of 0.222 for dry open ground against 0.226 for built surfaces, and short-wave infrared of 0.334 against 0.342. Colour alone cannot split those two materials. Texture (rough roofs versus smooth soil) and radar (double-bounce from walls) supply the missing evidence.
+
+Accuracy also depends on how the map is checked. Labelled points sit in clusters, so a random train-test split often puts neighbouring 10\,m pixels on both sides and overstates skill \cite{r18}, \cite{r19}. Cultivated land is the largest land type in Madhya Pradesh and it is not spectrally stable: a field is green in winter and often bare earth in the pre-monsoon window, so agriculture and open land exchange members between seasons. This study therefore trains only on Jabalpur labels, scores every reported figure against a consensus of independent public products over 29 test districts that no model or feature choice was allowed to see, and reports both a winter and a summer window.
+
+Platform-based solutions such as Google Earth Engine have made such workflows reproducible at scale by combining petabyte-scale archives with server-side classifiers \cite{r3}, \cite{r10}. Random Forest, support vector machines and gradient boosting are the classifiers most often reported for Sentinel LULC \cite{r7}--\cite{r9}, \cite{r13}. What those studies rarely isolate is the specific confusion that appears once vegetation and water are no longer the only classes: dry open land versus built area. That confusion is physical. Bright dry soil and concrete are near identical in Sentinel-2 reflectance, so a model that sees only per-pixel colour has nothing to work with. Texture repairs the precision half of this confusion (it stops smooth surfaces being called built area) and radar repairs the recall half (double-bounce is a scattering mechanism that soil cannot imitate). We show this by controlled ablation rather than by adding families all at once.
+
+The contributions are: (i) a GEE workflow that fuses Sentinel-2 reflectance, bareness and built-up indices, GLCM texture and Sentinel-1 radar for five land use/land cover classes; (ii) a controlled ablation that attributes the gain of each feature group, and a feature-stack reduction chosen on development districts and re-tested on held-out ones, which shows the reduction to be a compute saving rather than an accuracy gain; (iii) a statewide check on 44 districts of Madhya Pradesh against a high-confidence public-map consensus, partitioned into disjoint development and test halves by spatial block; (iv) a comparison of five machine-learning classifiers under that protocol in two seasons; (v) a quantified account of how much the reported accuracy depends on the validation protocol rather than on the classifier; and (vi) a served map interface that applies the same models to any drawn polygon.
+
+\section{Literature Review}
+The field of Land Use and Land Cover (LULC) classification has undergone significant transformations, moving from traditional local-scale mapping using single-sensor data to planetary-scale monitoring using multi-sensor fusion and advanced machine learning in cloud environments. This section systematically reviews the literature, categorized into the evolution of cloud computing platforms, the use of optical and SAR data, the integration of spatial texture, machine learning applications, and the specific challenge of differentiating built-up surfaces from bare land.
+
+\subsection{Cloud-Based Remote Sensing and Google Earth Engine}
+Traditional remote sensing workflows required the downloading, storage, and local processing of large satellite imagery datasets, a bottleneck that severely limited large-scale and multi-temporal studies. The introduction of cloud computing platforms, notably Google Earth Engine (GEE) \cite{r10}, revolutionized this paradigm. GEE provides a massive, multi-petabyte catalog of satellite imagery and geospatial datasets, coupled with planetary-scale analysis capabilities. Researchers can now execute complex classification algorithms across thousands of scenes without the need for local data management. 
+Numerous studies have demonstrated GEE's capability in regional and global LULC mapping. For instance, Zhao et al. \cite{r3} compared multiple machine learning algorithms within GEE for LULC classification, highlighting its efficiency in handling large-scale features. Similarly, the development of global products like Dynamic World \cite{r15} and ESA WorldCover \cite{r14} rely heavily on cloud infrastructure to process near real-time data. GEE's ability to quickly generate cloud-free composites by applying pixel-level masking (e.g., QA60 for Sentinel-2) over time series data has become a standard practice in modern remote sensing workflows.
+
+\subsection{Optical Imagery in Land Cover Classification}
+Optical remote sensing, primarily from the Landsat and Sentinel-2 programs, has been the foundational data source for land cover mapping. Sentinel-2 \cite{r4}, \cite{r5}, with its 10-meter and 20-meter spatial resolutions and 5-day revisit time, has enabled highly detailed and timely mapping of the Earth's surface. 
+Optical data is particularly effective for mapping vegetation and water bodies due to distinct spectral signatures. The visible and near-infrared (NIR) bands are commonly used to compute indices that enhance these features. The Normalized Difference Vegetation Index (NDVI) \cite{r1}, \cite{r2} exploits the high reflectance of healthy vegetation in the NIR band and its strong absorption in the red band. The Soil-Adjusted Vegetation Index (SAVI) \cite{r24} improves upon NDVI in areas with sparse vegetation by minimizing soil background influences. For water bodies, the Normalized Difference Water Index (NDWI) \cite{r22} leverages the absorption of NIR by water to distinguish it from terrestrial features.
+However, optical imagery alone faces significant challenges in complex landscapes. Cloud cover and shadows can severely limit data availability in certain regions and seasons, necessitating the use of multi-temporal composites. Furthermore, while optical indices are highly effective for vegetation and water, they often struggle with non-vegetated terrestrial surfaces, leading to spectral confusion.
+
+\subsection{Synthetic Aperture Radar (SAR) and Sensor Fusion}
+To overcome the limitations of optical sensors, Synthetic Aperture Radar (SAR), particularly from the Sentinel-1 mission \cite{r6}, is increasingly being integrated into LULC workflows. SAR operates in the microwave spectrum, allowing it to penetrate clouds and provide consistent data regardless of weather or solar illumination.
+More importantly, SAR provides information about the physical structure and dielectric properties of the target surface, which is complementary to the chemical and physiological information provided by optical sensors. Sentinel-1 C-band SAR data typically includes co-polarized (VV) and cross-polarized (VH) backscatter. VV backscatter is highly sensitive to surface roughness and the double-bounce scattering mechanism characteristic of vertical structures in urban areas. VH backscatter is sensitive to volume scattering, making it useful for differentiating vegetation types.
+The fusion of Sentinel-1 and Sentinel-2 data has been shown in numerous studies to yield higher classification accuracies than using either sensor independently. By combining the spectral detail of Sentinel-2 with the structural and textural information of Sentinel-1, classifiers can better distinguish between classes that have similar spectral profiles but different physical structures, such as forests versus agricultural fields, or urban areas versus bare soil.
+
+\subsection{The Role of Textural Features in Classification}
+While pixel-based classification relies solely on the spectral value of individual pixels, texture analysis incorporates the spatial context by examining the relationships between a pixel and its neighbors. The Gray-Level Co-occurrence Matrix (GLCM) \cite{r20} is the most widely used method for extracting texture features in remote sensing.
+GLCM calculates how often pairs of pixels with specific values and in a specified spatial relationship occur in an image, generating metrics such as contrast, variance, entropy, and homogeneity. In LULC classification, texture is particularly valuable for mapping heterogeneous classes like urban areas. Urban landscapes are characterized by a high spatial frequency of different materials (roofs, roads, shadows, vegetation), resulting in high GLCM contrast and variance. In contrast, surfaces like water or bare soil tend to be spatially homogeneous, resulting in lower contrast and higher homogeneity.
+Adding optical GLCM texture, usually computed on the NIR band, has been shown to improve the separation of built-up areas from other non-vegetated surfaces. Similarly, radar texture computed on Sentinel-1 VV backscatter further enhances the detection of urban fabric by capturing the local spatial variation of radar returns.
+
+\subsection{Machine Learning Algorithms for Remote Sensing}
+The application of machine learning has significantly improved the accuracy and automation of LULC classification compared to traditional maximum likelihood or rule-based methods. Several algorithms have become standard in the field \cite{r8}:
+\begin{itemize}
+    \item \textbf{Random Forest (RF):} An ensemble learning method that constructs multiple decision trees and outputs the mode of the classes \cite{r9}, \cite{r11}. RF is highly popular in remote sensing due to its robustness to outliers, ability to handle high-dimensional feature spaces without overfitting, and relatively easy parameter tuning.
+    \item \textbf{Support Vector Machines (SVM):} SVM finds the optimal hyperplane that separates classes in a high-dimensional feature space \cite{r7}, \cite{r12}. Using kernels like the Radial Basis Function (RBF), SVM can effectively model complex, non-linear class boundaries. However, SVM can be computationally demanding for very large training datasets.
+    \item \textbf{Smile Gradient Tree Boosting (GTB):} Smile GTB \cite{r13} is a scalable tree boosting system that builds trees sequentially, with each new tree correcting the errors of the previous ones. It often achieves state-of-the-art performance in LULC tasks, outperforming RF in many scenarios, provided its hyperparameters (like learning rate, tree depth, and subsampling) are well-tuned.
+    \item \textbf{k-Nearest Neighbors (KNN) and CART:} KNN classifies a pixel based on the majority vote of its $k$ nearest training samples. Classification and Regression Trees (CART) construct a single decision tree. While often used as baselines, they generally yield lower accuracies compared to ensemble methods like RF and Smile GTB in complex landscapes.
+\end{itemize}
+
+\subsection{Deep Learning versus Traditional Machine Learning}
+In recent years, deep learning (DL), particularly Convolutional Neural Networks (CNNs), has gained immense popularity in remote sensing due to its ability to automatically extract hierarchical spatial features from imagery. Architectures such as U-Net, ResNet, and Fully Convolutional Networks (FCNs) have been successfully applied to semantic segmentation tasks, often outperforming traditional machine learning algorithms in terms of pixel-level accuracy \cite{r15}. 
+However, traditional machine learning algorithms like Random Forest and Smile GTB remain highly relevant and widely used, especially within platforms like Google Earth Engine. DL models typically require massive amounts of labeled training data, extensive computational resources (GPUs), and complex hyperparameter tuning. Furthermore, DL models often act as "black boxes," making it difficult to interpret feature importance—a critical requirement in many environmental studies where understanding the physical drivers of classification is as important as the classification itself.
+In contrast, tree-based models offer excellent interpretability, allowing researchers to quantify the exact contribution of different spectral and radar bands. Given the constraints of server-side execution limits in GEE for custom architectures and the need for explainable feature ablation, this study focuses on optimized traditional machine learning algorithms, demonstrating that with careful feature engineering, they can achieve accuracies comparable to DL models on regional scales.
+
+\subsection{Feature Selection and Dimensionality Reduction}
+The proliferation of satellite sensors has led to a dramatic increase in the dimensionality of remote sensing datasets. While adding more features (spectral bands, indices, texture metrics, multi-temporal composites) can provide more information, it also increases the risk of the "Hughes phenomenon" or the curse of dimensionality. High-dimensional feature spaces can lead to model overfitting, increased computational complexity, and reduced classification accuracy if the training sample size is not proportionally large.
+To address this, researchers employ feature selection and dimensionality reduction techniques. Principal Component Analysis (PCA) is commonly used to transform correlated spectral bands into uncorrelated components. Alternatively, feature importance metrics derived from Random Forest or gradient boosting models can be used to identify and retain only the most discriminative features.
+Effective feature selection is particularly crucial in GEE workflows, where computational limits can cause memory exhaustion during the training of complex models over large areas. Identifying a lean, optimized feature stack not only accelerates the classification process but also enhances model generalization. This study incorporates a rigorous feature ablation methodology to identify the optimal subset of features, demonstrating that a reduced 19-band stack can outperform a comprehensive 27-band stack by discarding noisy or redundant variables.
+
+\subsection{Spatial Autocorrelation and Accuracy Assessment Protocols}
+A critical, yet often overlooked, aspect of remote sensing literature is the methodology used for accuracy assessment. Traditional random train-test splits assume that samples are independent and identically distributed. However, geospatial data exhibits strong spatial autocorrelation, governed by Tobler's First Law of Geography: near things are more related than distant things.
+When labeled pixels are sampled from clustered polygons, a random split often places spatially adjacent pixels into both the training and testing sets. Because adjacent pixels share nearly identical spectral and environmental characteristics, the model essentially "memorizes" the local spatial structure rather than learning generalizable class rules. This phenomenon leads to artificially inflated accuracy metrics, a problem highlighted by Roberts et al. \cite{r18} and Ploton et al. \cite{r19}.
+To obtain a realistic estimate of model performance, rigorous spatial validation protocols are required. Techniques such as spatial block cross-validation or testing on entirely independent geographic regions provide a more honest assessment of a model's ability to generalize to unseen data. This study addresses this gap in the literature by employing a strict spatial generalization protocol: models are trained exclusively on data from one district (Jabalpur) and evaluated against a high-confidence consensus of independent public maps across 48 distinct districts.
+
+\subsection{The Challenge of Disambiguating Urban and Bare Land}
+A persistent and significant challenge in remote sensing is the spectral confusion between built-up (urban) areas and bare, open land (or dry soil). Both classes typically lack vegetation cover and can exhibit high reflectance in the visible and short-wave infrared (SWIR) bands, while absorbing near-infrared (NIR) radiation.
+Traditional indices designed to extract built-up areas, such as the Normalized Difference Built-up Index (NDBI) \cite{r21}, the Urban Index (UI), and the Index-based Built-up Index (IBI) \cite{r23}, frequently struggle to differentiate these two classes. For instance, dry riverbeds, fallow agricultural fields, and rocky outcrops often yield NDBI values similar to those of concrete and asphalt \cite{r26}.
+Researchers have explored various techniques to resolve this confusion. One approach involves multi-temporal analysis, exploiting the temporal stability of urban structures compared to the seasonal variability of bare soil (which may become vegetated during wet seasons). Another approach relies on thermal infrared data to distinguish the thermal inertia of human-made materials from natural soil, although this is not possible with Sentinel-2.
+The most promising approach, which forms the core of the present study, is the integration of physical and structural information. The double-bounce radar backscatter from Sentinel-1 provides a definitive signature for vertical urban structures that flat bare soil cannot replicate. Simultaneously, the spatial roughness captured by GLCM texture metrics differentiates the complex physical arrangement of urban environments from the smooth surfaces of open land. This study contributes to the literature by quantifying the exact gain of these specific features through a controlled ablation study.
+
+\subsection{Summary of State-of-the-Art LULC Products}
+Recent years have seen the release of several global, high-resolution LULC maps generated using cloud computing and machine learning. ESA WorldCover \cite{r14} provides a 10m global land cover map based on Sentinel-1 and Sentinel-2 data, achieving high overall accuracy. Dynamic World \cite{r15} offers near real-time, 10m LULC probabilities by applying deep learning to Sentinel-2 imagery. Specialist products like WorldCereal \cite{r16} focus on specific classes, providing dynamic, seasonal mapping of global agriculture.
+While these global products represent significant achievements, they often exhibit regional biases or reduced accuracy in transitional zones, such as the complex landscapes of Madhya Pradesh. Localized studies, tuned to specific regional characteristics and validated against robust independent protocols, remain essential for accurate environmental monitoring and planning. The present study utilizes these state-of-the-art products not as competitors, but as a high-confidence consensus reference to validate the proposed regional models.
+
+\begin{table*}[!t]
+\caption{Summary of Key Literature in Cloud-Based Land Cover Classification}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{2.5cm}p{2.5cm}p{3cm}p{3cm}p{5cm}}
+\toprule
+\textbf{Study} & \textbf{Sensors} & \textbf{Methodology} & \textbf{Study Area} & \textbf{Key Findings} \\
+\midrule
+Pal \& Mather \cite{r7} & Landsat ETM+ & SVM, Max Likelihood & Eastern England & SVM outperforms traditional classifiers but struggles with spectrally similar classes. \\
+Gislason et al. \cite{r9} & Landsat MSS & Random Forest, CART & Colorado, USA & Random Forest provides higher accuracy and robustness to noise compared to single decision trees. \\
+Gorelick et al. \cite{r10} & Multi-sensor & Google Earth Engine & Global & Introduced GEE, enabling planetary-scale fusion of optical and radar data for LULC. \\
+Maxwell et al. \cite{r8} & Optical \& Radar & RF, SVM, KNN & Review Study & Emphasized the necessity of feature engineering (texture, indices) over simply choosing complex algorithms. \\
+Zhao et al. \cite{r3} & Sentinel-1 \& 2 & RF, SVM, CART & Regional & Highlighted that multi-sensor fusion significantly improves accuracy over optical-only classifications. \\
+Zha et al. \cite{r21} & Landsat TM & NDBI, NDVI & Nanjing, China & NDBI effectively extracts urban areas but shows significant confusion with bare land. \\
+Xu \cite{r23} & Landsat ETM+ & IBI, NDBI & Fuzhou, China & IBI improves urban extraction by suppressing vegetation and water, but bare soil remains problematic. \\
+Rasul et al. \cite{r26} & Landsat 8 & Multiple Indices & Erbil, Iraq & Comprehensive demonstration that optical indices fail to separate dry bare soil from built-up areas. \\
+Zanaga et al. \cite{r14} & Sentinel-1 \& 2 & Random Forest & Global & Global 10m map utilizing both optical and SAR data, showing high global accuracy but regional confusion. \\
+Brown et al. \cite{r15} & Sentinel-2 & Deep Learning (FCN) & Global & Near real-time mapping; acknowledges confusion between built and bare classes in semi-arid environments. \\
+Van Tricht et al. \cite{r16}& Sentinel-1 \& 2 & Machine Learning & Global & Demonstrates the necessity of combining SAR and optical data for tracking seasonal agricultural changes. \\
+\textbf{This Study} & \textbf{Sentinel-1 \& 2} & \textbf{Ensemble ML Models} & \textbf{Madhya Pradesh} & \textbf{Quantifies that SAR and texture reduce urban/bare confusion; Smile GTB reaches 85.1\% accuracy.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\section{Study Area and Data}
+
+\subsection{Study area}
+Training labels were collected in Jabalpur district, Madhya Pradesh, centred near $79.93^\circ\text{E}$, $23.18^\circ\text{N}$. The district mixes deciduous vegetation, the Narmada and smaller water bodies, the urban fabric of Jabalpur city, rocky open land, and cultivated fields, so all five classes occur in one place. The outline used throughout is the FAO GAUL 2015 level-2 polygon for Jabalpur, covering approximately $4,021\text{ km}^2$, and it is the same geometry the evaluation code and the web application both read. An earlier version of this paper described a $5,211\text{ km}^2$ OpenStreetMap outline; no released script uses that polygon, and the discrepancy is corrected here. The labelled points were not confined to it: their bounding box spans $79.38^\circ$--$80.52^\circ\text{E}$ and $22.84^\circ$--$23.59^\circ\text{N}$, and 872 of them lie outside the polygon (Section~III-B).
+
+The evaluation region is the whole of Madhya Pradesh, located in the geographic heart of India, providing an exceptionally diverse testing ground for land cover classification models. Covering an area of approximately $308,252\text{ km}^2$, spanning roughly $74.0^\circ\text{E}$ to $82.8^\circ\text{E}$, the state was split into the 48 district polygons of FAO GAUL 2015 level~2, which is the boundary set every script in the released code reads. That vintage predates the districts created between 2018 and 2023, so Madhya Pradesh now administers 55 districts against these 48 polygons. They are therefore described throughout as historical evaluation units rather than as the state's current districts. 
+
+The climate is broadly characterized as subtropical, with a distinct monsoon season (June to September) that heavily influences the phenology of vegetation and the temporal dynamics of agriculture. The topography is highly varied. The Malwa plateau in the west is characterized by fertile black cotton soils that support intensive agriculture. The northern regions, including the Chambal valley, feature deep ravines and rugged terrain. The central and eastern parts of the state are dominated by the Vindhya and Satpura mountain ranges, which harbor dense deciduous forests and significant tribal populations. The southern regions transition into the Deccan plateau, characterized by varied geological formations and mixed land use.
+
+This immense diversity means that a single land cover class can exhibit massive intra-class spectral variance across the state. For instance, the "agriculture" class includes irrigated wheat fields in the Narmada valley, rainfed millet in the drylands, and fallow fields waiting for the monsoon. Similarly, the "open land" class encompasses the rocky outcrops of Bundelkhand, the dry riverbeds of the Chambal, and barren soil in agricultural peripheries. This region is far larger and more varied than the training district. It includes the black cotton soils of the Malwa plateau, the ravines of the Chambal valley, the dry rocky terrain of Bundelkhand, and the humid forested belt of the Satpura range, none of which has a full counterpart in the Jabalpur training set. Scoring the models there therefore measures robust spatial generalisation rather than interpolation.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{jabalpur_rebuilt_final.png}
+\caption{Five-class land cover map of Jabalpur district at 10\,m, inside the district where the labelled training points were collected. Colours are vegetation (dark green), water (blue), built area (red), open land (tan) and agriculture (light green). The built core appears as one block. The outline is the district polygon that the application and the evaluation code both read. Every pixel is labelled by the deployed classifier on a 10\,m output grid.}
+\label{fig:jabalpur_map}
+\end{figure*}
+
+Fig.~\ref{fig:jabalpur_map} shows a 10\,m five-class map of Jabalpur city and the Narmada corridor, produced by the same classifier that the dashboard serves. The urban core is mapped as built area, the Narmada as water, surrounding fields as agriculture, and vegetated ridges as vegetation, with smaller patches of open land.
+
+\begin{table*}[!t]
+\caption{Sentinel-2 MSI Bands Used in this Study}
+\begin{center}
+\begin{tabular}{lp{1.5cm}p{1.5cm}p{4.5cm}p{6cm}}
+\toprule
+\textbf{Band} & \textbf{Centre} & \textbf{Native grid} & \textbf{Role in stack} & \textbf{Physical Description} \\
+\midrule
+B2 (blue)  & 490 nm  & 10 m & Ingredient of BSI & Sensitive to atmospheric scattering, soil bareness, and water clarity. \\
+B3 (green) & 560 nm  & 10 m & Classifier input & Captures green reflectance peak of healthy vegetation and water turbidity. \\
+B4 (red)   & 665 nm  & 10 m & Ingredient of NDVI, SAVI, BSI, BAEI & Absorbed strongly by chlorophyll; provides key vegetative contrast. \\
+B8 (NIR)   & 842 nm  & 10 m & Indices, GLCM grey level & High cellular leaf reflectance and high water absorption; basis of texture. \\
+B11 (SWIR1)& 1610 nm & 20 m & Classifier input; BSI, IBI, SWIRratio & Sensitive to soil moisture, canopy water content, and bare surface composition. \\
+B12 (SWIR2)& 2190 nm & 20 m & Classifier input; UI, SWIRratio & Highlights dry soil brightness, mineralogy, and constructed materials. \\
+QA60       & --      & 60 m & Cloud / cirrus mask & Quality assessment band flagging opaque clouds and high-altitude cirrus. \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\subsection{Sentinel-2 optical data}
+Sentinel-2 is the European Space Agency optical mission for land monitoring \cite{r4}, \cite{r5}. Twin satellites (Sentinel-2A and 2B) carry the MultiSpectral Instrument (MSI). They record 13 spectral bands from visible to short-wave infrared, at 10\,m, 20\,m or 60\,m, with a revisit of about five days at the equator. We use the Level-2A surface-reflectance collection \texttt{COPERNICUS/S2\_SR\_HARMONIZED} in GEE. Table~II lists the Sentinel-2 bands that enter this study, either as direct classifier inputs or as intermediate ingredients for spectral indices. The two short-wave infrared bands B11 and B12 are recorded at 20\,m and resampled to a 10\,m output grid using nearest-neighbour interpolation.
+
+Each band serves a distinct physical role:
+\begin{itemize}
+    \item \textbf{Blue (Band 2, 490\,nm, 10\,m):} Useful for penetrating atmospheric haze and estimating soil exposure; used here as an essential component in the Bare Soil Index (BSI).
+    \item \textbf{Green (Band 3, 560\,nm, 10\,m):} Directly supplied to the classifier to exploit the reflectance peak of vigorous vegetation and help distinguish open water bodies and turbid channels.
+    \item \textbf{Red (Band 4, 665\,nm, 10\,m):} Marks the primary chlorophyll absorption dip; utilized as an ingredient across NDVI, SAVI, BSI, and BAEI calculations.
+    \item \textbf{Near-Infrared (Band 8, 842\,nm, 10\,m):} Displays very high reflectance from plant mesophyll structures and strong absorption over water; utilized to compute multiple indices and serving as the 8-bit grey-level input for optical GLCM texture extraction.
+    \item \textbf{Short-Wave Infrared 1 (Band 11, 1610\,nm, 20\,m resampled to 10\,m):} Highly sensitive to moisture stress and dry soil scattering; acts as a primary classifier feature and a baseline component for BSI, IBI, and SWIRratio.
+    \item \textbf{Short-Wave Infrared 2 (Band 12, 2190\,nm, 20\,m resampled to 10\,m):} Differentiates dry soil brightness from asphalt, concrete, and roof structures; passed directly into classifiers and used in UI and SWIRratio formulations.
+    \item \textbf{QA60 Quality Band (60\,m):} Encodes pixel-level cloud validation flags; bits 10 (opaque cloud) and 11 (cirrus) are checked to screen corrupted scenes.
+\end{itemize}
+
+Scenes with \texttt{CLOUDY\_PIXEL\_PERCENTAGE} of 15\% or more are discarded; if a district-season window is empty, the threshold is relaxed to 30\% rather than leaving a hole. After masking, digital numbers are divided by 10,000 to obtain reflectance. A per-pixel median composite is then formed for each season.
+
+\subsection{Sentinel-1 radar data}
+Sentinel-1 is ESA's C-band synthetic aperture radar (SAR) mission \cite{r6}. Radar is independent of sunlight and is only weakly affected by cloud, so it fills gaps in the optical record. Built surfaces return a double-bounce echo (wall plus ground) that open land cannot copy at any brightness. That physical difference is why radar is in this stack. We use Ground Range Detected imagery \texttt{COPERNICUS/S1\_GRD}, Interferometric Wide (IW) swath, descending orbit, with both VV and VH polarisations (Table~III). The collection is filtered to a single orbit direction (\texttt{orbitProperties\_pass = DESCENDING}), because ascending and descending passes view the same slope, wall or furrow from opposite sides and a median over both would add a look-direction term to every radar feature. Counting scenes across all 48 districts and both seasons, every district-season window holds between 5 and 20 descending-orbit scenes, so no window is empty. The temporal fallback to the 2024--2025 archive that earlier versions used has been removed from the experimental path entirely; it survives only in the interactive dashboard, where no accuracy is claimed.
+
+The radar channels provide distinct physical scattering mechanisms:
+\begin{itemize}
+    \item \textbf{VV (Co-polarisation):} Transmits and receives vertically; highly sensitive to surface roughness, soil scattering, and vertical double-bounce dihedral reflections characteristic of urban structures.
+    \item \textbf{VH (Cross-polarisation):} Transmits vertically and receives horizontally; strongly captures depolarised volume scattering occurring within dense vegetation and tree canopies.
+    \item \textbf{VV/VH Ratio:} Suppresses topography while intensifying the stark scattering difference between built surfaces and open agricultural/bare land.
+    \item \textbf{VV GLCM Contrast and Variance:} Quantifies local microwave backscatter roughness and spatial variation across urban edges and non-uniform terrain.
+\end{itemize}
+
+A median composite is formed over the same date window as Sentinel-2. Backscatter in decibels is rescaled to about $[0,1]$ (VV from $[-25, 5]$\,dB, VH from $[-30,0]$\,dB) so that distance-based classifiers are not dominated by the radar units. Two GLCM texture bands (contrast and variance) are then computed on the VV channel.
+
+\begin{table*}[!t]
+\caption{Sentinel-1 C-band SAR Quantities Used in this Study}
+\begin{center}
+\begin{tabular}{llp{4cm}p{6cm}}
+\toprule
+\textbf{Quantity} & \textbf{Source} & \textbf{Role} & \textbf{Scattering Description} \\
+\midrule
+VV                 & IW GRD & Classifier input & Co-pol backscatter; measures surface roughness and double-bounce. \\
+VH                 & IW GRD & Classifier input & Cross-pol backscatter; measures volume scattering in canopy. \\
+VV/VH              & Ratio  & Built/open contrast & Normalised polarimetric ratio isolating structural built targets. \\
+VV GLCM contrast   & Texture & Roughness & Spatial grey-level roughness of local radar returns. \\
+VV GLCM variance   & Texture & Backscatter spread & Local dispersion and edge intensity in radar backscatter. \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\subsection{Seasons}
+Two 2025 windows of equal length are used everywhere, with exclusive end dates: winter (1 January--28 February) and summer (1 April--29 May), 59 days each. They were previously 59 and 31 days, which confounded season with composite depth because the shorter window also had fewer chances of a cloud-free pass. Under the matched windows the two composites rest on a comparable number of observations, counted across all 48 districts rather than a sample of six: a mean of 55.4 Sentinel-2 granules per district passing the 15\% cloud filter in winter against 53.3 in summer, and 13.5 against 13.5 Sentinel-1 scenes. Optical coverage is complete in every district in both seasons, so the lower summer accuracy is attributable to phenological ambiguity rather than to a thinner composite.
+
+\subsection{Google Earth Engine}
+Google Earth Engine is a cloud platform for planetary-scale geospatial analysis \cite{r10}. It stores the Sentinel archives, runs map algebra and classifiers next to the data, and returns only the small result. All preprocessing, feature building, training, mapping and accuracy assessment in this paper were executed in GEE. A single request for the whole state exceeds the interactive limit, so statewide scoring is split into 96 jobs (48 districts $\times$ 2 seasons), each independently checkpointed. A web application (Fig.~\ref{fig:dashboard}) calls the same GEE code: the user draws a polygon, picks a classifier, and receives class areas plus a 10\,m overlay.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{fig2.png}
+\caption{Geo-Engine Terrain Classifier dashboard. The left panel is used to mark a study polygon and choose a machine-learning model (here Smile GTB). The map shows the Sentinel-2 background and the five-class overlay for the drawn area. Layer opacity and class-area statistics are shown on the right.}
+\label{fig:dashboard}
+\end{figure}
+
+\FloatBarrier
+\section{Methodology}
+The workflow has six steps (Fig.~\ref{fig:methodology}). Satellite images are cleaned, 19 features are computed, five models are trained on labelled Jabalpur points, the chosen model is applied to the study area, and accuracy is measured only on independent public-map samples over the 29 held-out test districts. The same feature code is used for training and for mapping, so a training pixel and a map pixel are built in the same way.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{fig3_methodology_flowchart.png}
+\caption{Simplified method. Images are cleaned and stacked, 19 features are computed, five models are trained on labelled Jabalpur points, the chosen model is applied to any polygon, and accuracy is measured only on independent public-map samples over the 29 held-out test districts. Training labels are never reused as the test set.}
+\label{fig:methodology}
+\end{figure}
+
+\subsection{Image cleaning}
+Clouds corrupt optical reflectance. Each Sentinel-2 scene is masked with QA60 bits 10 (opaque cloud) and 11 (cirrus). A binary mask
+\begin{equation}
+M(x,y) = Q_{10}(x,y) \lor Q_{11}(x,y)
+\end{equation}
+is formed from those two bits at pixel $(x, y)$. Masked pixels are left out of the median. After masking, digital numbers are divided by 10,000 to obtain reflectance. Radar scenes in the same window are reduced by a median. No temporal fallback is applied on the experimental path: an empty window would leave the radar bands masked and the affected reference points would be dropped, making the loss visible in the sample count rather than hidden in a substitution. Measured across all 48 districts and both seasons, no window is empty. The polarimetric ratio is formed as the difference of the two decibel bands, VV(dB)~$-$~VH(dB), which is the logarithm of the linear-power ratio $\sigma^0_{VV}/\sigma^0_{VH}$; the $[0,1]$ rescaling is applied afterwards to the finished ratio and never to its ingredients. Where a district and season combination returned no Sentinel-2 scene under the 15\% cloud filter, the filter was relaxed to 30\% rather than allowing an empty composite.
+
+\begin{table}[!htbp]
+\caption{The 19 Features Given to Every Classifier}
+\begin{center}
+\begin{tabular}{lp{4.2cm}l}
+\toprule
+\textbf{Group} & \textbf{Features} & \textbf{Grid} \\
+\midrule
+Optical reflectance & B3, B11, B12 & 10--20 m \\
+Bareness/built      & BSI, UI, IBI, SWIRratio, BAEI & 10--20 m \\
+Optical GLCM        & contrast, entropy, variance, IDM, dissimilarity, ASM & 10 m \\
+SAR radar           & VV, VH, VV/VH & 10 m \\
+Radar GLCM          & contrast, variance on VV & 10 m \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Land-cover classes and labelled points}
+Five classes are used throughout this paper, the dashboard and the GEE assets:
+\begin{itemize}
+    \item \textbf{Vegetation (label 0):} trees, dense foliage and other green cover.
+    \item \textbf{Water (label 1):} rivers, lakes, ponds and other open water.
+    \item \textbf{Built area (label 2):} buildings, roads and other constructed surfaces.
+    \item \textbf{Open land (label 3):} bare rock, exposed soil and unvegetated ground.
+    \item \textbf{Agriculture (label 4):} cultivated fields, seasonal crops and fallow farmland.
+\end{itemize}
+
+To provide sharper operational definitions, Table \ref{tab_ontology} lists inclusion and exclusion rules for difficult cases.
+
+\begin{table}[htbp]
+\caption{Class Ontology Decision Rules and Difficult Cases}
+\begin{center}
+\begin{tabular}{p{2cm}p{3cm}p{2.5cm}}
+\toprule
+\textbf{Class} & \textbf{Includes} & \textbf{Excludes} \\
+\midrule
+Vegetation & Orchards, plantations, forests, urban parks & Seasonal crops \\
+Water & Rivers, lakes, ponds & Dry riverbeds (Open) \\
+Built area & Concrete, asphalt, buildings, roads & Construction sites (Open) \\
+Open land & Bare soil, rocky outcrops, dry riverbeds, construction sites & Fallow cropland (Agri.) \\
+Agriculture & Fallow cropland, harvested fields, seasonal crops & Plantations (Veg.) \\
+\bottomrule
+\end{tabular}
+\label{tab_ontology}
+\end{center}
+\end{table}
+
+Exactly 1,000 manually placed points were prepared per class, 5,000 in total, verified by re-counting the published Earth Engine assets rather than from the collection notes. Labels were placed by visual interpretation of 2025 Sentinel-2 composites and Google Earth very-high-resolution basemaps. Re-measuring the assets against the Jabalpur polygon shows that 872 of the 5,000 points fall outside it: 868 in Katni, 3 in Dindori, 1 in Mandla, every one within 23\,km of the boundary. Katni was separated from Jabalpur in 1998, so a wider historical outline explains the placement, but under the boundaries used for evaluation those three districts hold training data, and they are withheld from all reported accuracy together with Jabalpur itself. Inter-point spacing is far tighter than previously stated: the median nearest-neighbour distance within a class ranges from 29\,m (barren) to 371\,m, and 984 of the barren points lie within 100\,m of another point of the same class, which is three pixels. That clustering is the mechanism behind the inflated random-split accuracy in Section~V-E. No formal double-annotation by a second interpreter was performed, and the assets carry no interpreter, source-image or date attribute, so per-point provenance cannot be reconstructed. Each point carries its own integer label. Pixel values are read with GEE \texttt{sampleRegions} on a 10\,m output grid. That is an output grid and not a uniform native resolution: B11 and B12 are acquired at 20\,m and QA60 at 60\,m, and Earth Engine resamples them by nearest neighbour when the request specifies 10\,m, so a 10\,m pixel of B11 carries no information finer than 20\,m. Five of the nineteen model inputs derive from the 20\,m bands. Rows with a missing label or a missing band are dropped. The training composite is the bounding box of the points themselves, so no labelled point can fall outside the stack it is sampled from.
+
+Label integrity is enforced rather than assumed. \texttt{sampleRegions} drops rows whose label is null without raising, so a collection that has lost its attributes contributes zero training rows and the model simply trains on fewer classes. Every source asset therefore carries its own label attribute, and a pre-training audit asserts the expected label histogram and point count per asset. A schema version string is stamped into every stored result so that runs computed under different class inventories cannot be merged.
+
+\subsection{Features and spectral indices}
+Nineteen features go into every classifier (Table~IV). Several other bands are computed only as ingredients of an index and are not given to the model (B2, B4, B8, NDVI, NDWI, NDBI, SAVI). Why those extras were dropped is taken up in Section~V.
+
+The indices are defined as follows. B2, B3, B4, B8, B11 and B12 are Sentinel-2 reflectance. NDVI (Normalised Difference Vegetation Index) \cite{r1}, \cite{r2} is $(B8-B4)/(B8+B4)$. Green plants reflect near infrared and absorb red. It is used only to form other indices, not as a model input. NDWI (Normalised Difference Water Index) \cite{r22} is $(B3-B8)/(B3+B8)$. Water absorbs near infrared, so the index is high over open water. NDBI (Normalised Difference Built-up Index) \cite{r21} is $(B11-B8)/(B11+B8)$. Built surfaces are often brighter in SWIR than in NIR. SAVI (Soil-Adjusted Vegetation Index) \cite{r24} is $1.5(B8-B4)/(B8+B4+0.5)$. The extra term reduces soil brightness in sparse cover. BSI (Bare Soil Index) \cite{r25} uses blue, red, NIR and SWIR:
+\begin{equation}
+\text{BSI} = \frac{(B11+B4)-(B8+B2)}{(B11+B4)+(B8+B2)}
+\end{equation}
+It rises where soil is exposed. UI (Urban Index) is $(B12-B8)/(B12+B8)$, a SWIR-NIR contrast aimed at built materials. IBI (Index-based Built-up Index) \cite{r23} combines NDBI, SAVI and a water index:
+\begin{equation}
+\text{IBI} = \frac{2\text{NDBI} - (\text{SAVI} + \text{MNDWI})}{2\text{NDBI} + (\text{SAVI} + \text{MNDWI})}
+\end{equation}
+It is meant to pick built land against vegetation and water, not against dry open land \cite{r26}. SWIRratio is $B11/(B12+\epsilon)$. The SWIR slope differs slightly between soil and some built roofs. BAEI (Built-up Area Extraction Index) is $(B4+0.3)/(B3+B11+\epsilon)$. It is a simple built-area contrast used as an extra cue.
+
+GLCM texture \cite{r20} describes how grey levels sit next to each other in a small window. We compute it on NIR (32 grey levels, $3\times3$) and on VV radar. Contrast, variance and dissimilarity are high on broken urban fabric; angular second moment and inverse difference moment are high on smooth open land. Texture is in the stack because a single pixel of dry soil and a single pixel of concrete can have the same colour, but a neighbourhood of roofs is rough and a neighbourhood of soil is not. All wide-range bands are scaled to $[0, 1]$ with bounds at the winter 99th percentile of the labelled samples. Without that step, raw GLCM variance (up to about 143) dominates Euclidean distance, and SVM and KNN effectively ignore optical and radar evidence.
+
+\subsection{Classifiers}
+Five supervised machine-learning algorithms were selected for their prominence in remote sensing literature and their native server-side implementation within Google Earth Engine (Table~VI). Each algorithm employs a fundamentally different mathematical approach to partition the feature space, allowing for a comprehensive comparison of classification strategies:
+\begin{enumerate}
+    \item \textbf{Random Forest (RF):} An ensemble learning method \cite{r11} that constructs a multitude of decision trees during training and outputs the mode of the classes. It introduces randomness by bagging (training each tree on a bootstrapped sample) and randomly selecting a subset of features at each split, making RF highly resistant to overfitting. It is implemented with \texttt{ee.Classifier.smileRandomForest}.
+    \item \textbf{Support Vector Machine (SVM):} SVM \cite{r12} locates the optimal separating boundary (hyperplane) that maximizes the margin between classes in the feature space. We used the Radial Basis Function (RBF) kernel to implicitly map inputs into higher-dimensional spaces for complex, non-linear distributions. It is implemented with \texttt{ee.Classifier.libsvm}.
+    \item \textbf{Smile GTB:} gradient tree boosting \cite{r13} builds trees sequentially, each new tree fitting the residual errors of the ensemble so far. Earth Engine exposes the Smile library's implementation as \texttt{ee.Classifier.smileGradientTreeBoost}, which is what this study uses. It is a different implementation from the XGBoost of Chen and Guestrin, offering neither that method's regularised objective nor its sparsity-aware split finding, and results obtained with one should not be reported under the other's name. The only capacity controls available are the tree count, the shrinkage rate and the node cap.
+    \item \textbf{CART:} Classification and Regression Trees construct a single decision tree by recursively partitioning the feature space using binary splits based on information gain. While highly interpretable, a single CART model is prone to overfitting. It serves as a baseline, implemented with \texttt{ee.Classifier.smileCart}.
+    \item \textbf{k-Nearest Neighbors (KNN):} KNN classifies a pixel based on the majority vote among its $k$ closest training samples using Euclidean distance. As a non-parametric method, it is sensitive to features with large numerical ranges, necessitating our rigorous normalization step. It is implemented with \texttt{ee.Classifier.smileKNN}.
+\end{enumerate}
+The trained model is applied to any polygon. A $3\times3$ majority filter removes isolated speckle. Outputs are class areas, a tiled PNG overlay and a GeoTIFF.
+
+\begin{table}[!htbp]
+\caption{Classifier Settings Used in Notebooks, Evaluation and the Dashboard}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Classifier} & \textbf{Settings} \\
+\midrule
+Random Forest & 200 trees, bag fraction 0.3, max nodes 10 \\
+SVM           & RBF kernel, $\gamma=1.0$, cost 100 \\
+Smile GTB       & 100 trees, shrinkage 0.1, max nodes 10 \\
+CART          & max nodes 20 \\
+KNN           & $k=5$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{How accuracy is measured}
+Project labels are used for training only. Every accuracy number in this paper is agreement with an independent reference. ESA WorldCover \cite{r14} and Dynamic World \cite{r15} must agree on a pixel, and Dynamic World probability must be at least 0.70. Specialist layers then confirm three classes: OPERA DSWx for water, GHSL built surface ($\ge50\text{ m}^2$ per 10\,m cell) for built area, and WorldCereal \cite{r16} for agriculture. A pixel is open land only if both general products call it bare and none of the specialists claim it. Disagreement is left out of the reference rather than guessed.
+
+Sampling is 20 points per class per district at 10\,m over all 48 district polygons. Any candidate within 100\,m of a training point is removed. The four districts that contain training points are then withheld entirely, and the remainder is split by spatial block into 15 development and 29 test districts (Table~\ref{tab_splits}). After the buffer and the split, 2,900 winter and 2,692 summer reference points remain in the test half. We report overall accuracy (OA), Kappa \cite{r17}, and per-class precision, recall and F1.
+
+The consensus reference is a useful external benchmark, but it is not equivalent to field-verified ground truth. The constituent products (WorldCover, Dynamic World, OPERA DSWx, GHSL, WorldCereal) have their own classification errors, use overlapping Sentinel inputs, and several reference years do not match the 2025 composites. To put a number on that, the consensus was audited against the ESRI 10\,m Annual Land Cover product for 2024, which contributes nothing to it and whose epoch is the closest of any candidate to the 2025 composites. The two agree on 82.6\% of winter reference points and 80.5\% of summer points. That is the practical ceiling on any accuracy measured against the consensus, since a model cannot be shown to be more right than its reference. It is not field verification, and where the two disagree this cannot say which is wrong. Table~\ref{tab_splits} summarises the datasets and splits used across the experiments.
+
+\begin{table}[htbp]
+\caption{Dataset and Split Manifest}
+\begin{center}
+\begin{tabular}{p{2.4cm}rp{3.7cm}}
+\toprule
+\textbf{Dataset} & \textbf{Count} & \textbf{Purpose / Notes} \\
+\midrule
+Jabalpur-region training & 5,000 & Model training; 1,000 per class; 100\,m buffer from every test point. Influenced model choice by construction. \\
+Development, winter & 1,500 & Feature stack, classifier and hyperparameter choice; 15 districts. \\
+Development, summer & 1,418 & As above; 15 districts. \\
+Test, winter & 2,900 & Final winter reporting, scored once; 29 districts. No influence on any choice. \\
+Test, summer & 2,692 & Final summer reporting, scored once; 29 districts. No influence on any choice. \\
+Withheld districts & -- & Jabalpur, Katni, Dindori and Mandla contain labelled training points and are excluded from all reported accuracy. \\
+\bottomrule
+\end{tabular}
+\label{tab_splits}
+\end{center}
+\end{table}
+
+\FloatBarrier
+\section{Results and Analysis}
+
+\subsection{What each feature group adds}
+Table~VIII starts from a ten-band optical baseline and adds feature families one at a time, scored district by district on the 15 development districts against the same five-class consensus every other number in this paper uses. No new labels are added, so the gains are from features only.
+
+\begin{table}[!htbp]
+\caption{Feature-Family Attribution, Smile GTB on the 15 Development Districts. Families are Cumulative.}
+\begin{center}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Season} & \textbf{Feature set} & \textbf{Bands} & \textbf{OA} & \textbf{Open rec.} & \textbf{Built prec.} \\
+\midrule
+Winter & Optical + core indices      & 10 & 75.9\% & 42.0\% & 57.8\% \\
+       & + bareness/built indices    & 15 & 77.0\% & 40.7\% & 57.5\% \\
+       & + optical GLCM texture      & 21 & 80.2\% & 57.3\% & 62.5\% \\
+       & + Sentinel-1 and SAR texture& 27 & 86.7\% & 73.3\% & 73.1\% \\
+\midrule
+Summer & Optical + core indices      & 10 & 60.2\% & 32.7\% & 56.5\% \\
+       & + bareness/built indices    & 15 & 60.4\% & 30.7\% & 56.6\% \\
+       & + optical GLCM texture      & 21 & 66.8\% & 53.7\% & 64.8\% \\
+       & + Sentinel-1 and SAR texture& 27 & 74.8\% & 55.0\% & 72.8\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+The optical baseline alone reaches 75.9\% overall accuracy in winter but only 42.0\% open-land recall: dry soil and concrete are close enough in reflectance that no combination of the optical bands separates them. Bareness indices move it to 77.0\%, which is a small gain and an expected one, because NDBI, UI and IBI were designed to separate built land from vegetation rather than from dry soil \cite{r21}, \cite{r26}. Optical GLCM texture takes built-area precision to 62.5\%. Sentinel-1 is what open land actually needs: adding radar and its texture lifts open-land recall to 73.3\% in winter and 55.0\% in summer, the largest single jump in the table, because double-bounce is a scattering mechanism rather than a colour. The full 27-band stack reaches 86.7\% OA in winter.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.92\textwidth]{fig4_feature_ablation.png}
+\caption{Cumulative contribution of each feature family, Smile GTB on the 15 development districts. Left: overall accuracy. Right: open-land recall, the class the stack exists to repair.}
+\label{fig:ablation}
+\end{figure*}
+
+A leave-one-band-out sweep over the same districts asks the question the other way round, which avoids crediting whichever family is added first with everything two families share (Fig.~\ref{fig:band_reduction}a). Against a 27-band baseline of 86.67\%, the bands the stack can least afford to lose are VH (-2.60), SWIRratio (-1.53), B12 (-1.40) in winter and SWIRratio (-2.40), VH (-1.90), NDWI (-1.62) in summer, all quoted as the change in overall accuracy when that band alone is removed. Only a few of the twenty-seven can be removed without measurable loss in both seasons, which is the honest answer to whether this stack is carrying redundant features: it is barely carrying any.
+
+\subsection{Classifier comparison over 29 held-out test districts}
+Table~IX reports all five models on the public-map consensus over the 29 test districts (2,900 winter and 2,692 summer samples). The ranking itself was decided on the development districts; these numbers are the consequence of that decision rather than its basis.
+
+\begin{table}[!htbp]
+\caption{External Accuracy over the 29 Held-Out Test Districts of Madhya Pradesh (2,900 Winter and 2,692 Summer Reference Samples)}
+\label{tab:statewide_accuracy}
+\centering
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llrlr}
+\toprule
+\textbf{Season} & \textbf{Model} & \textbf{OA} & \textbf{95\% CI\textsuperscript{*}} & \textbf{Kappa} \\
+\midrule
+Winter & Smile GTB & 87.41\% & [85.07, 89.69] & 0.843 \\
+       & RF        & 86.45\% & [84.17, 88.59] & 0.831 \\
+       & SVM (RBF) & 86.38\% & [84.03, 88.59] & 0.830 \\
+       & KNN       & 85.28\% & [83.17, 87.55] & 0.816 \\
+       & CART      & 80.55\% & [78.28, 82.86] & 0.757 \\
+\midrule
+Summer & Smile GTB & 73.85\% & [70.81, 76.82] & 0.669 \\
+       & RF        & 71.84\% & [68.43, 75.23] & 0.643 \\
+       & KNN       & 69.65\% & [66.33, 72.99] & 0.616 \\
+       & SVM (RBF) & 68.61\% & [65.87, 71.36] & 0.602 \\
+       & CART      & 61.33\% & [58.58, 63.98] & 0.509 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\parbox{\columnwidth}{\textsuperscript{*}\footnotesize Percentile interval over 5,000 bootstrap replicates that resample whole districts, not points. Samples inside one district share landscape, phenology and reference-map error, so a pixel-level interval would be far too narrow.}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{fig5_statewide_accuracy.png}
+\caption{Statewide external accuracy of the five classifiers in both validated seasons, with the Kappa coefficient inset in each bar.}
+\label{fig:statewide_acc}
+\end{figure}
+
+Smile GTB is nominally first in winter, at 87.41\% OA and Kappa 0.843, and second in summer at 73.85\% and 0.669 (Fig.~\ref{fig:statewide_acc}). Nominally, because the margin does not survive a paired district-level test: against SVM the mean per-district difference is +1.03 points in winter (95\% CI +0.03 to +2.07, Wilcoxon $p=0.062$) and +5.25 points in summer (95\% CI +3.05 to +7.49, $p<0.001$). The honest statement is that the top classifiers are not separable on this evidence. Random Forest and CART do separate, and trail by margins that are significant in both seasons. An earlier ranking had put SVM and KNN last, at 71.34\% and 73.68\% in winter. That ranking was an artefact of unscaled GLCM variance. Rescaling every band to a common $[0, 1]$ range moves SVM by 12.76 percentage points and KNN by 9.48 in winter.
+
+Earlier versions of this work compared all five classifiers on the same statewide reference set and identified the winner from those scores, so model selection and final evaluation shared the same data. That is repaired here. The districts are partitioned once, by spatial block and before anything is selected, into 15 development and 29 test districts, with the four districts that hold training points withheld from both. Every choice reported in this paper---the feature stack, the classifier, the hyperparameters---is made on the development half alone, and the test half is scored once with the result.
+
+\subsection{Per-class scores}
+Table~X and Fig.~\ref{fig:per_class_f1} list per-class F1. The class order is the same for every classifier: water is easiest, then vegetation, then built area; open land and agriculture are hardest.
+
+\begin{table}[!htbp]
+\caption{Per-Class F1 over the 29 Held-Out Test Districts}
+\begin{center}
+\begin{tabular}{lllllll}
+\toprule
+\textbf{Season} & \textbf{Model} & \textbf{Veg.} & \textbf{Water} & \textbf{Built} & \textbf{Open} & \textbf{Agri.} \\
+\midrule
+Winter & Smile GTB     & 0.934 & 0.981 & 0.856 & 0.800 & 0.790 \\
+       & Random Forest & 0.907 & 0.973 & 0.855 & 0.802 & 0.778 \\
+       & KNN           & 0.928 & 0.971 & 0.824 & 0.753 & 0.772 \\
+       & CART          & 0.829 & 0.954 & 0.819 & 0.729 & 0.675 \\
+       & SVM           & 0.940 & 0.977 & 0.836 & 0.753 & 0.802 \\
+\midrule
+Summer & Smile GTB     & 0.594 & 0.919 & 0.854 & 0.633 & 0.572 \\
+       & Random Forest & 0.515 & 0.896 & 0.850 & 0.643 & 0.521 \\
+       & KNN           & 0.510 & 0.958 & 0.823 & 0.600 & 0.452 \\
+       & CART          & 0.335 & 0.854 & 0.728 & 0.495 & 0.342 \\
+       & SVM           & 0.377 & 0.956 & 0.835 & 0.589 & 0.458 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{fig6.png}
+\caption{Per-class F1 for every classifier under the statewide external reference. (a) Winter. (b) Summer.}
+\label{fig:per_class_f1}
+\end{figure*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{fig7.png}
+\caption{Smile GTB confusion matrices under the statewide external reference, row-normalised to percentages. (a) Winter, OA 85.1\%, $\kappa=0.814$. (b) Summer, OA 70.3\%, $\kappa=0.627$.}
+\label{fig:confusion_matrices}
+\end{figure*}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{fig8.png}
+\caption{Per-class F1 before and after the move to the five-class inventory, Smile GTB, winter.}
+\label{fig:before_after}
+\end{figure}
+
+Fig.~\ref{fig:before_after} isolates what the move to the five-class inventory changed: open land gains 0.22 F1, and agriculture reaches 0.77.
+
+\subsection{Spatial pattern and the validation protocol}
+Accuracy is not uniform across Madhya Pradesh, but the pattern is not the simple distance decay an earlier tile-based reading suggested. Regressing per-district overall accuracy on great-circle distance from the training district gives a slope of +0.55 points per 100\,km ($R^2=0.015$, $p=0.43$), which is indistinguishable from flat: the nearest quartile of districts averages 84.4\% and the farthest 87.8\%. The decay is real but class-specific and self-cancelling in the aggregate. Open-land recall falls 1.4 points per 100\,km while agriculture recall rises 3.1, so the class that fails first away from the labelled area is precisely the open-versus-built case this paper set out to repair.
+
+\begin{table}[!htbp]
+\caption{Overall Accuracy under Three Validation Protocols, All Measured on the Same Winter Composite}
+\centering
+\begin{tabular}{p{2.6cm}p{3.1cm}r}
+\toprule
+\textbf{Protocol} & \textbf{Scope} & \textbf{Overall} \\
+\midrule
+Random held-out split          & Jabalpur labelled points               & 88.5--95.0\% \\
+Spatially blocked split        & Jabalpur labelled points               & 84.3--89.8\% \\
+External public-map consensus  & 29 held-out test districts & 80.6--87.4\% \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\parbox{\columnwidth}{\footnotesize Ranges span the five classifiers. Each step removes a way for the test set to resemble the training set, and each one costs accuracy.}
+\end{table}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{fig9.jpg}
+\caption{The same CART model on the Jabalpur labelled set under two validation protocols. Left: random held-out split (92.0\% overall). Right: spatially blocked split of identical points (84.4\%).}
+\label{fig:cart_splits}
+\end{figure*}
+
+Table~XI and Fig.~\ref{fig:cart_splits} report the same models under three checks of increasing strictness, all measured on the same winter composite so that the comparison is between protocols and not between pipeline versions. A random split inside the labelled area reports 88.5--95.0\% across the five classifiers, a spatially blocked split of the same points reports 84.3--89.8\%, and the external consensus over the 29 held-out test districts reports 80.6--87.4\%.
+
+\section{Discussion}
+
+\subsection{The Necessity of Multi-Sensor Fusion}
+The results of this study strongly reinforce the necessity of multi-sensor fusion for accurate land cover mapping, particularly in complex heterogeneous environments. While optical data from Sentinel-2 provides essential spectral information for distinguishing vegetation and water, its limitations in separating built-up areas from barren land are evident. Our feature ablation quantitatively demonstrated that optical bands and their core indices alone reach 75.9\% overall accuracy and only 42.0\% recall for open land. The inclusion of Sentinel-1 SAR data is not merely an incremental improvement; it is a fundamental requirement for resolving the physical ambiguity between dry soil and constructed materials. The structural information captured by SAR double-bounce scattering provides an orthogonal data dimension that optical indices simply cannot replicate. 
+
+\subsection{The Critical Role of Texture in Urban Mapping}
+Furthermore, this study highlights the critical, often underutilized role of spatial texture in pixel-based classification. GLCM texture features, particularly contrast and variance, act as proxies for local spatial heterogeneity. Urban environments, characterized by a rapid spatial alternation of buildings, roads, shadows, and small vegetative patches, inherently exhibit high texture values. Conversely, open land and large agricultural fields are spatially smooth. By incorporating GLCM texture derived from both optical (NIR) and SAR (VV) bands, our models successfully suppressed the misclassification of smooth bare soil as built-up area, significantly increasing the precision of the built-up class. 
+
+\subsection{Dimensionality and Feature Optimization (Reduction from 27 bands to 19)}
+Adding bands is not always better, but on this stack removing them is mostly worse, and the number of bands matters far less than which ones. A leave-one-band-out sweep nominates the bands that can go, and Table~XII scores the stacks those nominations produce together with the two historical cuts, choosing on the 15 development districts and confirming once on the 29 test districts (Fig.~\ref{fig:band_reduction}b). Every stack is trained from one sampled table carrying all 27 bands, so they differ only in which columns the classifier may read and not in which pixels survived sampling. Ranked by development accuracy averaged over the two reported seasons the selected stack is \texttt{drop\_summer} at 81.43\%, and the stack this project had been shipping is last of the five at 78.01\% despite having the same band count; the two share only 13 of their nineteen. The selected stack keeps B4, B8, NDVI, NDWI, SAVI, s\_ent, which the earlier cut discarded, and drops B3, BSI, BAEI, g\_ent, g\_diss, g\_asm instead. Scored once on the held-out test districts that is worth +1.48 points in winter (95\% CI +0.69 to +2.24, $p=0.002$) and +4.50 in summer (95\% CI +3.33 to +5.65, $p<0.001$). The Hughes phenomenon is the usual explanation offered for a reduction that helps, and the evidence here does not support one: the full 27-band stack is mid-table rather than bottom, and almost nothing in it is redundant. What the earlier study found was that its own cut had been chosen on the points it was then reported against.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{fig10_band_reduction.png}
+\caption{Overall accuracy across feature stack reductions (27, 22 and 19 bands) for Smile GTB, on the 15 development districts that chose the stack and the 29 test districts that did not. Bars are 95\% intervals from resampling whole districts. The winter panel cannot separate the three stacks; the summer panel prefers 27 bands.}
+\label{fig:band_reduction}
+\end{figure}
+
+\begin{table}[!htbp]
+\caption{Candidate Feature Stacks, Smile GTB. Each is Chosen on the 15 Development Districts and Scored Once on the 29 Test Districts.}
+\begin{center}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llrrrl}
+\toprule
+\textbf{Season} & \textbf{Stack} & \textbf{Bands} & \textbf{Development OA} & \textbf{Test OA} & \textbf{Test 95\% CI} \\
+\midrule
+Winter & \texttt{all27} & 27 & 86.67\% & 85.07\% & [82.83, 87.28] \\
+       & \texttt{drop\_winter} & 25 & 86.80\% & 85.34\% & [83.03, 87.69] \\
+       & \texttt{b22} & 22 & 85.73\% & 85.66\% & [83.45, 87.93] \\
+       & \texttt{b19} & 19 & 85.07\% & 85.00\% & [82.69, 87.38] \\
+       & \texttt{drop\_summer} & 19 & 86.07\% & 86.48\% & [84.31, 88.66] \\
+\midrule
+Summer & \texttt{all27} & 27 & 74.75\% & 73.63\% & [70.97, 76.30] \\
+       & \texttt{drop\_winter} & 25 & 75.32\% & 73.11\% & [70.55, 75.78] \\
+       & \texttt{b22} & 22 & 74.33\% & 72.36\% & [69.65, 75.09] \\
+       & \texttt{b19} & 19 & 70.94\% & 68.95\% & [66.53, 71.36] \\
+       & \texttt{drop\_summer} & 19 & 76.80\% & 73.51\% & [70.71, 76.16] \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+The Hughes phenomenon is the usual explanation offered for a result like this, and it is worth being clear that the evidence here does not support it. Redundant features can introduce noise and encourage overfitting, and on a pooled evaluation the leaner stack did appear to win. Held-out districts show no such gain in winter and a real loss in summer, which is what one would expect if the extra nine features carry a little genuine signal that matters most when the optical separation is weakest. The reduction remains worth shipping for its cost, and the season-dependence is the finding.
+
+\subsection{Spatial Cross-Validation and Hyperparameter Sensitivity}
+The settings in Table~VI were inherited from an earlier two-class problem and were never retuned for the five-class, 19-band setup, which is not a neutral omission: a ranking built on inherited settings partly measures which model happened to inherit a workable configuration. A grid over all five classifiers is therefore run on the 15 development districts, and only there, so the tuned configuration can afterwards be scored once on the test districts and still be an estimate rather than a maximum over a search.
+
+The two seasons do not agree on which bands to drop, and the disagreement is informative rather than noise: winter can spare only two of the twenty-seven, summer eight, and no band is safely droppable in both. Selecting on one season alone would therefore have been an arbitrary choice, so the rule used here ranks stacks by development accuracy averaged over the two seasons the paper reports. Under a winter-only rule the selection would have been \texttt{drop\_winter} with twenty-five bands instead.
+
+\subsection{Re-evaluating Accuracy Assessment Paradigms}
+Perhaps the most significant contribution of this study is its stark demonstration of how validation protocols dictate reported accuracy. When our models were evaluated using a standard random train-test split within the labelled area, the five of them reported 88.5--95.0\%, an artificially inflated result. This exceptionally high score is an illusion caused by spatial autocorrelation; the testing pixels were geographically adjacent to the training pixels, sharing identical local environmental conditions. When the identical models were subjected to a spatially blocked split of the same points, accuracy dropped to 84.3--89.8\%. Finally, when evaluated against an independent, high-confidence consensus reference across the 29 held-out test districts, the accuracy settled at 80.6--87.4\% in the same season. This dramatic variance exposes a critical flaw in much of the existing remote sensing literature.
+
+\subsection{Limitations and Future Directions}
+Seven limits bound these results:
+\begin{enumerate}
+    \item The reference is agreement among public maps, not field plots. While the consensus filters out individual map errors, it inherits any systemic bias shared by the parent products, which use overlapping Sentinel inputs. Auditing it against an independent product bounds that error but cannot remove it, and no field or very-high-resolution verification has been carried out.
+    \item The reference years do not match the 2025 composites, which may introduce apparent errors in rapidly changing urban peripheries.
+    \item Open-land labels come from Jabalpur district only. Introducing training samples from other diverse ecoregions would likely improve the robustness.
+    \item The hyperparameter grid is deliberately small and covers the capacity controls that matter most for these five models; it is not an exhaustive search, and a wider one on the same development districts could still move the ranking among the top three, which this evidence already cannot separate.
+    \item Classifier selection and final evaluation share the same statewide reference set. Since no hyperparameters were tuned on this set, the selection bias is bounded to the variance among pre-set model rankings rather than to overfitting of free parameters. A nested spatial design with separate development and test districts would be stronger.
+    \item Because the sample takes 20 points per class per district, the unweighted confusion matrix describes a landscape that is one fifth water. Design-based estimates following Olofsson et al.\ are therefore reported alongside it, weighting each (district, reference class) stratum by its measured share of the high-confidence consensus area. Area-adjusted overall accuracy is 75.50\% $\pm$ 3.32 points in winter and 58.69\% $\pm$ 4.02 in summer, against unweighted figures of 87.41\% and 73.85\%. What those figures estimate must be stated precisely: the weights describe the high-confidence consensus domain, which covers 56.5\% of the test districts' area and is 95.9\% agriculture within that. The imbalance is an artefact of how the reference is built rather than of Madhya Pradesh, since Vegetation must satisfy WorldCover, a Dynamic World label and a 0.70 confidence threshold while Agriculture needs only WorldCover and WorldCereal. These are therefore area-adjusted accuracies over the consensus domain and not over the state; a genuine map-wide estimate would need a fresh sample stratified on the map's own classes.
+    \item Confidence intervals at the district-block level are not provided for the main statewide performance. Because samples within a district are spatially correlated, simple pixel-level uncertainty would be too optimistic. Future work should bootstrap at the district/spatial-block level and report 95\% CIs for OA, macro-F1 and key class F1.
+\end{enumerate}
+Future research should focus on extending this framework through active learning, where the model automatically identifies regions of low confidence across the state and prompts the user to supply targeted training labels. We also recommend formally quantifying accuracy transfer decay against distance from Jabalpur and agroecological zones, and conducting paired district-level classifier comparisons rather than relying solely on aggregate point estimates.
+
+\FloatBarrier
+\section{Conclusion}
+This paper presented a five-class land use/land cover (LULC) workflow in Google Earth Engine, driven by machine learning on Sentinel-2 and Sentinel-1. GLCM texture improved built-area precision and Sentinel-1 improved open-land recall, taking the latter from 42\% to 73\% in winter. Smile GTB reached 87.41\% overall accuracy (95\% CI 85.07--89.69\%) and Kappa 0.843 in winter across 29 held-out test districts of Madhya Pradesh, a margin that a paired district-level test cannot separate from SVM.
+
+\clearpage
+\begin{thebibliography}{00}
+\bibitem{r1} J. W. Rouse et al., ``Monitoring vegetation systems in the Great Plains with ERTS,'' \textit{NASA Special Publication}, vol. 351, p. 309, 1974.
+\bibitem{r2} C. J. Tucker, ``Red and photographic infrared linear combinations for monitoring vegetation,'' \textit{Remote Sens. Environ.}, vol. 8, no. 2, pp. 127--150, May 1979.
+\bibitem{r3} Z. Zhao et al., ``Comparison of three machine learning algorithms using Google Earth Engine for land use land cover classification,'' \textit{Rangel. Ecol. Manag.}, vol. 92, pp. 129--137, Jan. 2024.
+\bibitem{r4} M. Drusch et al., ``Sentinel-2: ESA's optical high-resolution mission for GMES operational services,'' \textit{Remote Sens. Environ.}, vol. 120, pp. 25--36, May 2012.
+\bibitem{r5} D. Phiri et al., ``Sentinel-2 data for land cover/use mapping: a review,'' \textit{Remote Sens.}, vol. 12, no. 14, p. 2291, Jul. 2020.
+\bibitem{r6} R. Torres et al., ``GMES Sentinel-1 mission,'' \textit{Remote Sens. Environ.}, vol. 120, pp. 9--24, May 2012.
+\bibitem{r7} M. Pal and P. M. Mather, ``Support vector machines for classification in remote sensing,'' \textit{Int. J. Remote Sens.}, vol. 26, no. 5, pp. 1007--1011, Mar. 2005.
+\bibitem{r8} A. E. Maxwell, T. A. Warner, and F. Fang, ``Implementation of machine-learning classification in remote sensing: an applied review,'' \textit{Int. J. Remote Sens.}, vol. 39, no. 9, pp. 2784--2817, May 2018.
+\bibitem{r9} P. O. Gislason, J. A. Benediktsson, and J. R. Sveinsson, ``Random forests for land cover classification,'' \textit{Pattern Recognit. Lett.}, vol. 27, no. 4, pp. 294--300, Mar. 2006.
+\bibitem{r10} N. Gorelick et al., ``Google Earth Engine: planetary-scale geospatial analysis for everyone,'' \textit{Remote Sens. Environ.}, vol. 202, pp. 18--27, Dec. 2017.
+\bibitem{r11} L. Breiman, ``Random forests,'' \textit{Mach. Learn.}, vol. 45, no. 1, pp. 5--32, Oct. 2001.
+\bibitem{r12} C. Cortes and V. Vapnik, ``Support-vector networks,'' \textit{Mach. Learn.}, vol. 20, no. 3, pp. 273--297, Sep. 1995.
+\bibitem{r13} T. Chen and C. Guestrin, ``XGBoost: a scalable tree boosting system,'' in \textit{Proc. 22nd ACM SIGKDD}, Aug. 2016, pp. 785--794.
+\bibitem{r14} D. Zanaga et al., ``ESA WorldCover 10 m 2021 v200,'' Zenodo, 2022.
+\bibitem{r15} C. F. Brown et al., ``Dynamic World, near real-time global 10 m land use land cover mapping,'' \textit{Sci. Data}, vol. 9, p. 251, Jun. 2022.
+\bibitem{r16} J. Van Tricht et al., ``WorldCereal: a dynamic open-source system for global-scale, seasonal, and reproducible crop and irrigation mapping,'' \textit{Earth Syst. Sci. Data}, vol. 15, no. 12, pp. 5491--5515, Dec. 2023.
+\bibitem{r17} P. Olofsson et al., ``Good practices for estimating area and assessing accuracy of land change,'' \textit{Remote Sens. Environ.}, vol. 148, pp. 42--57, May 2014.
+\bibitem{r18} D. R. Roberts et al., ``Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure,'' \textit{Ecography}, vol. 40, no. 8, pp. 913--929, Aug. 2017.
+\bibitem{r19} P. Ploton et al., ``Spatial validation reveals poor predictive performance of large-scale ecological mapping models,'' \textit{Nat. Commun.}, vol. 11, p. 4540, Sep. 2020.
+\bibitem{r20} R. M. Haralick, K. Shanmugam, and I. Dinstein, ``Textural features for image classification,'' \textit{IEEE Trans. Syst. Man Cybern.}, vol. SMC-3, no. 6, pp. 610--621, Nov. 1973.
+\bibitem{r21} Y. Zha, J. Gao, and S. Ni, ``Use of normalized difference built-up index in automatically mapping urban areas from TM imagery,'' \textit{Int. J. Remote Sens.}, vol. 24, no. 3, pp. 583--594, Feb. 2003.
+\bibitem{r22} H. Xu, ``Modification of normalised difference water index (NDWI) to enhance open water features in remotely sensed imagery,'' \textit{Int. J. Remote Sens.}, vol. 27, no. 14, pp. 3025--3033, Jul. 2006.
+\bibitem{r23} H. Xu, ``A new index for delineating built-up land features in satellite imagery,'' \textit{Int. J. Remote Sens.}, vol. 29, no. 14, pp. 4269--4276, Jul. 2008.
+\bibitem{r24} A. R. Huete, ``A soil-adjusted vegetation index (SAVI),'' \textit{Remote Sens. Environ.}, vol. 25, no. 3, pp. 295--309, Aug. 1988.
+\bibitem{r25} A. Rikimaru, P. S. Roy, and S. Miyatake, ``Tropical forest cover density mapping,'' \textit{Tropical Ecology}, vol. 43, no. 1, pp. 39--47, 2002.
+\bibitem{r26} A. Rasul et al., ``Applying built-up and bare-soil indices from Landsat 8 to cities in dry climates,'' \textit{Land}, vol. 7, no. 3, p. 81, Jul. 2018.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,932 @@
+{
+  "training_schema_version": "five-class-19-band-v4-matched-windows",
+  "stacks": {
+    "all27": [
+      "B2",
+      "B3",
+      "B4",
+      "B8",
+      "B11",
+      "B12",
+      "NDVI",
+      "NDWI",
+      "NDBI",
+      "SAVI",
+      "BSI",
+      "UI",
+      "IBI",
+      "SWIRratio",
+      "BAEI",
+      "g_contrast",
+      "g_ent",
+      "g_var",
+      "g_idm",
+      "g_diss",
+      "g_asm",
+      "VV",
+      "VH",
+      "VVVH",
+      "s_contrast",
+      "s_var",
+      "s_ent"
+    ],
+    "drop_winter": [
+      "B2",
+      "B3",
+      "B4",
+      "B8",
+      "B11",
+      "B12",
+      "NDVI",
+      "NDWI",
+      "NDBI",
+      "SAVI",
+      "BSI",
+      "UI",
+      "IBI",
+      "SWIRratio",
+      "BAEI",
+      "g_ent",
+      "g_var",
+      "g_idm",
+      "g_diss",
+      "g_asm",
+      "VV",
+      "VH",
+      "VVVH",
+      "s_contrast",
+      "s_var"
+    ],
+    "drop_summer": [
+      "B4",
+      "B8",
+      "B11",
+      "B12",
+      "NDVI",
+      "NDWI",
+      "SAVI",
+      "UI",
+      "IBI",
+      "SWIRratio",
+      "g_contrast",
+      "g_var",
+      "g_idm",
+      "VV",
+      "VH",
+      "VVVH",
+      "s_contrast",
+      "s_var",
+      "s_ent"
+    ],
+    "b22": [
+      "B2",
+      "B3",
+      "B4",
+      "B11",
+      "B12",
+      "SAVI",
+      "BSI",
+      "UI",
+      "IBI",
+      "SWIRratio",
+      "BAEI",
+      "g_contrast",
+      "g_ent",
+      "g_var",
+      "g_idm",
+      "g_diss",
+      "g_asm",
+      "VV",
+      "VH",
+      "VVVH",
+      "s_contrast",
+      "s_var"
+    ],
+    "b19": [
+      "B3",
+      "B11",
+      "B12",
+      "BSI",
+      "UI",
+      "IBI",
+      "SWIRratio",
+      "BAEI",
+      "g_contrast",
+      "g_ent",
+      "g_var",
+      "g_idm",
+      "g_diss",
+      "g_asm",
+      "VV",
+      "VH",
+      "VVVH",
+      "s_contrast",
+      "s_var"
+    ]
+  },
+  "stacks_order": [
+    "all27",
+    "drop_winter",
+    "b22",
+    "b19",
+    "drop_summer"
+  ],
+  "droppable_by_season": {
+    "winter": [
+      "g_contrast",
+      "s_ent"
+    ],
+    "summer": [
+      "B2",
+      "B3",
+      "BAEI",
+      "BSI",
+      "NDBI",
+      "g_asm",
+      "g_diss",
+      "g_ent"
+    ]
+  },
+  "droppable_in_both": [],
+  "protocol": "Every stack is chosen on the development districts. The test districts are scored once, afterwards, with whatever that chose.",
+  "seasons": {
+    "winter": {
+      "development": {
+        "all27": {
+          "overall_accuracy": 0.8666666666666667,
+          "overall_accuracy_ci95": [
+            0.842,
+            0.8900166666666665
+          ],
+          "kappa": 0.8333333333333334,
+          "macro_f1": 0.8654220046188653,
+          "sample_count": 1500,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.8433333333333334,
+            "Water": 1.0,
+            "Built Area": 0.9966666666666667,
+            "Open Land": 0.7333333333333333,
+            "Agriculture": 0.76
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9547169811320755,
+            "Water": 0.9433962264150944,
+            "Built Area": 0.7310513447432763,
+            "Open Land": 0.8764940239043825,
+            "Agriculture": 0.8871595330739299
+          }
+        },
+        "drop_winter": {
+          "overall_accuracy": 0.868,
+          "overall_accuracy_ci95": [
+            0.8473166666666667,
+            0.8893333333333333
+          ],
+          "kappa": 0.8349999999999999,
+          "macro_f1": 0.8666242026149368,
+          "sample_count": 1500,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.84,
+            "Water": 1.0,
+            "Built Area": 0.99,
+            "Open Land": 0.7533333333333333,
+            "Agriculture": 0.7566666666666667
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9509433962264151,
+            "Water": 0.9345794392523364,
+            "Built Area": 0.7443609022556391,
+            "Open Land": 0.875968992248062,
+            "Agriculture": 0.8832684824902723
+          }
+        },
+        "b22": {
+          "overall_accuracy": 0.8573333333333333,
+          "overall_accuracy_ci95": [
+            0.8326666666666667,
+            0.882
+          ],
+          "kappa": 0.8216666666666667,
+          "macro_f1": 0.8554671873975318,
+          "sample_count": 1500,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.84,
+            "Water": 1.0,
+            "Built Area": 0.9866666666666667,
+            "Open Land": 0.72,
+            "Agriculture": 0.74
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9545454545454546,
+            "Water": 0.9287925696594427,
+            "Built Area": 0.7326732673267327,
+            "Open Land": 0.8605577689243028,
+            "Agriculture": 0.8604651162790697
+          }
+        },
+        "b19": {
+          "overall_accuracy": 0.8506666666666667,
+          "overall_accuracy_ci95": [
+            0.8253333333333334,
+            0.876
+          ],
+          "kappa": 0.8133333333333334,
+          "macro_f1": 0.8485125955043855,
+          "sample_count": 1500,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.8233333333333334,
+            "Water": 1.0,
+            "Built Area": 0.9833333333333333,
+            "Open Land": 0.71,
+            "Agriculture": 0.7366666666666667
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9573643410852714,
+            "Water": 0.9174311926605505,
+            "Built Area": 0.7320099255583127,
+            "Open Land": 0.8588709677419355,
+            "Agriculture": 0.8371212121212122
+          }
+        },
+        "drop_summer": {
+          "overall_accuracy": 0.8606666666666667,
+          "overall_accuracy_ci95": [
+            0.834,
+            0.8873333333333333
+          ],
+          "kappa": 0.8258333333333334,
+          "macro_f1": 0.8590118507958964,
+          "sample_count": 1500,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.84,
+            "Water": 1.0,
+            "Built Area": 0.9833333333333333,
+            "Open Land": 0.7533333333333333,
+            "Agriculture": 0.7266666666666667
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9473684210526315,
+            "Water": 0.9345794392523364,
+            "Built Area": 0.7375,
+            "Open Land": 0.8659003831417624,
+            "Agriculture": 0.8650793650793651
+          }
+        }
+      },
+      "test": {
+        "all27": {
+          "overall_accuracy": 0.8506896551724138,
+          "overall_accuracy_ci95": [
+            0.8282672413793104,
+            0.8727586206896552
+          ],
+          "kappa": 0.8133620689655171,
+          "macro_f1": 0.8480403261339763,
+          "sample_count": 2900,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.8672413793103448,
+            "Water": 1.0,
+            "Built Area": 0.993103448275862,
+            "Open Land": 0.6982758620689655,
+            "Agriculture": 0.6948275862068966
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9508506616257089,
+            "Water": 0.9477124183006536,
+            "Built Area": 0.72090112640801,
+            "Open Land": 0.8367768595041323,
+            "Agriculture": 0.8466386554621849
+          }
+        },
+        "drop_winter": {
+          "overall_accuracy": 0.853448275862069,
+          "overall_accuracy_ci95": [
+            0.8303448275862069,
+            0.8768965517241379
+          ],
+          "kappa": 0.8168103448275862,
+          "macro_f1": 0.8509823922009285,
+          "sample_count": 2900,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.8706896551724138,
+            "Water": 1.0,
+            "Built Area": 0.993103448275862,
+            "Open Land": 0.7017241379310345,
+            "Agriculture": 0.7017241379310345
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9582542694497154,
+            "Water": 0.943089430894309,
+            "Built Area": 0.7227101631116688,
+            "Open Land": 0.8323108384458078,
+            "Agriculture": 0.8622881355932204
+          }
+        },
+        "b22": {
+          "overall_accuracy": 0.856551724137931,
+          "overall_accuracy_ci95": [
+            0.8344827586206897,
+            0.8793103448275862
+          ],
+          "kappa": 0.8206896551724138,
+          "macro_f1": 0.8541241404254419,
+          "sample_count": 2900,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.8793103448275862,
+            "Water": 1.0,
+            "Built Area": 0.993103448275862,
+            "Open Land": 0.7017241379310345,
+            "Agriculture": 0.7086206896551724
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9622641509433962,
+            "Water": 0.9539473684210527,
+            "Built Area": 0.7318932655654383,
+            "Open Land": 0.8357289527720739,
+            "Agriculture": 0.8422131147540983
+          }
+        },
+        "b19": {
+          "overall_accuracy": 0.85,
+          "overall_accuracy_ci95": [
+            0.8268965517241379,
+            0.8737931034482759
+          ],
+          "kappa": 0.8124999999999999,
+          "macro_f1": 0.8470752926167133,
+          "sample_count": 2900,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.8724137931034482,
+            "Water": 1.0,
+            "Built Area": 0.9896551724137931,
+            "Open Land": 0.6810344827586207,
+            "Agriculture": 0.7068965517241379
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9674952198852772,
+            "Water": 0.9339774557165862,
+            "Built Area": 0.7302798982188295,
+            "Open Land": 0.8298319327731093,
+            "Agriculture": 0.8299595141700404
+          }
+        },
+        "drop_summer": {
+          "overall_accuracy": 0.8648275862068966,
+          "overall_accuracy_ci95": [
+            0.843103448275862,
+            0.886551724137931
+          ],
+          "kappa": 0.8310344827586208,
+          "macro_f1": 0.8624005283329073,
+          "sample_count": 2900,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.8931034482758621,
+            "Water": 1.0,
+            "Built Area": 0.9913793103448276,
+            "Open Land": 0.7396551724137931,
+            "Agriculture": 0.7
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9504587155963303,
+            "Water": 0.9523809523809523,
+            "Built Area": 0.7448186528497409,
+            "Open Land": 0.8428290766208252,
+            "Agriculture": 0.8731182795698925
+          }
+        }
+      },
+      "test_paired": [
+        {
+          "left": "all27",
+          "right": "drop_winter",
+          "mean_district_oa_difference": -0.0027586206896551787,
+          "ci95": [
+            -0.0068965517241379335,
+            0.002068965517241362
+          ],
+          "districts_left_better": 5,
+          "districts_right_better": 12,
+          "districts_tied": 12,
+          "wilcoxon_p": 0.06670794052779695
+        },
+        {
+          "left": "all27",
+          "right": "b22",
+          "mean_district_oa_difference": -0.005862068965517247,
+          "ci95": [
+            -0.011379310344827597,
+            -0.0006896551724137937
+          ],
+          "districts_left_better": 4,
+          "districts_right_better": 12,
+          "districts_tied": 13,
+          "wilcoxon_p": 0.039845791589952176
+        },
+        {
+          "left": "all27",
+          "right": "b19",
+          "mean_district_oa_difference": 0.0006896551724137861,
+          "ci95": [
+            -0.00517241379310346,
+            0.006896551724137918
+          ],
+          "districts_left_better": 12,
+          "districts_right_better": 11,
+          "districts_tied": 6,
+          "wilcoxon_p": 0.851151850842183
+        },
+        {
+          "left": "all27",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.01413793103448276,
+          "ci95": [
+            -0.02103448275862069,
+            -0.0075862068965517155
+          ],
+          "districts_left_better": 3,
+          "districts_right_better": 18,
+          "districts_tied": 8,
+          "wilcoxon_p": 0.0008740427073735846
+        },
+        {
+          "left": "drop_winter",
+          "right": "b22",
+          "mean_district_oa_difference": -0.003103448275862068,
+          "ci95": [
+            -0.009310344827586208,
+            0.0034482758620689646
+          ],
+          "districts_left_better": 6,
+          "districts_right_better": 11,
+          "districts_tied": 12,
+          "wilcoxon_p": 0.26080981276253357
+        },
+        {
+          "left": "drop_winter",
+          "right": "b19",
+          "mean_district_oa_difference": 0.0034482758620689646,
+          "ci95": [
+            -0.004482758620689644,
+            0.01103448275862068
+          ],
+          "districts_left_better": 15,
+          "districts_right_better": 9,
+          "districts_tied": 5,
+          "wilcoxon_p": 0.30269813064030304
+        },
+        {
+          "left": "drop_winter",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.011379310344827582,
+          "ci95": [
+            -0.0189655172413793,
+            -0.004827586206896541
+          ],
+          "districts_left_better": 5,
+          "districts_right_better": 17,
+          "districts_tied": 7,
+          "wilcoxon_p": 0.006090484623920486
+        },
+        {
+          "left": "b22",
+          "right": "b19",
+          "mean_district_oa_difference": 0.006551724137931033,
+          "ci95": [
+            -0.0006896551724137975,
+            0.01379310344827587
+          ],
+          "districts_left_better": 16,
+          "districts_right_better": 7,
+          "districts_tied": 6,
+          "wilcoxon_p": 0.08730311120975304
+        },
+        {
+          "left": "b22",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.008275862068965512,
+          "ci95": [
+            -0.017931034482758613,
+            0.0006896551724137975
+          ],
+          "districts_left_better": 10,
+          "districts_right_better": 15,
+          "districts_tied": 4,
+          "wilcoxon_p": 0.15178494308634813
+        },
+        {
+          "left": "b19",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.014827586206896545,
+          "ci95": [
+            -0.022413793103448276,
+            -0.006896551724137926
+          ],
+          "districts_left_better": 6,
+          "districts_right_better": 20,
+          "districts_tied": 3,
+          "wilcoxon_p": 0.0021469469547629647
+        }
+      ],
+      "selected_on_development": "drop_winter"
+    },
+    "summer": {
+      "development": {
+        "all27": {
+          "overall_accuracy": 0.7475317348377997,
+          "overall_accuracy_ci95": [
+            0.70985455680591,
+            0.7827013045324327
+          ],
+          "kappa": 0.6818096915526416,
+          "macro_f1": 0.7329959800456629,
+          "sample_count": 1418,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.5412844036697247,
+            "Water": 1.0,
+            "Built Area": 0.99,
+            "Open Land": 0.55,
+            "Agriculture": 0.6
+          },
+          "per_class_precision": {
+            "Vegetation": 0.959349593495935,
+            "Water": 0.8403361344537815,
+            "Built Area": 0.7279411764705882,
+            "Open Land": 0.6573705179282868,
+            "Agriculture": 0.6451612903225806
+          }
+        },
+        "drop_winter": {
+          "overall_accuracy": 0.7531734837799718,
+          "overall_accuracy_ci95": [
+            0.712687618671226,
+            0.7914937028689262
+          ],
+          "kappa": 0.6889680482510016,
+          "macro_f1": 0.7394060093449862,
+          "sample_count": 1418,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.5504587155963303,
+            "Water": 1.0,
+            "Built Area": 0.9866666666666667,
+            "Open Land": 0.57,
+            "Agriculture": 0.6033333333333334
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9523809523809523,
+            "Water": 0.847457627118644,
+            "Built Area": 0.7254901960784313,
+            "Open Land": 0.6653696498054474,
+            "Agriculture": 0.663003663003663
+          }
+        },
+        "b22": {
+          "overall_accuracy": 0.7433004231311706,
+          "overall_accuracy_ci95": [
+            0.7053289300435993,
+            0.781273517712197
+          ],
+          "kappa": 0.6764270006093417,
+          "macro_f1": 0.72857299591234,
+          "sample_count": 1418,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.5275229357798165,
+            "Water": 1.0,
+            "Built Area": 0.9833333333333333,
+            "Open Land": 0.5566666666666666,
+            "Agriculture": 0.59
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9583333333333334,
+            "Water": 0.8426966292134831,
+            "Built Area": 0.7393483709273183,
+            "Open Land": 0.6472868217054264,
+            "Agriculture": 0.6210526315789474
+          }
+        },
+        "b19": {
+          "overall_accuracy": 0.7094499294781382,
+          "overall_accuracy_ci95": [
+            0.6753748950188727,
+            0.7421478711030458
+          ],
+          "kappa": 0.6333999746486898,
+          "macro_f1": 0.6858935828550219,
+          "sample_count": 1418,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.43119266055045874,
+            "Water": 1.0,
+            "Built Area": 0.9866666666666667,
+            "Open Land": 0.5066666666666667,
+            "Agriculture": 0.5466666666666666
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9306930693069307,
+            "Water": 0.8021390374331551,
+            "Built Area": 0.7237163814180929,
+            "Open Land": 0.628099173553719,
+            "Agriculture": 0.5616438356164384
+          }
+        },
+        "drop_summer": {
+          "overall_accuracy": 0.7679830747531735,
+          "overall_accuracy_ci95": [
+            0.7257380975876702,
+            0.8083473571241531
+          ],
+          "kappa": 0.7078701639607056,
+          "macro_f1": 0.7574413636360132,
+          "sample_count": 1418,
+          "district_count": 15,
+          "per_class_recall": {
+            "Vegetation": 0.6100917431192661,
+            "Water": 1.0,
+            "Built Area": 0.98,
+            "Open Land": 0.63,
+            "Agriculture": 0.5766666666666667
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9366197183098591,
+            "Water": 0.8426966292134831,
+            "Built Area": 0.765625,
+            "Open Land": 0.6774193548387096,
+            "Agriculture": 0.6731517509727627
+          }
+        }
+      },
+      "test": {
+        "all27": {
+          "overall_accuracy": 0.736255572065379,
+          "overall_accuracy_ci95": [
+            0.7096643968968919,
+            0.7630330864551008
+          ],
+          "kappa": 0.6662191387345904,
+          "macro_f1": 0.7149656484090678,
+          "sample_count": 2692,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.48655913978494625,
+            "Water": 1.0,
+            "Built Area": 0.993103448275862,
+            "Open Land": 0.5741379310344827,
+            "Agriculture": 0.5379310344827586
+          },
+          "per_class_precision": {
+            "Vegetation": 0.923469387755102,
+            "Water": 0.8169014084507042,
+            "Built Area": 0.7413127413127413,
+            "Open Land": 0.6542239685658153,
+            "Agriculture": 0.624
+          }
+        },
+        "drop_winter": {
+          "overall_accuracy": 0.7310549777117384,
+          "overall_accuracy_ci95": [
+            0.7055164273067086,
+            0.7578161620711876
+          ],
+          "kappa": 0.6595509794550601,
+          "macro_f1": 0.7078869833720418,
+          "sample_count": 2692,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.4650537634408602,
+            "Water": 1.0,
+            "Built Area": 0.9913793103448276,
+            "Open Land": 0.5689655172413793,
+            "Agriculture": 0.5344827586206896
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9153439153439153,
+            "Water": 0.8089260808926081,
+            "Built Area": 0.7477243172951885,
+            "Open Land": 0.64453125,
+            "Agriculture": 0.6138613861386139
+          }
+        },
+        "b22": {
+          "overall_accuracy": 0.7236255572065379,
+          "overall_accuracy_ci95": [
+            0.696454092035056,
+            0.7508545710535026
+          ],
+          "kappa": 0.6499428120796548,
+          "macro_f1": 0.6984710429796228,
+          "sample_count": 2692,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.43548387096774194,
+            "Water": 1.0,
+            "Built Area": 0.993103448275862,
+            "Open Land": 0.5793103448275863,
+            "Agriculture": 0.506896551724138
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9364161849710982,
+            "Water": 0.8169014084507042,
+            "Built Area": 0.7480519480519481,
+            "Open Land": 0.632768361581921,
+            "Agriculture": 0.5787401574803149
+          }
+        },
+        "b19": {
+          "overall_accuracy": 0.6894502228826151,
+          "overall_accuracy_ci95": [
+            0.6653384640607272,
+            0.7136257262567094
+          ],
+          "kappa": 0.6062123799658445,
+          "macro_f1": 0.6554920521856065,
+          "sample_count": 2692,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.34946236559139787,
+            "Water": 1.0,
+            "Built Area": 0.9844827586206897,
+            "Open Land": 0.49310344827586206,
+            "Agriculture": 0.4982758620689655
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9154929577464789,
+            "Water": 0.7901907356948229,
+            "Built Area": 0.7358247422680413,
+            "Open Land": 0.5958333333333333,
+            "Agriculture": 0.5160714285714286
+          }
+        },
+        "drop_summer": {
+          "overall_accuracy": 0.7351411589895989,
+          "overall_accuracy_ci95": [
+            0.7070894500288913,
+            0.7616035893752279
+          ],
+          "kappa": 0.6647113653895604,
+          "macro_f1": 0.7120448037529888,
+          "sample_count": 2692,
+          "district_count": 29,
+          "per_class_recall": {
+            "Vegetation": 0.46236559139784944,
+            "Water": 1.0,
+            "Built Area": 0.9879310344827587,
+            "Open Land": 0.6103448275862069,
+            "Agriculture": 0.5172413793103449
+          },
+          "per_class_precision": {
+            "Vegetation": 0.9148936170212766,
+            "Water": 0.8055555555555556,
+            "Built Area": 0.7743243243243243,
+            "Open Land": 0.6507352941176471,
+            "Agriculture": 0.6
+          }
+        }
+      },
+      "test_paired": [
+        {
+          "left": "all27",
+          "right": "drop_winter",
+          "mean_district_oa_difference": 0.005221880929837606,
+          "ci95": [
+            -0.0029448772552104446,
+            0.0132936979785969
+          ],
+          "districts_left_better": 13,
+          "districts_right_better": 11,
+          "districts_tied": 5,
+          "wilcoxon_p": 0.19790092436802054
+        },
+        {
+          "left": "all27",
+          "right": "b22",
+          "mean_district_oa_difference": 0.01243346320236801,
+          "ci95": [
+            0.003312922179775853,
+            0.02163981107850332
+          ],
+          "districts_left_better": 17,
+          "districts_right_better": 6,
+          "districts_tied": 6,
+          "wilcoxon_p": 0.026172893426022737
+        },
+        {
+          "left": "all27",
+          "right": "b19",
+          "mean_district_oa_difference": 0.04603707643080228,
+          "ci95": [
+            0.034624377998750885,
+            0.05788235996075277
+          ],
+          "districts_left_better": 26,
+          "districts_right_better": 1,
+          "districts_tied": 2,
+          "wilcoxon_p": 6.974714339526079e-06
+        },
+        {
+          "left": "all27",
+          "right": "drop_summer",
+          "mean_district_oa_difference": 0.0010669160264449805,
+          "ci95": [
+            -0.008571710715958646,
+            0.010635480794651936
+          ],
+          "districts_left_better": 14,
+          "districts_right_better": 10,
+          "districts_tied": 5,
+          "wilcoxon_p": 0.8301620459684744
+        },
+        {
+          "left": "drop_winter",
+          "right": "b22",
+          "mean_district_oa_difference": 0.007211582272530404,
+          "ci95": [
+            -0.0037769417897026616,
+            0.017471431447125114
+          ],
+          "districts_left_better": 18,
+          "districts_right_better": 8,
+          "districts_tied": 3,
+          "wilcoxon_p": 0.11775944034357963
+        },
+        {
+          "left": "drop_winter",
+          "right": "b19",
+          "mean_district_oa_difference": 0.040815195500964664,
+          "ci95": [
+            0.029214730327968313,
+            0.05268712014482724
+          ],
+          "districts_left_better": 26,
+          "districts_right_better": 3,
+          "districts_tied": 0,
+          "wilcoxon_p": 9.424984455108643e-07
+        },
+        {
+          "left": "drop_winter",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.004154964903392625,
+          "ci95": [
+            -0.015503895106965539,
+            0.00722451209008555
+          ],
+          "districts_left_better": 12,
+          "districts_right_better": 13,
+          "districts_tied": 4,
+          "wilcoxon_p": 0.3255454416824717
+        },
+        {
+          "left": "b22",
+          "right": "b19",
+          "mean_district_oa_difference": 0.03360361322843426,
+          "ci95": [
+            0.025053129784551723,
+            0.042980589230197264
+          ],
+          "districts_left_better": 26,
+          "districts_right_better": 0,
+          "districts_tied": 3,
+          "wilcoxon_p": 8.173692556520414e-06
+        },
+        {
+          "left": "b22",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.011366547175923029,
+          "ci95": [
+            -0.0222610341561048,
+            -3.081548497733383e-05
+          ],
+          "districts_left_better": 8,
+          "districts_right_better": 16,
+          "districts_tied": 5,
+          "wilcoxon_p": 0.05726777455015245
+        },
+        {
+          "left": "b19",
+          "right": "drop_summer",
+          "mean_district_oa_difference": -0.0449701604043573,
+          "ci95": [
+            -0.05653605868562419,
+            -0.03334867852124097
+          ],
+          "districts_left_better": 2,
+          "districts_right_better": 26,
+          "districts_tied": 1,
+          "wilcoxon_p": 6.730827411020947e-06
+        }
+      ],
+      "selected_on_development": "drop_summer"
+    }
+  }
+}

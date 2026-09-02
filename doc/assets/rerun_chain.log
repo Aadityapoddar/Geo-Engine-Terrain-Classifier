@@ -1,0 +1,44 @@
+=== 1. candidate stacks on development ===
+=== 2. candidate stacks on the held-out test districts ===
+=== 3. stack comparison ===
+
+== winter ==
+  all27          27 bands  dev 86.67%  test 85.07% [82.83, 87.28]  open-land recall  69.8%
+  drop_winter    25 bands  dev 86.80%  test 85.34% [83.03, 87.69]  open-land recall  70.2%
+  b22            22 bands  dev 85.73%  test 85.66% [83.45, 87.93]  open-land recall  70.2%
+  b19            19 bands  dev 85.07%  test 85.00% [82.69, 87.38]  open-land recall  68.1%
+  drop_summer    19 bands  dev 86.07%  test 86.48% [84.31, 88.66]  open-land recall  74.0%
+  selected on development: drop_winter (25 bands) -> test 85.34%
+    drop_winter - all27: +0.28 pp [-0.21, +0.69] p=0.067
+    drop_winter - b22: -0.31 pp [-0.93, +0.34] p=0.261
+    drop_winter - b19: +0.34 pp [-0.45, +1.10] p=0.303
+    drop_winter - drop_summer: -1.14 pp [-1.90, -0.48] p=0.006
+
+== summer ==
+  all27          27 bands  dev 74.75%  test 73.63% [70.97, 76.30]  open-land recall  57.4%
+  drop_winter    25 bands  dev 75.32%  test 73.11% [70.55, 75.78]  open-land recall  56.9%
+  b22            22 bands  dev 74.33%  test 72.36% [69.65, 75.09]  open-land recall  57.9%
+  b19            19 bands  dev 70.94%  test 68.95% [66.53, 71.36]  open-land recall  49.3%
+  drop_summer    19 bands  dev 76.80%  test 73.51% [70.71, 76.16]  open-land recall  61.0%
+  selected on development: drop_summer (19 bands) -> test 73.51%
+    drop_summer - all27: -0.11 pp [-1.06, +0.86] p=0.830
+    drop_summer - drop_winter: +0.42 pp [-0.72, +1.55] p=0.326
+    drop_summer - b22: +1.14 pp [+0.00, +2.23] p=0.057
+    drop_summer - b19: +4.50 pp [+3.33, +5.65] p=0.000
+
+wrote doc/assets/band_stack_comparison_v4.json
+=== 4. adopt the winning stack ===
+selected on winter development districts: drop_winter (25 bands)
+  development OA 86.80%  test OA 85.34%
+  adds:    B2, B4, B8, NDVI, NDWI, NDBI, SAVI
+  removes: g_contrast
+wrote /Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py: 25 bands, schema five-class-25-band-v5-drop-winter
+=== 5. retune on the winning stack ===
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/merge_experiment_shards.py", line 26, in <module>
+    from scripts.district_experiments import summarise  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError

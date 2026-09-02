@@ -1,0 +1,89 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+retry district-list attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+retry district-list attempt=2: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+retry district-list attempt=3: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+retry district-list attempt=4: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+retry district-list attempt=5: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/data.py", line 349, in _execute_cloud_call
+    return call.execute(num_retries=num_retries)
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/googleapiclient/_helpers.py", line 130, in positional_wrapper
+    return wrapped(*args, **kwargs)
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/googleapiclient/http.py", line 938, in execute
+    raise HttpError(resp, content, uri=self.uri)
+googleapiclient.errors.HttpError: <HttpError 429 when requesting https://earthengine.googleapis.com/v1/projects/plenary-line-461306-s8/value:compute?prettyPrint=false&alt=json returned "Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode". Details: "Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode">
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/run_sharded_mp_external.py", line 281, in <module>
+    main()
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/run_sharded_mp_external.py", line 277, in main
+    run(args)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/run_sharded_mp_external.py", line 203, in run
+    names = _call_with_retry(
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/run_sharded_mp_external.py", line 72, in _call_with_retry
+    raise error
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/run_sharded_mp_external.py", line 67, in _call_with_retry
+    return function()
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/run_sharded_mp_external.py", line 205, in <lambda>
+    lambda: districts.aggregate_array("ADM2_NAME").sort().getInfo(),
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/computedobject.py", line 107, in getInfo
+    return data.computeValue(self)
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/data.py", line 1064, in computeValue
+    return _execute_cloud_call(
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/data.py", line 351, in _execute_cloud_call
+    raise _translate_cloud_exception(e)  # pylint: disable=raise-missing-from
+ee.ee_exception.EEException: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+evaluate winter:Balaghat classifiers=13 attempt=1
+landed winter:Balaghat samples=100
+evaluate winter:Bhopal classifiers=13 attempt=1
+landed winter:Bhopal samples=100
+evaluate winter:Damoh classifiers=13 attempt=1
+landed winter:Damoh samples=100
+evaluate winter:Dindori classifiers=13 attempt=1
+landed winter:Dindori samples=100
+evaluate winter:Harda classifiers=13 attempt=1
+retry winter:Harda: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Harda classifiers=13 attempt=2
+landed winter:Harda samples=100
+evaluate winter:Jhabua classifiers=13 attempt=1
+landed winter:Jhabua samples=100
+evaluate winter:Morena classifiers=13 attempt=1
+landed winter:Morena samples=100
+evaluate winter:Raisen classifiers=13 attempt=1
+landed winter:Raisen samples=100
+evaluate winter:Sagar classifiers=13 attempt=1
+landed winter:Sagar samples=100
+evaluate winter:Shahdol classifiers=13 attempt=1
+landed winter:Shahdol samples=100
+evaluate winter:Sidhi classifiers=13 attempt=1
+landed winter:Sidhi samples=100
+evaluate winter:Vidisha classifiers=13 attempt=1
+landed winter:Vidisha samples=100
+evaluate summer:Balaghat classifiers=13 attempt=1
+landed summer:Balaghat samples=100
+evaluate summer:Bhopal classifiers=13 attempt=1
+landed summer:Bhopal samples=100
+evaluate summer:Damoh classifiers=13 attempt=1
+landed summer:Damoh samples=80
+evaluate summer:Dindori classifiers=13 attempt=1
+landed summer:Dindori samples=100
+evaluate summer:Harda classifiers=13 attempt=1
+landed summer:Harda samples=84
+evaluate summer:Jhabua classifiers=13 attempt=1
+landed summer:Jhabua samples=100
+evaluate summer:Morena classifiers=13 attempt=1
+landed summer:Morena samples=80
+evaluate summer:Raisen classifiers=13 attempt=1
+landed summer:Raisen samples=94
+evaluate summer:Sagar classifiers=13 attempt=1
+landed summer:Sagar samples=100
+evaluate summer:Shahdol classifiers=13 attempt=1
+landed summer:Shahdol samples=100
+evaluate summer:Sidhi classifiers=13 attempt=1
+landed summer:Sidhi samples=100
+evaluate summer:Vidisha classifiers=13 attempt=1
+landed summer:Vidisha samples=88
+wrote doc/assets/mp_external_shards_v7_worker_2.json

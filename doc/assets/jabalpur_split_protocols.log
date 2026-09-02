@@ -1,0 +1,8 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+random             n= 1509  88.5-95.0%  cart 88.5  gtb 94.8  knn 92.4  rf 89.6  svm 95.0
+spatially_blocked  n= 1616  84.3-89.8%  cart 84.3  gtb 89.8  knn 89.4  rf 88.2  svm 89.4
+wrote /Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/doc/assets/jabalpur_split_protocols.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+random             n= 1482  80.0-91.5%  cart 82.7  gtb 91.5  knn 88.6  rf 80.0  svm 91.5
+spatially_blocked  n= 1616  64.5-80.1%  cart 64.5  gtb 79.6  knn 74.4  rf 71.3  svm 80.1
+wrote /Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/doc/assets/jabalpur_split_protocols.json

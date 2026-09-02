@@ -1,0 +1,58 @@
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:246: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+evaluate winter:Barwani classifiers=10 attempt=1
+landed winter:Barwani samples=100
+evaluate winter:Burhanpur classifiers=10 attempt=1
+landed winter:Burhanpur samples=100
+evaluate winter:Datia classifiers=10 attempt=1
+landed winter:Datia samples=100
+evaluate winter:East Nimar classifiers=10 attempt=1
+landed winter:East Nimar samples=100
+evaluate winter:Hoshangabad classifiers=10 attempt=1
+landed winter:Hoshangabad samples=100
+evaluate winter:Katni classifiers=10 attempt=1
+landed winter:Katni samples=99
+evaluate winter:Narsinghpur classifiers=10 attempt=1
+landed winter:Narsinghpur samples=100
+evaluate winter:Rajgarh classifiers=10 attempt=1
+landed winter:Rajgarh samples=100
+evaluate winter:Satna classifiers=10 attempt=1
+landed winter:Satna samples=100
+evaluate winter:Shajapur classifiers=10 attempt=1
+landed winter:Shajapur samples=100
+evaluate winter:Tikamgarh classifiers=10 attempt=1
+landed winter:Tikamgarh samples=100
+evaluate winter:West Nimar classifiers=10 attempt=1
+landed winter:West Nimar samples=100
+evaluate summer:Barwani classifiers=10 attempt=1
+landed summer:Barwani samples=100
+evaluate summer:Burhanpur classifiers=10 attempt=1
+landed summer:Burhanpur samples=80
+evaluate summer:Datia classifiers=10 attempt=1
+landed summer:Datia samples=100
+evaluate summer:East Nimar classifiers=10 attempt=1
+landed summer:East Nimar samples=80
+evaluate summer:Hoshangabad classifiers=10 attempt=1
+landed summer:Hoshangabad samples=100
+evaluate summer:Katni classifiers=10 attempt=1
+landed summer:Katni samples=98
+evaluate summer:Narsinghpur classifiers=10 attempt=1
+landed summer:Narsinghpur samples=100
+evaluate summer:Rajgarh classifiers=10 attempt=1
+landed summer:Rajgarh samples=100
+evaluate summer:Satna classifiers=10 attempt=1
+landed summer:Satna samples=100
+evaluate summer:Shajapur classifiers=10 attempt=1
+landed summer:Shajapur samples=100
+evaluate summer:Tikamgarh classifiers=10 attempt=1
+landed summer:Tikamgarh samples=100
+evaluate summer:West Nimar classifiers=10 attempt=1
+landed summer:West Nimar samples=100
+wrote doc/assets/mp_external_shards_v5_worker_3.json

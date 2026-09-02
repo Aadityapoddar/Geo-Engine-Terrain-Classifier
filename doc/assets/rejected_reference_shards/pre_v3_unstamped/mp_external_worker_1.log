@@ -1,0 +1,107 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Ashoknagar
+skip winter:Bhind
+evaluate winter:Chhindwara classifiers=10 attempt=1
+retry winter:Chhindwara: Computation timed out.
+evaluate winter:Chhindwara classifiers=10 attempt=2
+landed winter:Chhindwara samples=100
+evaluate winter:Dhar classifiers=10 attempt=1
+landed winter:Dhar samples=100
+evaluate winter:Gwalior classifiers=10 attempt=1
+landed winter:Gwalior samples=100
+evaluate winter:Jabalpur classifiers=10 attempt=1
+landed winter:Jabalpur samples=91
+evaluate winter:Mandsaur classifiers=10 attempt=1
+landed winter:Mandsaur samples=100
+evaluate winter:Panna classifiers=10 attempt=1
+landed winter:Panna samples=100
+evaluate winter:Rewa classifiers=10 attempt=1
+landed winter:Rewa samples=100
+evaluate winter:Seoni classifiers=10 attempt=1
+landed winter:Seoni samples=100
+evaluate winter:Shivpuri classifiers=10 attempt=1
+landed winter:Shivpuri samples=100
+evaluate winter:Umaria classifiers=10 attempt=1
+landed winter:Umaria samples=100
+evaluate summer:Ashoknagar classifiers=10 attempt=1
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Ashoknagar
+skip winter:Bhind
+skip winter:Chhindwara
+skip winter:Dhar
+skip winter:Gwalior
+skip winter:Jabalpur
+skip winter:Mandsaur
+skip winter:Panna
+skip winter:Rewa
+skip winter:Seoni
+skip winter:Shivpuri
+skip winter:Umaria
+evaluate summer:Ashoknagar classifiers=10 attempt=1
+landed summer:Ashoknagar samples=100
+evaluate summer:Bhind classifiers=10 attempt=1
+landed summer:Bhind samples=100
+evaluate summer:Chhindwara classifiers=10 attempt=1
+retry summer:Chhindwara: Computation timed out.
+evaluate summer:Chhindwara classifiers=10 attempt=2
+retry summer:Chhindwara: Computation timed out.
+evaluate summer:Chhindwara classifiers=10 attempt=3
+landed summer:Chhindwara samples=100
+evaluate summer:Dhar classifiers=10 attempt=1
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Ashoknagar
+skip winter:Bhind
+skip winter:Chhindwara
+skip winter:Dhar
+skip winter:Gwalior
+skip winter:Jabalpur
+skip winter:Mandsaur
+skip winter:Panna
+skip winter:Rewa
+skip winter:Seoni
+skip winter:Shivpuri
+skip winter:Umaria
+skip summer:Ashoknagar
+skip summer:Bhind
+skip summer:Chhindwara
+evaluate summer:Dhar classifiers=10 attempt=1
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=10 attempt=2
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=10 attempt=3
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+split summer:Dhar classifiers=10
+evaluate summer:Dhar classifiers=5 attempt=1
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=5 attempt=2
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=5 attempt=3
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+split summer:Dhar classifiers=5
+evaluate summer:Dhar classifiers=2 attempt=1
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=2 attempt=2
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=2 attempt=3
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+split summer:Dhar classifiers=2
+evaluate summer:Dhar classifiers=1 attempt=1
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.
+evaluate summer:Dhar classifiers=1 attempt=2
+retry summer:Dhar: Collection.loadTable: Collection asset 'users/ashutoshsaxena703/jabalpur_barren_land_points' not found.

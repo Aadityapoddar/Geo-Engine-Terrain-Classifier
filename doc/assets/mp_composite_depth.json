@@ -1,0 +1,786 @@
+{
+  "training_schema_version": "five-class-19-band-v4-matched-windows",
+  "seasons": {
+    "winter": {
+      "start": "2025-01-01",
+      "end": "2025-03-01"
+    },
+    "summer": {
+      "start": "2025-04-01",
+      "end": "2025-05-30"
+    }
+  },
+  "cloud_threshold": 15,
+  "scale_m": 100,
+  "records": {
+    "winter:Anuppur": {
+      "s1_scenes": 5,
+      "s2_scenes": 75,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Anuppur",
+      "s1_missing": false
+    },
+    "winter:Ashoknagar": {
+      "s1_scenes": 10,
+      "s2_scenes": 44,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Ashoknagar",
+      "s1_missing": false
+    },
+    "winter:Balaghat": {
+      "s1_scenes": 15,
+      "s2_scenes": 53,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Balaghat",
+      "s1_missing": false
+    },
+    "winter:Barwani": {
+      "s1_scenes": 10,
+      "s2_scenes": 37,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Barwani",
+      "s1_missing": false
+    },
+    "winter:Betul": {
+      "s1_scenes": 15,
+      "s2_scenes": 56,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Betul",
+      "s1_missing": false
+    },
+    "winter:Bhind": {
+      "s1_scenes": 10,
+      "s2_scenes": 39,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Bhind",
+      "s1_missing": false
+    },
+    "winter:Bhopal": {
+      "s1_scenes": 5,
+      "s2_scenes": 14,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Bhopal",
+      "s1_missing": false
+    },
+    "winter:Burhanpur": {
+      "s1_scenes": 15,
+      "s2_scenes": 24,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Burhanpur",
+      "s1_missing": false
+    },
+    "winter:Chhatarpur": {
+      "s1_scenes": 15,
+      "s2_scenes": 104,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Chhatarpur",
+      "s1_missing": false
+    },
+    "winter:Chhindwara": {
+      "s1_scenes": 15,
+      "s2_scenes": 167,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Chhindwara",
+      "s1_missing": false
+    },
+    "winter:Damoh": {
+      "s1_scenes": 10,
+      "s2_scenes": 63,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Damoh",
+      "s1_missing": false
+    },
+    "winter:Datia": {
+      "s1_scenes": 20,
+      "s2_scenes": 23,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Datia",
+      "s1_missing": false
+    },
+    "winter:Dewas": {
+      "s1_scenes": 20,
+      "s2_scenes": 68,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Dewas",
+      "s1_missing": false
+    },
+    "winter:Dhar": {
+      "s1_scenes": 5,
+      "s2_scenes": 40,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Dhar",
+      "s1_missing": false
+    },
+    "winter:Dindori": {
+      "s1_scenes": 10,
+      "s2_scenes": 61,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Dindori",
+      "s1_missing": false
+    },
+    "winter:East Nimar": {
+      "s1_scenes": 20,
+      "s2_scenes": 60,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "East Nimar",
+      "s1_missing": false
+    },
+    "winter:Guna": {
+      "s1_scenes": 20,
+      "s2_scenes": 68,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Guna",
+      "s1_missing": false
+    },
+    "winter:Gwalior": {
+      "s1_scenes": 10,
+      "s2_scenes": 53,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Gwalior",
+      "s1_missing": false
+    },
+    "winter:Harda": {
+      "s1_scenes": 5,
+      "s2_scenes": 40,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Harda",
+      "s1_missing": false
+    },
+    "winter:Hoshangabad": {
+      "s1_scenes": 20,
+      "s2_scenes": 54,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Hoshangabad",
+      "s1_missing": false
+    },
+    "winter:Indore": {
+      "s1_scenes": 10,
+      "s2_scenes": 36,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Indore",
+      "s1_missing": false
+    },
+    "winter:Jabalpur": {
+      "s1_scenes": 10,
+      "s2_scenes": 36,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Jabalpur",
+      "s1_missing": false
+    },
+    "winter:Jhabua": {
+      "s1_scenes": 20,
+      "s2_scenes": 82,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Jhabua",
+      "s1_missing": false
+    },
+    "winter:Katni": {
+      "s1_scenes": 20,
+      "s2_scenes": 36,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Katni",
+      "s1_missing": false
+    },
+    "winter:Mandla": {
+      "s1_scenes": 20,
+      "s2_scenes": 39,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Mandla",
+      "s1_missing": false
+    },
+    "winter:Mandsaur": {
+      "s1_scenes": 5,
+      "s2_scenes": 36,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Mandsaur",
+      "s1_missing": false
+    },
+    "winter:Morena": {
+      "s1_scenes": 20,
+      "s2_scenes": 38,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Morena",
+      "s1_missing": false
+    },
+    "winter:Narsinghpur": {
+      "s1_scenes": 15,
+      "s2_scenes": 45,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Narsinghpur",
+      "s1_missing": false
+    },
+    "winter:Neemuch": {
+      "s1_scenes": 15,
+      "s2_scenes": 53,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Neemuch",
+      "s1_missing": false
+    },
+    "winter:Panna": {
+      "s1_scenes": 15,
+      "s2_scenes": 52,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Panna",
+      "s1_missing": false
+    },
+    "winter:Raisen": {
+      "s1_scenes": 15,
+      "s2_scenes": 48,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Raisen",
+      "s1_missing": false
+    },
+    "winter:Rajgarh": {
+      "s1_scenes": 10,
+      "s2_scenes": 66,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Rajgarh",
+      "s1_missing": false
+    },
+    "winter:Ratlam": {
+      "s1_scenes": 15,
+      "s2_scenes": 46,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Ratlam",
+      "s1_missing": false
+    },
+    "winter:Rewa": {
+      "s1_scenes": 15,
+      "s2_scenes": 47,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Rewa",
+      "s1_missing": false
+    },
+    "winter:Sagar": {
+      "s1_scenes": 20,
+      "s2_scenes": 104,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Sagar",
+      "s1_missing": false
+    },
+    "winter:Satna": {
+      "s1_scenes": 10,
+      "s2_scenes": 33,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Satna",
+      "s1_missing": false
+    },
+    "winter:Sehore": {
+      "s1_scenes": 20,
+      "s2_scenes": 84,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Sehore",
+      "s1_missing": false
+    },
+    "winter:Seoni": {
+      "s1_scenes": 15,
+      "s2_scenes": 69,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Seoni",
+      "s1_missing": false
+    },
+    "winter:Shahdol": {
+      "s1_scenes": 10,
+      "s2_scenes": 56,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Shahdol",
+      "s1_missing": false
+    },
+    "winter:Shajapur": {
+      "s1_scenes": 15,
+      "s2_scenes": 83,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Shajapur",
+      "s1_missing": false
+    },
+    "winter:Sheopur": {
+      "s1_scenes": 15,
+      "s2_scenes": 59,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Sheopur",
+      "s1_missing": false
+    },
+    "winter:Shivpuri": {
+      "s1_scenes": 10,
+      "s2_scenes": 69,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Shivpuri",
+      "s1_missing": false
+    },
+    "winter:Sidhi": {
+      "s1_scenes": 10,
+      "s2_scenes": 66,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Sidhi",
+      "s1_missing": false
+    },
+    "winter:Tikamgarh": {
+      "s1_scenes": 10,
+      "s2_scenes": 47,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Tikamgarh",
+      "s1_missing": false
+    },
+    "winter:Ujjain": {
+      "s1_scenes": 10,
+      "s2_scenes": 35,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Ujjain",
+      "s1_missing": false
+    },
+    "winter:Umaria": {
+      "s1_scenes": 20,
+      "s2_scenes": 37,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Umaria",
+      "s1_missing": false
+    },
+    "winter:Vidisha": {
+      "s1_scenes": 5,
+      "s2_scenes": 62,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "Vidisha",
+      "s1_missing": false
+    },
+    "winter:West Nimar": {
+      "s1_scenes": 20,
+      "s2_scenes": 53,
+      "s2_valid_fraction": 1,
+      "season": "winter",
+      "district": "West Nimar",
+      "s1_missing": false
+    },
+    "summer:Anuppur": {
+      "s1_scenes": 5,
+      "s2_scenes": 70,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Anuppur",
+      "s1_missing": false
+    },
+    "summer:Ashoknagar": {
+      "s1_scenes": 10,
+      "s2_scenes": 47,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Ashoknagar",
+      "s1_missing": false
+    },
+    "summer:Balaghat": {
+      "s1_scenes": 15,
+      "s2_scenes": 42,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Balaghat",
+      "s1_missing": false
+    },
+    "summer:Barwani": {
+      "s1_scenes": 10,
+      "s2_scenes": 38,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Barwani",
+      "s1_missing": false
+    },
+    "summer:Betul": {
+      "s1_scenes": 15,
+      "s2_scenes": 49,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Betul",
+      "s1_missing": false
+    },
+    "summer:Bhind": {
+      "s1_scenes": 10,
+      "s2_scenes": 38,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Bhind",
+      "s1_missing": false
+    },
+    "summer:Bhopal": {
+      "s1_scenes": 5,
+      "s2_scenes": 14,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Bhopal",
+      "s1_missing": false
+    },
+    "summer:Burhanpur": {
+      "s1_scenes": 15,
+      "s2_scenes": 24,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Burhanpur",
+      "s1_missing": false
+    },
+    "summer:Chhatarpur": {
+      "s1_scenes": 15,
+      "s2_scenes": 109,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Chhatarpur",
+      "s1_missing": false
+    },
+    "summer:Chhindwara": {
+      "s1_scenes": 15,
+      "s2_scenes": 148,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Chhindwara",
+      "s1_missing": false
+    },
+    "summer:Damoh": {
+      "s1_scenes": 10,
+      "s2_scenes": 60,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Damoh",
+      "s1_missing": false
+    },
+    "summer:Datia": {
+      "s1_scenes": 20,
+      "s2_scenes": 21,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Datia",
+      "s1_missing": false
+    },
+    "summer:Dewas": {
+      "s1_scenes": 20,
+      "s2_scenes": 63,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Dewas",
+      "s1_missing": false
+    },
+    "summer:Dhar": {
+      "s1_scenes": 5,
+      "s2_scenes": 40,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Dhar",
+      "s1_missing": false
+    },
+    "summer:Dindori": {
+      "s1_scenes": 10,
+      "s2_scenes": 46,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Dindori",
+      "s1_missing": false
+    },
+    "summer:East Nimar": {
+      "s1_scenes": 20,
+      "s2_scenes": 58,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "East Nimar",
+      "s1_missing": false
+    },
+    "summer:Guna": {
+      "s1_scenes": 20,
+      "s2_scenes": 64,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Guna",
+      "s1_missing": false
+    },
+    "summer:Gwalior": {
+      "s1_scenes": 10,
+      "s2_scenes": 52,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Gwalior",
+      "s1_missing": false
+    },
+    "summer:Harda": {
+      "s1_scenes": 5,
+      "s2_scenes": 37,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Harda",
+      "s1_missing": false
+    },
+    "summer:Hoshangabad": {
+      "s1_scenes": 20,
+      "s2_scenes": 43,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Hoshangabad",
+      "s1_missing": false
+    },
+    "summer:Indore": {
+      "s1_scenes": 10,
+      "s2_scenes": 32,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Indore",
+      "s1_missing": false
+    },
+    "summer:Jabalpur": {
+      "s1_scenes": 10,
+      "s2_scenes": 35,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Jabalpur",
+      "s1_missing": false
+    },
+    "summer:Jhabua": {
+      "s1_scenes": 20,
+      "s2_scenes": 86,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Jhabua",
+      "s1_missing": false
+    },
+    "summer:Katni": {
+      "s1_scenes": 20,
+      "s2_scenes": 38,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Katni",
+      "s1_missing": false
+    },
+    "summer:Mandla": {
+      "s1_scenes": 20,
+      "s2_scenes": 36,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Mandla",
+      "s1_missing": false
+    },
+    "summer:Mandsaur": {
+      "s1_scenes": 5,
+      "s2_scenes": 43,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Mandsaur",
+      "s1_missing": false
+    },
+    "summer:Morena": {
+      "s1_scenes": 20,
+      "s2_scenes": 38,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Morena",
+      "s1_missing": false
+    },
+    "summer:Narsinghpur": {
+      "s1_scenes": 15,
+      "s2_scenes": 42,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Narsinghpur",
+      "s1_missing": false
+    },
+    "summer:Neemuch": {
+      "s1_scenes": 15,
+      "s2_scenes": 66,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Neemuch",
+      "s1_missing": false
+    },
+    "summer:Panna": {
+      "s1_scenes": 15,
+      "s2_scenes": 52,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Panna",
+      "s1_missing": false
+    },
+    "summer:Raisen": {
+      "s1_scenes": 15,
+      "s2_scenes": 43,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Raisen",
+      "s1_missing": false
+    },
+    "summer:Rajgarh": {
+      "s1_scenes": 10,
+      "s2_scenes": 59,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Rajgarh",
+      "s1_missing": false
+    },
+    "summer:Ratlam": {
+      "s1_scenes": 15,
+      "s2_scenes": 54,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Ratlam",
+      "s1_missing": false
+    },
+    "summer:Rewa": {
+      "s1_scenes": 15,
+      "s2_scenes": 48,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Rewa",
+      "s1_missing": false
+    },
+    "summer:Sagar": {
+      "s1_scenes": 20,
+      "s2_scenes": 100,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Sagar",
+      "s1_missing": false
+    },
+    "summer:Satna": {
+      "s1_scenes": 10,
+      "s2_scenes": 33,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Satna",
+      "s1_missing": false
+    },
+    "summer:Sehore": {
+      "s1_scenes": 20,
+      "s2_scenes": 74,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Sehore",
+      "s1_missing": false
+    },
+    "summer:Seoni": {
+      "s1_scenes": 15,
+      "s2_scenes": 59,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Seoni",
+      "s1_missing": false
+    },
+    "summer:Shahdol": {
+      "s1_scenes": 10,
+      "s2_scenes": 51,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Shahdol",
+      "s1_missing": false
+    },
+    "summer:Shajapur": {
+      "s1_scenes": 15,
+      "s2_scenes": 81,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Shajapur",
+      "s1_missing": false
+    },
+    "summer:Sheopur": {
+      "s1_scenes": 15,
+      "s2_scenes": 67,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Sheopur",
+      "s1_missing": false
+    },
+    "summer:Shivpuri": {
+      "s1_scenes": 10,
+      "s2_scenes": 70,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Shivpuri",
+      "s1_missing": false
+    },
+    "summer:Sidhi": {
+      "s1_scenes": 9,
+      "s2_scenes": 70,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Sidhi",
+      "s1_missing": false
+    },
+    "summer:Tikamgarh": {
+      "s1_scenes": 10,
+      "s2_scenes": 47,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Tikamgarh",
+      "s1_missing": false
+    },
+    "summer:Ujjain": {
+      "s1_scenes": 10,
+      "s2_scenes": 37,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Ujjain",
+      "s1_missing": false
+    },
+    "summer:Umaria": {
+      "s1_scenes": 20,
+      "s2_scenes": 32,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Umaria",
+      "s1_missing": false
+    },
+    "summer:Vidisha": {
+      "s1_scenes": 5,
+      "s2_scenes": 52,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "Vidisha",
+      "s1_missing": false
+    },
+    "summer:West Nimar": {
+      "s1_scenes": 20,
+      "s2_scenes": 51,
+      "s2_valid_fraction": 1,
+      "season": "summer",
+      "district": "West Nimar",
+      "s1_missing": false
+    }
+  },
+  "updated_at": "2026-09-01T16:54:04.349073+00:00"
+}

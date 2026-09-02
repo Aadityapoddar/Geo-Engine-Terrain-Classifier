@@ -1,0 +1,53 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+retry district-list attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Anuppur classifiers=13 attempt=1
+retry winter:Anuppur: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Anuppur classifiers=13 attempt=2
+landed winter:Anuppur samples=100
+evaluate winter:Betul classifiers=13 attempt=1
+landed winter:Betul samples=100
+evaluate winter:Chhatarpur classifiers=13 attempt=1
+landed winter:Chhatarpur samples=100
+evaluate winter:Dewas classifiers=13 attempt=1
+landed winter:Dewas samples=100
+evaluate winter:Guna classifiers=13 attempt=1
+landed winter:Guna samples=100
+evaluate winter:Indore classifiers=13 attempt=1
+landed winter:Indore samples=100
+evaluate winter:Mandla classifiers=13 attempt=1
+landed winter:Mandla samples=100
+evaluate winter:Neemuch classifiers=13 attempt=1
+landed winter:Neemuch samples=100
+evaluate winter:Ratlam classifiers=13 attempt=1
+landed winter:Ratlam samples=100
+evaluate winter:Sehore classifiers=13 attempt=1
+landed winter:Sehore samples=100
+evaluate winter:Sheopur classifiers=13 attempt=1
+landed winter:Sheopur samples=100
+evaluate winter:Ujjain classifiers=13 attempt=1
+landed winter:Ujjain samples=100
+evaluate summer:Anuppur classifiers=13 attempt=1
+landed summer:Anuppur samples=100
+evaluate summer:Betul classifiers=13 attempt=1
+landed summer:Betul samples=100
+evaluate summer:Chhatarpur classifiers=13 attempt=1
+landed summer:Chhatarpur samples=87
+evaluate summer:Dewas classifiers=13 attempt=1
+landed summer:Dewas samples=80
+evaluate summer:Guna classifiers=13 attempt=1
+landed summer:Guna samples=100
+evaluate summer:Indore classifiers=13 attempt=1
+landed summer:Indore samples=100
+evaluate summer:Mandla classifiers=13 attempt=1
+landed summer:Mandla samples=100
+evaluate summer:Neemuch classifiers=13 attempt=1
+landed summer:Neemuch samples=80
+evaluate summer:Ratlam classifiers=13 attempt=1
+landed summer:Ratlam samples=80
+evaluate summer:Sehore classifiers=13 attempt=1
+landed summer:Sehore samples=100
+evaluate summer:Sheopur classifiers=13 attempt=1
+landed summer:Sheopur samples=100
+evaluate summer:Ujjain classifiers=13 attempt=1
+landed summer:Ujjain samples=80
+wrote doc/assets/mp_external_shards_v7_worker_0.json

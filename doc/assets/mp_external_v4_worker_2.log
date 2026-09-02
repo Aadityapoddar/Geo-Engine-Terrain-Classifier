@@ -1,0 +1,62 @@
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/google/api_core/_python_version_support.py:246: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+evaluate winter:Balaghat classifiers=10 attempt=1
+landed winter:Balaghat samples=100
+evaluate winter:Bhopal classifiers=10 attempt=1
+landed winter:Bhopal samples=100
+evaluate winter:Damoh classifiers=10 attempt=1
+landed winter:Damoh samples=100
+evaluate winter:Dindori classifiers=10 attempt=1
+landed winter:Dindori samples=100
+evaluate winter:Harda classifiers=10 attempt=1
+landed winter:Harda samples=100
+evaluate winter:Jhabua classifiers=10 attempt=1
+retry winter:Jhabua: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Jhabua classifiers=10 attempt=2
+landed winter:Jhabua samples=100
+evaluate winter:Morena classifiers=10 attempt=1
+landed winter:Morena samples=100
+evaluate winter:Raisen classifiers=10 attempt=1
+landed winter:Raisen samples=100
+evaluate winter:Sagar classifiers=10 attempt=1
+landed winter:Sagar samples=100
+evaluate winter:Shahdol classifiers=10 attempt=1
+landed winter:Shahdol samples=100
+evaluate winter:Sidhi classifiers=10 attempt=1
+landed winter:Sidhi samples=100
+evaluate winter:Vidisha classifiers=10 attempt=1
+landed winter:Vidisha samples=100
+evaluate summer:Balaghat classifiers=10 attempt=1
+landed summer:Balaghat samples=100
+evaluate summer:Bhopal classifiers=10 attempt=1
+landed summer:Bhopal samples=100
+evaluate summer:Damoh classifiers=10 attempt=1
+retry summer:Damoh: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate summer:Damoh classifiers=10 attempt=2
+landed summer:Damoh samples=84
+evaluate summer:Dindori classifiers=10 attempt=1
+landed summer:Dindori samples=100
+evaluate summer:Harda classifiers=10 attempt=1
+landed summer:Harda samples=86
+evaluate summer:Jhabua classifiers=10 attempt=1
+landed summer:Jhabua samples=100
+evaluate summer:Morena classifiers=10 attempt=1
+landed summer:Morena samples=93
+evaluate summer:Raisen classifiers=10 attempt=1
+landed summer:Raisen samples=82
+evaluate summer:Sagar classifiers=10 attempt=1
+landed summer:Sagar samples=100
+evaluate summer:Shahdol classifiers=10 attempt=1
+landed summer:Shahdol samples=100
+evaluate summer:Sidhi classifiers=10 attempt=1
+landed summer:Sidhi samples=100
+evaluate summer:Vidisha classifiers=10 attempt=1
+landed summer:Vidisha samples=83
+wrote doc/assets/mp_external_shards_v4_worker_2.json

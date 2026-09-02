@@ -1,0 +1,6355 @@
+{
+  "training_schema_version": "five-class-19-band-v5-drop-summer",
+  "bootstrap_replicates": 5000,
+  "bootstrap_seed": 20260901,
+  "resampling_unit": "district",
+  "district_splits": {
+    "development": [
+      "Barwani",
+      "Damoh",
+      "Harda",
+      "Hoshangabad",
+      "Jhabua",
+      "Mandsaur",
+      "Neemuch",
+      "Rajgarh",
+      "Rewa",
+      "Sehore",
+      "Shajapur",
+      "Sheopur",
+      "Shivpuri",
+      "Tikamgarh",
+      "West Nimar"
+    ],
+    "test": [
+      "Anuppur",
+      "Ashoknagar",
+      "Balaghat",
+      "Betul",
+      "Bhind",
+      "Bhopal",
+      "Burhanpur",
+      "Chhatarpur",
+      "Chhindwara",
+      "Datia",
+      "Dewas",
+      "Dhar",
+      "East Nimar",
+      "Guna",
+      "Gwalior",
+      "Indore",
+      "Morena",
+      "Narsinghpur",
+      "Panna",
+      "Raisen",
+      "Ratlam",
+      "Sagar",
+      "Satna",
+      "Seoni",
+      "Shahdol",
+      "Sidhi",
+      "Ujjain",
+      "Umaria",
+      "Vidisha"
+    ],
+    "training": [
+      "Jabalpur",
+      "Katni",
+      "Dindori",
+      "Mandla"
+    ]
+  },
+  "protocol": "Classifier and feature-stack choices are read from the development districts. The test districts are scored once with whatever those choices produced and are never consulted before that. Districts holding training points are excluded from both.",
+  "seasons": {
+    "summer": {
+      "development": {
+        "districts": [
+          "Barwani",
+          "Damoh",
+          "Harda",
+          "Hoshangabad",
+          "Jhabua",
+          "Mandsaur",
+          "Neemuch",
+          "Rajgarh",
+          "Rewa",
+          "Sehore",
+          "Shajapur",
+          "Sheopur",
+          "Shivpuri",
+          "Tikamgarh",
+          "West Nimar"
+        ],
+        "pooled": {
+          "after-cart": {
+            "confusion_matrix": [
+              [
+                58,
+                39,
+                0,
+                0,
+                121
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                296,
+                3,
+                1
+              ],
+              [
+                1,
+                23,
+                132,
+                141,
+                3
+              ],
+              [
+                12,
+                13,
+                95,
+                95,
+                85
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.6205923836389281,
+            "overall_accuracy_ci95": [
+              0.57836845913699,
+              0.6598226072667043
+            ],
+            "kappa": 0.5205443120870116,
+            "kappa_ci95": [
+              0.4672903846067917,
+              0.569456477769459
+            ],
+            "macro_f1": 0.5732233924925626,
+            "macro_f1_ci95": [
+              0.5148498688014896,
+              0.6237238226837735
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.40138408304498274,
+              "Water": 0.888888888888889,
+              "Built Area": 0.7193195625759417,
+              "Open Land": 0.523191094619666,
+              "Agriculture": 0.3333333333333333
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.22222222222222224,
+                0.5600056022408963
+              ],
+              "Water": [
+                0.8426966292134831,
+                0.9345794392523363
+              ],
+              "Built Area": [
+                0.6834285714285714,
+                0.7586272536320672
+              ],
+              "Open Land": [
+                0.41324143692564747,
+                0.6215313240082889
+              ],
+              "Agriculture": [
+                0.270582972751725,
+                0.4069801911940435
+              ]
+            }
+          },
+          "after-gtb": {
+            "confusion_matrix": [
+              [
+                124,
+                22,
+                2,
+                0,
+                70
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                296,
+                2,
+                1
+              ],
+              [
+                0,
+                16,
+                86,
+                177,
+                21
+              ],
+              [
+                9,
+                12,
+                19,
+                90,
+                170
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7524682651622003,
+            "overall_accuracy_ci95": [
+              0.7128369610960441,
+              0.7897261105777
+            ],
+            "kappa": 0.6881915513428516,
+            "kappa_ci95": [
+              0.6379493528022656,
+              0.7349525996336415
+            ],
+            "macro_f1": 0.7394886549538884,
+            "macro_f1_ci95": [
+              0.694444151472378,
+              0.7811824818301408
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7065527065527066,
+              "Water": 0.9216589861751151,
+              "Built Area": 0.8421052631578948,
+              "Open Land": 0.6221441124780316,
+              "Agriculture": 0.604982206405694
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.5989792880867331,
+                0.7991754756871032
+              ],
+              "Water": [
+                0.888888888888889,
+                0.9523809523809523
+              ],
+              "Built Area": [
+                0.804945054945055,
+                0.8810634779539601
+              ],
+              "Open Land": [
+                0.5374755935280876,
+                0.7050892060660123
+              ],
+              "Agriculture": [
+                0.5232959487720467,
+                0.6758171294713591
+              ]
+            }
+          },
+          "after-gtb-b19": {
+            "confusion_matrix": [
+              [
+                100,
+                25,
+                0,
+                0,
+                93
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                298,
+                1,
+                0
+              ],
+              [
+                0,
+                17,
+                95,
+                128,
+                60
+              ],
+              [
+                4,
+                15,
+                21,
+                90,
+                170
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7023977433004231,
+            "overall_accuracy_ci95": [
+              0.6685011445218758,
+              0.7335196528716071
+            ],
+            "kappa": 0.6245598713054914,
+            "kappa_ci95": [
+              0.5817791979858538,
+              0.6639429887811322
+            ],
+            "macro_f1": 0.6813417319617311,
+            "macro_f1_ci95": [
+              0.6407182415188148,
+              0.7176690625334352
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.6211180124223603,
+              "Water": 0.9118541033434651,
+              "Built Area": 0.834733893557423,
+              "Open Land": 0.49325626204238915,
+              "Agriculture": 0.5457463884430176
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.49813909420971175,
+                0.7164179104477612
+              ],
+              "Water": [
+                0.8797653958944281,
+                0.9448818897637796
+              ],
+              "Built Area": [
+                0.7957276368491321,
+                0.8751835535976504
+              ],
+              "Open Land": [
+                0.4189422246159715,
+                0.5677203447547027
+              ],
+              "Agriculture": [
+                0.46938534468905674,
+                0.6183600891861761
+              ]
+            }
+          },
+          "after-gtb-b22": {
+            "confusion_matrix": [
+              [
+                92,
+                26,
+                1,
+                0,
+                99
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                298,
+                1,
+                0
+              ],
+              [
+                0,
+                13,
+                89,
+                156,
+                42
+              ],
+              [
+                4,
+                12,
+                22,
+                92,
+                170
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7165021156558533,
+            "overall_accuracy_ci95": [
+              0.681159166387374,
+              0.7473615658453867
+            ],
+            "kappa": 0.6422059809339214,
+            "kappa_ci95": [
+              0.5979438702423735,
+              0.6813546364015901
+            ],
+            "macro_f1": 0.6940880204701471,
+            "macro_f1_ci95": [
+              0.6521648998281707,
+              0.7306378898627649
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5859872611464969,
+              "Water": 0.9202453987730062,
+              "Built Area": 0.8394366197183097,
+              "Open Land": 0.5683060109289617,
+              "Agriculture": 0.5564648117839607
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.46241939859351844,
+                0.6853287922452186
+              ],
+              "Water": [
+                0.8875739644970414,
+                0.9538950715421304
+              ],
+              "Built Area": [
+                0.8027027027027027,
+                0.8764705882352942
+              ],
+              "Open Land": [
+                0.49070457931303346,
+                0.6431131329889027
+              ],
+              "Agriculture": [
+                0.48322093959731544,
+                0.6256077795786061
+              ]
+            }
+          },
+          "after-gtb-b27": {
+            "confusion_matrix": [
+              [
+                116,
+                23,
+                0,
+                0,
+                79
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                298,
+                1,
+                0
+              ],
+              [
+                0,
+                15,
+                98,
+                157,
+                30
+              ],
+              [
+                5,
+                12,
+                18,
+                87,
+                178
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7397743300423131,
+            "overall_accuracy_ci95": [
+              0.7001359832635984,
+              0.7752075105930931
+            ],
+            "kappa": 0.6719991775563141,
+            "kappa_ci95": [
+              0.6226342069173211,
+              0.7172989791992794
+            ],
+            "macro_f1": 0.724675808996566,
+            "macro_f1_ci95": [
+              0.6783001727243675,
+              0.7653280086871461
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.6843657817109144,
+              "Water": 0.9216589861751151,
+              "Built Area": 0.834733893557423,
+              "Open Land": 0.5761467889908257,
+              "Agriculture": 0.606473594548552
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.5649570466682147,
+                0.7794915254237288
+              ],
+              "Water": [
+                0.8902077151335311,
+                0.9508716323296355
+              ],
+              "Built Area": [
+                0.7978580990629183,
+                0.8717201166180758
+              ],
+              "Open Land": [
+                0.4904906264221853,
+                0.660482374768089
+              ],
+              "Agriculture": [
+                0.5285700706137968,
+                0.6790572248870032
+              ]
+            }
+          },
+          "after-knn": {
+            "confusion_matrix": [
+              [
+                113,
+                13,
+                0,
+                0,
+                92
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                1,
+                295,
+                0,
+                2
+              ],
+              [
+                0,
+                14,
+                94,
+                176,
+                16
+              ],
+              [
+                19,
+                7,
+                34,
+                105,
+                135
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7186177715091678,
+            "overall_accuracy_ci95": [
+              0.6779416181241321,
+              0.7550158054302907
+            ],
+            "kappa": 0.6455692872070121,
+            "kappa_ci95": [
+              0.5937438211800063,
+              0.6916924742499991
+            ],
+            "macro_f1": 0.7008472855439098,
+            "macro_f1_ci95": [
+              0.6496780232932268,
+              0.743143148570104
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.6420454545454546,
+              "Water": 0.9448818897637796,
+              "Built Area": 0.8160442600276624,
+              "Open Land": 0.6058519793459552,
+              "Agriculture": 0.4954128440366973
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.4982673612431398,
+                0.7530577590254193
+              ],
+              "Water": [
+                0.9188361408882083,
+                0.9724473257698542
+              ],
+              "Built Area": [
+                0.7779273216689098,
+                0.8505763476725364
+              ],
+              "Open Land": [
+                0.5174825174825175,
+                0.6863735388317157
+              ],
+              "Agriculture": [
+                0.42401463414634144,
+                0.5625082964601769
+              ]
+            }
+          },
+          "after-rf": {
+            "confusion_matrix": [
+              [
+                111,
+                38,
+                0,
+                0,
+                69
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                292,
+                5,
+                2
+              ],
+              [
+                0,
+                16,
+                73,
+                196,
+                15
+              ],
+              [
+                13,
+                10,
+                18,
+                99,
+                160
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7468265162200282,
+            "overall_accuracy_ci95": [
+              0.7010747028862478,
+              0.7931818215992372
+            ],
+            "kappa": 0.6809372908168765,
+            "kappa_ci95": [
+              0.6231601526936417,
+              0.7393777177003034
+            ],
+            "macro_f1": 0.7291687220077449,
+            "macro_f1_ci95": [
+              0.6721895750422665,
+              0.7836052020948541
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.6491228070175438,
+              "Water": 0.9022556390977443,
+              "Built Area": 0.8550512445095169,
+              "Open Land": 0.6533333333333333,
+              "Agriculture": 0.5860805860805861
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.4822466642625316,
+                0.7777777777777778
+              ],
+              "Water": [
+                0.8595988538681949,
+                0.9448818897637796
+              ],
+              "Built Area": [
+                0.8180535966149508,
+                0.8918918918918919
+              ],
+              "Open Land": [
+                0.5767087184226741,
+                0.7288142911507275
+              ],
+              "Agriculture": [
+                0.5027927797684817,
+                0.6688436907543759
+              ]
+            }
+          },
+          "after-svm": {
+            "confusion_matrix": [
+              [
+                76,
+                17,
+                0,
+                0,
+                125
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                297,
+                1,
+                1
+              ],
+              [
+                0,
+                15,
+                80,
+                180,
+                25
+              ],
+              [
+                15,
+                13,
+                27,
+                94,
+                151
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.7080394922425952,
+            "overall_accuracy_ci95": [
+              0.6721754722550177,
+              0.7450322491848355
+            ],
+            "kappa": 0.6314307132282679,
+            "kappa_ci95": [
+              0.5857409958233604,
+              0.678233325867087
+            ],
+            "macro_f1": 0.6784400081725114,
+            "macro_f1_ci95": [
+              0.6338004222041942,
+              0.7237348061434721
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.49190938511326865,
+              "Water": 0.9287925696594428,
+              "Built Area": 0.84375,
+              "Open Land": 0.6260869565217392,
+              "Agriculture": 0.5016611295681063
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.33725490196078434,
+                0.6222255790533736
+              ],
+              "Water": [
+                0.8941877794336811,
+                0.9630818619582664
+              ],
+              "Built Area": [
+                0.8032345013477089,
+                0.8807069219440353
+              ],
+              "Open Land": [
+                0.5415835632949536,
+                0.7036411194556775
+              ],
+              "Agriculture": [
+                0.43616938423808577,
+                0.5668295400421854
+              ]
+            }
+          },
+          "before-cart": {
+            "confusion_matrix": [
+              [
+                122,
+                51,
+                0,
+                45,
+                0
+              ],
+              [
+                0,
+                291,
+                0,
+                9,
+                0
+              ],
+              [
+                8,
+                1,
+                282,
+                9,
+                0
+              ],
+              [
+                1,
+                1,
+                76,
+                222,
+                0
+              ],
+              [
+                16,
+                15,
+                25,
+                244,
+                0
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.6466854724964739,
+            "overall_accuracy_ci95": [
+              0.6171409815567365,
+              0.6766405475482345
+            ],
+            "kappa": 0.5552599322139156,
+            "kappa_ci95": [
+              0.5173307962044477,
+              0.5936001784789654
+            ],
+            "macro_f1": 0.7282507894918899,
+            "macro_f1_ci95": [
+              0.6828953322195576,
+              0.7693410959730577
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.6684931506849315,
+              "Water": 0.8831562974203337,
+              "Built Area": 0.8257686676427526,
+              "Open Land": 0.5355850422195416,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.5324664243606224,
+                0.7800586510263929
+              ],
+              "Water": [
+                0.8395774498612256,
+                0.9257547832192382
+              ],
+              "Built Area": [
+                0.7898393646122517,
+                0.8619119878603946
+              ],
+              "Open Land": [
+                0.48628428927680795,
+                0.5788178788756884
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-gtb": {
+            "confusion_matrix": [
+              [
+                163,
+                45,
+                2,
+                8,
+                0
+              ],
+              [
+                0,
+                245,
+                0,
+                55,
+                0
+              ],
+              [
+                0,
+                2,
+                295,
+                3,
+                0
+              ],
+              [
+                0,
+                5,
+                85,
+                210,
+                0
+              ],
+              [
+                14,
+                11,
+                23,
+                252,
+                0
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.6438645980253879,
+            "overall_accuracy_ci95": [
+              0.609315703484175,
+              0.6800862688713156
+            ],
+            "kappa": 0.5523984303410719,
+            "kappa_ci95": [
+              0.5079407481298213,
+              0.598645741273832
+            ],
+            "macro_f1": 0.7438408294408723,
+            "macro_f1_ci95": [
+              0.7020777364420577,
+              0.7850706480673758
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8253164556962025,
+              "Water": 0.8059210526315789,
+              "Built Area": 0.8368794326241135,
+              "Open Land": 0.5072463768115942,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.735951241503676,
+                0.9012886981402003
+              ],
+              "Water": [
+                0.7079037800687284,
+                0.886001803068436
+              ],
+              "Built Area": [
+                0.802721088435374,
+                0.8714918759231904
+              ],
+              "Open Land": [
+                0.45017295790464174,
+                0.5569955514520732
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-knn": {
+            "confusion_matrix": [
+              [
+                174,
+                22,
+                0,
+                22,
+                0
+              ],
+              [
+                0,
+                296,
+                0,
+                4,
+                0
+              ],
+              [
+                2,
+                1,
+                296,
+                1,
+                0
+              ],
+              [
+                0,
+                11,
+                88,
+                201,
+                0
+              ],
+              [
+                25,
+                7,
+                27,
+                241,
+                0
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.6819464033850494,
+            "overall_accuracy_ci95": [
+              0.6507809182179891,
+              0.7112199356168398
+            ],
+            "kappa": 0.6007519012914174,
+            "kappa_ci95": [
+              0.5601163208062927,
+              0.638493619459145
+            ],
+            "macro_f1": 0.778823052360776,
+            "macro_f1_ci95": [
+              0.7382124341700901,
+              0.8139244606844439
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8305489260143197,
+              "Water": 0.9293563579277866,
+              "Built Area": 0.8326300984528833,
+              "Open Land": 0.5227568270481144,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.7224080267558529,
+                0.9119389432485323
+              ],
+              "Water": [
+                0.8918918918918919,
+                0.9614147909967846
+              ],
+              "Built Area": [
+                0.8038402238144896,
+                0.861271676300578
+              ],
+              "Open Land": [
+                0.4654933915673701,
+                0.5717853470315758
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-rf": {
+            "confusion_matrix": [
+              [
+                151,
+                61,
+                0,
+                6,
+                0
+              ],
+              [
+                0,
+                257,
+                0,
+                43,
+                0
+              ],
+              [
+                1,
+                1,
+                297,
+                1,
+                0
+              ],
+              [
+                0,
+                3,
+                80,
+                217,
+                0
+              ],
+              [
+                17,
+                6,
+                27,
+                250,
+                0
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.6502115655853314,
+            "overall_accuracy_ci95": [
+              0.6181153915445592,
+              0.6836240718531712
+            ],
+            "kappa": 0.56019514977032,
+            "kappa_ci95": [
+              0.518447146123858,
+              0.6028062418968945
+            ],
+            "macro_f1": 0.7434487112478897,
+            "macro_f1_ci95": [
+              0.7012694904693552,
+              0.7838432852760365
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7803617571059432,
+              "Water": 0.8184713375796179,
+              "Built Area": 0.84375,
+              "Open Land": 0.5312117503059975,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.6527415143603134,
+                0.8793831680991214
+              ],
+              "Water": [
+                0.7368290128305839,
+                0.8903231086003908
+              ],
+              "Built Area": [
+                0.8070531960100197,
+                0.8822652757078987
+              ],
+              "Open Land": [
+                0.46923076923076923,
+                0.5869303865329973
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-svm": {
+            "confusion_matrix": [
+              [
+                151,
+                19,
+                0,
+                48,
+                0
+              ],
+              [
+                0,
+                286,
+                0,
+                14,
+                0
+              ],
+              [
+                1,
+                1,
+                297,
+                1,
+                0
+              ],
+              [
+                0,
+                4,
+                97,
+                199,
+                0
+              ],
+              [
+                15,
+                7,
+                28,
+                250,
+                0
+              ]
+            ],
+            "sample_count": 1418,
+            "district_count": 15,
+            "overall_accuracy": 0.657968970380818,
+            "overall_accuracy_ci95": [
+              0.6283823425956634,
+              0.6888119391338275
+            ],
+            "kappa": 0.5699047790581468,
+            "kappa_ci95": [
+              0.5314384780669534,
+              0.6095314477706912
+            ],
+            "macro_f1": 0.7560861249186299,
+            "macro_f1_ci95": [
+              0.7149730195391425,
+              0.7938108694892719
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7844155844155843,
+              "Water": 0.927066450567261,
+              "Built Area": 0.8227146814404432,
+              "Open Land": 0.49014778325123154,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.6544272818948766,
+                0.8812667919663618
+              ],
+              "Water": [
+                0.8822584622973056,
+                0.9654036243822076
+              ],
+              "Built Area": [
+                0.7903871829105473,
+                0.8546762589928057
+              ],
+              "Open Land": [
+                0.42541782696881014,
+                0.5454545454545454
+              ],
+              "Agriculture": null
+            }
+          }
+        },
+        "paired_comparisons": [
+          {
+            "left": "after-cart",
+            "right": "after-gtb",
+            "mean_district_oa_difference": -0.12955373733207265,
+            "ci95": [
+              -0.15862858423878237,
+              -0.09863597332621077
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 14,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.0001220703125
+          },
+          {
+            "left": "after-cart",
+            "right": "after-knn",
+            "mean_district_oa_difference": -0.09508216980178738,
+            "ci95": [
+              -0.1233839975859702,
+              -0.06375409135971943
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 14,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.00018310546875
+          },
+          {
+            "left": "after-cart",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.12446940914123127,
+            "ci95": [
+              -0.16237662733349637,
+              -0.08980618348598522
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 14,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.000978706525317055
+          },
+          {
+            "left": "after-cart",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.08641246756593596,
+            "ci95": [
+              -0.1076671281254003,
+              -0.06328268373636665
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 15,
+            "districts_tied": 0,
+            "wilcoxon_p": 6.103515625e-05
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-knn",
+            "mean_district_oa_difference": 0.03447156753028526,
+            "ci95": [
+              0.0203850039764247,
+              0.0491326771856906
+            ],
+            "districts_left_better": 14,
+            "districts_right_better": 1,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.0006103515625
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-rf",
+            "mean_district_oa_difference": 0.0050843281908413696,
+            "ci95": [
+              -0.012428286279287352,
+              0.023462386069891168
+            ],
+            "districts_left_better": 7,
+            "districts_right_better": 8,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.5994873046875
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.04314126976613667,
+            "ci95": [
+              0.023760438312072557,
+              0.06260680083672092
+            ],
+            "districts_left_better": 13,
+            "districts_right_better": 2,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.00152587890625
+          },
+          {
+            "left": "after-knn",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.029387239339443892,
+            "ci95": [
+              -0.05725880780419834,
+              -0.002362504132326107
+            ],
+            "districts_left_better": 5,
+            "districts_right_better": 10,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.083251953125
+          },
+          {
+            "left": "after-knn",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.008669702235851411,
+            "ci95": [
+              -0.009211763910630529,
+              0.026630564956597446
+            ],
+            "districts_left_better": 8,
+            "districts_right_better": 7,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.45428466796875
+          },
+          {
+            "left": "after-rf",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.0380569415752953,
+            "ci95": [
+              0.01498306451612903,
+              0.06447530148136373
+            ],
+            "districts_left_better": 9,
+            "districts_right_better": 2,
+            "districts_tied": 4,
+            "wilcoxon_p": 0.008686124271328862
+          }
+        ],
+        "stack_comparisons": [
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b19",
+            "mean_district_oa_difference": 0.048811305781236936,
+            "ci95": [
+              0.03231123430608293,
+              0.06531312948944358
+            ],
+            "districts_left_better": 14,
+            "districts_right_better": 1,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.00018310546875
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": 0.03508227855709693,
+            "ci95": [
+              0.024742263416817612,
+              0.04555489639788893
+            ],
+            "districts_left_better": 14,
+            "districts_right_better": 0,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.0009674284502477448
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": 0.012068235786019151,
+            "ci95": [
+              0.005851330904840431,
+              0.018099616858237563
+            ],
+            "districts_left_better": 10,
+            "districts_right_better": 1,
+            "districts_tied": 4,
+            "wilcoxon_p": 0.009526929688562434
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": -0.01372902722414,
+            "ci95": [
+              -0.028272310062326764,
+              0.0002391431349478614
+            ],
+            "districts_left_better": 4,
+            "districts_right_better": 10,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.10924642590470218
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": -0.036743069995217786,
+            "ci95": [
+              -0.05019644004802516,
+              -0.022410744836752462
+            ],
+            "districts_left_better": 2,
+            "districts_right_better": 13,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.00042724609375
+          },
+          {
+            "left": "after-gtb-b22",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": -0.023014042771077783,
+            "ci95": [
+              -0.031170390070922,
+              -0.014380112974038864
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 13,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.001355471059555001
+          }
+        ]
+      },
+      "test": {
+        "districts": [
+          "Anuppur",
+          "Ashoknagar",
+          "Balaghat",
+          "Betul",
+          "Bhind",
+          "Bhopal",
+          "Burhanpur",
+          "Chhatarpur",
+          "Chhindwara",
+          "Datia",
+          "Dewas",
+          "Dhar",
+          "East Nimar",
+          "Guna",
+          "Gwalior",
+          "Indore",
+          "Morena",
+          "Narsinghpur",
+          "Panna",
+          "Raisen",
+          "Ratlam",
+          "Sagar",
+          "Satna",
+          "Seoni",
+          "Shahdol",
+          "Sidhi",
+          "Ujjain",
+          "Umaria",
+          "Vidisha"
+        ],
+        "pooled": {
+          "after-cart": {
+            "confusion_matrix": [
+              [
+                81,
+                105,
+                0,
+                0,
+                186
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                577,
+                1,
+                1
+              ],
+              [
+                0,
+                59,
+                263,
+                254,
+                4
+              ],
+              [
+                29,
+                35,
+                166,
+                191,
+                159
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6132986627043091,
+            "overall_accuracy_ci95": [
+              0.5857508479351125,
+              0.6398214256733414
+            ],
+            "kappa": 0.5090957630182714,
+            "kappa_ci95": [
+              0.47579009953911133,
+              0.5408866569396817
+            ],
+            "macro_f1": 0.5507302724940328,
+            "macro_f1_ci95": [
+              0.51640926053997,
+              0.5838366436827812
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.3354037267080745,
+              "Water": 0.8535688005886681,
+              "Built Area": 0.7276166456494326,
+              "Open Land": 0.49512670565302147,
+              "Agriculture": 0.3419354838709677
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.224563524157817,
+                0.44517212129780154
+              ],
+              "Water": [
+                0.8117564730580825,
+                0.8950617283950617
+              ],
+              "Built Area": [
+                0.7069672897249415,
+                0.749350733246082
+              ],
+              "Open Land": [
+                0.4437809446742193,
+                0.5451165961208954
+              ],
+              "Agriculture": [
+                0.27455121436114044,
+                0.4054947465108448
+              ]
+            }
+          },
+          "after-gtb": {
+            "confusion_matrix": [
+              [
+                164,
+                26,
+                2,
+                0,
+                180
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                574,
+                2,
+                2
+              ],
+              [
+                0,
+                50,
+                137,
+                346,
+                47
+              ],
+              [
+                15,
+                25,
+                51,
+                165,
+                324
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.7384843982169391,
+            "overall_accuracy_ci95": [
+              0.7081349775498704,
+              0.7682498843564791
+            ],
+            "kappa": 0.6688473624763758,
+            "kappa_ci95": [
+              0.6315192999946136,
+              0.7056852443236771
+            ],
+            "macro_f1": 0.7145196503061526,
+            "macro_f1_ci95": [
+              0.6796483629581741,
+              0.7486264478825106
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5942028985507247,
+              "Water": 0.919175911251981,
+              "Built Area": 0.8541666666666667,
+              "Open Land": 0.6331198536139067,
+              "Agriculture": 0.5719329214474844
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.5028545216251639,
+                0.6768432855876364
+              ],
+              "Water": [
+                0.9006211180124224,
+                0.9385113268608414
+              ],
+              "Built Area": [
+                0.8355359765051397,
+                0.8731966590736522
+              ],
+              "Open Land": [
+                0.5866606334841629,
+                0.681820178942323
+              ],
+              "Agriculture": [
+                0.5051826188139904,
+                0.6332911084329576
+              ]
+            }
+          },
+          "after-gtb-b19": {
+            "confusion_matrix": [
+              [
+                125,
+                34,
+                0,
+                0,
+                213
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                2,
+                575,
+                1,
+                0
+              ],
+              [
+                0,
+                49,
+                151,
+                270,
+                110
+              ],
+              [
+                10,
+                29,
+                50,
+                184,
+                307
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6898216939078752,
+            "overall_accuracy_ci95": [
+              0.6631571238605485,
+              0.7156904070115956
+            ],
+            "kappa": 0.6066118305915296,
+            "kappa_ci95": [
+              0.5740897007707214,
+              0.6384947593734257
+            ],
+            "macro_f1": 0.6557873863538065,
+            "macro_f1_ci95": [
+              0.6235194416796946,
+              0.6874161872526248
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.4911591355599214,
+              "Water": 0.9105180533751962,
+              "Built Area": 0.8480825958702065,
+              "Open Land": 0.5217391304347826,
+              "Agriculture": 0.5074380165289256
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.3929926347971095,
+                0.5860227127364723
+              ],
+              "Water": [
+                0.8895705521472392,
+                0.9309791332263242
+              ],
+              "Built Area": [
+                0.826493880489561,
+                0.868323526498943
+              ],
+              "Open Land": [
+                0.47908745247148293,
+                0.5633535128902066
+              ],
+              "Agriculture": [
+                0.4411251435132032,
+                0.569148432291511
+              ]
+            }
+          },
+          "after-gtb-b22": {
+            "confusion_matrix": [
+              [
+                132,
+                34,
+                1,
+                0,
+                205
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                575,
+                2,
+                1
+              ],
+              [
+                0,
+                37,
+                156,
+                309,
+                78
+              ],
+              [
+                11,
+                29,
+                44,
+                187,
+                309
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.7076523031203567,
+            "overall_accuracy_ci95": [
+              0.6828080849844884,
+              0.7325508422589019
+            ],
+            "kappa": 0.629320215219923,
+            "kappa_ci95": [
+              0.598824019154012,
+              0.6597715256697536
+            ],
+            "macro_f1": 0.675950683844911,
+            "macro_f1_ci95": [
+              0.6456539306449272,
+              0.7049662041025757
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5116279069767442,
+              "Water": 0.9199048374306106,
+              "Built Area": 0.8480825958702065,
+              "Open Land": 0.5732838589981447,
+              "Agriculture": 0.5268542199488491
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.4212855776075886,
+                0.5993210060984953
+              ],
+              "Water": [
+                0.8992248062015504,
+                0.940032414910859
+              ],
+              "Built Area": [
+                0.8286334056399132,
+                0.8668171557562077
+              ],
+              "Open Land": [
+                0.5351839339339339,
+                0.6121280516144142
+              ],
+              "Agriculture": [
+                0.46354110783261804,
+                0.5866079287076424
+              ]
+            }
+          },
+          "after-gtb-b27": {
+            "confusion_matrix": [
+              [
+                164,
+                30,
+                0,
+                0,
+                178
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                576,
+                1,
+                1
+              ],
+              [
+                0,
+                49,
+                153,
+                286,
+                92
+              ],
+              [
+                13,
+                26,
+                46,
+                163,
+                332
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.7199108469539376,
+            "overall_accuracy_ci95": [
+              0.691696606182442,
+              0.7481831862014283
+            ],
+            "kappa": 0.6453022160835211,
+            "kappa_ci95": [
+              0.6104176515692752,
+              0.6800071059151589
+            ],
+            "macro_f1": 0.695888906994,
+            "macro_f1_ci95": [
+              0.6630250332573018,
+              0.7282236830634102
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5963636363636363,
+              "Water": 0.9162717219589257,
+              "Built Area": 0.8501845018450185,
+              "Open Land": 0.5553398058252426,
+              "Agriculture": 0.5612848689771767
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.5030085610322745,
+                0.6795528676764373
+              ],
+              "Water": [
+                0.8929946112394149,
+                0.940032414910859
+              ],
+              "Built Area": [
+                0.8312816799420709,
+                0.8677284427284426
+              ],
+              "Open Land": [
+                0.5102590092306482,
+                0.6028449756164571
+              ],
+              "Agriculture": [
+                0.49174558796906825,
+                0.62738629217901
+              ]
+            }
+          },
+          "after-knn": {
+            "confusion_matrix": [
+              [
+                143,
+                10,
+                0,
+                0,
+                219
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                10,
+                2,
+                561,
+                1,
+                6
+              ],
+              [
+                0,
+                29,
+                148,
+                337,
+                66
+              ],
+              [
+                36,
+                10,
+                75,
+                205,
+                254
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6965081723625557,
+            "overall_accuracy_ci95": [
+              0.6632537373756362,
+              0.7298551725503303
+            ],
+            "kappa": 0.6158192682524644,
+            "kappa_ci95": [
+              0.5747286141662683,
+              0.657643915497667
+            ],
+            "macro_f1": 0.6684008522533494,
+            "macro_f1_ci95": [
+              0.6301103653047101,
+              0.7073285755712289
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5098039215686274,
+              "Water": 0.9578860445912468,
+              "Built Area": 0.8225806451612903,
+              "Open Land": 0.6001780943900267,
+              "Agriculture": 0.45155555555555554
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.40072124227630107,
+                0.6057918651341992
+              ],
+              "Water": [
+                0.9407948094079481,
+                0.9731543624161073
+              ],
+              "Built Area": [
+                0.8031953522149599,
+                0.8420287865714958
+              ],
+              "Open Land": [
+                0.5540640347339202,
+                0.6472104142712402
+              ],
+              "Agriculture": [
+                0.37263255662300926,
+                0.5284091272054504
+              ]
+            }
+          },
+          "after-rf": {
+            "confusion_matrix": [
+              [
+                136,
+                61,
+                0,
+                0,
+                175
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                567,
+                6,
+                5
+              ],
+              [
+                0,
+                43,
+                138,
+                375,
+                24
+              ],
+              [
+                19,
+                30,
+                49,
+                206,
+                276
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.7184249628528975,
+            "overall_accuracy_ci95": [
+              0.6842858034029726,
+              0.7522585910751052
+            ],
+            "kappa": 0.6431351644784706,
+            "kappa_ci95": [
+              0.6005055141015843,
+              0.6851341056718052
+            ],
+            "macro_f1": 0.6848815224510367,
+            "macro_f1_ci95": [
+              0.644025642200872,
+              0.7252142929872821
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5151515151515151,
+              "Water": 0.8957528957528956,
+              "Built Area": 0.8500749625187407,
+              "Open Land": 0.6426735218508998,
+              "Agriculture": 0.5207547169811321
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.4116207927174699,
+                0.613085476499079
+              ],
+              "Water": [
+                0.8650260999254288,
+                0.9243027888446216
+              ],
+              "Built Area": [
+                0.8340647048982979,
+                0.8678380443086324
+              ],
+              "Open Land": [
+                0.6,
+                0.6863910479764138
+              ],
+              "Agriculture": [
+                0.4406087121604363,
+                0.5969978086573611
+              ]
+            }
+          },
+          "after-svm": {
+            "confusion_matrix": [
+              [
+                93,
+                8,
+                0,
+                0,
+                271
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                3,
+                1,
+                570,
+                3,
+                3
+              ],
+              [
+                0,
+                37,
+                158,
+                336,
+                49
+              ],
+              [
+                26,
+                8,
+                57,
+                221,
+                268
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6861069836552749,
+            "overall_accuracy_ci95": [
+              0.6586626792148664,
+              0.7136298309985577
+            ],
+            "kappa": 0.6016831031294652,
+            "kappa_ci95": [
+              0.568300367801442,
+              0.6355147735217394
+            ],
+            "macro_f1": 0.6428808241732489,
+            "macro_f1_ci95": [
+              0.6104771956969055,
+              0.6760831125526692
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.37651821862348184,
+              "Water": 0.9555189456342669,
+              "Built Area": 0.8351648351648351,
+              "Open Land": 0.5894736842105264,
+              "Agriculture": 0.4577284372331341
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.26813098429720417,
+                0.4896439282974122
+              ],
+              "Water": [
+                0.940032414910859,
+                0.9707112970711297
+              ],
+              "Built Area": [
+                0.815186246418338,
+                0.8552138034508627
+              ],
+              "Open Land": [
+                0.5424036836368805,
+                0.6344022700051332
+              ],
+              "Agriculture": [
+                0.3908435682353507,
+                0.5204611197807635
+              ]
+            }
+          },
+          "before-cart": {
+            "confusion_matrix": [
+              [
+                184,
+                77,
+                0,
+                111,
+                0
+              ],
+              [
+                0,
+                574,
+                0,
+                6,
+                0
+              ],
+              [
+                35,
+                0,
+                504,
+                41,
+                0
+              ],
+              [
+                2,
+                9,
+                132,
+                437,
+                0
+              ],
+              [
+                22,
+                28,
+                58,
+                472,
+                0
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6311292719167905,
+            "overall_accuracy_ci95": [
+              0.6091440926723288,
+              0.6539513520138062
+            ],
+            "kappa": 0.5339725190584179,
+            "kappa_ci95": [
+              0.5065416197663033,
+              0.5623077760869977
+            ],
+            "macro_f1": 0.7064018400810497,
+            "macro_f1_ci95": [
+              0.6719010762876961,
+              0.7411078849669653
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.5983739837398373,
+              "Water": 0.9053627760252366,
+              "Built Area": 0.7912087912087913,
+              "Open Land": 0.5306618093503339,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.4923008849557522,
+                0.7000040518638574
+              ],
+              "Water": [
+                0.8715241120630305,
+                0.9386435171083358
+              ],
+              "Built Area": [
+                0.7618992884510125,
+                0.8207171314741036
+              ],
+              "Open Land": [
+                0.49756600883121566,
+                0.5642960272469082
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-gtb": {
+            "confusion_matrix": [
+              [
+                270,
+                71,
+                3,
+                28,
+                0
+              ],
+              [
+                0,
+                501,
+                0,
+                79,
+                0
+              ],
+              [
+                1,
+                2,
+                574,
+                3,
+                0
+              ],
+              [
+                0,
+                13,
+                129,
+                438,
+                0
+              ],
+              [
+                23,
+                22,
+                57,
+                478,
+                0
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.662332838038633,
+            "overall_accuracy_ci95": [
+              0.6418227728016486,
+              0.682349725620543
+            ],
+            "kappa": 0.5741822722640785,
+            "kappa_ci95": [
+              0.5480228363138133,
+              0.5993182614131626
+            ],
+            "macro_f1": 0.7634482539512953,
+            "macro_f1_ci95": [
+              0.7350555259093996,
+              0.7904915032108186
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8108108108108109,
+              "Water": 0.8427249789739276,
+              "Built Area": 0.8548026805658973,
+              "Open Land": 0.5454545454545454,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.7446387764282502,
+                0.8669823795091222
+              ],
+              "Water": [
+                0.7919020111253744,
+                0.8896311282388006
+              ],
+              "Built Area": [
+                0.8347953216374269,
+                0.8742424242424243
+              ],
+              "Open Land": [
+                0.5135268872006219,
+                0.5784638403990026
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-knn": {
+            "confusion_matrix": [
+              [
+                278,
+                12,
+                0,
+                82,
+                0
+              ],
+              [
+                0,
+                578,
+                0,
+                2,
+                0
+              ],
+              [
+                10,
+                3,
+                565,
+                2,
+                0
+              ],
+              [
+                0,
+                16,
+                165,
+                399,
+                0
+              ],
+              [
+                49,
+                9,
+                66,
+                456,
+                0
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6760772659732541,
+            "overall_accuracy_ci95": [
+              0.6564766562371339,
+              0.6943236253846228
+            ],
+            "kappa": 0.5921495586906665,
+            "kappa_ci95": [
+              0.5662864355986381,
+              0.615993611059511
+            ],
+            "macro_f1": 0.7737551087059383,
+            "macro_f1_ci95": [
+              0.7479869459380896,
+              0.7965029049471366
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7842031029619181,
+              "Water": 0.9649415692821369,
+              "Built Area": 0.8212209302325582,
+              "Open Land": 0.52465483234714,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.7136687478211264,
+                0.8430404566890047
+              ],
+              "Water": [
+                0.949096880131363,
+                0.9796954314720813
+              ],
+              "Built Area": [
+                0.7994159377409911,
+                0.8431952662721893
+              ],
+              "Open Land": [
+                0.48927323321490584,
+                0.557163262341984
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-rf": {
+            "confusion_matrix": [
+              [
+                263,
+                97,
+                0,
+                12,
+                0
+              ],
+              [
+                0,
+                534,
+                0,
+                46,
+                0
+              ],
+              [
+                1,
+                0,
+                575,
+                4,
+                0
+              ],
+              [
+                0,
+                11,
+                152,
+                417,
+                0
+              ],
+              [
+                25,
+                21,
+                63,
+                471,
+                0
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6645616641901931,
+            "overall_accuracy_ci95": [
+              0.6446585210288305,
+              0.6839798016435534
+            ],
+            "kappa": 0.5769163828560766,
+            "kappa_ci95": [
+              0.5513961383471877,
+              0.6017982880315575
+            ],
+            "macro_f1": 0.7598724191084278,
+            "macro_f1_ci95": [
+              0.7309658210643041,
+              0.7883400644013172
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7957639939485628,
+              "Water": 0.8592115848753017,
+              "Built Area": 0.8394160583941604,
+              "Open Land": 0.5450980392156863,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.7167396769065839,
+                0.862883295194508
+              ],
+              "Water": [
+                0.8139900090275204,
+                0.9024990084216515
+              ],
+              "Built Area": [
+                0.8205861329521086,
+                0.8567164733127236
+              ],
+              "Open Land": [
+                0.5136743561855763,
+                0.5747739818634332
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-svm": {
+            "confusion_matrix": [
+              [
+                203,
+                17,
+                0,
+                152,
+                0
+              ],
+              [
+                0,
+                564,
+                0,
+                16,
+                0
+              ],
+              [
+                4,
+                2,
+                568,
+                6,
+                0
+              ],
+              [
+                0,
+                16,
+                189,
+                375,
+                0
+              ],
+              [
+                27,
+                10,
+                63,
+                480,
+                0
+              ]
+            ],
+            "sample_count": 2692,
+            "district_count": 29,
+            "overall_accuracy": 0.6352154531946508,
+            "overall_accuracy_ci95": [
+              0.6136277880835208,
+              0.6571438860023664
+            ],
+            "kappa": 0.5389845027428526,
+            "kappa_ci95": [
+              0.5116102328992068,
+              0.5670993101116517
+            ],
+            "macro_f1": 0.7240549953689986,
+            "macro_f1_ci95": [
+              0.6919567312203837,
+              0.7562009689791294
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.66996699669967,
+              "Water": 0.9486963835155592,
+              "Built Area": 0.8114285714285714,
+              "Open Land": 0.466128029832194,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.5750385071090047,
+                0.7605043937136097
+              ],
+              "Water": [
+                0.9267886855241264,
+                0.9679067584658857
+              ],
+              "Built Area": [
+                0.7861591695501731,
+                0.8357563467571438
+              ],
+              "Open Land": [
+                0.42626279001473283,
+                0.5019212373640497
+              ],
+              "Agriculture": null
+            }
+          }
+        },
+        "paired_comparisons": [
+          {
+            "left": "after-cart",
+            "right": "after-gtb",
+            "mean_district_oa_difference": -0.12457803088886431,
+            "ci95": [
+              -0.1461174939611758,
+              -0.10346281778366816
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 29,
+            "districts_tied": 0,
+            "wilcoxon_p": 3.725290298461914e-09
+          },
+          {
+            "left": "after-cart",
+            "right": "after-knn",
+            "mean_district_oa_difference": -0.0823413495655864,
+            "ci95": [
+              -0.10589480788825952,
+              -0.05956803273127429
+            ],
+            "districts_left_better": 2,
+            "districts_right_better": 27,
+            "districts_tied": 0,
+            "wilcoxon_p": 3.2782554626464844e-07
+          },
+          {
+            "left": "after-cart",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.10490708815570335,
+            "ci95": [
+              -0.12730144823077338,
+              -0.08407540032207064
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 28,
+            "districts_tied": 1,
+            "wilcoxon_p": 3.7704951142407806e-06
+          },
+          {
+            "left": "after-cart",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.07203096768059225,
+            "ci95": [
+              -0.08939558630915541,
+              -0.054913288270158254
+            ],
+            "districts_left_better": 2,
+            "districts_right_better": 27,
+            "districts_tied": 0,
+            "wilcoxon_p": 1.862645149230957e-08
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-knn",
+            "mean_district_oa_difference": 0.042236681323277916,
+            "ci95": [
+              0.02213892539883337,
+              0.06335018530678296
+            ],
+            "districts_left_better": 25,
+            "districts_right_better": 3,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.0008112749272818698
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-rf",
+            "mean_district_oa_difference": 0.019670942733160997,
+            "ci95": [
+              0.005592515875224539,
+              0.03536290702567904
+            ],
+            "districts_left_better": 15,
+            "districts_right_better": 7,
+            "districts_tied": 7,
+            "wilcoxon_p": 0.018522652027235104
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.05254706320827208,
+            "ci95": [
+              0.030473447749512036,
+              0.07489360820894277
+            ],
+            "districts_left_better": 21,
+            "districts_right_better": 5,
+            "districts_tied": 3,
+            "wilcoxon_p": 0.0003759231581627214
+          },
+          {
+            "left": "after-knn",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.022565738590116926,
+            "ci95": [
+              -0.039838914469230276,
+              -0.005422653212061228
+            ],
+            "districts_left_better": 7,
+            "districts_right_better": 20,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.035430657023023025
+          },
+          {
+            "left": "after-knn",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.010310381884994151,
+            "ci95": [
+              -0.007904145130627484,
+              0.02880152937294201
+            ],
+            "districts_left_better": 13,
+            "districts_right_better": 13,
+            "districts_tied": 3,
+            "wilcoxon_p": 0.3871171637671911
+          },
+          {
+            "left": "after-rf",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.03287612047511108,
+            "ci95": [
+              0.00973353217445251,
+              0.05562989910975213
+            ],
+            "districts_left_better": 20,
+            "districts_right_better": 8,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.015275291272476663
+          }
+        ],
+        "stack_comparisons": [
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b19",
+            "mean_district_oa_difference": 0.04913855353797429,
+            "ci95": [
+              0.03495104534449549,
+              0.06409306267346586
+            ],
+            "districts_left_better": 27,
+            "districts_right_better": 2,
+            "districts_tied": 0,
+            "wilcoxon_p": 3.725290298461914e-08
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": 0.03157092568509076,
+            "ci95": [
+              0.019232331363069854,
+              0.04468124727363194
+            ],
+            "districts_left_better": 22,
+            "districts_right_better": 4,
+            "districts_tied": 3,
+            "wilcoxon_p": 0.0002528313780500004
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": 0.019171860153396805,
+            "ci95": [
+              0.005186578149062467,
+              0.03461933344132815
+            ],
+            "districts_left_better": 19,
+            "districts_right_better": 8,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.019531318185893362
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": -0.017567627852883527,
+            "ci95": [
+              -0.02673240283216504,
+              -0.008613289311820564
+            ],
+            "districts_left_better": 5,
+            "districts_right_better": 20,
+            "districts_tied": 4,
+            "wilcoxon_p": 0.0018646272220587945
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": -0.029966693384577484,
+            "ci95": [
+              -0.04226290185419863,
+              -0.0178414823469343
+            ],
+            "districts_left_better": 3,
+            "districts_right_better": 24,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.00037184894232369887
+          },
+          {
+            "left": "after-gtb-b22",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": -0.012399065531693959,
+            "ci95": [
+              -0.022495727307189198,
+              -0.002537143435135647
+            ],
+            "districts_left_better": 8,
+            "districts_right_better": 18,
+            "districts_tied": 3,
+            "wilcoxon_p": 0.027026143919402845
+          }
+        ]
+      },
+      "selected_on_development": "after-gtb",
+      "selected_band_stack_on_development": "after-gtb",
+      "reported_on_test": {
+        "confusion_matrix": [
+          [
+            164,
+            26,
+            2,
+            0,
+            180
+          ],
+          [
+            0,
+            580,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            574,
+            2,
+            2
+          ],
+          [
+            0,
+            50,
+            137,
+            346,
+            47
+          ],
+          [
+            15,
+            25,
+            51,
+            165,
+            324
+          ]
+        ],
+        "sample_count": 2692,
+        "district_count": 29,
+        "overall_accuracy": 0.7384843982169391,
+        "overall_accuracy_ci95": [
+          0.7081349775498704,
+          0.7682498843564791
+        ],
+        "kappa": 0.6688473624763758,
+        "kappa_ci95": [
+          0.6315192999946136,
+          0.7056852443236771
+        ],
+        "macro_f1": 0.7145196503061526,
+        "macro_f1_ci95": [
+          0.6796483629581741,
+          0.7486264478825106
+        ],
+        "per_class_f1": {
+          "Vegetation": 0.5942028985507247,
+          "Water": 0.919175911251981,
+          "Built Area": 0.8541666666666667,
+          "Open Land": 0.6331198536139067,
+          "Agriculture": 0.5719329214474844
+        },
+        "per_class_f1_ci95": {
+          "Vegetation": [
+            0.5028545216251639,
+            0.6768432855876364
+          ],
+          "Water": [
+            0.9006211180124224,
+            0.9385113268608414
+          ],
+          "Built Area": [
+            0.8355359765051397,
+            0.8731966590736522
+          ],
+          "Open Land": [
+            0.5866606334841629,
+            0.681820178942323
+          ],
+          "Agriculture": [
+            0.5051826188139904,
+            0.6332911084329576
+          ]
+        }
+      },
+      "transfer": {
+        "origin": "Jabalpur",
+        "classifier": "after-gtb",
+        "districts": [
+          {
+            "district": "Anuppur",
+            "distance_km": 197.02517619130134,
+            "overall_accuracy": 0.64,
+            "sample_count": 100
+          },
+          {
+            "district": "Ashoknagar",
+            "distance_km": 264.83639068034006,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Balaghat",
+            "distance_km": 149.80545891249264,
+            "overall_accuracy": 0.67,
+            "sample_count": 100
+          },
+          {
+            "district": "Barwani",
+            "distance_km": 528.5195990825666,
+            "overall_accuracy": 0.7741935483870968,
+            "sample_count": 93
+          },
+          {
+            "district": "Betul",
+            "distance_km": 257.43833351033413,
+            "overall_accuracy": 0.65,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhind",
+            "distance_km": 382.3061279430432,
+            "overall_accuracy": 0.775,
+            "sample_count": 80
+          },
+          {
+            "district": "Bhopal",
+            "distance_km": 262.90106327716404,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Burhanpur",
+            "distance_km": 418.8321463140728,
+            "overall_accuracy": 0.8375,
+            "sample_count": 80
+          },
+          {
+            "district": "Chhatarpur",
+            "distance_km": 183.31571453092153,
+            "overall_accuracy": 0.7586206896551724,
+            "sample_count": 87
+          },
+          {
+            "district": "Chhindwara",
+            "distance_km": 162.16453794842042,
+            "overall_accuracy": 0.68,
+            "sample_count": 100
+          },
+          {
+            "district": "Damoh",
+            "distance_km": 83.40887903067647,
+            "overall_accuracy": 0.7375,
+            "sample_count": 80
+          },
+          {
+            "district": "Datia",
+            "distance_km": 326.37535948167806,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Dewas",
+            "distance_km": 360.45433863184724,
+            "overall_accuracy": 0.8,
+            "sample_count": 80
+          },
+          {
+            "district": "Dhar",
+            "distance_km": 501.6023905102611,
+            "overall_accuracy": 0.7,
+            "sample_count": 100
+          },
+          {
+            "district": "East Nimar",
+            "distance_km": 372.784777665806,
+            "overall_accuracy": 0.8,
+            "sample_count": 80
+          },
+          {
+            "district": "Guna",
+            "distance_km": 319.09632524247894,
+            "overall_accuracy": 0.63,
+            "sample_count": 100
+          },
+          {
+            "district": "Gwalior",
+            "distance_km": 367.7190605271574,
+            "overall_accuracy": 0.7625,
+            "sample_count": 80
+          },
+          {
+            "district": "Harda",
+            "distance_km": 308.11454136530574,
+            "overall_accuracy": 0.7976190476190477,
+            "sample_count": 84
+          },
+          {
+            "district": "Hoshangabad",
+            "distance_km": 211.07161026655646,
+            "overall_accuracy": 0.77,
+            "sample_count": 100
+          },
+          {
+            "district": "Indore",
+            "distance_km": 429.3305353726156,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Jhabua",
+            "distance_km": 558.9629676405324,
+            "overall_accuracy": 0.65,
+            "sample_count": 100
+          },
+          {
+            "district": "Mandsaur",
+            "distance_km": 476.6323220276655,
+            "overall_accuracy": 0.88,
+            "sample_count": 100
+          },
+          {
+            "district": "Morena",
+            "distance_km": 417.67828366259994,
+            "overall_accuracy": 0.875,
+            "sample_count": 80
+          },
+          {
+            "district": "Narsinghpur",
+            "distance_km": 92.20045725412517,
+            "overall_accuracy": 0.76,
+            "sample_count": 100
+          },
+          {
+            "district": "Neemuch",
+            "distance_km": 513.5427352516958,
+            "overall_accuracy": 0.7125,
+            "sample_count": 80
+          },
+          {
+            "district": "Panna",
+            "distance_km": 141.12526593632543,
+            "overall_accuracy": 0.7469879518072289,
+            "sample_count": 83
+          },
+          {
+            "district": "Raisen",
+            "distance_km": 187.28814922477773,
+            "overall_accuracy": 0.8723404255319149,
+            "sample_count": 94
+          },
+          {
+            "district": "Rajgarh",
+            "distance_km": 336.5165446333322,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Ratlam",
+            "distance_km": 497.027639486618,
+            "overall_accuracy": 0.725,
+            "sample_count": 80
+          },
+          {
+            "district": "Rewa",
+            "distance_km": 242.21145737646913,
+            "overall_accuracy": 0.66,
+            "sample_count": 100
+          },
+          {
+            "district": "Sagar",
+            "distance_km": 142.91874683734022,
+            "overall_accuracy": 0.71,
+            "sample_count": 100
+          },
+          {
+            "district": "Satna",
+            "distance_km": 175.87544221693273,
+            "overall_accuracy": 0.67,
+            "sample_count": 100
+          },
+          {
+            "district": "Sehore",
+            "distance_km": 289.09664712924643,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Seoni",
+            "distance_km": 99.06470613805489,
+            "overall_accuracy": 0.78,
+            "sample_count": 100
+          },
+          {
+            "district": "Shahdol",
+            "distance_km": 155.32055758202478,
+            "overall_accuracy": 0.55,
+            "sample_count": 100
+          },
+          {
+            "district": "Shajapur",
+            "distance_km": 370.3234500091883,
+            "overall_accuracy": 0.7553191489361702,
+            "sample_count": 94
+          },
+          {
+            "district": "Sheopur",
+            "distance_km": 413.60612699129433,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Shivpuri",
+            "distance_km": 326.2768523606065,
+            "overall_accuracy": 0.7126436781609196,
+            "sample_count": 87
+          },
+          {
+            "district": "Sidhi",
+            "distance_km": 252.6465612712786,
+            "overall_accuracy": 0.61,
+            "sample_count": 100
+          },
+          {
+            "district": "Tikamgarh",
+            "distance_km": 226.46909237569233,
+            "overall_accuracy": 0.61,
+            "sample_count": 100
+          },
+          {
+            "district": "Ujjain",
+            "distance_km": 437.35669519030967,
+            "overall_accuracy": 0.8125,
+            "sample_count": 80
+          },
+          {
+            "district": "Umaria",
+            "distance_km": 109.89013942218097,
+            "overall_accuracy": 0.68,
+            "sample_count": 100
+          },
+          {
+            "district": "Vidisha",
+            "distance_km": 232.12280118322684,
+            "overall_accuracy": 0.7613636363636364,
+            "sample_count": 88
+          },
+          {
+            "district": "West Nimar",
+            "distance_km": 450.318195857136,
+            "overall_accuracy": 0.75,
+            "sample_count": 100
+          }
+        ],
+        "slope_oa_per_100km": 0.01720499512049501,
+        "slope_stderr_per_100km": 0.008759628427579423,
+        "intercept": 0.6938658279631096,
+        "r_squared": 0.08412492474725554,
+        "linregress_p": 0.056156430125500645,
+        "spearman_rho": 0.3278688983035119,
+        "spearman_p": 0.029804512041218905,
+        "nearest_quartile_mean_oa": 0.7039189674056728,
+        "farthest_quartile_mean_oa": 0.7769721407624633
+      },
+      "class_transfer": {
+        "Vegetation": {
+          "districts_with_support": 34,
+          "slope_recall_per_100km": 0.02005115019948694,
+          "p_value": 0.5322896480844796,
+          "mean_recall": 0.5138817065287654
+        },
+        "Water": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": 0.0,
+          "p_value": 1.0,
+          "mean_recall": 1.0
+        },
+        "Built Area": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": -0.002611845502778676,
+          "p_value": 0.3435196912573423,
+          "mean_recall": 0.9886363636363636
+        },
+        "Open Land": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": -0.006324249996201798,
+          "p_value": 0.7416620299764616,
+          "mean_recall": 0.5943181818181819
+        },
+        "Agriculture": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": 0.04178680662192013,
+          "p_value": 0.06203612925675227,
+          "mean_recall": 0.5613636363636364
+        }
+      },
+      "all_48_districts_pooled": {
+        "confusion_matrix": [
+          [
+            310,
+            59,
+            4,
+            0,
+            291
+          ],
+          [
+            0,
+            959,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            946,
+            4,
+            3
+          ],
+          [
+            0,
+            76,
+            234,
+            574,
+            72
+          ],
+          [
+            27,
+            39,
+            83,
+            279,
+            531
+          ]
+        ],
+        "sample_count": 4494,
+        "district_count": 48,
+        "overall_accuracy": 0.7387627948375612,
+        "overall_accuracy_ci95": [
+          0.715155588343813,
+          0.7624927032613846
+        ],
+        "kappa": 0.6700954680143759,
+        "kappa_ci95": [
+          0.6401780529830444,
+          0.6998498202558907
+        ],
+        "macro_f1": 0.7182435665330109,
+        "macro_f1_ci95": [
+          0.690427612353468,
+          0.745543851095674
+        ],
+        "per_class_f1": {
+          "Vegetation": 0.6187624750499001,
+          "Water": 0.9159503342884432,
+          "Built Area": 0.8511021142600089,
+          "Open Land": 0.6332046332046332,
+          "Agriculture": 0.5721982758620691
+        },
+        "per_class_f1_ci95": {
+          "Vegetation": [
+            0.547045016738671,
+            0.6842635929903605
+          ],
+          "Water": [
+            0.8994360902255639,
+            0.9324915007285091
+          ],
+          "Built Area": [
+            0.8345131185342142,
+            0.8678920666719755
+          ],
+          "Open Land": [
+            0.5924736474978843,
+            0.6731043386511193
+          ],
+          "Agriculture": [
+            0.5217824419394033,
+            0.6213743983227913
+          ]
+        }
+      }
+    },
+    "winter": {
+      "development": {
+        "districts": [
+          "Barwani",
+          "Damoh",
+          "Harda",
+          "Hoshangabad",
+          "Jhabua",
+          "Mandsaur",
+          "Neemuch",
+          "Rajgarh",
+          "Rewa",
+          "Sehore",
+          "Shajapur",
+          "Sheopur",
+          "Shivpuri",
+          "Tikamgarh",
+          "West Nimar"
+        ],
+        "pooled": {
+          "after-cart": {
+            "confusion_matrix": [
+              [
+                213,
+                5,
+                24,
+                2,
+                56
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                2,
+                273,
+                25,
+                0
+              ],
+              [
+                0,
+                12,
+                67,
+                211,
+                10
+              ],
+              [
+                43,
+                5,
+                20,
+                42,
+                190
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.7913333333333333,
+            "overall_accuracy_ci95": [
+              0.7553333333333333,
+              0.8253333333333334
+            ],
+            "kappa": 0.7391666666666665,
+            "kappa_ci95": [
+              0.6941666666666665,
+              0.7816666666666666
+            ],
+            "macro_f1": 0.7874021140479771,
+            "macro_f1_ci95": [
+              0.7477897932035279,
+              0.8233076996274257
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7661870503597122,
+              "Water": 0.9615384615384615,
+              "Built Area": 0.7982456140350876,
+              "Open Land": 0.7275862068965517,
+              "Agriculture": 0.6834532374100719
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.6954850163042013,
+                0.8274584193472522
+              ],
+              "Water": [
+                0.9448818897637796,
+                0.9771986970684039
+              ],
+              "Built Area": [
+                0.7520885609705565,
+                0.8443759630200307
+              ],
+              "Open Land": [
+                0.6592168309166614,
+                0.7856031794977215
+              ],
+              "Agriculture": [
+                0.5769980506822612,
+                0.7733345323741007
+              ]
+            }
+          },
+          "after-gtb": {
+            "confusion_matrix": [
+              [
+                257,
+                7,
+                5,
+                1,
+                30
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                296,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                69,
+                229,
+                2
+              ],
+              [
+                11,
+                7,
+                27,
+                30,
+                225
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.8713333333333333,
+            "overall_accuracy_ci95": [
+              0.844,
+              0.8973333333333333
+            ],
+            "kappa": 0.8391666666666666,
+            "kappa_ci95": [
+              0.8049999999999998,
+              0.8716666666666667
+            ],
+            "macro_f1": 0.8702877698837808,
+            "macro_f1_ci95": [
+              0.8417170423798914,
+              0.8966394915565997
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9049295774647887,
+              "Water": 0.9771986970684039,
+              "Built Area": 0.8493543758967003,
+              "Open Land": 0.8120567375886524,
+              "Agriculture": 0.8078994614003591
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8695652173913043,
+                0.9375
+              ],
+              "Water": [
+                0.967741935483871,
+                0.9868421052631579
+              ],
+              "Built Area": [
+                0.8125854993160055,
+                0.8862275449101796
+              ],
+              "Open Land": [
+                0.7569523140951713,
+                0.8620116900663809
+              ],
+              "Agriculture": [
+                0.7443565308620387,
+                0.8601769911504425
+              ]
+            }
+          },
+          "after-gtb-b19": {
+            "confusion_matrix": [
+              [
+                256,
+                9,
+                5,
+                1,
+                29
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                298,
+                2,
+                0
+              ],
+              [
+                0,
+                2,
+                75,
+                216,
+                7
+              ],
+              [
+                14,
+                9,
+                31,
+                30,
+                216
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.8573333333333333,
+            "overall_accuracy_ci95": [
+              0.834,
+              0.8813333333333333
+            ],
+            "kappa": 0.8216666666666667,
+            "kappa_ci95": [
+              0.7924999999999999,
+              0.8516666666666667
+            ],
+            "macro_f1": 0.8552204166912822,
+            "macro_f1_ci95": [
+              0.8310445637270998,
+              0.8800442438090132
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8982456140350877,
+              "Water": 0.967741935483871,
+              "Built Area": 0.8406205923836388,
+              "Open Land": 0.7868852459016394,
+              "Agriculture": 0.782608695652174
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8560762385602195,
+                0.9322085303880385
+              ],
+              "Water": [
+                0.947867298578199,
+                0.9836065573770492
+              ],
+              "Built Area": [
+                0.8098478483911259,
+                0.8733624454148472
+              ],
+              "Open Land": [
+                0.7364485981308411,
+                0.8368055555555556
+              ],
+              "Agriculture": [
+                0.7317073170731707,
+                0.8309365183909211
+              ]
+            }
+          },
+          "after-gtb-b22": {
+            "confusion_matrix": [
+              [
+                254,
+                8,
+                4,
+                1,
+                33
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                299,
+                1,
+                0
+              ],
+              [
+                0,
+                2,
+                74,
+                221,
+                3
+              ],
+              [
+                12,
+                7,
+                24,
+                32,
+                225
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.866,
+            "overall_accuracy_ci95": [
+              0.8406666666666667,
+              0.8920166666666665
+            ],
+            "kappa": 0.8324999999999999,
+            "kappa_ci95": [
+              0.8008333333333334,
+              0.8650208333333329
+            ],
+            "macro_f1": 0.8643152616883594,
+            "macro_f1_ci95": [
+              0.8379734209388296,
+              0.8911449875155216
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8975265017667844,
+              "Water": 0.9724473257698542,
+              "Built Area": 0.8530670470756063,
+              "Open Land": 0.7963963963963964,
+              "Agriculture": 0.8021390374331552
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8587146116098537,
+                0.9294320137693631
+              ],
+              "Water": [
+                0.9600000000000001,
+                0.9852216748768473
+              ],
+              "Built Area": [
+                0.8186813186813188,
+                0.8902077151335311
+              ],
+              "Open Land": [
+                0.7417463189194999,
+                0.8501742160278746
+              ],
+              "Agriculture": [
+                0.7537313432835822,
+                0.8457604944709437
+              ]
+            }
+          },
+          "after-gtb-b27": {
+            "confusion_matrix": [
+              [
+                257,
+                7,
+                7,
+                1,
+                28
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                297,
+                2,
+                0
+              ],
+              [
+                0,
+                1,
+                73,
+                224,
+                2
+              ],
+              [
+                14,
+                7,
+                22,
+                31,
+                226
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.8693333333333333,
+            "overall_accuracy_ci95": [
+              0.8473333333333334,
+              0.892
+            ],
+            "kappa": 0.8366666666666667,
+            "kappa_ci95": [
+              0.8091666666666666,
+              0.8649999999999999
+            ],
+            "macro_f1": 0.8679607073800243,
+            "macro_f1_ci95": [
+              0.845284512139862,
+              0.8911583383485777
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9001751313485115,
+              "Water": 0.974025974025974,
+              "Built Area": 0.8497854077253219,
+              "Open Land": 0.8028673835125447,
+              "Agriculture": 0.8129496402877697
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8627450980392156,
+                0.933110348770726
+              ],
+              "Water": [
+                0.9630818619582664,
+                0.9852216748768473
+              ],
+              "Built Area": [
+                0.8147138964577657,
+                0.8842729970326408
+              ],
+              "Open Land": [
+                0.7500000000000001,
+                0.8514501721911322
+              ],
+              "Agriculture": [
+                0.7736185383244206,
+                0.8469782161374453
+              ]
+            }
+          },
+          "after-knn": {
+            "confusion_matrix": [
+              [
+                254,
+                5,
+                5,
+                0,
+                36
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                299,
+                0,
+                0
+              ],
+              [
+                0,
+                7,
+                89,
+                203,
+                1
+              ],
+              [
+                22,
+                5,
+                36,
+                26,
+                211
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.8446666666666667,
+            "overall_accuracy_ci95": [
+              0.8146666666666667,
+              0.874
+            ],
+            "kappa": 0.8058333333333334,
+            "kappa_ci95": [
+              0.7683333333333333,
+              0.8424999999999999
+            ],
+            "macro_f1": 0.8421357658247851,
+            "macro_f1_ci95": [
+              0.8105111032504098,
+              0.8721096621849957
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8819444444444444,
+              "Water": 0.970873786407767,
+              "Built Area": 0.8203017832647462,
+              "Open Land": 0.7674858223062381,
+              "Agriculture": 0.7700729927007299
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8461472602739726,
+                0.9172413793103449
+              ],
+              "Water": [
+                0.9584664536741214,
+                0.9836065573770492
+              ],
+              "Built Area": [
+                0.7863695937090432,
+                0.8555078683834048
+              ],
+              "Open Land": [
+                0.699177196591243,
+                0.8282097649186257
+              ],
+              "Agriculture": [
+                0.7056671035838709,
+                0.8243727598566307
+              ]
+            }
+          },
+          "after-rf": {
+            "confusion_matrix": [
+              [
+                236,
+                14,
+                6,
+                0,
+                44
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                290,
+                9,
+                0
+              ],
+              [
+                0,
+                1,
+                68,
+                231,
+                0
+              ],
+              [
+                12,
+                7,
+                24,
+                32,
+                225
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.8546666666666667,
+            "overall_accuracy_ci95": [
+              0.8313333333333334,
+              0.8786666666666667
+            ],
+            "kappa": 0.8183333333333334,
+            "kappa_ci95": [
+              0.7891666666666666,
+              0.8483333333333334
+            ],
+            "macro_f1": 0.8531944908014735,
+            "macro_f1_ci95": [
+              0.8292402476119018,
+              0.8777498124336026
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8613138686131386,
+              "Water": 0.9630818619582664,
+              "Built Area": 0.8430232558139534,
+              "Open Land": 0.8076923076923077,
+              "Agriculture": 0.7908611599297013
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8037735849056604,
+                0.9087658098735211
+              ],
+              "Water": [
+                0.9433962264150945,
+                0.9803921568627451
+              ],
+              "Built Area": [
+                0.8083901515151514,
+                0.8781954887218045
+              ],
+              "Open Land": [
+                0.7559531090723751,
+                0.856655290102389
+              ],
+              "Agriculture": [
+                0.7302073010643363,
+                0.8422921464352698
+              ]
+            }
+          },
+          "after-svm": {
+            "confusion_matrix": [
+              [
+                268,
+                0,
+                7,
+                0,
+                25
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                296,
+                3,
+                0
+              ],
+              [
+                0,
+                4,
+                87,
+                208,
+                1
+              ],
+              [
+                14,
+                8,
+                24,
+                28,
+                226
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.8653333333333333,
+            "overall_accuracy_ci95": [
+              0.838,
+              0.8926666666666667
+            ],
+            "kappa": 0.8316666666666667,
+            "kappa_ci95": [
+              0.7974999999999999,
+              0.8658333333333335
+            ],
+            "macro_f1": 0.8639053765624762,
+            "macro_f1_ci95": [
+              0.8351352408485823,
+              0.8924744325567404
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9209621993127147,
+              "Water": 0.9787928221859706,
+              "Built Area": 0.8291316526610644,
+              "Open Land": 0.7717996289424861,
+              "Agriculture": 0.818840579710145
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8904109589041095,
+                0.9488054607508531
+              ],
+              "Water": [
+                0.970873786407767,
+                0.9868421052631579
+              ],
+              "Built Area": [
+                0.7967479674796748,
+                0.8630407603225225
+              ],
+              "Open Land": [
+                0.7159461574934709,
+                0.8277213966412952
+              ],
+              "Agriculture": [
+                0.7624477790574261,
+                0.8643768964354676
+              ]
+            }
+          },
+          "before-cart": {
+            "confusion_matrix": [
+              [
+                210,
+                10,
+                2,
+                78,
+                0
+              ],
+              [
+                0,
+                300,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                284,
+                12,
+                0
+              ],
+              [
+                1,
+                15,
+                103,
+                181,
+                0
+              ],
+              [
+                25,
+                17,
+                19,
+                239,
+                0
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.65,
+            "overall_accuracy_ci95": [
+              0.6253333333333333,
+              0.676
+            ],
+            "kappa": 0.5625,
+            "kappa_ci95": [
+              0.5316666666666666,
+              0.595
+            ],
+            "macro_f1": 0.7403870316160611,
+            "macro_f1_ci95": [
+              0.7110970481523521,
+              0.7706706653148884
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.7835820895522386,
+              "Water": 0.9287925696594428,
+              "Built Area": 0.8022598870056498,
+              "Open Land": 0.44691358024691363,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.7181441780125991,
+                0.8417314106086355
+              ],
+              "Water": [
+                0.9104704097116844,
+                0.9448818897637796
+              ],
+              "Built Area": [
+                0.7729683765398051,
+                0.8333333333333334
+              ],
+              "Open Land": [
+                0.3863628897383825,
+                0.5017840191962635
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-gtb": {
+            "confusion_matrix": [
+              [
+                266,
+                7,
+                5,
+                22,
+                0
+              ],
+              [
+                0,
+                296,
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                298,
+                2,
+                0
+              ],
+              [
+                0,
+                1,
+                86,
+                213,
+                0
+              ],
+              [
+                18,
+                8,
+                23,
+                251,
+                0
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.7153333333333334,
+            "overall_accuracy_ci95": [
+              0.694,
+              0.7353333333333333
+            ],
+            "kappa": 0.6441666666666668,
+            "kappa_ci95": [
+              0.6174999999999999,
+              0.6691666666666665
+            ],
+            "macro_f1": 0.8133091512779197,
+            "macro_f1_ci95": [
+              0.7891101066971663,
+              0.8363561078000622
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9109589041095891,
+              "Water": 0.9673202614379085,
+              "Built Area": 0.8370786516853932,
+              "Open Land": 0.537878787878788,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8778761061946903,
+                0.9407783417935702
+              ],
+              "Water": [
+                0.9531502423263327,
+                0.9818196794967798
+              ],
+              "Built Area": [
+                0.8021534320323014,
+                0.8731614947636896
+              ],
+              "Open Land": [
+                0.4864847382958638,
+                0.5836388140161725
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-knn": {
+            "confusion_matrix": [
+              [
+                258,
+                5,
+                3,
+                34,
+                0
+              ],
+              [
+                0,
+                297,
+                0,
+                3,
+                0
+              ],
+              [
+                0,
+                1,
+                298,
+                1,
+                0
+              ],
+              [
+                0,
+                3,
+                102,
+                195,
+                0
+              ],
+              [
+                19,
+                11,
+                22,
+                248,
+                0
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.6986666666666667,
+            "overall_accuracy_ci95": [
+              0.68,
+              0.7186666666666667
+            ],
+            "kappa": 0.6233333333333333,
+            "kappa_ci95": [
+              0.6,
+              0.6483333333333332
+            ],
+            "macro_f1": 0.7946080939322078,
+            "macro_f1_ci95": [
+              0.7727885925452929,
+              0.81782944768225
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8942807625649913,
+              "Water": 0.9627228525121556,
+              "Built Area": 0.8220689655172414,
+              "Open Land": 0.49935979513444306,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8500881834215166,
+                0.9347079037800686
+              ],
+              "Water": [
+                0.9356307247308372,
+                0.9819967266775776
+              ],
+              "Built Area": [
+                0.7957559681697612,
+                0.849002849002849
+              ],
+              "Open Land": [
+                0.44993339261418525,
+                0.546130861308613
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-rf": {
+            "confusion_matrix": [
+              [
+                241,
+                8,
+                2,
+                49,
+                0
+              ],
+              [
+                0,
+                297,
+                0,
+                3,
+                0
+              ],
+              [
+                0,
+                0,
+                298,
+                2,
+                0
+              ],
+              [
+                0,
+                0,
+                97,
+                203,
+                0
+              ],
+              [
+                16,
+                7,
+                12,
+                265,
+                0
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.6926666666666667,
+            "overall_accuracy_ci95": [
+              0.6693333333333333,
+              0.7166666666666667
+            ],
+            "kappa": 0.6158333333333332,
+            "kappa_ci95": [
+              0.5866666666666667,
+              0.6458333333333333
+            ],
+            "macro_f1": 0.7926190480958839,
+            "macro_f1_ci95": [
+              0.7653267763035839,
+              0.8198002715212895
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8653500897666068,
+              "Water": 0.9705882352941176,
+              "Built Area": 0.8406205923836388,
+              "Open Land": 0.4939172749391727,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8152139762703927,
+                0.9100529100529101
+              ],
+              "Water": [
+                0.9577922077922078,
+                0.9834983498349835
+              ],
+              "Built Area": [
+                0.8054776008885597,
+                0.87870717041071
+              ],
+              "Open Land": [
+                0.4377339286571607,
+                0.5454545454545454
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-svm": {
+            "confusion_matrix": [
+              [
+                270,
+                1,
+                6,
+                23,
+                0
+              ],
+              [
+                0,
+                297,
+                0,
+                3,
+                0
+              ],
+              [
+                0,
+                0,
+                299,
+                1,
+                0
+              ],
+              [
+                0,
+                2,
+                108,
+                190,
+                0
+              ],
+              [
+                15,
+                9,
+                13,
+                263,
+                0
+              ]
+            ],
+            "sample_count": 1500,
+            "district_count": 15,
+            "overall_accuracy": 0.704,
+            "overall_accuracy_ci95": [
+              0.6833333333333333,
+              0.7246666666666667
+            ],
+            "kappa": 0.63,
+            "kappa_ci95": [
+              0.6041666666666666,
+              0.6558333333333333
+            ],
+            "macro_f1": 0.8023293321098964,
+            "macro_f1_ci95": [
+              0.7786795481396875,
+              0.8252581960773382
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9230769230769231,
+              "Water": 0.9753694581280788,
+              "Built Area": 0.8236914600550965,
+              "Open Land": 0.4871794871794872,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.887372013651877,
+                0.9554870235765538
+              ],
+              "Water": [
+                0.9624796084828712,
+                0.985172981878089
+              ],
+              "Built Area": [
+                0.7978580990629183,
+                0.8498583569405099
+              ],
+              "Open Land": [
+                0.4369288549722812,
+                0.5357142857142857
+              ],
+              "Agriculture": null
+            }
+          }
+        },
+        "paired_comparisons": [
+          {
+            "left": "after-cart",
+            "right": "after-gtb",
+            "mean_district_oa_difference": -0.08000000000000002,
+            "ci95": [
+              -0.10068333333333339,
+              -0.058000000000000024
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 14,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.0009646226188569388
+          },
+          {
+            "left": "after-cart",
+            "right": "after-knn",
+            "mean_district_oa_difference": -0.05333333333333336,
+            "ci95": [
+              -0.07333333333333335,
+              -0.03533333333333336
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 14,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.0009646226188569388
+          },
+          {
+            "left": "after-cart",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.06333333333333334,
+            "ci95": [
+              -0.08400000000000002,
+              -0.04333333333333333
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 14,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.0001220703125
+          },
+          {
+            "left": "after-cart",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.074,
+            "ci95": [
+              -0.096,
+              -0.05266666666666666
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 14,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.000973056529446685
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-knn",
+            "mean_district_oa_difference": 0.026666666666666648,
+            "ci95": [
+              0.015999999999999983,
+              0.036666666666666646
+            ],
+            "districts_left_better": 11,
+            "districts_right_better": 1,
+            "districts_tied": 3,
+            "wilcoxon_p": 0.002841250355684971
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-rf",
+            "mean_district_oa_difference": 0.016666666666666666,
+            "ci95": [
+              0.003999999999999989,
+              0.029333333333333336
+            ],
+            "districts_left_better": 11,
+            "districts_right_better": 4,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.041259765625
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.006000000000000005,
+            "ci95": [
+              -0.005333333333333338,
+              0.01733333333333335
+            ],
+            "districts_left_better": 8,
+            "districts_right_better": 4,
+            "districts_tied": 3,
+            "wilcoxon_p": 0.3228598576158065
+          },
+          {
+            "left": "after-knn",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.00999999999999998,
+            "ci95": [
+              -0.02466666666666666,
+              0.007333333333333355
+            ],
+            "districts_left_better": 3,
+            "districts_right_better": 11,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.18663979038349232
+          },
+          {
+            "left": "after-knn",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.020666666666666642,
+            "ci95": [
+              -0.03333333333333332,
+              -0.004666666666666649
+            ],
+            "districts_left_better": 2,
+            "districts_right_better": 13,
+            "districts_tied": 0,
+            "wilcoxon_p": 0.02154541015625
+          },
+          {
+            "left": "after-rf",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.010666666666666661,
+            "ci95": [
+              -0.021333333333333315,
+              0.0013333333333333346
+            ],
+            "districts_left_better": 2,
+            "districts_right_better": 12,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.07075892994455253
+          }
+        ],
+        "stack_comparisons": [
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b19",
+            "mean_district_oa_difference": 0.01399999999999999,
+            "ci95": [
+              0.0006666666666666524,
+              0.02666666666666666
+            ],
+            "districts_left_better": 11,
+            "districts_right_better": 2,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.07996544356265768
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": 0.005333333333333324,
+            "ci95": [
+              -0.0026666666666666766,
+              0.012666666666666663
+            ],
+            "districts_left_better": 7,
+            "districts_right_better": 2,
+            "districts_tied": 6,
+            "wilcoxon_p": 0.30529780795203576
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": 0.001999999999999987,
+            "ci95": [
+              -0.010666666666666677,
+              0.013333333333333308
+            ],
+            "districts_left_better": 6,
+            "districts_right_better": 3,
+            "districts_tied": 6,
+            "wilcoxon_p": 0.6778684441068372
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": -0.008666666666666666,
+            "ci95": [
+              -0.017999999999999995,
+              0.001333333333333342
+            ],
+            "districts_left_better": 3,
+            "districts_right_better": 10,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.15430492670337476
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": -0.012000000000000004,
+            "ci95": [
+              -0.025333333333333326,
+              0.0013333333333333348
+            ],
+            "districts_left_better": 4,
+            "districts_right_better": 9,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.09979806083333637
+          },
+          {
+            "left": "after-gtb-b22",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": -0.003333333333333336,
+            "ci95": [
+              -0.013999999999999983,
+              0.007333333333333318
+            ],
+            "districts_left_better": 6,
+            "districts_right_better": 7,
+            "districts_tied": 2,
+            "wilcoxon_p": 0.526194127034594
+          }
+        ]
+      },
+      "test": {
+        "districts": [
+          "Anuppur",
+          "Ashoknagar",
+          "Balaghat",
+          "Betul",
+          "Bhind",
+          "Bhopal",
+          "Burhanpur",
+          "Chhatarpur",
+          "Chhindwara",
+          "Datia",
+          "Dewas",
+          "Dhar",
+          "East Nimar",
+          "Guna",
+          "Gwalior",
+          "Indore",
+          "Morena",
+          "Narsinghpur",
+          "Panna",
+          "Raisen",
+          "Ratlam",
+          "Sagar",
+          "Satna",
+          "Seoni",
+          "Shahdol",
+          "Sidhi",
+          "Ujjain",
+          "Umaria",
+          "Vidisha"
+        ],
+        "pooled": {
+          "after-cart": {
+            "confusion_matrix": [
+              [
+                457,
+                5,
+                22,
+                2,
+                94
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                537,
+                34,
+                7
+              ],
+              [
+                0,
+                37,
+                117,
+                404,
+                22
+              ],
+              [
+                64,
+                13,
+                56,
+                89,
+                358
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8055172413793104,
+            "overall_accuracy_ci95": [
+              0.7827586206896552,
+              0.8286206896551724
+            ],
+            "kappa": 0.756896551724138,
+            "kappa_ci95": [
+              0.7284482758620688,
+              0.7857758620689655
+            ],
+            "macro_f1": 0.8010730779556402,
+            "macro_f1_ci95": [
+              0.7768505487335202,
+              0.8252001061216954
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8294010889292196,
+              "Water": 0.9539473684210527,
+              "Built Area": 0.8185975609756098,
+              "Open Land": 0.7285843101893598,
+              "Agriculture": 0.6748350612629594
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8003679431577315,
+                0.8537971997268027
+              ],
+              "Water": [
+                0.9369951534733442,
+                0.9698996655518395
+              ],
+              "Built Area": [
+                0.7917282127031019,
+                0.8461583924349882
+              ],
+              "Open Land": [
+                0.6826986820856689,
+                0.7747114323833951
+              ],
+              "Agriculture": [
+                0.6061839386938866,
+                0.7316680571488162
+              ]
+            }
+          },
+          "after-gtb": {
+            "confusion_matrix": [
+              [
+                528,
+                2,
+                4,
+                0,
+                46
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                572,
+                8,
+                0
+              ],
+              [
+                0,
+                9,
+                123,
+                443,
+                5
+              ],
+              [
+                23,
+                11,
+                57,
+                77,
+                412
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8741379310344828,
+            "overall_accuracy_ci95": [
+              0.8506896551724138,
+              0.896896551724138
+            ],
+            "kappa": 0.8426724137931035,
+            "kappa_ci95": [
+              0.8133620689655171,
+              0.8711206896551723
+            ],
+            "macro_f1": 0.8722059318008857,
+            "macro_f1_ci95": [
+              0.8474510603653388,
+              0.8957941989167847
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9336870026525199,
+              "Water": 0.9813874788494078,
+              "Built Area": 0.8562874251497005,
+              "Open Land": 0.7996389891696751,
+              "Agriculture": 0.7900287631831255
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.9147414034872813,
+                0.9505308781209871
+              ],
+              "Water": [
+                0.9715242881072027,
+                0.9897610921501706
+              ],
+              "Built Area": [
+                0.8330893118594437,
+                0.8807339449541284
+              ],
+              "Open Land": [
+                0.7550035211570006,
+                0.843156758241273
+              ],
+              "Agriculture": [
+                0.7217099257756673,
+                0.8463661453541859
+              ]
+            }
+          },
+          "after-gtb-b19": {
+            "confusion_matrix": [
+              [
+                514,
+                3,
+                4,
+                0,
+                59
+              ],
+              [
+                0,
+                579,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                578,
+                2,
+                0
+              ],
+              [
+                0,
+                15,
+                155,
+                399,
+                11
+              ],
+              [
+                21,
+                12,
+                53,
+                80,
+                414
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.856551724137931,
+            "overall_accuracy_ci95": [
+              0.8358620689655173,
+              0.8793103448275862
+            ],
+            "kappa": 0.8206896551724138,
+            "kappa_ci95": [
+              0.7948275862068965,
+              0.8491379310344827
+            ],
+            "macro_f1": 0.8538608606039763,
+            "macro_f1_ci95": [
+              0.8319276853672124,
+              0.8777156052470078
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9219730941704036,
+              "Water": 0.9739276703111859,
+              "Built Area": 0.8437956204379562,
+              "Open Land": 0.7514124293785311,
+              "Agriculture": 0.7781954887218044
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.9011786038077969,
+                0.9406554472984943
+              ],
+              "Water": [
+                0.9610604805302402,
+                0.9847198641765704
+              ],
+              "Built Area": [
+                0.823859479430277,
+                0.8665667166416792
+              ],
+              "Open Land": [
+                0.7002885407305821,
+                0.8034042855425767
+              ],
+              "Agriculture": [
+                0.7172779577985865,
+                0.8324130207555621
+              ]
+            }
+          },
+          "after-gtb-b22": {
+            "confusion_matrix": [
+              [
+                514,
+                2,
+                5,
+                0,
+                59
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                577,
+                3,
+                0
+              ],
+              [
+                0,
+                11,
+                155,
+                409,
+                5
+              ],
+              [
+                24,
+                12,
+                60,
+                77,
+                407
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8575862068965517,
+            "overall_accuracy_ci95": [
+              0.8351724137931035,
+              0.88
+            ],
+            "kappa": 0.8219827586206896,
+            "kappa_ci95": [
+              0.7939655172413792,
+              0.8499999999999999
+            ],
+            "macro_f1": 0.8552314794856933,
+            "macro_f1_ci95": [
+              0.831287997679905,
+              0.8787681241296957
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9194991055456171,
+              "Water": 0.9789029535864979,
+              "Built Area": 0.8380537400145244,
+              "Open Land": 0.7652011225444341,
+              "Agriculture": 0.7745004757373929
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8972972972972973,
+                0.9399495337894537
+              ],
+              "Water": [
+                0.9674728940783986,
+                0.9889173060528559
+              ],
+              "Built Area": [
+                0.8156028368794326,
+                0.862686567164179
+              ],
+              "Open Land": [
+                0.7149691689199822,
+                0.8143530223403608
+              ],
+              "Agriculture": [
+                0.7063462625406247,
+                0.8301553125264076
+              ]
+            }
+          },
+          "after-gtb-b27": {
+            "confusion_matrix": [
+              [
+                509,
+                4,
+                7,
+                0,
+                60
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                578,
+                2,
+                0
+              ],
+              [
+                0,
+                14,
+                161,
+                399,
+                6
+              ],
+              [
+                25,
+                10,
+                58,
+                74,
+                413
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8548275862068966,
+            "overall_accuracy_ci95": [
+              0.8313793103448276,
+              0.8789655172413793
+            ],
+            "kappa": 0.8185344827586207,
+            "kappa_ci95": [
+              0.7892241379310344,
+              0.8487068965517242
+            ],
+            "macro_f1": 0.8523788736025357,
+            "macro_f1_ci95": [
+              0.8273512421955198,
+              0.8774535888927197
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9138240574506283,
+              "Water": 0.9764309764309764,
+              "Built Area": 0.8352601156069365,
+              "Open Land": 0.7563981042654028,
+              "Agriculture": 0.7799811142587346
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8874538745387455,
+                0.93568281938326
+              ],
+              "Water": [
+                0.9650582362728786,
+                0.9855564995751912
+              ],
+              "Built Area": [
+                0.8123682361208715,
+                0.8607594936708861
+              ],
+              "Open Land": [
+                0.7023335164998364,
+                0.8089305823680822
+              ],
+              "Agriculture": [
+                0.7173462391611213,
+                0.8351464541605601
+              ]
+            }
+          },
+          "after-knn": {
+            "confusion_matrix": [
+              [
+                532,
+                1,
+                2,
+                0,
+                45
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                2,
+                575,
+                3,
+                0
+              ],
+              [
+                0,
+                22,
+                164,
+                392,
+                2
+              ],
+              [
+                35,
+                10,
+                75,
+                66,
+                394
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8527586206896551,
+            "overall_accuracy_ci95": [
+              0.8317241379310345,
+              0.8755172413793103
+            ],
+            "kappa": 0.815948275862069,
+            "kappa_ci95": [
+              0.7896551724137931,
+              0.8443965517241377
+            ],
+            "macro_f1": 0.8494090410543919,
+            "macro_f1_ci95": [
+              0.8263871591070028,
+              0.8730645605471797
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9276373147340887,
+              "Water": 0.9707112970711297,
+              "Built Area": 0.8237822349570201,
+              "Open Land": 0.7531219980787704,
+              "Agriculture": 0.77179236043095
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.9054281814366965,
+                0.946817785527463
+              ],
+              "Water": [
+                0.9602649006622517,
+                0.9797297297297297
+              ],
+              "Built Area": [
+                0.8044692737430167,
+                0.8460410557184751
+              ],
+              "Open Land": [
+                0.7114053160890231,
+                0.7946023616264442
+              ],
+              "Agriculture": [
+                0.7021057443162821,
+                0.8310989795235364
+              ]
+            }
+          },
+          "after-rf": {
+            "confusion_matrix": [
+              [
+                496,
+                5,
+                2,
+                0,
+                77
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                564,
+                16,
+                0
+              ],
+              [
+                0,
+                16,
+                115,
+                448,
+                1
+              ],
+              [
+                18,
+                11,
+                59,
+                73,
+                419
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8644827586206897,
+            "overall_accuracy_ci95": [
+              0.8417241379310345,
+              0.8858620689655172
+            ],
+            "kappa": 0.830603448275862,
+            "kappa_ci95": [
+              0.8021551724137932,
+              0.8573275862068965
+            ],
+            "macro_f1": 0.8629399753972496,
+            "macro_f1_ci95": [
+              0.8391952904071276,
+              0.8849657100812252
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9067641681901281,
+              "Water": 0.9731543624161073,
+              "Built Area": 0.8545454545454546,
+              "Open Land": 0.8021486123545211,
+              "Agriculture": 0.7780872794800371
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8797763280521902,
+                0.9305680793507665
+              ],
+              "Water": [
+                0.9618573797678276,
+                0.9838846480067853
+              ],
+              "Built Area": [
+                0.8332097850259451,
+                0.8773291925465838
+              ],
+              "Open Land": [
+                0.7612184614280799,
+                0.8425780614734103
+              ],
+              "Agriculture": [
+                0.7127109868489179,
+                0.8289712299680803
+              ]
+            }
+          },
+          "after-svm": {
+            "confusion_matrix": [
+              [
+                530,
+                1,
+                5,
+                0,
+                44
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                578,
+                2,
+                0
+              ],
+              [
+                0,
+                18,
+                162,
+                397,
+                3
+              ],
+              [
+                18,
+                8,
+                58,
+                76,
+                420
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.8637931034482759,
+            "overall_accuracy_ci95": [
+              0.8403448275862069,
+              0.8858620689655172
+            ],
+            "kappa": 0.8297413793103448,
+            "kappa_ci95": [
+              0.8004310344827587,
+              0.8573275862068965
+            ],
+            "macro_f1": 0.8615465709645722,
+            "macro_f1_ci95": [
+              0.8370618173591902,
+              0.8844111864818184
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9397163120567376,
+              "Water": 0.9772535804549283,
+              "Built Area": 0.8358640636297903,
+              "Open Land": 0.75260663507109,
+              "Agriculture": 0.8022922636103152
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.9159853584961188,
+                0.9575971731448764
+              ],
+              "Water": [
+                0.9658617818484596,
+                0.9880749574105622
+              ],
+              "Built Area": [
+                0.8117519049154696,
+                0.8607594936708861
+              ],
+              "Open Land": [
+                0.7049949263508365,
+                0.7992655052090943
+              ],
+              "Agriculture": [
+                0.7355570906634736,
+                0.8574073098105351
+              ]
+            }
+          },
+          "before-cart": {
+            "confusion_matrix": [
+              [
+                436,
+                10,
+                1,
+                133,
+                0
+              ],
+              [
+                0,
+                580,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                6,
+                547,
+                27,
+                0
+              ],
+              [
+                1,
+                67,
+                170,
+                342,
+                0
+              ],
+              [
+                47,
+                31,
+                46,
+                456,
+                0
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.656896551724138,
+            "overall_accuracy_ci95": [
+              0.6393103448275862,
+              0.6751724137931034
+            ],
+            "kappa": 0.5711206896551724,
+            "kappa_ci95": [
+              0.5491379310344827,
+              0.5939655172413792
+            ],
+            "macro_f1": 0.7471971102049375,
+            "macro_f1_ci95": [
+              0.7280619689384352,
+              0.7679560785399316
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.8195488721804511,
+              "Water": 0.9105180533751962,
+              "Built Area": 0.8139880952380952,
+              "Open Land": 0.44473342002600774,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.7872324917809068,
+                0.8487127898331221
+              ],
+              "Water": [
+                0.8909370199692781,
+                0.9302325581395349
+              ],
+              "Built Area": [
+                0.7906628947461163,
+                0.8385686387964704
+              ],
+              "Open Land": [
+                0.399743563847679,
+                0.4895944032530033
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-gtb": {
+            "confusion_matrix": [
+              [
+                543,
+                0,
+                7,
+                30,
+                0
+              ],
+              [
+                0,
+                573,
+                0,
+                7,
+                0
+              ],
+              [
+                0,
+                0,
+                577,
+                3,
+                0
+              ],
+              [
+                1,
+                4,
+                140,
+                435,
+                0
+              ],
+              [
+                23,
+                12,
+                51,
+                494,
+                0
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.7337931034482759,
+            "overall_accuracy_ci95": [
+              0.72,
+              0.746551724137931
+            ],
+            "kappa": 0.6672413793103449,
+            "kappa_ci95": [
+              0.65,
+              0.6831896551724137
+            ],
+            "macro_f1": 0.8351140113594664,
+            "macro_f1_ci95": [
+              0.8199790573618314,
+              0.8495357217812739
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.946817785527463,
+              "Water": 0.9803250641573994,
+              "Built Area": 0.8516605166051661,
+              "Open Land": 0.5616526791478372,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.9305168062406791,
+                0.9618072104274985
+              ],
+              "Water": [
+                0.9719148936170212,
+                0.9879931389365352
+              ],
+              "Built Area": [
+                0.8271415191436805,
+                0.8775665399239544
+              ],
+              "Open Land": [
+                0.5261011578782663,
+                0.5935903256105196
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-knn": {
+            "confusion_matrix": [
+              [
+                536,
+                0,
+                3,
+                41,
+                0
+              ],
+              [
+                0,
+                577,
+                0,
+                3,
+                0
+              ],
+              [
+                0,
+                1,
+                576,
+                3,
+                0
+              ],
+              [
+                0,
+                4,
+                174,
+                402,
+                0
+              ],
+              [
+                34,
+                17,
+                51,
+                478,
+                0
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.7210344827586207,
+            "overall_accuracy_ci95": [
+              0.7062068965517241,
+              0.7362068965517241
+            ],
+            "kappa": 0.6512931034482757,
+            "kappa_ci95": [
+              0.6327586206896552,
+              0.6702586206896551
+            ],
+            "macro_f1": 0.8192124325144313,
+            "macro_f1_ci95": [
+              0.8029884095488867,
+              0.8355933324618005
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9321739130434783,
+              "Water": 0.9787955894826125,
+              "Built Area": 0.8323699421965317,
+              "Open Land": 0.5335102853351029,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.9126205105574036,
+                0.9497025801504385
+              ],
+              "Water": [
+                0.969439728353141,
+                0.9872340425531915
+              ],
+              "Built Area": [
+                0.8109627547434998,
+                0.8562919941534983
+              ],
+              "Open Land": [
+                0.4960306850012732,
+                0.5710526746630821
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-rf": {
+            "confusion_matrix": [
+              [
+                503,
+                3,
+                4,
+                70,
+                0
+              ],
+              [
+                0,
+                576,
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                577,
+                3,
+                0
+              ],
+              [
+                0,
+                2,
+                154,
+                424,
+                0
+              ],
+              [
+                21,
+                13,
+                36,
+                510,
+                0
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.7172413793103448,
+            "overall_accuracy_ci95": [
+              0.6975862068965517,
+              0.7351724137931035
+            ],
+            "kappa": 0.6465517241379309,
+            "kappa_ci95": [
+              0.6219827586206896,
+              0.6689655172413794
+            ],
+            "macro_f1": 0.8199181832883996,
+            "macro_f1_ci95": [
+              0.798990367096127,
+              0.8390443035759014
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.911231884057971,
+              "Water": 0.9812606473594548,
+              "Built Area": 0.8541820873427091,
+              "Open Land": 0.5329981143934632,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.8794059555964316,
+                0.9364386608119822
+              ],
+              "Water": [
+                0.9754028837998305,
+                0.9871904355251923
+              ],
+              "Built Area": [
+                0.829971181556196,
+                0.8801244633653142
+              ],
+              "Open Land": [
+                0.4945626065130595,
+                0.5696130001393757
+              ],
+              "Agriculture": null
+            }
+          },
+          "before-svm": {
+            "confusion_matrix": [
+              [
+                541,
+                1,
+                5,
+                33,
+                0
+              ],
+              [
+                0,
+                570,
+                0,
+                10,
+                0
+              ],
+              [
+                0,
+                0,
+                579,
+                1,
+                0
+              ],
+              [
+                0,
+                5,
+                189,
+                386,
+                0
+              ],
+              [
+                18,
+                11,
+                37,
+                514,
+                0
+              ]
+            ],
+            "sample_count": 2900,
+            "district_count": 29,
+            "overall_accuracy": 0.7158620689655173,
+            "overall_accuracy_ci95": [
+              0.7003448275862069,
+              0.7303448275862069
+            ],
+            "kappa": 0.6448275862068966,
+            "kappa_ci95": [
+              0.6254310344827585,
+              0.6629310344827585
+            ],
+            "macro_f1": 0.816618765006743,
+            "macro_f1_ci95": [
+              0.7999019681735899,
+              0.8322829669280495
+            ],
+            "per_class_f1": {
+              "Vegetation": 0.9499561018437226,
+              "Water": 0.9768637532133675,
+              "Built Area": 0.8330935251798561,
+              "Open Land": 0.5065616797900262,
+              "Agriculture": null
+            },
+            "per_class_f1_ci95": {
+              "Vegetation": [
+                0.929902395740905,
+                0.967013888888889
+              ],
+              "Water": [
+                0.9685106382978723,
+                0.9844827586206897
+              ],
+              "Built Area": [
+                0.8137737174982431,
+                0.8533529845246868
+              ],
+              "Open Land": [
+                0.46902065289806794,
+                0.5429955797347841
+              ],
+              "Agriculture": null
+            }
+          }
+        },
+        "paired_comparisons": [
+          {
+            "left": "after-cart",
+            "right": "after-gtb",
+            "mean_district_oa_difference": -0.0686206896551724,
+            "ci95": [
+              -0.08310344827586205,
+              -0.054827586206896546
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 28,
+            "districts_tied": 0,
+            "wilcoxon_p": 7.450580596923828e-09
+          },
+          {
+            "left": "after-cart",
+            "right": "after-knn",
+            "mean_district_oa_difference": -0.04724137931034482,
+            "ci95": [
+              -0.05758620689655172,
+              -0.03724137931034482
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 27,
+            "districts_tied": 1,
+            "wilcoxon_p": 4.580231673454582e-06
+          },
+          {
+            "left": "after-cart",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.058965517241379314,
+            "ci95": [
+              -0.07172413793103448,
+              -0.04655172413793105
+            ],
+            "districts_left_better": 1,
+            "districts_right_better": 28,
+            "districts_tied": 0,
+            "wilcoxon_p": 1.862645149230957e-08
+          },
+          {
+            "left": "after-cart",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.058275862068965505,
+            "ci95": [
+              -0.06793103448275863,
+              -0.04862068965517239
+            ],
+            "districts_left_better": 0,
+            "districts_right_better": 28,
+            "districts_tied": 1,
+            "wilcoxon_p": 3.7135987448490455e-06
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-knn",
+            "mean_district_oa_difference": 0.02137931034482759,
+            "ci95": [
+              0.010689655172413803,
+              0.03137931034482758
+            ],
+            "districts_left_better": 23,
+            "districts_right_better": 5,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.0010545111408857475
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-rf",
+            "mean_district_oa_difference": 0.009655172413793094,
+            "ci95": [
+              -7.656710514656252e-18,
+              0.019999999999999987
+            ],
+            "districts_left_better": 14,
+            "districts_right_better": 8,
+            "districts_tied": 7,
+            "wilcoxon_p": 0.10299692461188234
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.010344827586206905,
+            "ci95": [
+              0.0003448275862069122,
+              0.020689655172413807
+            ],
+            "districts_left_better": 15,
+            "districts_right_better": 10,
+            "districts_tied": 4,
+            "wilcoxon_p": 0.062427193626415495
+          },
+          {
+            "left": "after-knn",
+            "right": "after-rf",
+            "mean_district_oa_difference": -0.011724137931034497,
+            "ci95": [
+              -0.02103448275862069,
+              -0.00275862068965519
+            ],
+            "districts_left_better": 7,
+            "districts_right_better": 17,
+            "districts_tied": 5,
+            "wilcoxon_p": 0.03730588405494115
+          },
+          {
+            "left": "after-knn",
+            "right": "after-svm",
+            "mean_district_oa_difference": -0.011034482758620684,
+            "ci95": [
+              -0.021724137931034483,
+              -0.0006896551724137937
+            ],
+            "districts_left_better": 8,
+            "districts_right_better": 16,
+            "districts_tied": 5,
+            "wilcoxon_p": 0.08293806458680222
+          },
+          {
+            "left": "after-rf",
+            "right": "after-svm",
+            "mean_district_oa_difference": 0.0006896551724138129,
+            "ci95": [
+              -0.010689655172413775,
+              0.012758620689655184
+            ],
+            "districts_left_better": 14,
+            "districts_right_better": 14,
+            "districts_tied": 1,
+            "wilcoxon_p": 0.9635183303277441
+          }
+        ],
+        "stack_comparisons": [
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b19",
+            "mean_district_oa_difference": 0.017586206896551725,
+            "ci95": [
+              0.010000000000000009,
+              0.02517241379310344
+            ],
+            "districts_left_better": 21,
+            "districts_right_better": 4,
+            "districts_tied": 4,
+            "wilcoxon_p": 0.0004183927808915508
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": 0.016551724137931035,
+            "ci95": [
+              0.010689655172413775,
+              0.022413793103448286
+            ],
+            "districts_left_better": 22,
+            "districts_right_better": 3,
+            "districts_tied": 4,
+            "wilcoxon_p": 0.00016139020136186777
+          },
+          {
+            "left": "after-gtb",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": 0.01931034482758621,
+            "ci95": [
+              0.012758620689655177,
+              0.026206896551724132
+            ],
+            "districts_left_better": 23,
+            "districts_right_better": 3,
+            "districts_tied": 3,
+            "wilcoxon_p": 9.896357544644688e-05
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b22",
+            "mean_district_oa_difference": -0.0010344827586206906,
+            "ci95": [
+              -0.007586206896551727,
+              0.005172413793103457
+            ],
+            "districts_left_better": 10,
+            "districts_right_better": 12,
+            "districts_tied": 7,
+            "wilcoxon_p": 0.9080476418383101
+          },
+          {
+            "left": "after-gtb-b19",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": 0.0017241379310344882,
+            "ci95": [
+              -0.005172413793103449,
+              0.008275862068965528
+            ],
+            "districts_left_better": 14,
+            "districts_right_better": 9,
+            "districts_tied": 6,
+            "wilcoxon_p": 0.6338181610099125
+          },
+          {
+            "left": "after-gtb-b22",
+            "right": "after-gtb-b27",
+            "mean_district_oa_difference": 0.0027586206896551787,
+            "ci95": [
+              -0.002413793103448278,
+              0.008275862068965524
+            ],
+            "districts_left_better": 13,
+            "districts_right_better": 8,
+            "districts_tied": 8,
+            "wilcoxon_p": 0.2681599468110204
+          }
+        ]
+      },
+      "selected_on_development": "after-gtb",
+      "selected_band_stack_on_development": "after-gtb",
+      "reported_on_test": {
+        "confusion_matrix": [
+          [
+            528,
+            2,
+            4,
+            0,
+            46
+          ],
+          [
+            0,
+            580,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            572,
+            8,
+            0
+          ],
+          [
+            0,
+            9,
+            123,
+            443,
+            5
+          ],
+          [
+            23,
+            11,
+            57,
+            77,
+            412
+          ]
+        ],
+        "sample_count": 2900,
+        "district_count": 29,
+        "overall_accuracy": 0.8741379310344828,
+        "overall_accuracy_ci95": [
+          0.8506896551724138,
+          0.896896551724138
+        ],
+        "kappa": 0.8426724137931035,
+        "kappa_ci95": [
+          0.8133620689655171,
+          0.8711206896551723
+        ],
+        "macro_f1": 0.8722059318008857,
+        "macro_f1_ci95": [
+          0.8474510603653388,
+          0.8957941989167847
+        ],
+        "per_class_f1": {
+          "Vegetation": 0.9336870026525199,
+          "Water": 0.9813874788494078,
+          "Built Area": 0.8562874251497005,
+          "Open Land": 0.7996389891696751,
+          "Agriculture": 0.7900287631831255
+        },
+        "per_class_f1_ci95": {
+          "Vegetation": [
+            0.9147414034872813,
+            0.9505308781209871
+          ],
+          "Water": [
+            0.9715242881072027,
+            0.9897610921501706
+          ],
+          "Built Area": [
+            0.8330893118594437,
+            0.8807339449541284
+          ],
+          "Open Land": [
+            0.7550035211570006,
+            0.843156758241273
+          ],
+          "Agriculture": [
+            0.7217099257756673,
+            0.8463661453541859
+          ]
+        }
+      },
+      "transfer": {
+        "origin": "Jabalpur",
+        "classifier": "after-gtb",
+        "districts": [
+          {
+            "district": "Anuppur",
+            "distance_km": 197.02517619130134,
+            "overall_accuracy": 0.75,
+            "sample_count": 100
+          },
+          {
+            "district": "Ashoknagar",
+            "distance_km": 264.83639068034006,
+            "overall_accuracy": 0.9,
+            "sample_count": 100
+          },
+          {
+            "district": "Balaghat",
+            "distance_km": 149.80545891249264,
+            "overall_accuracy": 0.77,
+            "sample_count": 100
+          },
+          {
+            "district": "Barwani",
+            "distance_km": 528.5195990825666,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Betul",
+            "distance_km": 257.43833351033413,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhind",
+            "distance_km": 382.3061279430432,
+            "overall_accuracy": 0.95,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhopal",
+            "distance_km": 262.90106327716404,
+            "overall_accuracy": 0.88,
+            "sample_count": 100
+          },
+          {
+            "district": "Burhanpur",
+            "distance_km": 418.8321463140728,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          },
+          {
+            "district": "Chhatarpur",
+            "distance_km": 183.31571453092153,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          },
+          {
+            "district": "Chhindwara",
+            "distance_km": 162.16453794842042,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Damoh",
+            "distance_km": 83.40887903067647,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Datia",
+            "distance_km": 326.37535948167806,
+            "overall_accuracy": 0.96,
+            "sample_count": 100
+          },
+          {
+            "district": "Dewas",
+            "distance_km": 360.45433863184724,
+            "overall_accuracy": 0.87,
+            "sample_count": 100
+          },
+          {
+            "district": "Dhar",
+            "distance_km": 501.6023905102611,
+            "overall_accuracy": 0.88,
+            "sample_count": 100
+          },
+          {
+            "district": "East Nimar",
+            "distance_km": 372.784777665806,
+            "overall_accuracy": 0.88,
+            "sample_count": 100
+          },
+          {
+            "district": "Guna",
+            "distance_km": 319.09632524247894,
+            "overall_accuracy": 0.91,
+            "sample_count": 100
+          },
+          {
+            "district": "Gwalior",
+            "distance_km": 367.7190605271574,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          },
+          {
+            "district": "Harda",
+            "distance_km": 308.11454136530574,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Hoshangabad",
+            "distance_km": 211.07161026655646,
+            "overall_accuracy": 0.96,
+            "sample_count": 100
+          },
+          {
+            "district": "Indore",
+            "distance_km": 429.3305353726156,
+            "overall_accuracy": 0.94,
+            "sample_count": 100
+          },
+          {
+            "district": "Jhabua",
+            "distance_km": 558.9629676405324,
+            "overall_accuracy": 0.76,
+            "sample_count": 100
+          },
+          {
+            "district": "Mandsaur",
+            "distance_km": 476.6323220276655,
+            "overall_accuracy": 0.96,
+            "sample_count": 100
+          },
+          {
+            "district": "Morena",
+            "distance_km": 417.67828366259994,
+            "overall_accuracy": 0.97,
+            "sample_count": 100
+          },
+          {
+            "district": "Narsinghpur",
+            "distance_km": 92.20045725412517,
+            "overall_accuracy": 0.95,
+            "sample_count": 100
+          },
+          {
+            "district": "Neemuch",
+            "distance_km": 513.5427352516958,
+            "overall_accuracy": 0.9,
+            "sample_count": 100
+          },
+          {
+            "district": "Panna",
+            "distance_km": 141.12526593632543,
+            "overall_accuracy": 0.92,
+            "sample_count": 100
+          },
+          {
+            "district": "Raisen",
+            "distance_km": 187.28814922477773,
+            "overall_accuracy": 0.99,
+            "sample_count": 100
+          },
+          {
+            "district": "Rajgarh",
+            "distance_km": 336.5165446333322,
+            "overall_accuracy": 0.88,
+            "sample_count": 100
+          },
+          {
+            "district": "Ratlam",
+            "distance_km": 497.027639486618,
+            "overall_accuracy": 0.88,
+            "sample_count": 100
+          },
+          {
+            "district": "Rewa",
+            "distance_km": 242.21145737646913,
+            "overall_accuracy": 0.9,
+            "sample_count": 100
+          },
+          {
+            "district": "Sagar",
+            "distance_km": 142.91874683734022,
+            "overall_accuracy": 0.92,
+            "sample_count": 100
+          },
+          {
+            "district": "Satna",
+            "distance_km": 175.87544221693273,
+            "overall_accuracy": 0.79,
+            "sample_count": 100
+          },
+          {
+            "district": "Sehore",
+            "distance_km": 289.09664712924643,
+            "overall_accuracy": 0.92,
+            "sample_count": 100
+          },
+          {
+            "district": "Seoni",
+            "distance_km": 99.06470613805489,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Shahdol",
+            "distance_km": 155.32055758202478,
+            "overall_accuracy": 0.8,
+            "sample_count": 100
+          },
+          {
+            "district": "Shajapur",
+            "distance_km": 370.3234500091883,
+            "overall_accuracy": 0.84,
+            "sample_count": 100
+          },
+          {
+            "district": "Sheopur",
+            "distance_km": 413.60612699129433,
+            "overall_accuracy": 0.91,
+            "sample_count": 100
+          },
+          {
+            "district": "Shivpuri",
+            "distance_km": 326.2768523606065,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          },
+          {
+            "district": "Sidhi",
+            "distance_km": 252.6465612712786,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Tikamgarh",
+            "distance_km": 226.46909237569233,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Ujjain",
+            "distance_km": 437.35669519030967,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Umaria",
+            "distance_km": 109.89013942218097,
+            "overall_accuracy": 0.79,
+            "sample_count": 100
+          },
+          {
+            "district": "Vidisha",
+            "distance_km": 232.12280118322684,
+            "overall_accuracy": 0.93,
+            "sample_count": 100
+          },
+          {
+            "district": "West Nimar",
+            "distance_km": 450.318195857136,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          }
+        ],
+        "slope_oa_per_100km": 0.005478620792758514,
+        "slope_stderr_per_100km": 0.006922994932767598,
+        "intercept": 0.8567066414653495,
+        "r_squared": 0.014691875146095072,
+        "linregress_p": 0.4331771886515646,
+        "spearman_rho": 0.1577910514375196,
+        "spearman_p": 0.30632591880171633,
+        "nearest_quartile_mean_oa": 0.8436363636363637,
+        "farthest_quartile_mean_oa": 0.8781818181818182
+      },
+      "class_transfer": {
+        "Vegetation": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": 0.009679787950135889,
+          "p_value": 0.38395475399546886,
+          "mean_recall": 0.8920454545454544
+        },
+        "Water": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": 0.0,
+          "p_value": 1.0,
+          "mean_recall": 1.0
+        },
+        "Built Area": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": 0.0011383079760054447,
+          "p_value": 0.7384364797217394,
+          "mean_recall": 0.9863636363636363
+        },
+        "Open Land": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": -0.014488342450308075,
+          "p_value": 0.4216866764140774,
+          "mean_recall": 0.7636363636363636
+        },
+        "Agriculture": {
+          "districts_with_support": 44,
+          "slope_recall_per_100km": 0.031063350487959347,
+          "p_value": 0.2284986433112779,
+          "mean_recall": 0.7238636363636364
+        }
+      },
+      "all_48_districts_pooled": {
+        "confusion_matrix": [
+          [
+            858,
+            9,
+            10,
+            1,
+            81
+          ],
+          [
+            0,
+            959,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            944,
+            13,
+            0
+          ],
+          [
+            0,
+            9,
+            204,
+            733,
+            7
+          ],
+          [
+            38,
+            19,
+            95,
+            127,
+            680
+          ]
+        ],
+        "sample_count": 4787,
+        "district_count": 48,
+        "overall_accuracy": 0.8719448506371422,
+        "overall_accuracy_ci95": [
+          0.8550535454470729,
+          0.8888894678338196
+        ],
+        "kappa": 0.8399318561151832,
+        "kappa_ci95": [
+          0.818812397959644,
+          0.8611092858055405
+        ],
+        "macro_f1": 0.8700682556882777,
+        "macro_f1_ci95": [
+          0.8519797461836547,
+          0.8876214210201796
+        ],
+        "per_class_f1": {
+          "Vegetation": 0.925067385444744,
+          "Water": 0.981074168797954,
+          "Built Area": 0.8542986425339366,
+          "Open Land": 0.8024083196496989,
+          "Agriculture": 0.787492762015055
+        },
+        "per_class_f1_ci95": {
+          "Vegetation": [
+            0.909386869234943,
+            0.939475093733262
+          ],
+          "Water": [
+            0.9741248097412482,
+            0.9876288659793814
+          ],
+          "Built Area": [
+            0.8355437665782494,
+            0.8728621585822047
+          ],
+          "Open Land": [
+            0.7699834243753526,
+            0.835106956162876
+          ],
+          "Agriculture": [
+            0.7391530439416142,
+            0.8288822783266638
+          ]
+        }
+      }
+    }
+  }
+}

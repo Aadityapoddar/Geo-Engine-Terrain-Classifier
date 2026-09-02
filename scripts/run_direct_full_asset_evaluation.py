@@ -36,6 +36,7 @@ from backend.gee_classifier import (  # noqa: E402
 )
 from evaluation.metrics import metrics_from_matrix  # noqa: E402
 from evaluation.references import (  # noqa: E402
+    PROJECT_TO_REFERENCE_LABEL,
     REFERENCE_LABELS,
     build_reference_image,
     madhya_pradesh_districts,
@@ -64,27 +65,18 @@ def _write_json(path, value):
     os.replace(temporary, path)
 
 
-def _inline_agriculture(path):
-    payload = json.loads(path.read_text())
-    features = payload.get("features", [])
-    if len(features) != 1000:
-        raise ValueError(f"Expected 1000 Agriculture features, got {len(features)}")
-    if {feature.get("geometry", {}).get("type") for feature in features} != {"Point"}:
-        raise ValueError("Agriculture fallback must contain only Point geometries")
-    if {feature.get("properties", {}).get("label") for feature in features} != {5}:
-        raise ValueError("Agriculture fallback must contain only label 5")
-    return ee.FeatureCollection(payload)
+def _populations():
+    """Return the preserved Before table and the merged current After assets.
 
-
-def _populations(agriculture_path):
-    before = ee.FeatureCollection(BEFORE_TRAINING_TABLE)
-    current_paths = [
-        path for name, path in FEATURE_COLLECTIONS.items() if name != "agriculture"
-    ]
-    after = merge_feature_collections(current_paths).merge(
-        _inline_agriculture(agriculture_path)
-    )
-    return {"before": before, "after": after}
+    Agriculture used to be spliced in from a local GeoJSON here, because the
+    Earth Engine asset carried no label property and merging it contributed
+    nothing. The asset is labelled now, so the After population is simply every
+    configured collection and there is no second source of truth to keep in step.
+    """
+    return {
+        "before": ee.FeatureCollection(BEFORE_TRAINING_TABLE),
+        "after": merge_feature_collections(FEATURE_COLLECTIONS.values()),
+    }
 
 
 def _seasonal_tables(points, season):
@@ -130,14 +122,14 @@ def _external_table(season, leakage_sources):
     )
 
 
-def _new_results(agriculture_path):
+def _new_results():
     return {
         "schema_version": TRAINING_SCHEMA_VERSION,
         "bands": BANDS,
         "seasons": SEASONS,
         "reference": {
             "external_labels": REFERENCE_LABELS,
-            "soil_sand_collapsed": True,
+            "project_to_reference_label": PROJECT_TO_REFERENCE_LABEL,
             "sampling_seed": BLOCK_SEED,
             "training_exclusion_metres": 100,
             "coverage": "all Madhya Pradesh districts",
@@ -146,22 +138,17 @@ def _new_results(agriculture_path):
             "external_five_class": "all seasonally valid population points",
             "heldout_six_class": "fixed 70/30 spatial block split",
         },
-        "agriculture_fallback": {
-            "path": str(agriculture_path),
-            "source": "Earth Engine Code Editor agriculture_points import",
-            "feature_count": 1000,
-        },
         "runs": [],
     }
 
 
-def run(agriculture_path, output):
+def run(output):
     init_ee()
-    populations = _populations(agriculture_path)
+    populations = _populations()
     leakage_sources = populations["before"].merge(populations["after"])
     results = (
         json.loads(output.read_text()) if output.exists()
-        else _new_results(agriculture_path)
+        else _new_results()
     )
     completed = {item["run_id"] for item in results["runs"]}
     project_labels = [
@@ -208,7 +195,7 @@ def run(agriculture_path, output):
                 )
                 external_payload = _matrix_payload(
                     _collapsed_external_predictions(
-                        external.classify(full_classifier)
+                        external.classify(full_classifier), condition
                     ),
                     "reference",
                     "external_prediction",
@@ -255,10 +242,9 @@ def run(agriculture_path, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--agriculture-geojson", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
-    run(args.agriculture_geojson.resolve(), args.output.resolve())
+    run(args.output.resolve())
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@
 import argparse
 import json
 import os
+import socket
 import sys
 import time
 from datetime import datetime, timezone
@@ -11,10 +12,26 @@ from pathlib import Path
 
 import ee
 
+# Interactive EE computations legitimately go quiet for minutes, but a socket
+# that says nothing for ten is dead. Without this, a dropped connection blocks
+# getInfo forever and the worker looks busy while doing nothing.
+SOCKET_TIMEOUT_SECONDS = 600
+
+# Transport failures (socket.timeout, SSL errors, connection resets) surface as
+# OSError subclasses rather than ee.EEException, and they deserve the same
+# retry treatment.
+RETRYABLE_ERRORS = (ee.EEException, OSError)
+
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from backend.config import BANDS, SEASONS  # noqa: E402
+from backend.config import (  # noqa: E402
+    BAND_STACKS,
+    BANDS,
+    FULL_BANDS,
+    SEASONS,
+    TRAINING_SCHEMA_VERSION,
+)
 from backend.gee_classifier import (  # noqa: E402
     build_sentinel_composite,
     init_ee,
@@ -28,6 +45,7 @@ from evaluation.references import (  # noqa: E402
     madhya_pradesh_districts,
 )
 from evaluation.runner import MODEL_NAMES  # noqa: E402
+from evaluation.splits import district_splits  # noqa: E402
 from scripts.run_direct_full_asset_evaluation import _populations  # noqa: E402
 from scripts.run_seasonal_evaluation import (  # noqa: E402
     BLOCK_SEED,
@@ -47,10 +65,10 @@ def _call_with_retry(label, function, retries):
     for attempt in range(1, retries + 1):
         try:
             return function()
-        except ee.EEException as caught:
+        except RETRYABLE_ERRORS as caught:
             error = caught
             print(f"retry {label} attempt={attempt}: {caught}", flush=True)
-            time.sleep(5 * attempt)
+            time.sleep(min(20 * attempt, 180))
     raise error
 
 
@@ -75,8 +93,12 @@ def _district_external(district, name, season, leakage):
     composite = build_sentinel_composite(
         region, start_date=dates["start"], end_date=dates["end"]
     )
+    # Sampled once with every band any candidate stack could ask for, so the
+    # three stacks are scored on identical pixels. Selecting per stack instead
+    # would let a stack containing a band with more missing data lose rows, and
+    # the stacks would then differ in sample as well as in features.
     return (
-        composite.select(BANDS)
+        composite.select(FULL_BANDS)
         .sampleRegions(
             collection=samples,
             properties=["reference", "district", "season"],
@@ -84,8 +106,15 @@ def _district_external(district, name, season, leakage):
             tileScale=8,
             geometries=True,
         )
-        .filter(ee.Filter.notNull(BANDS + ["reference", "district"]))
+        .filter(ee.Filter.notNull(FULL_BANDS + ["reference", "district"]))
     )
+
+
+# Every classifier scored per district: the five models on whatever stack is
+# currently in production (backend.config.BANDS), in both training conditions,
+# plus one model on each alternative stack so a feature-stack change can be
+# judged district by district rather than on one pooled statewide number.
+STACK_COMPARISON_MODEL = "gtb"
 
 
 def _classifiers(populations, season):
@@ -96,12 +125,24 @@ def _classifiers(populations, season):
             populations[condition],
             start_date=dates["start"],
             end_date=dates["end"],
+            bands=FULL_BANDS,
         )
         for model in MODEL_NAMES:
             output[f"{condition}-{model}"] = make_classifier(model).train(
                 features=full,
                 classProperty="label",
                 inputProperties=BANDS,
+            )
+        if condition != "after":
+            continue
+        for stack, bands in BAND_STACKS.items():
+            if list(bands) == list(BANDS):
+                continue
+            key = f"{condition}-{STACK_COMPARISON_MODEL}-{stack}"
+            output[key] = make_classifier(STACK_COMPARISON_MODEL).train(
+                features=full,
+                classProperty="label",
+                inputProperties=bands,
             )
     return output
 
@@ -111,7 +152,9 @@ def _evaluate_district(external, classifiers, keys=None):
     payload = {"sample_count": external.size()}
     for key in keys:
         classifier = classifiers[key]
-        classified = _collapsed_external_predictions(external.classify(classifier))
+        condition = key.split("-", 1)[0]
+        classified = _collapsed_external_predictions(
+            external.classify(classifier), condition)
         payload[key] = classified.errorMatrix(
             "reference", "external_prediction", list(REFERENCE_LABELS)
         ).array().toList()
@@ -128,10 +171,10 @@ def _evaluate_resilient(external, classifiers, keys, retries, shard_id):
                 flush=True,
             )
             return _evaluate_district(external, classifiers, keys)
-        except ee.EEException as caught:
+        except RETRYABLE_ERRORS as caught:
             error = caught
             print(f"retry {shard_id}: {caught}", flush=True)
-            time.sleep(5 * attempt)
+            time.sleep(min(20 * attempt, 180))
     if len(keys) == 1:
         raise error
     midpoint = len(keys) // 2
@@ -152,8 +195,9 @@ def _evaluate_resilient(external, classifiers, keys, retries, shard_id):
 
 
 def run(args):
+    socket.setdefaulttimeout(SOCKET_TIMEOUT_SECONDS)
     _call_with_retry("initialize", init_ee, args.retries)
-    populations = _populations(args.agriculture_geojson.resolve())
+    populations = _populations()
     leakage = populations["before"].merge(populations["after"])
     districts = madhya_pradesh_districts()
     names = _call_with_retry(
@@ -170,12 +214,21 @@ def run(args):
         f"mp_external_shards_worker_{args.worker_index}.json"
     )
     state = json.loads(output.read_text()) if output.exists() else {
+        "training_schema_version": TRAINING_SCHEMA_VERSION,
         "worker_index": args.worker_index,
         "worker_count": args.worker_count,
         "district_count_total": len(names),
         "assigned_districts": assigned,
+        "district_splits": district_splits(),
         "shards": {},
     }
+    recorded = state.get("training_schema_version")
+    if recorded != TRAINING_SCHEMA_VERSION:
+        raise SystemExit(
+            f"{output} holds {recorded or 'unstamped'} shards but the current "
+            f"schema is {TRAINING_SCHEMA_VERSION}. Resuming would mix class "
+            "inventories inside one shard file; start a new output instead."
+        )
     for season in ("winter", "summer"):
         classifiers = _call_with_retry(
             f"{season}-classifiers",
@@ -214,7 +267,6 @@ def run(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--agriculture-geojson", type=Path, required=True)
     parser.add_argument("--worker-count", type=int, default=1)
     parser.add_argument("--worker-index", type=int, default=0)
     parser.add_argument("--retries", type=int, default=3)

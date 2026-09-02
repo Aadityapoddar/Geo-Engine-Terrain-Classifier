@@ -1,0 +1,48 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Balaghat
+skip winter:Bhopal
+skip winter:Damoh
+skip winter:Dindori
+skip winter:Harda
+skip winter:Jhabua
+evaluate winter:Morena classifiers=10 attempt=1
+landed winter:Morena samples=100
+evaluate winter:Raisen classifiers=10 attempt=1
+landed winter:Raisen samples=100
+evaluate winter:Sagar classifiers=10 attempt=1
+retry winter:Sagar: Computation timed out.
+evaluate winter:Sagar classifiers=10 attempt=2
+retry winter:Sagar: Computation timed out.
+evaluate winter:Sagar classifiers=10 attempt=3
+landed winter:Sagar samples=100
+evaluate winter:Shahdol classifiers=10 attempt=1
+landed winter:Shahdol samples=100
+evaluate winter:Sidhi classifiers=10 attempt=1
+landed winter:Sidhi samples=100
+evaluate winter:Vidisha classifiers=10 attempt=1
+landed winter:Vidisha samples=100
+evaluate summer:Balaghat classifiers=10 attempt=1
+landed summer:Balaghat samples=100
+evaluate summer:Bhopal classifiers=10 attempt=1
+landed summer:Bhopal samples=100
+evaluate summer:Damoh classifiers=10 attempt=1
+landed summer:Damoh samples=84
+evaluate summer:Dindori classifiers=10 attempt=1
+landed summer:Dindori samples=100
+evaluate summer:Harda classifiers=10 attempt=1
+landed summer:Harda samples=86
+evaluate summer:Jhabua classifiers=10 attempt=1
+landed summer:Jhabua samples=100
+evaluate summer:Morena classifiers=10 attempt=1
+landed summer:Morena samples=93
+evaluate summer:Raisen classifiers=10 attempt=1
+landed summer:Raisen samples=82
+evaluate summer:Sagar classifiers=10 attempt=1
+landed summer:Sagar samples=100
+evaluate summer:Shahdol classifiers=10 attempt=1
+landed summer:Shahdol samples=100
+evaluate summer:Sidhi classifiers=10 attempt=1
+landed summer:Sidhi samples=100
+evaluate summer:Vidisha classifiers=10 attempt=1
+landed summer:Vidisha samples=83
+wrote /Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/doc/assets/mp_external_shards_worker_2.json

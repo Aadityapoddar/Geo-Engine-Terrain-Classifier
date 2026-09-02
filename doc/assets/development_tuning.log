@@ -1,0 +1,82 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 15 districts, season=winter
+evaluate winter:Barwani configs 0-8
+retry winter:Barwani attempt=1: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=2: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=3: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_agriculture_points_labelled' not found.
+retry winter:Barwani attempt=4: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_agriculture_points_labelled' not found.
+retry winter:Barwani attempt=5: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_agriculture_points_labelled' not found.
+split winter:Barwani configs=8
+retry winter:Barwani attempt=1: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_building_points' not found.
+retry winter:Barwani attempt=2: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=3: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=4: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_barren_points' not found.
+retry winter:Barwani attempt=5: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_agriculture_points_labelled' not found.
+split winter:Barwani configs=4
+retry winter:Barwani attempt=1: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_agriculture_points_labelled' not found.
+retry winter:Barwani attempt=2: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=3: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=4: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/jabalpur_agriculture_points_labelled' not found.
+retry winter:Barwani attempt=5: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+split winter:Barwani configs=2
+retry winter:Barwani attempt=1: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=2: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+retry winter:Barwani attempt=3: Collection.loadTable: Collection asset 'projects/plenary-line-461306-s8/assets/district_train_table' not found.
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 15 districts, season=winter
+evaluate winter:Barwani configs 0-8
+evaluate winter:Barwani configs 8-16
+evaluate winter:Barwani configs 16-24
+evaluate winter:Barwani configs 24-28
+landed winter:Barwani
+evaluate winter:Damoh configs 0-8
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 15 districts, season=winter
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train ...
+exported users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Barwani configs 0-8
+evaluate winter:Barwani configs 8-16
+evaluate winter:Barwani configs 16-24
+evaluate winter:Barwani configs 24-28
+landed winter:Barwani
+evaluate winter:Damoh configs 0-8
+evaluate winter:Damoh configs 8-16
+evaluate winter:Damoh configs 16-24
+evaluate winter:Damoh configs 24-28
+landed winter:Damoh
+evaluate winter:Harda configs 0-8
+evaluate winter:Harda configs 8-16
+evaluate winter:Harda configs 16-24
+evaluate winter:Harda configs 24-28
+landed winter:Harda
+evaluate winter:Hoshangabad configs 0-8
+evaluate winter:Hoshangabad configs 8-16
+evaluate winter:Hoshangabad configs 16-24
+evaluate winter:Hoshangabad configs 24-28
+landed winter:Hoshangabad
+evaluate winter:Jhabua configs 0-8
+evaluate winter:Jhabua configs 8-16
+evaluate winter:Jhabua configs 16-24
+evaluate winter:Jhabua configs 24-28
+landed winter:Jhabua
+evaluate winter:Mandsaur configs 0-8
+evaluate winter:Mandsaur configs 8-16
+evaluate winter:Mandsaur configs 16-24
+evaluate winter:Mandsaur configs 24-28
+landed winter:Mandsaur
+evaluate winter:Neemuch configs 0-8
+evaluate winter:Neemuch configs 8-16
+evaluate winter:Neemuch configs 16-24
+evaluate winter:Neemuch configs 24-28
+landed winter:Neemuch
+evaluate winter:Rajgarh configs 0-8
+evaluate winter:Rajgarh configs 8-16
+evaluate winter:Rajgarh configs 16-24
+evaluate winter:Rajgarh configs 24-28
+landed winter:Rajgarh
+evaluate winter:Rewa configs 0-8
+evaluate winter:Rewa configs 8-16
+evaluate winter:Rewa configs 16-24
+evaluate winter:Rewa configs 24-28
+landed winter:Rewa
+evaluate winter:Sehore configs 0-8

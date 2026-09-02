@@ -1,5 +1,6 @@
 import json
 from unittest.mock import patch
+from backend.config import TRAINING_SCHEMA_VERSION
 
 import ee
 import pytest
@@ -8,14 +9,26 @@ from backend import gee_classifier as gc
 
 
 def test_cache_key_contains_training_schema_version():
-    key = gc._classifier_cache_key("RF", "2025-01-01", "2025-02-28", 15)
-    assert key == ("rf", "2025-01-01", "2025-02-28", 15, "six-class-19-band-v1")
+    key = gc._classifier_cache_key("RF", "2025-01-01", "2025-03-01", 15, False)
+    assert key == (
+        "rf", "2025-01-01", "2025-03-01", 15, False, TRAINING_SCHEMA_VERSION)
+    # A fallback-widened composite is different imagery, so it must not share
+    # a cache entry with the strict one.
+    assert key != gc._classifier_cache_key(
+        "RF", "2025-01-01", "2025-03-01", 15, True)
 
 
 @patch.object(gc.ee.Classifier, "smileKNN")
-def test_knn_factory_keeps_k_five(factory):
+def test_factory_uses_the_configured_settings(factory):
+    """make_classifier must build from config, not from a second copy.
+
+    The settings used to be written out twice, here and in MODEL_METADATA, and
+    a hyperparameter search that touched one left the other stale. This pins
+    the call to whatever config currently ships -- k was 5 and is now 9 -- so
+    the test tracks a retune instead of failing on it.
+    """
     gc.make_classifier("knn")
-    factory.assert_called_once_with(k=5)
+    factory.assert_called_once_with(**gc.classifier_parameters("knn"))
 
 
 def test_unknown_model_is_rejected():

@@ -1,0 +1,1167 @@
+{
+  "training_schema_version": "five-class-19-band-v3-no-sand",
+  "scale_m": 30,
+  "reference_labels": {
+    "0": "Forest",
+    "1": "Water",
+    "2": "Buildings",
+    "3": "Bare",
+    "4": "Agriculture"
+  },
+  "district_count_total": 48,
+  "strata": {
+    "winter:Anuppur": {
+      "season": "winter",
+      "district": "Anuppur",
+      "district_area_m2": 2030759439.2295985,
+      "class_area_m2": {
+        "Forest": 28603427.338152956,
+        "Water": 5307724.327703738,
+        "Buildings": 297262.38165283203,
+        "Bare": 4715060.828044098,
+        "Agriculture": 877753742.6518316
+      }
+    },
+    "winter:Ashoknagar": {
+      "season": "winter",
+      "district": "Ashoknagar",
+      "district_area_m2": 4734120580.982557,
+      "class_area_m2": {
+        "Forest": 801182.7110265396,
+        "Water": 59652993.46632368,
+        "Buildings": 4969713.928753543,
+        "Bare": 923346.4798095704,
+        "Agriculture": 3416432848.590211
+      }
+    },
+    "winter:Balaghat": {
+      "season": "winter",
+      "district": "Balaghat",
+      "district_area_m2": 9273202911.700502,
+      "class_area_m2": {
+        "Forest": 520936540.62408054,
+        "Water": 21693138.80265371,
+        "Buildings": 142795.2169189453,
+        "Bare": 14591464.499963619,
+        "Agriculture": 2815934496.5404086
+      }
+    },
+    "winter:Barwani": {
+      "season": "winter",
+      "district": "Barwani",
+      "district_area_m2": 5438720763.562563,
+      "class_area_m2": {
+        "Forest": 1371717.6630249023,
+        "Water": 62910411.48620941,
+        "Buildings": 3247410.1916192747,
+        "Bare": 2912975.9608465456,
+        "Agriculture": 2154146936.2854266
+      }
+    },
+    "winter:Betul": {
+      "season": "winter",
+      "district": "Betul",
+      "district_area_m2": 10094739119.322416,
+      "class_area_m2": {
+        "Forest": 142010828.06536892,
+        "Water": 22987303.3193503,
+        "Buildings": 10180630.029753562,
+        "Bare": 1715546.3339324354,
+        "Agriculture": 4208899585.2718635
+      }
+    },
+    "winter:Bhind": {
+      "season": "winter",
+      "district": "Bhind",
+      "district_area_m2": 4480758829.526797,
+      "class_area_m2": {
+        "Forest": 35402514.972742654,
+        "Water": 14882767.322830738,
+        "Buildings": 6064899.029283232,
+        "Bare": 7563283.290940231,
+        "Agriculture": 3389548072.67125
+      }
+    },
+    "winter:Bhopal": {
+      "season": "winter",
+      "district": "Bhopal",
+      "district_area_m2": 2728200542.4723554,
+      "class_area_m2": {
+        "Forest": 1107825.587607709,
+        "Water": 38856195.96416135,
+        "Buildings": 23905109.781807214,
+        "Bare": 873920.9499442306,
+        "Agriculture": 1806800149.4025245
+      }
+    },
+    "winter:Burhanpur": {
+      "season": "winter",
+      "district": "Burhanpur",
+      "district_area_m2": 3205429731.1458387,
+      "class_area_m2": {
+        "Forest": 176756.15575405944,
+        "Water": 12092554.495521216,
+        "Buildings": 2904933.337541408,
+        "Bare": 762591.5904397403,
+        "Agriculture": 1286448803.22156
+      }
+    },
+    "winter:Chhatarpur": {
+      "season": "winter",
+      "district": "Chhatarpur",
+      "district_area_m2": 8731555849.631458,
+      "class_area_m2": {
+        "Forest": 7786391.851236022,
+        "Water": 35921907.88247932,
+        "Buildings": 3029447.912812356,
+        "Bare": 3209830.6301159426,
+        "Agriculture": 5575362389.590239
+      }
+    },
+    "winter:Chhindwara": {
+      "season": "winter",
+      "district": "Chhindwara",
+      "district_area_m2": 11835366817.221413,
+      "class_area_m2": {
+        "Forest": 145675253.68230036,
+        "Water": 75316843.34209965,
+        "Buildings": 9722009.41145235,
+        "Bare": 3495217.6504361015,
+        "Agriculture": 4806387413.821362
+      }
+    },
+    "winter:Damoh": {
+      "season": "winter",
+      "district": "Damoh",
+      "district_area_m2": 7370294062.152793,
+      "class_area_m2": {
+        "Forest": 1039592.1322191425,
+        "Water": 24751718.219944373,
+        "Buildings": 2603493.7661195043,
+        "Bare": 2866643.11709128,
+        "Agriculture": 3754760944.2308497
+      }
+    },
+    "winter:Datia": {
+      "season": "winter",
+      "district": "Datia",
+      "district_area_m2": 2527370305.1928387,
+      "class_area_m2": {
+        "Forest": 20602674.56472048,
+        "Water": 5760682.131615971,
+        "Buildings": 4319980.385162233,
+        "Bare": 2222741.138845646,
+        "Agriculture": 1921541223.9219408
+      }
+    },
+    "winter:Dewas": {
+      "season": "winter",
+      "district": "Dewas",
+      "district_area_m2": 6974172329.238149,
+      "class_area_m2": {
+        "Forest": 1580885.9473288145,
+        "Water": 23016974.89663637,
+        "Buildings": 21420071.469715316,
+        "Bare": 837145.1117328719,
+        "Agriculture": 4357496705.179107
+      }
+    },
+    "winter:Dhar": {
+      "season": "winter",
+      "district": "Dhar",
+      "district_area_m2": 8154940181.899847,
+      "class_area_m2": {
+        "Forest": 1006840.6163964365,
+        "Water": 52669556.393456794,
+        "Buildings": 23333775.07649237,
+        "Bare": 4185656.3389918907,
+        "Agriculture": 5223444228.234375
+      }
+    },
+    "winter:Dindori": {
+      "season": "winter",
+      "district": "Dindori",
+      "district_area_m2": 6504619166.448908,
+      "class_area_m2": {
+        "Forest": 689000390.6641209,
+        "Water": 14293604.68735184,
+        "Buildings": 726642.2084960938,
+        "Bare": 406928.6626558192,
+        "Agriculture": 1969748526.7754385
+      }
+    },
+    "winter:East Nimar": {
+      "season": "winter",
+      "district": "East Nimar",
+      "district_area_m2": 7464412099.474378,
+      "class_area_m2": {
+        "Forest": 8911344.06660587,
+        "Water": 574238153.0768418,
+        "Buildings": 7778878.659310614,
+        "Bare": 3038718.379457242,
+        "Agriculture": 3789833874.8219986
+      }
+    },
+    "winter:Guna": {
+      "season": "winter",
+      "district": "Guna",
+      "district_area_m2": 6310701784.637522,
+      "class_area_m2": {
+        "Forest": 2757255.4576389687,
+        "Water": 22964311.01507927,
+        "Buildings": 9565109.652915567,
+        "Bare": 1318805.82320796,
+        "Agriculture": 4169031572.4972234
+      }
+    },
+    "winter:Gwalior": {
+      "season": "winter",
+      "district": "Gwalior",
+      "district_area_m2": 4589373038.249367,
+      "class_area_m2": {
+        "Forest": 3685791.8364528283,
+        "Water": 29727113.57866211,
+        "Buildings": 6383468.866720522,
+        "Bare": 1663743.520548024,
+        "Agriculture": 2371724018.4942107
+      }
+    },
+    "winter:Harda": {
+      "season": "winter",
+      "district": "Harda",
+      "district_area_m2": 3323033941.8478827,
+      "class_area_m2": {
+        "Forest": 9016192.401701804,
+        "Water": 24699251.59668375,
+        "Buildings": 7378952.901535931,
+        "Bare": 309285.3805970435,
+        "Agriculture": 2119569284.6449065
+      }
+    },
+    "winter:Hoshangabad": {
+      "season": "winter",
+      "district": "Hoshangabad",
+      "district_area_m2": 6725463013.194801,
+      "class_area_m2": {
+        "Forest": 206250766.12799716,
+        "Water": 119815450.95906575,
+        "Buildings": 11229891.222984403,
+        "Bare": 27695963.485901125,
+        "Agriculture": 3533242185.8262305
+      }
+    },
+    "winter:Indore": {
+      "season": "winter",
+      "district": "Indore",
+      "district_area_m2": 3918397259.342681,
+      "class_area_m2": {
+        "Forest": 2621970.359969794,
+        "Water": 8156907.876032811,
+        "Buildings": 63413993.43705934,
+        "Bare": 1397273.9346548044,
+        "Agriculture": 2688312052.051963
+      }
+    },
+    "winter:Jabalpur": {
+      "season": "winter",
+      "district": "Jabalpur",
+      "district_area_m2": 4021328036.682537,
+      "class_area_m2": {
+        "Forest": 15133799.043600643,
+        "Water": 58925079.87661924,
+        "Buildings": 4121790.7635656022,
+        "Bare": 1746495.9277501723,
+        "Agriculture": 2258089670.2487235
+      }
+    },
+    "winter:Jhabua": {
+      "season": "winter",
+      "district": "Jhabua",
+      "district_area_m2": 6774846818.095545,
+      "class_area_m2": {
+        "Forest": 10372616.731863942,
+        "Water": 41680602.29421698,
+        "Buildings": 4542359.598622281,
+        "Bare": 1208919.9232204063,
+        "Agriculture": 3193368539.9449935
+      }
+    },
+    "winter:Katni": {
+      "season": "winter",
+      "district": "Katni",
+      "district_area_m2": 6177827815.693768,
+      "class_area_m2": {
+        "Forest": 36667732.87318475,
+        "Water": 50213012.45038489,
+        "Buildings": 5862021.924167289,
+        "Bare": 9923729.968758857,
+        "Agriculture": 3415731780.0934615
+      }
+    },
+    "winter:Mandla": {
+      "season": "winter",
+      "district": "Mandla",
+      "district_area_m2": 6789128068.652252,
+      "class_area_m2": {
+        "Forest": 193663733.37491697,
+        "Water": 117236632.26028648,
+        "Buildings": 1033083.1069335938,
+        "Bare": 3585246.096452541,
+        "Agriculture": 2320540167.5730042
+      }
+    },
+    "winter:Mandsaur": {
+      "season": "winter",
+      "district": "Mandsaur",
+      "district_area_m2": 5643701304.302103,
+      "class_area_m2": {
+        "Forest": 772835.140344717,
+        "Water": 380018939.3086924,
+        "Buildings": 25078700.8533543,
+        "Bare": 3985850.016029508,
+        "Agriculture": 3672477171.8633075
+      }
+    },
+    "winter:Morena": {
+      "season": "winter",
+      "district": "Morena",
+      "district_area_m2": 4993905622.55651,
+      "class_area_m2": {
+        "Forest": 920421.108081294,
+        "Water": 32344128.650478225,
+        "Buildings": 603584.2545166016,
+        "Bare": 37869339.53472469,
+        "Agriculture": 2839956067.865439
+      }
+    },
+    "winter:Narsinghpur": {
+      "season": "winter",
+      "district": "Narsinghpur",
+      "district_area_m2": 5157190836.73726,
+      "class_area_m2": {
+        "Forest": 60863457.58548369,
+        "Water": 18135645.55215394,
+        "Buildings": 6297184.99680463,
+        "Bare": 9913993.401531864,
+        "Agriculture": 3001741910.147468
+      }
+    },
+    "winter:Neemuch": {
+      "season": "winter",
+      "district": "Neemuch",
+      "district_area_m2": 4163266735.725532,
+      "class_area_m2": {
+        "Forest": 488724.09704589844,
+        "Water": 138306974.3441784,
+        "Buildings": 5422953.482385972,
+        "Bare": 1934972.860534668,
+        "Agriculture": 1855537934.4504385
+      }
+    },
+    "winter:Panna": {
+      "season": "winter",
+      "district": "Panna",
+      "district_area_m2": 7129189669.540546,
+      "class_area_m2": {
+        "Forest": 6318268.173153388,
+        "Water": 25131641.8246606,
+        "Buildings": 2573877.934757008,
+        "Bare": 5364623.443425676,
+        "Agriculture": 3273160587.122504
+      }
+    },
+    "winter:Raisen": {
+      "season": "winter",
+      "district": "Raisen",
+      "district_area_m2": 8515574877.211904,
+      "class_area_m2": {
+        "Forest": 45877405.600135006,
+        "Water": 77606221.70039779,
+        "Buildings": 10204314.276393037,
+        "Bare": 1502394.7863513422,
+        "Agriculture": 4805835580.149218
+      }
+    },
+    "winter:Rajgarh": {
+      "season": "winter",
+      "district": "Rajgarh",
+      "district_area_m2": 6134205387.898029,
+      "class_area_m2": {
+        "Forest": 1895799.3317574295,
+        "Water": 69000936.96771431,
+        "Buildings": 18264590.302824136,
+        "Bare": 2002301.4461803958,
+        "Agriculture": 4680412514.687984
+      }
+    },
+    "winter:Ratlam": {
+      "season": "winter",
+      "district": "Ratlam",
+      "district_area_m2": 4827505066.062984,
+      "class_area_m2": {
+        "Forest": 823049.5876464844,
+        "Water": 16246677.345869955,
+        "Buildings": 24115132.299680706,
+        "Bare": 1876991.5877398322,
+        "Agriculture": 3358048498.509808
+      }
+    },
+    "winter:Rewa": {
+      "season": "winter",
+      "district": "Rewa",
+      "district_area_m2": 6327703909.411602,
+      "class_area_m2": {
+        "Forest": 13271028.309403004,
+        "Water": 17167474.689594105,
+        "Buildings": 7506051.732244992,
+        "Bare": 4679513.592221967,
+        "Agriculture": 3885610824.827934
+      }
+    },
+    "winter:Sagar": {
+      "season": "winter",
+      "district": "Sagar",
+      "district_area_m2": 10275828536.821178,
+      "class_area_m2": {
+        "Forest": 14142739.881424729,
+        "Water": 43151067.69606957,
+        "Buildings": 13201102.977855248,
+        "Bare": 3380781.236653406,
+        "Agriculture": 6165518747.708756
+      }
+    },
+    "winter:Satna": {
+      "season": "winter",
+      "district": "Satna",
+      "district_area_m2": 7518918005.922663,
+      "class_area_m2": {
+        "Forest": 15229740.54948611,
+        "Water": 146955622.30330116,
+        "Buildings": 6635935.8444479555,
+        "Bare": 8807347.47552562,
+        "Agriculture": 4203881776.731737
+      }
+    },
+    "winter:Sehore": {
+      "season": "winter",
+      "district": "Sehore",
+      "district_area_m2": 6579048527.953139,
+      "class_area_m2": {
+        "Forest": 15111334.78021312,
+        "Water": 35770694.5668414,
+        "Buildings": 10568172.290734863,
+        "Bare": 5800079.426624254,
+        "Agriculture": 4594679865.0581045
+      }
+    },
+    "winter:Seoni": {
+      "season": "winter",
+      "district": "Seoni",
+      "district_area_m2": 8779066238.181112,
+      "class_area_m2": {
+        "Forest": 5663109.262539973,
+        "Water": 120348757.30760571,
+        "Buildings": 2049523.053807397,
+        "Bare": 1153244.9648842008,
+        "Agriculture": 4166954716.6643724
+      }
+    },
+    "winter:Shahdol": {
+      "season": "winter",
+      "district": "Shahdol",
+      "district_area_m2": 8337887459.537008,
+      "class_area_m2": {
+        "Forest": 319550763.5603416,
+        "Water": 177622265.9324911,
+        "Buildings": 459091.7235107422,
+        "Bare": 8723170.474498313,
+        "Agriculture": 2826998320.4547176
+      }
+    },
+    "winter:Shajapur": {
+      "season": "winter",
+      "district": "Shajapur",
+      "district_area_m2": 6306521423.633077,
+      "class_area_m2": {
+        "Forest": 596593.1667403876,
+        "Water": 33193434.542238962,
+        "Buildings": 21909010.87804554,
+        "Bare": 2710091.5225894703,
+        "Agriculture": 4902792392.325585
+      }
+    },
+    "winter:Sheopur": {
+      "season": "winter",
+      "district": "Sheopur",
+      "district_area_m2": 6537313947.628205,
+      "class_area_m2": {
+        "Forest": 9280579.212890625,
+        "Water": 5531819.952369121,
+        "Buildings": 224765.47302246094,
+        "Bare": 12161228.350943772,
+        "Agriculture": 2117899068.291816
+      }
+    },
+    "winter:Shivpuri": {
+      "season": "winter",
+      "district": "Shivpuri",
+      "district_area_m2": 10487445637.716833,
+      "class_area_m2": {
+        "Forest": 2111292.4201360964,
+        "Water": 112900322.65180498,
+        "Buildings": 11103545.402778655,
+        "Bare": 2791354.7740574256,
+        "Agriculture": 5575736755.468012
+      }
+    },
+    "winter:Sidhi": {
+      "season": "winter",
+      "district": "Sidhi",
+      "district_area_m2": 10590123062.249128,
+      "class_area_m2": {
+        "Forest": 438661944.8122936,
+        "Water": 81951303.95852649,
+        "Buildings": 760650.3041381836,
+        "Bare": 106800726.69823766,
+        "Agriculture": 3361655398.6739984
+      }
+    },
+    "winter:Tikamgarh": {
+      "season": "winter",
+      "district": "Tikamgarh",
+      "district_area_m2": 5076989379.004398,
+      "class_area_m2": {
+        "Forest": 1725223.5659155753,
+        "Water": 32136652.850171145,
+        "Buildings": 7989854.882218665,
+        "Bare": 2809520.8528545303,
+        "Agriculture": 3427363915.045277
+      }
+    },
+    "winter:Ujjain": {
+      "season": "winter",
+      "district": "Ujjain",
+      "district_area_m2": 6096643541.612815,
+      "class_area_m2": {
+        "Forest": 423873.8200389189,
+        "Water": 10562774.979330625,
+        "Buildings": 38748303.05523275,
+        "Bare": 1189242.3837787702,
+        "Agriculture": 5222416579.98093
+      }
+    },
+    "winter:Umaria": {
+      "season": "winter",
+      "district": "Umaria",
+      "district_area_m2": 3734613924.9527826,
+      "class_area_m2": {
+        "Forest": 167256110.8918234,
+        "Water": 59221370.44784629,
+        "Buildings": 349915.77154541016,
+        "Bare": 1372401.6474180934,
+        "Agriculture": 1183790946.987035
+      }
+    },
+    "winter:Vidisha": {
+      "season": "winter",
+      "district": "Vidisha",
+      "district_area_m2": 7319589092.576449,
+      "class_area_m2": {
+        "Forest": 2539592.289429429,
+        "Water": 23245120.30669041,
+        "Buildings": 2307636.9358565984,
+        "Bare": 805339.379050341,
+        "Agriculture": 5961378032.027501
+      }
+    },
+    "winter:West Nimar": {
+      "season": "winter",
+      "district": "West Nimar",
+      "district_area_m2": 8064990720.062684,
+      "class_area_m2": {
+        "Forest": 3130212.5490619736,
+        "Water": 60843798.80752839,
+        "Buildings": 10689423.270789772,
+        "Bare": 2785730.3183794804,
+        "Agriculture": 4742565604.47015
+      }
+    },
+    "summer:Anuppur": {
+      "season": "summer",
+      "district": "Anuppur",
+      "district_area_m2": 2030759439.2295985,
+      "class_area_m2": {
+        "Forest": 147370.11125943053,
+        "Water": 339925.7012692919,
+        "Buildings": 1926743.4656752644,
+        "Bare": 5760996.907278023,
+        "Agriculture": 877753742.6518316
+      }
+    },
+    "summer:Ashoknagar": {
+      "season": "summer",
+      "district": "Ashoknagar",
+      "district_area_m2": 4734120580.982557,
+      "class_area_m2": {
+        "Forest": 3263.223388671875,
+        "Water": 45741138.91454361,
+        "Buildings": 3155197.899095483,
+        "Bare": 2838916.77327809,
+        "Agriculture": 3416432848.590211
+      }
+    },
+    "summer:Balaghat": {
+      "season": "summer",
+      "district": "Balaghat",
+      "district_area_m2": 9273202911.700502,
+      "class_area_m2": {
+        "Forest": 22899000.16417093,
+        "Water": 12921438.622526757,
+        "Buildings": 4967197.508041322,
+        "Bare": 12621627.628135532,
+        "Agriculture": 2815934496.5404086
+      }
+    },
+    "summer:Barwani": {
+      "season": "summer",
+      "district": "Barwani",
+      "district_area_m2": 5438720763.562563,
+      "class_area_m2": {
+        "Forest": 1666.1797485351562,
+        "Water": 51500639.71331643,
+        "Buildings": 5582446.342822505,
+        "Bare": 17040071.37743518,
+        "Agriculture": 2154146936.2854266
+      }
+    },
+    "summer:Betul": {
+      "season": "summer",
+      "district": "Betul",
+      "district_area_m2": 10094739119.322416,
+      "class_area_m2": {
+        "Forest": 2198204.9802246094,
+        "Water": 6689907.461342008,
+        "Buildings": 7332862.30648696,
+        "Bare": 2923243.1441042433,
+        "Agriculture": 4208899585.2718635
+      }
+    },
+    "summer:Bhind": {
+      "season": "summer",
+      "district": "Bhind",
+      "district_area_m2": 4480758829.526797,
+      "class_area_m2": {
+        "Forest": 443052.13442430686,
+        "Water": 9405758.873240752,
+        "Buildings": 11987497.278311456,
+        "Bare": 10504130.353041945,
+        "Agriculture": 3389548072.6712503
+      }
+    },
+    "summer:Bhopal": {
+      "season": "summer",
+      "district": "Bhopal",
+      "district_area_m2": 2728200542.4723554,
+      "class_area_m2": {
+        "Forest": 21401.507080078125,
+        "Water": 22114694.880581006,
+        "Buildings": 36634285.713033766,
+        "Bare": 2683008.5441837087,
+        "Agriculture": 1806800149.4025247
+      }
+    },
+    "summer:Burhanpur": {
+      "season": "summer",
+      "district": "Burhanpur",
+      "district_area_m2": 3205429731.1458387,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 2582927.665815765,
+        "Buildings": 5440889.145267262,
+        "Bare": 2192859.7335875267,
+        "Agriculture": 1286448803.22156
+      }
+    },
+    "summer:Chhatarpur": {
+      "season": "summer",
+      "district": "Chhatarpur",
+      "district_area_m2": 8731555849.631458,
+      "class_area_m2": {
+        "Forest": 19467.361389160156,
+        "Water": 12590042.742991727,
+        "Buildings": 3452571.266438802,
+        "Bare": 6704917.094622924,
+        "Agriculture": 5575362389.59024
+      }
+    },
+    "summer:Chhindwara": {
+      "season": "summer",
+      "district": "Chhindwara",
+      "district_area_m2": 11835366817.221413,
+      "class_area_m2": {
+        "Forest": 3130386.698384842,
+        "Water": 32592941.658352476,
+        "Buildings": 9757953.366878256,
+        "Bare": 2423138.937827675,
+        "Agriculture": 4806387413.821362
+      }
+    },
+    "summer:Damoh": {
+      "season": "summer",
+      "district": "Damoh",
+      "district_area_m2": 7370294062.152793,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 10733698.860075347,
+        "Buildings": 1827787.8082225127,
+        "Bare": 5952549.14249818,
+        "Agriculture": 3754760944.23085
+      }
+    },
+    "summer:Datia": {
+      "season": "summer",
+      "district": "Datia",
+      "district_area_m2": 2527370305.1928387,
+      "class_area_m2": {
+        "Forest": 809068.0126342773,
+        "Water": 4754245.981821576,
+        "Buildings": 3696861.5807940313,
+        "Bare": 3386704.139861223,
+        "Agriculture": 1921541223.9219408
+      }
+    },
+    "summer:Dewas": {
+      "season": "summer",
+      "district": "Dewas",
+      "district_area_m2": 6974172329.238149,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 466301.28252599377,
+        "Buildings": 21885757.628459144,
+        "Bare": 2050799.6783088236,
+        "Agriculture": 4357496705.17911
+      }
+    },
+    "summer:Dhar": {
+      "season": "summer",
+      "district": "Dhar",
+      "district_area_m2": 8154940181.899847,
+      "class_area_m2": {
+        "Forest": 56424.51922607422,
+        "Water": 32927223.968620274,
+        "Buildings": 24842436.363073733,
+        "Bare": 13762124.071554026,
+        "Agriculture": 5223444228.234375
+      }
+    },
+    "summer:Dindori": {
+      "season": "summer",
+      "district": "Dindori",
+      "district_area_m2": 6504619166.448908,
+      "class_area_m2": {
+        "Forest": 86868162.46389326,
+        "Water": 7904013.047197888,
+        "Buildings": 880304.2598876953,
+        "Bare": 829278.9762764724,
+        "Agriculture": 1969748526.7754385
+      }
+    },
+    "summer:East Nimar": {
+      "season": "summer",
+      "district": "East Nimar",
+      "district_area_m2": 7464412099.474378,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 87871657.24587354,
+        "Buildings": 9306643.596765855,
+        "Bare": 9066339.2004373,
+        "Agriculture": 3789833874.821998
+      }
+    },
+    "summer:Guna": {
+      "season": "summer",
+      "district": "Guna",
+      "district_area_m2": 6310701784.637522,
+      "class_area_m2": {
+        "Forest": 26905.776245117188,
+        "Water": 460828.26232910156,
+        "Buildings": 6181938.297077493,
+        "Bare": 5291477.230710018,
+        "Agriculture": 4169031572.4972234
+      }
+    },
+    "summer:Gwalior": {
+      "season": "summer",
+      "district": "Gwalior",
+      "district_area_m2": 4589373038.249367,
+      "class_area_m2": {
+        "Forest": 8858.607849121094,
+        "Water": 23622968.639622588,
+        "Buildings": 14483430.79592333,
+        "Bare": 5201812.390535722,
+        "Agriculture": 2371724018.494211
+      }
+    },
+    "summer:Harda": {
+      "season": "summer",
+      "district": "Harda",
+      "district_area_m2": 3323033941.8478827,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 10220755.901461015,
+        "Buildings": 8136579.7420474775,
+        "Bare": 561651.3496866862,
+        "Agriculture": 2119569284.6449065
+      }
+    },
+    "summer:Hoshangabad": {
+      "season": "summer",
+      "district": "Hoshangabad",
+      "district_area_m2": 6725463013.194801,
+      "class_area_m2": {
+        "Forest": 14224426.744865388,
+        "Water": 101503868.24868643,
+        "Buildings": 13035528.465188658,
+        "Bare": 24296206.457235903,
+        "Agriculture": 3533242185.8262305
+      }
+    },
+    "summer:Indore": {
+      "season": "summer",
+      "district": "Indore",
+      "district_area_m2": 3918397259.342681,
+      "class_area_m2": {
+        "Forest": 52110.90411376953,
+        "Water": 1456621.5835609585,
+        "Buildings": 57544844.98416939,
+        "Bare": 3409716.9958429076,
+        "Agriculture": 2688312052.051963
+      }
+    },
+    "summer:Jabalpur": {
+      "season": "summer",
+      "district": "Jabalpur",
+      "district_area_m2": 4021328036.682537,
+      "class_area_m2": {
+        "Forest": 36028.76087024165,
+        "Water": 52751790.19994377,
+        "Buildings": 28142114.184885062,
+        "Bare": 1882406.54111735,
+        "Agriculture": 2258089670.2487226
+      }
+    },
+    "summer:Jhabua": {
+      "season": "summer",
+      "district": "Jhabua",
+      "district_area_m2": 6774846818.095545,
+      "class_area_m2": {
+        "Forest": 8276.253845214844,
+        "Water": 28228670.361561738,
+        "Buildings": 3817056.6949350396,
+        "Bare": 5708380.913009822,
+        "Agriculture": 3193368539.9449944
+      }
+    },
+    "summer:Katni": {
+      "season": "summer",
+      "district": "Katni",
+      "district_area_m2": 6177827815.693768,
+      "class_area_m2": {
+        "Forest": 1061157.5524935853,
+        "Water": 40103149.88896365,
+        "Buildings": 7729967.185641899,
+        "Bare": 15060793.821761308,
+        "Agriculture": 3415731780.0934615
+      }
+    },
+    "summer:Mandla": {
+      "season": "summer",
+      "district": "Mandla",
+      "district_area_m2": 6789128068.652252,
+      "class_area_m2": {
+        "Forest": 36594506.77979928,
+        "Water": 74124408.10374254,
+        "Buildings": 4005050.124683814,
+        "Bare": 4320210.777957931,
+        "Agriculture": 2320540167.5730042
+      }
+    },
+    "summer:Mandsaur": {
+      "season": "summer",
+      "district": "Mandsaur",
+      "district_area_m2": 5643701304.302103,
+      "class_area_m2": {
+        "Forest": 19563.874145507812,
+        "Water": 296525168.73051834,
+        "Buildings": 26164049.877190806,
+        "Bare": 14769439.057493199,
+        "Agriculture": 3672477171.8633685
+      }
+    },
+    "summer:Morena": {
+      "season": "summer",
+      "district": "Morena",
+      "district_area_m2": 4993905622.55651,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 7422771.553288478,
+        "Buildings": 7458409.234507362,
+        "Bare": 48885993.25867752,
+        "Agriculture": 2839956067.865439
+      }
+    },
+    "summer:Narsinghpur": {
+      "season": "summer",
+      "district": "Narsinghpur",
+      "district_area_m2": 5157190836.73726,
+      "class_area_m2": {
+        "Forest": 36357.156188964844,
+        "Water": 5377492.092542223,
+        "Buildings": 13338626.542814126,
+        "Bare": 7792409.023671109,
+        "Agriculture": 3001741910.1474686
+      }
+    },
+    "summer:Neemuch": {
+      "season": "summer",
+      "district": "Neemuch",
+      "district_area_m2": 4163266735.725532,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 117054371.18551911,
+        "Buildings": 11495394.120958516,
+        "Bare": 5330081.577176203,
+        "Agriculture": 1855537934.4504385
+      }
+    },
+    "summer:Panna": {
+      "season": "summer",
+      "district": "Panna",
+      "district_area_m2": 7129189669.540546,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 14572054.861468626,
+        "Buildings": 673279.6981201172,
+        "Bare": 10583302.750198424,
+        "Agriculture": 3273160587.1225047
+      }
+    },
+    "summer:Raisen": {
+      "season": "summer",
+      "district": "Raisen",
+      "district_area_m2": 8515574877.211904,
+      "class_area_m2": {
+        "Forest": 824.487548828125,
+        "Water": 53976678.101966776,
+        "Buildings": 13813261.694562364,
+        "Bare": 2212743.659429333,
+        "Agriculture": 4805835580.149217
+      }
+    },
+    "summer:Rajgarh": {
+      "season": "summer",
+      "district": "Rajgarh",
+      "district_area_m2": 6134205387.898029,
+      "class_area_m2": {
+        "Forest": 21334.57696533203,
+        "Water": 1333852.478120213,
+        "Buildings": 16009981.787447104,
+        "Bare": 8768729.286011938,
+        "Agriculture": 4680412514.686215
+      }
+    },
+    "summer:Ratlam": {
+      "season": "summer",
+      "district": "Ratlam",
+      "district_area_m2": 4827505066.062984,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 5946939.976133339,
+        "Buildings": 20977180.36321591,
+        "Bare": 8717417.815089805,
+        "Agriculture": 3358048498.509808
+      }
+    },
+    "summer:Rewa": {
+      "season": "summer",
+      "district": "Rewa",
+      "district_area_m2": 6327703909.411602,
+      "class_area_m2": {
+        "Forest": 68463.6380622415,
+        "Water": 4743593.295887427,
+        "Buildings": 9427372.330800254,
+        "Bare": 7644865.742648495,
+        "Agriculture": 3885610824.827934
+      }
+    },
+    "summer:Sagar": {
+      "season": "summer",
+      "district": "Sagar",
+      "district_area_m2": 10275828536.821178,
+      "class_area_m2": {
+        "Forest": 75457.09783935547,
+        "Water": 17056265.040808823,
+        "Buildings": 14048358.790344957,
+        "Bare": 7406284.399442307,
+        "Agriculture": 6165518747.708756
+      }
+    },
+    "summer:Satna": {
+      "season": "summer",
+      "district": "Satna",
+      "district_area_m2": 7518918005.922663,
+      "class_area_m2": {
+        "Forest": 94706.00427174287,
+        "Water": 141895307.73781234,
+        "Buildings": 9204245.93143047,
+        "Bare": 14819972.112887993,
+        "Agriculture": 4203881776.7317367
+      }
+    },
+    "summer:Sehore": {
+      "season": "summer",
+      "district": "Sehore",
+      "district_area_m2": 6579048527.953139,
+      "class_area_m2": {
+        "Forest": 2464.7344970703125,
+        "Water": 26920334.847112678,
+        "Buildings": 16734330.794271788,
+        "Bare": 7870481.939000746,
+        "Agriculture": 4594679865.0581045
+      }
+    },
+    "summer:Seoni": {
+      "season": "summer",
+      "district": "Seoni",
+      "district_area_m2": 8779066238.181112,
+      "class_area_m2": {
+        "Forest": 76413.93310546875,
+        "Water": 77150960.31633252,
+        "Buildings": 8074709.876054591,
+        "Bare": 2058935.7893475702,
+        "Agriculture": 4166954716.6643724
+      }
+    },
+    "summer:Shahdol": {
+      "season": "summer",
+      "district": "Shahdol",
+      "district_area_m2": 8337887459.537008,
+      "class_area_m2": {
+        "Forest": 20794032.214913636,
+        "Water": 145648011.07053635,
+        "Buildings": 5222389.015374397,
+        "Bare": 10282421.521035107,
+        "Agriculture": 2826998320.4544125
+      }
+    },
+    "summer:Shajapur": {
+      "season": "summer",
+      "district": "Shajapur",
+      "district_area_m2": 6306521423.633077,
+      "class_area_m2": {
+        "Forest": 822.917236328125,
+        "Water": 3279223.86940918,
+        "Buildings": 19392175.140266925,
+        "Bare": 11231720.774801098,
+        "Agriculture": 4902792392.325584
+      }
+    },
+    "summer:Sheopur": {
+      "season": "summer",
+      "district": "Sheopur",
+      "district_area_m2": 6537313947.628205,
+      "class_area_m2": {
+        "Forest": 54849.337829589844,
+        "Water": 1518904.0864698226,
+        "Buildings": 2945987.0748580634,
+        "Bare": 17385561.202072565,
+        "Agriculture": 2117899068.2918162
+      }
+    },
+    "summer:Shivpuri": {
+      "season": "summer",
+      "district": "Shivpuri",
+      "district_area_m2": 10487445637.716833,
+      "class_area_m2": {
+        "Forest": 811.423828125,
+        "Water": 73965725.56913607,
+        "Buildings": 5393058.433369954,
+        "Bare": 9173859.546670113,
+        "Agriculture": 5575736755.468012
+      }
+    },
+    "summer:Sidhi": {
+      "season": "summer",
+      "district": "Sidhi",
+      "district_area_m2": 10590123062.249128,
+      "class_area_m2": {
+        "Forest": 16632237.861334108,
+        "Water": 42748743.518051095,
+        "Buildings": 5567163.309265137,
+        "Bare": 122379073.3910506,
+        "Agriculture": 3361655398.673999
+      }
+    },
+    "summer:Tikamgarh": {
+      "season": "summer",
+      "district": "Tikamgarh",
+      "district_area_m2": 5076989379.004398,
+      "class_area_m2": {
+        "Forest": 3249.139892578125,
+        "Water": 8898853.082302196,
+        "Buildings": 3897091.917564242,
+        "Bare": 5106293.33471201,
+        "Agriculture": 3427363915.045277
+      }
+    },
+    "summer:Ujjain": {
+      "season": "summer",
+      "district": "Ujjain",
+      "district_area_m2": 6096643541.612815,
+      "class_area_m2": {
+        "Forest": 0.0,
+        "Water": 2557797.312724514,
+        "Buildings": 34986650.07094965,
+        "Bare": 4955938.966358858,
+        "Agriculture": 5222416579.98093
+      }
+    },
+    "summer:Umaria": {
+      "season": "summer",
+      "district": "Umaria",
+      "district_area_m2": 3734613924.9527826,
+      "class_area_m2": {
+        "Forest": 31729139.573052622,
+        "Water": 49193201.15966126,
+        "Buildings": 1497439.3965454102,
+        "Bare": 1835373.2187138575,
+        "Agriculture": 1183790946.987096
+      }
+    },
+    "summer:Vidisha": {
+      "season": "summer",
+      "district": "Vidisha",
+      "district_area_m2": 7319589092.576449,
+      "class_area_m2": {
+        "Forest": 1642.4937133789062,
+        "Water": 16796285.107317757,
+        "Buildings": 7639224.016206151,
+        "Bare": 2264316.4825125895,
+        "Agriculture": 5961378032.027502
+      }
+    },
+    "summer:West Nimar": {
+      "season": "summer",
+      "district": "West Nimar",
+      "district_area_m2": 8064990720.062684,
+      "class_area_m2": {
+        "Forest": 43121.508361816406,
+        "Water": 27841321.36649361,
+        "Buildings": 22051171.238858808,
+        "Bare": 10525657.08453058,
+        "Agriculture": 4742565604.47015
+      }
+    }
+  },
+  "updated_at": "2026-09-01T18:10:09.989931+00:00"
+}

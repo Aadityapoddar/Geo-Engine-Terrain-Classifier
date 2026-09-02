@@ -1,0 +1,158 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed winter:Anuppur n= 100 agreement= 86.0%
+landed winter:Ashoknagar n= 100 agreement= 78.0%
+landed winter:Balaghat n= 100 agreement= 93.0%
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed winter:Barwani n= 100 agreement= 72.0%
+landed winter:Betul n= 100 agreement= 85.0%
+landed winter:Bhind n= 100 agreement= 97.0%
+landed winter:Bhopal n= 100 agreement= 76.0%
+landed winter:Burhanpur n= 100 agreement= 79.0%
+landed winter:Chhatarpur n= 100 agreement= 82.0%
+landed winter:Chhindwara n= 100 agreement= 82.0%
+landed winter:Damoh n= 100 agreement= 84.0%
+landed winter:Datia n= 100 agreement= 92.0%
+landed winter:Dewas n= 100 agreement= 78.0%
+landed winter:Dhar n= 100 agreement= 74.0%
+landed winter:Dindori n= 100 agreement= 79.0%
+landed winter:East Nimar n= 100 agreement= 82.0%
+landed winter:Guna n= 100 agreement= 80.0%
+landed winter:Gwalior n= 100 agreement= 87.0%
+landed winter:Harda n= 100 agreement= 82.0%
+landed winter:Hoshangabad n= 100 agreement= 88.0%
+landed winter:Indore n= 100 agreement= 75.0%
+landed winter:Jabalpur n= 100 agreement= 77.0%
+landed winter:Jhabua n= 100 agreement= 84.0%
+landed winter:Katni n= 100 agreement= 83.0%
+landed winter:Mandla n= 100 agreement= 86.0%
+landed winter:Mandsaur n= 100 agreement= 77.0%
+landed winter:Morena n= 100 agreement= 99.0%
+landed winter:Narsinghpur n= 100 agreement= 82.0%
+landed winter:Neemuch n= 100 agreement= 83.0%
+landed winter:Panna n= 100 agreement= 85.0%
+landed winter:Raisen n= 100 agreement= 90.0%
+landed winter:Rajgarh n= 100 agreement= 78.0%
+landed winter:Ratlam n= 100 agreement= 73.0%
+landed winter:Rewa n= 100 agreement= 82.0%
+landed winter:Sagar n= 100 agreement= 82.0%
+landed winter:Satna n= 100 agreement= 82.0%
+landed winter:Sehore n= 100 agreement= 87.0%
+landed winter:Seoni n= 100 agreement= 87.0%
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+retry district-list attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed winter:Shajapur n= 100 agreement= 65.0%
+retry district-list attempt=2: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+retry district-list attempt=3: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed winter:Sheopur n= 100 agreement= 81.0%
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed winter:Shahdol n= 100 agreement= 89.0%
+landed winter:Tikamgarh n= 100 agreement= 89.0%
+retry winter:Shivpuri attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed winter:Ujjain n= 100 agreement= 78.0%
+landed winter:West Nimar n= 100 agreement= 77.0%
+retry summer:Anuppur attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed winter:Sidhi n= 100 agreement= 90.0%
+retry summer:Anuppur attempt=2: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed summer:Barwani n=  93 agreement= 74.2%
+landed winter:Shivpuri n= 100 agreement= 80.0%
+landed summer:Burhanpur n=  80 agreement= 73.8%
+landed winter:Vidisha n= 100 agreement= 79.0%
+landed winter:Umaria n= 100 agreement= 87.0%
+landed summer:Anuppur n= 100 agreement= 84.0%
+landed summer:Datia n= 100 agreement= 86.0%
+landed summer:Ashoknagar n= 100 agreement= 79.0%
+landed summer:Bhind n=  80 agreement= 87.5%
+retry summer:Chhindwara attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed summer:Betul n= 100 agreement= 81.0%
+landed summer:Chhatarpur n=  87 agreement= 78.2%
+landed summer:Chhindwara n= 100 agreement= 83.0%
+landed summer:Dewas n=  80 agreement= 73.8%
+landed summer:Dhar n= 100 agreement= 78.0%
+landed summer:Guna n= 100 agreement= 78.0%
+landed summer:Gwalior n=  80 agreement= 77.5%
+retry summer:Indore attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+
+winter: consensus vs 2024 arbiter over 48 districts, 4800 points with an arbiter label
+  agreement 82.56%  kappa 0.782
+    Vegetation   consensus n=  960  arbiter agrees  94.2%
+    Water        consensus n=  960  arbiter agrees  98.4%
+    Built Area   consensus n=  960  arbiter agrees 100.0%
+    Open Land    consensus n=  960  arbiter agrees  23.6%
+    Agriculture  consensus n=  960  arbiter agrees  96.6%
+
+summer: consensus vs 2024 arbiter over 13 districts, 1200 points with an arbiter label
+  agreement 79.67%  kappa 0.744
+    Vegetation   consensus n=  160  arbiter agrees  96.2%
+    Water        consensus n=  260  arbiter agrees  99.2%
+    Built Area   consensus n=  260  arbiter agrees 100.0%
+    Open Land    consensus n=  260  arbiter agrees  11.2%
+    Agriculture  consensus n=  260  arbiter agrees  98.1%
+
+wrote doc/assets/mp_consensus_arbiter_audit.json: 61 districts
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed summer:Indore n= 100 agreement= 79.0%
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed summer:Jabalpur n= 100 agreement= 77.0%
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed summer:Balaghat n= 100 agreement= 92.0%
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+landed summer:East Nimar n=  80 agreement= 76.2%
+landed summer:Bhopal n= 100 agreement= 74.0%
+landed summer:Mandla n= 100 agreement= 85.0%
+landed summer:Mandsaur n= 100 agreement= 80.0%
+landed summer:Hoshangabad n= 100 agreement= 88.0%
+landed summer:Damoh n=  80 agreement= 75.0%
+landed summer:Neemuch n=  80 agreement= 76.2%
+landed summer:Katni n= 100 agreement= 82.0%
+landed summer:Dindori n= 100 agreement= 79.0%
+landed summer:Panna n=  83 agreement= 77.1%
+landed summer:Harda n=  84 agreement= 76.2%
+landed summer:Narsinghpur n= 100 agreement= 81.0%
+landed summer:Ratlam n=  80 agreement= 73.8%
+landed summer:Rewa n= 100 agreement= 81.0%
+landed summer:Jhabua n= 100 agreement= 81.0%
+landed summer:Rajgarh n= 100 agreement= 80.0%
+landed summer:Sehore n= 100 agreement= 85.0%
+landed summer:Morena n=  80 agreement= 88.8%
+landed summer:Satna n= 100 agreement= 80.0%
+landed summer:Seoni n= 100 agreement= 83.0%
+landed summer:Sheopur n= 100 agreement= 81.0%
+landed summer:Shajapur n=  94 agreement= 72.3%
+landed summer:Raisen n=  94 agreement= 86.2%
+landed summer:Tikamgarh n= 100 agreement= 82.0%
+landed summer:Ujjain n=  80 agreement= 73.8%
+
+wrote doc/assets/mp_consensus_arbiter_w0.json
+landed summer:Sagar n= 100 agreement= 80.0%
+landed summer:West Nimar n= 100 agreement= 79.0%
+
+wrote doc/assets/mp_consensus_arbiter_w3.json
+landed summer:Shivpuri n=  87 agreement= 77.0%
+landed summer:Umaria n= 100 agreement= 84.0%
+
+wrote doc/assets/mp_consensus_arbiter_w1.json
+landed summer:Shahdol n= 100 agreement= 89.0%
+landed summer:Sidhi n= 100 agreement= 91.0%
+landed summer:Vidisha n=  88 agreement= 76.1%
+
+wrote doc/assets/mp_consensus_arbiter_w2.json
+
+winter: consensus vs 2024 arbiter over 48 districts, 4800 points with an arbiter label
+  agreement 82.56%  kappa 0.782
+    Vegetation   consensus n=  960  arbiter agrees  94.2%
+    Water        consensus n=  960  arbiter agrees  98.4%
+    Built Area   consensus n=  960  arbiter agrees 100.0%
+    Open Land    consensus n=  960  arbiter agrees  23.6%
+    Agriculture  consensus n=  960  arbiter agrees  96.6%
+
+summer: consensus vs 2024 arbiter over 48 districts, 4510 points with an arbiter label
+  agreement 80.51%  kappa 0.755
+    Vegetation   consensus n=  670  arbiter agrees  97.5%
+    Water        consensus n=  960  arbiter agrees  99.7%
+    Built Area   consensus n=  960  arbiter agrees 100.0%
+    Open Land    consensus n=  960  arbiter agrees  14.0%
+    Agriculture  consensus n=  960  arbiter agrees  96.6%
+
+wrote doc/assets/mp_consensus_arbiter_audit.json: 96 districts

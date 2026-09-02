@@ -1,0 +1,149 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 7 test districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 8 test districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 7 test districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 7 test districts, season=winter, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Anuppur configs 0-5
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Betul configs 0-5
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Ashoknagar configs 0-5
+evaluate winter:Balaghat configs 0-5
+landed winter:Anuppur
+evaluate winter:Bhind configs 0-5
+landed winter:Ashoknagar
+evaluate winter:Bhopal configs 0-5
+landed winter:Bhopal
+evaluate winter:Datia configs 0-5
+landed winter:Balaghat
+evaluate winter:Burhanpur configs 0-5
+landed winter:Betul
+evaluate winter:Chhatarpur configs 0-5
+landed winter:Bhind
+evaluate winter:Chhindwara configs 0-5
+landed winter:Datia
+evaluate winter:Guna configs 0-5
+landed winter:Burhanpur
+evaluate winter:Dewas configs 0-5
+landed winter:Guna
+evaluate winter:Narsinghpur configs 0-5
+landed winter:Dewas
+evaluate winter:Gwalior configs 0-5
+landed winter:Chhatarpur
+evaluate winter:Dhar configs 0-5
+landed winter:Gwalior
+evaluate winter:Panna configs 0-5
+landed winter:Narsinghpur
+evaluate winter:Sagar configs 0-5
+landed winter:Dhar
+evaluate winter:Indore configs 0-5
+landed winter:Panna
+evaluate winter:Satna configs 0-5
+landed winter:Chhindwara
+evaluate winter:East Nimar configs 0-5
+landed winter:Sagar
+evaluate winter:Sidhi configs 0-5
+landed winter:Indore
+evaluate winter:Raisen configs 0-5
+landed winter:Satna
+evaluate winter:Ujjain configs 0-5
+landed winter:East Nimar
+evaluate winter:Morena configs 0-5
+landed winter:Ujjain
+wrote doc/assets/band_stacks_test_v4_w2.json
+landed winter:Sidhi
+wrote doc/assets/band_stacks_test_v4_w1.json
+landed winter:Raisen
+evaluate winter:Seoni configs 0-5
+landed winter:Morena
+evaluate winter:Ratlam configs 0-5
+landed winter:Seoni
+evaluate winter:Umaria configs 0-5
+landed winter:Ratlam
+evaluate winter:Shahdol configs 0-5
+landed winter:Umaria
+wrote doc/assets/band_stacks_test_v4_w3.json
+landed winter:Shahdol
+evaluate winter:Vidisha configs 0-5
+landed winter:Vidisha
+wrote doc/assets/band_stacks_test_v4_w0.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 7 test districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 7 test districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 8 test districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Ashoknagar configs 0-5
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 7 test districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Betul configs 0-5
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Anuppur configs 0-5
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Balaghat configs 0-5
+landed summer:Ashoknagar
+evaluate summer:Bhopal configs 0-5
+landed summer:Anuppur
+evaluate summer:Bhind configs 0-5
+landed summer:Bhopal
+evaluate summer:Datia configs 0-5
+landed summer:Betul
+evaluate summer:Chhatarpur configs 0-5
+landed summer:Balaghat
+evaluate summer:Burhanpur configs 0-5
+landed summer:Datia
+evaluate summer:Guna configs 0-5
+landed summer:Bhind
+evaluate summer:Chhindwara configs 0-5
+landed summer:Burhanpur
+evaluate summer:Dewas configs 0-5
+landed summer:Chhatarpur
+evaluate summer:Dhar configs 0-5
+landed summer:Guna
+evaluate summer:Narsinghpur configs 0-5
+landed summer:Dewas
+evaluate summer:Gwalior configs 0-5
+landed summer:Narsinghpur
+evaluate summer:Sagar configs 0-5
+landed summer:Dhar
+evaluate summer:Indore configs 0-5
+landed summer:Indore
+evaluate summer:Raisen configs 0-5
+landed summer:Gwalior
+evaluate summer:Panna configs 0-5
+landed summer:Chhindwara
+evaluate summer:East Nimar configs 0-5
+landed summer:Raisen
+evaluate summer:Seoni configs 0-5
+landed summer:Sagar
+evaluate summer:Sidhi configs 0-5
+landed summer:Panna
+evaluate summer:Satna configs 0-5
+retry summer:Satna attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed summer:East Nimar
+evaluate summer:Morena configs 0-5
+landed summer:Seoni
+evaluate summer:Umaria configs 0-5
+landed summer:Umaria
+wrote doc/assets/band_stacks_test_v4_w3.json
+landed summer:Sidhi
+wrote doc/assets/band_stacks_test_v4_w1.json
+landed summer:Morena
+evaluate summer:Ratlam configs 0-5
+landed summer:Satna
+evaluate summer:Ujjain configs 0-5
+landed summer:Ratlam
+evaluate summer:Shahdol configs 0-5
+landed summer:Ujjain
+wrote doc/assets/band_stacks_test_v4_w2.json
+landed summer:Shahdol
+evaluate summer:Vidisha configs 0-5
+landed summer:Vidisha
+wrote doc/assets/band_stacks_test_v4_w0.json

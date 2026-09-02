@@ -1,0 +1,38 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Barwani
+skip winter:Burhanpur
+skip winter:Datia
+skip winter:East Nimar
+skip winter:Hoshangabad
+skip winter:Katni
+skip winter:Narsinghpur
+skip winter:Rajgarh
+skip winter:Satna
+skip winter:Shajapur
+skip winter:Tikamgarh
+skip winter:West Nimar
+evaluate summer:Barwani classifiers=10 attempt=1
+landed summer:Barwani samples=100
+evaluate summer:Burhanpur classifiers=10 attempt=1
+landed summer:Burhanpur samples=80
+evaluate summer:Datia classifiers=10 attempt=1
+landed summer:Datia samples=100
+evaluate summer:East Nimar classifiers=10 attempt=1
+landed summer:East Nimar samples=80
+evaluate summer:Hoshangabad classifiers=10 attempt=1
+landed summer:Hoshangabad samples=100
+evaluate summer:Katni classifiers=10 attempt=1
+landed summer:Katni samples=98
+evaluate summer:Narsinghpur classifiers=10 attempt=1
+landed summer:Narsinghpur samples=100
+evaluate summer:Rajgarh classifiers=10 attempt=1
+landed summer:Rajgarh samples=100
+evaluate summer:Satna classifiers=10 attempt=1
+landed summer:Satna samples=100
+evaluate summer:Shajapur classifiers=10 attempt=1
+landed summer:Shajapur samples=100
+evaluate summer:Tikamgarh classifiers=10 attempt=1
+landed summer:Tikamgarh samples=100
+evaluate summer:West Nimar classifiers=10 attempt=1
+landed summer:West Nimar samples=100
+wrote /Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/doc/assets/mp_external_shards_worker_3.json

@@ -219,10 +219,7 @@ const MapController = (function () {
     }
 
     if (terrainOverlay && terrainOverlay.url) {
-      terrainTileLayer = L.imageOverlay(terrainOverlay.url, overlayBounds(terrainOverlay.bounds), {
-        opacity: 1.0,
-        zIndex: 100
-      }).addTo(map);
+      setTerrainOverlay(terrainOverlay);
     }
 
     // Keep the AOI outline for context, but remove its red fill. Otherwise the
@@ -238,6 +235,24 @@ const MapController = (function () {
     }
   }
 
+  // The classified layer arrives after the analytics do -- it is rendered at the
+  // classifier's 10 m training scale, which takes minutes for a district -- so
+  // it gets dropped onto the map on its own once the backend has it.
+  let terrainOpacity = 1.0;
+
+  function setTerrainOverlay(terrainOverlay) {
+    if (!map || !terrainOverlay || !terrainOverlay.url) return;
+    if (terrainTileLayer) {
+      map.removeLayer(terrainTileLayer);
+    }
+    terrainTileLayer = L.imageOverlay(
+      terrainOverlay.url,
+      [[terrainOverlay.bounds.south, terrainOverlay.bounds.west],
+       [terrainOverlay.bounds.north, terrainOverlay.bounds.east]],
+      { opacity: terrainOpacity, zIndex: 100 }
+    ).addTo(map);
+  }
+
   function setRGBOpacity(opacityVal) {
     if (rgbTileLayer) {
       rgbTileLayer.setOpacity(opacityVal);
@@ -245,6 +260,7 @@ const MapController = (function () {
   }
 
   function setTerrainOpacity(opacityVal) {
+    terrainOpacity = opacityVal;
     if (terrainTileLayer) {
       terrainTileLayer.setOpacity(opacityVal);
     }
@@ -266,6 +282,7 @@ const MapController = (function () {
     zoomToIndia,
     zoomToCampus,
     updateOverlays,
+    setTerrainOverlay,
     clearOverlays,
     setRGBOpacity,
     setTerrainOpacity,

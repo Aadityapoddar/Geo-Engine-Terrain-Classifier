@@ -1,0 +1,204 @@
+/* Professional report styling for the Soil vs Buildings final report */
+
+@page {
+  size: A4;
+  margin: 22mm 18mm 20mm 18mm;
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 8.5pt;
+    color: #6b7280;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+}
+
+html { font-size: 10pt; }
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #1f2430;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ---------- Title page ---------- */
+
+#title-block-header {
+  page-break-after: always;
+  padding-top: 90mm;
+  text-align: center;
+}
+
+#title-block-header .title {
+  font-size: 30pt;
+  font-weight: 700;
+  color: #16324f;
+  letter-spacing: -0.5px;
+  margin: 0 0 6mm 0;
+  line-height: 1.2;
+}
+
+#title-block-header .subtitle {
+  font-size: 13.5pt;
+  color: #374151;
+  font-weight: 400;
+  margin: 0 auto 14mm auto;
+  max-width: 130mm;
+  line-height: 1.5;
+}
+
+#title-block-header .date {
+  font-size: 10.5pt;
+  color: #6b7280;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ---------- Table of contents ---------- */
+
+nav#TOC {
+  page-break-after: always;
+  font-size: 9.5pt;
+}
+
+nav#TOC ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+nav#TOC > ul > li {
+  margin: 4pt 0;
+  font-weight: 600;
+}
+
+nav#TOC ul ul {
+  padding-left: 14pt;
+  font-weight: 400;
+}
+
+nav#TOC a {
+  color: #1f2430;
+  text-decoration: none;
+}
+
+nav#TOC .toc-section-number {
+  color: #16324f;
+  font-weight: 700;
+  margin-right: 3pt;
+}
+
+/* ---------- Headings ---------- */
+
+h1 {
+  font-size: 17pt;
+  color: #16324f;
+  border-bottom: 2px solid #16324f;
+  padding-bottom: 4pt;
+  margin-top: 22pt;
+  margin-bottom: 10pt;
+}
+
+h2 {
+  font-size: 13pt;
+  color: #16324f;
+  margin-top: 18pt;
+  margin-bottom: 7pt;
+}
+
+h3 {
+  font-size: 11pt;
+  color: #374151;
+  margin-top: 14pt;
+  margin-bottom: 6pt;
+}
+
+/* ---------- Paragraphs and lists ---------- */
+
+p { margin: 6pt 0; }
+ul, ol { margin: 6pt 0; padding-left: 18pt; }
+li { margin: 3pt 0; }
+
+strong { color: #16324f; }
+
+a { color: #0b5394; text-decoration: none; }
+
+code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 8.6pt;
+  background: #f1f4f8;
+  padding: 0.5pt 3pt;
+  border-radius: 3px;
+  color: #0b3d64;
+}
+
+/* ---------- Tables ---------- */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10pt 0;
+  font-size: 8.8pt;
+  page-break-inside: auto;
+}
+
+caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #6b7280;
+  margin-bottom: 3pt;
+}
+
+thead { display: table-header-group; }
+
+th {
+  background: #16324f;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 4pt 6pt;
+  border: 0.5pt solid #16324f;
+}
+
+td {
+  padding: 3.5pt 6pt;
+  border: 0.5pt solid #d1d5db;
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: #f4f7fa; }
+
+/* ---------- Figures ---------- */
+
+figure {
+  margin: 12pt auto;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+figure img {
+  max-width: 128mm;
+  border: 0.5pt solid #d1d5db;
+}
+
+figcaption {
+  font-size: 8.5pt;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 3pt;
+  text-align: left;
+}
+
+/* ---------- Blockquote / callout ---------- */
+
+blockquote {
+  margin: 12pt 0;
+  padding: 8pt 12pt;
+  background: #eef4fb;
+  border-left: 3pt solid #16324f;
+  color: #334155;
+  font-size: 9.2pt;
+}
+
+blockquote p { margin: 3pt 0; }

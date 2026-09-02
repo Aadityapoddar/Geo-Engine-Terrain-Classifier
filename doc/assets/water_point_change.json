@@ -1,0 +1,56 @@
+{
+  "after_asset": "users/ashutoshsaxena703/jabalpur_water_points",
+  "before_asset": "users/ashutoshsaxena703/district_train_table",
+  "counts": {
+    "after": 1000,
+    "before": 1000
+  },
+  "seasons": {
+    "summer": {
+      "after": {
+        "jrc_water": 260,
+        "mean_ndwi": -0.02287319963695584,
+        "ndwi_positive": 236,
+        "sampled": 455,
+        "ndwi_positive_percent": 51.87,
+        "jrc_water_percent": 57.14
+      },
+      "before": {
+        "jrc_water": 260,
+        "mean_ndwi": -0.02287319963695584,
+        "ndwi_positive": 236,
+        "sampled": 455,
+        "ndwi_positive_percent": 51.87,
+        "jrc_water_percent": 57.14
+      }
+    },
+    "winter": {
+      "after": {
+        "jrc_water": 260,
+        "mean_ndwi": 0.12818766462841777,
+        "ndwi_positive": 301,
+        "sampled": 455,
+        "ndwi_positive_percent": 66.15,
+        "jrc_water_percent": 57.14
+      },
+      "before": {
+        "jrc_water": 260,
+        "mean_ndwi": 0.12818766462841777,
+        "ndwi_positive": 301,
+        "sampled": 455,
+        "ndwi_positive_percent": 66.15,
+        "jrc_water_percent": 57.14
+      }
+    }
+  },
+  "displacement": {
+    "compared": 998,
+    "identical_points": 35,
+    "moved_over_100m": 0,
+    "mean_metres": 3.62,
+    "median_metres": 3.7,
+    "max_metres": 6.68,
+    "pixel_snap_bound_metres": 7.07,
+    "explained_by_pixel_snapping": true
+  }
+}

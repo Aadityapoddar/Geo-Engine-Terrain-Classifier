@@ -1,0 +1,47 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Anuppur
+skip winter:Betul
+skip winter:Chhatarpur
+evaluate winter:Dewas classifiers=10 attempt=1
+landed winter:Dewas samples=100
+evaluate winter:Guna classifiers=10 attempt=1
+landed winter:Guna samples=100
+evaluate winter:Indore classifiers=10 attempt=1
+landed winter:Indore samples=100
+evaluate winter:Mandla classifiers=10 attempt=1
+landed winter:Mandla samples=100
+evaluate winter:Neemuch classifiers=10 attempt=1
+landed winter:Neemuch samples=100
+evaluate winter:Ratlam classifiers=10 attempt=1
+landed winter:Ratlam samples=100
+evaluate winter:Sehore classifiers=10 attempt=1
+landed winter:Sehore samples=100
+evaluate winter:Sheopur classifiers=10 attempt=1
+landed winter:Sheopur samples=100
+evaluate winter:Ujjain classifiers=10 attempt=1
+landed winter:Ujjain samples=100
+evaluate summer:Anuppur classifiers=10 attempt=1
+landed summer:Anuppur samples=100
+evaluate summer:Betul classifiers=10 attempt=1
+landed summer:Betul samples=100
+evaluate summer:Chhatarpur classifiers=10 attempt=1
+landed summer:Chhatarpur samples=100
+evaluate summer:Dewas classifiers=10 attempt=1
+landed summer:Dewas samples=82
+evaluate summer:Guna classifiers=10 attempt=1
+landed summer:Guna samples=100
+evaluate summer:Indore classifiers=10 attempt=1
+landed summer:Indore samples=100
+evaluate summer:Mandla classifiers=10 attempt=1
+landed summer:Mandla samples=100
+evaluate summer:Neemuch classifiers=10 attempt=1
+landed summer:Neemuch samples=82
+evaluate summer:Ratlam classifiers=10 attempt=1
+landed summer:Ratlam samples=89
+evaluate summer:Sehore classifiers=10 attempt=1
+landed summer:Sehore samples=100
+evaluate summer:Sheopur classifiers=10 attempt=1
+landed summer:Sheopur samples=100
+evaluate summer:Ujjain classifiers=10 attempt=1
+landed summer:Ujjain samples=100
+wrote /Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/doc/assets/mp_external_shards_worker_0.json

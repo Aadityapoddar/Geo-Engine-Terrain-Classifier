@@ -1,0 +1,315 @@
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+source=asset:users/ashutoshsaxena703/jabalpur_agriculture_points_updated
+features=1000 label=5 (set server-side)
+started export task AGIFT2LGDLJT5D6WMBYLGEW3 -> users/ashutoshsaxena703/jabalpur_agriculture_points_labelled
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 953, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: HTTPSConnection(host='earthengine.googleapis.com', port=443): Failed to resolve 'earthengine.googleapis.com' ([Errno 8] nodename nor servname provided, or not known)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/requests/adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='earthengine.googleapis.com', port=443): Max retries exceeded with url: /v1/projects/plenary-line-461306-s8/operations/AGIFT2LGDLJT5D6WMBYLGEW3?alt=json (Caused by NameResolutionError("HTTPSConnection(host='earthengine.googleapis.com', port=443): Failed to resolve 'earthengine.googleapis.com' ([Errno 8] nodename nor servname provided, or not known)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/ee/_cloud_api_utils.py", line 78, in request
+    response = self._session.request(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/requests/adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='earthengine.googleapis.com', port=443): Max retries exceeded with url: /v1/projects/plenary-line-461306-s8/operations/AGIFT2LGDLJT5D6WMBYLGEW3?alt=json (Caused by NameResolutionError("HTTPSConnection(host='earthengine.googleapis.com', port=443): Failed to resolve 'earthengine.googleapis.com' ([Errno 8] nodename nor servname provided, or not known)"))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/scripts/export_agriculture_asset.py", line 181, in <module>
+    main()
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/scripts/export_agriculture_asset.py", line 151, in main
+    export(args.source, args.asset, args.expected_count, args.wait,
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/scripts/export_agriculture_asset.py", line 123, in export
+    status = task.status()
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/ee/batch.py", line 175, in status
+    operation = data.getOperation(self.operation_name)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/ee/data.py", line 1671, in getOperation
+    return _execute_cloud_call(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/ee/data.py", line 349, in _execute_cloud_call
+    return call.execute(num_retries=num_retries)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/googleapiclient/_helpers.py", line 130, in positional_wrapper
+    return wrapped(*args, **kwargs)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/googleapiclient/http.py", line 923, in execute
+    resp, content = _retry_request(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/googleapiclient/http.py", line 222, in _retry_request
+    raise exception
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/googleapiclient/http.py", line 191, in _retry_request
+    resp, content = http.request(uri, method, *args, **kwargs)
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google_auth_httplib2.py", line 216, in request
+    response, content = self.http.request(
+  File "/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/ee/_cloud_api_utils.py", line 82, in request
+    raise ConnectionError(connection_error) from connection_error
+ConnectionError: HTTPSConnectionPool(host='earthengine.googleapis.com', port=443): Max retries exceeded with url: /v1/projects/plenary-line-461306-s8/operations/AGIFT2LGDLJT5D6WMBYLGEW3?alt=json (Caused by NameResolutionError("HTTPSConnection(host='earthengine.googleapis.com', port=443): Failed to resolve 'earthengine.googleapis.com' ([Errno 8] nodename nor servname provided, or not known)"))
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+SUCCEEDED
+verified size=1000 labels={'5': 1000}
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+source=asset:users/ashutoshsaxena703/jabalpur_agriculture_points_updated
+features=1000 label=4 (set server-side)
+started export task DRMXK7Z7756TQJYMAYTJQSXP -> users/ashutoshsaxena703/jabalpur_agriculture_points_labelled
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+  READY
+2026-08-07T20:01:31Z re-export with label 4: task DRMXK7Z7756TQJYMAYTJQSXP SUCCEEDED; verified size=1000 labels={'4': 1000}

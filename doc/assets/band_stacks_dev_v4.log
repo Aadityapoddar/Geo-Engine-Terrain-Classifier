@@ -1,0 +1,92 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 3 development districts, season=winter, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Hoshangabad configs 0-5
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 4 development districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 4 development districts, season=winter, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Damoh configs 0-5
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 4 development districts, season=winter, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Barwani configs 0-5
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Harda configs 0-5
+landed winter:Barwani
+evaluate winter:Jhabua configs 0-5
+landed winter:Hoshangabad
+evaluate winter:Rajgarh configs 0-5
+landed winter:Jhabua
+evaluate winter:Rewa configs 0-5
+landed winter:Harda
+evaluate winter:Neemuch configs 0-5
+landed winter:Damoh
+evaluate winter:Mandsaur configs 0-5
+landed winter:Rajgarh
+evaluate winter:Sheopur configs 0-5
+landed winter:Rewa
+evaluate winter:Shivpuri configs 0-5
+landed winter:Mandsaur
+evaluate winter:Sehore configs 0-5
+landed winter:Sheopur
+wrote doc/assets/band_stacks_dev_v4_w3.json
+landed winter:Shivpuri
+wrote doc/assets/band_stacks_dev_v4_w0.json
+landed winter:Sehore
+evaluate winter:Tikamgarh configs 0-5
+landed winter:Tikamgarh
+wrote doc/assets/band_stacks_dev_v4_w1.json
+landed winter:Neemuch
+evaluate winter:Shajapur configs 0-5
+landed winter:Shajapur
+evaluate winter:West Nimar configs 0-5
+landed winter:West Nimar
+wrote doc/assets/band_stacks_dev_v4_w2.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 4 development districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 3 development districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Damoh configs 0-5
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Hoshangabad configs 0-5
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 4 development districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Harda configs 0-5
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+5 configurations x 4 development districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Barwani configs 0-5
+landed summer:Damoh
+evaluate summer:Mandsaur configs 0-5
+landed summer:Hoshangabad
+evaluate summer:Rajgarh configs 0-5
+landed summer:Harda
+evaluate summer:Neemuch configs 0-5
+landed summer:Mandsaur
+evaluate summer:Sehore configs 0-5
+landed summer:Rajgarh
+evaluate summer:Sheopur configs 0-5
+landed summer:Neemuch
+evaluate summer:Shajapur configs 0-5
+landed summer:Sheopur
+wrote doc/assets/band_stacks_dev_v4_w3.json
+landed summer:Barwani
+evaluate summer:Jhabua configs 0-5
+landed summer:Shajapur
+evaluate summer:West Nimar configs 0-5
+landed summer:Sehore
+evaluate summer:Tikamgarh configs 0-5
+landed summer:West Nimar
+wrote doc/assets/band_stacks_dev_v4_w2.json
+landed summer:Tikamgarh
+wrote doc/assets/band_stacks_dev_v4_w1.json
+landed summer:Jhabua
+evaluate summer:Rewa configs 0-5
+landed summer:Rewa
+evaluate summer:Shivpuri configs 0-5
+landed summer:Shivpuri
+wrote doc/assets/band_stacks_dev_v4_w0.json

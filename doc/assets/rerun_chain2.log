@@ -1,0 +1,44 @@
+=== A. leave-one-family-out (Fig. 4) ===
+  warning: summer is missing 4 districts: Harda, Neemuch, Shajapur, West Nimar
+  warning: winter is missing 11 districts: Barwani, Harda, Hoshangabad, Jhabua, Neemuch, Rajgarh
+
+== development, summer ==
+  gtb   best 74.43%  kappa 0.679  all27
+
+  leave-one-out against gtb:all27 (74.43%), summer:
+  0 bands are not earning their place: none
+
+== development, winter ==
+  gtb   best 87.75%  kappa 0.847  all27
+
+  leave-one-out against gtb:all27 (87.75%), winter:
+  0 bands are not earning their place: none
+
+wrote doc/assets/band_family_ablation_v4.json: 15 shards from 3 workers
+=== B. retune on the winning stack ===
+
+== development, summer ==
+  gtb   best 77.15%  kappa 0.712  maxNodes10_numberOfTrees100_shrinkage0.05
+  rf    best 75.04%  kappa 0.685  bagFraction0.5_maxNodesNone_minLeafPopulation1_numberOfTrees300
+  svm   best 73.55%  kappa 0.667  cost100.0_gamma0.5_kernelTypeRBF
+  knn   best 71.86%  kappa 0.646  k9
+  cart  best 65.87%  kappa 0.569  maxNodesNone
+
+== development, winter ==
+  svm   best 86.53%  kappa 0.832  cost10.0_gamma0.1_kernelTypeRBF
+  gtb   best 86.47%  kappa 0.831  maxNodes10_numberOfTrees300_shrinkage0.1
+  rf    best 85.53%  kappa 0.819  bagFraction0.5_maxNodesNone_minLeafPopulation1_numberOfTrees300
+  knn   best 84.47%  kappa 0.806  k9
+  cart  best 79.13%  kappa 0.739  maxNodes20
+
+wrote doc/assets/development_tuning_v5.json: 30 shards from 4 workers
+=== C. adopt tuned settings ===
+  cart  unchanged
+  gtb   {'numberOfTrees': 100, 'shrinkage': 0.1, 'maxNodes': 10} -> {'numberOfTrees': 300, 'shrinkage': 0.1, 'maxNodes': 10}  (dev OA 86.47%)
+    note: left gtb's description text unchanged
+  knn   {'k': 5} -> {'k': 9}  (dev OA 84.47%)
+  rf    {'numberOfTrees': 200, 'minLeafPopulation': 1, 'bagFraction': 0.3, 'maxNodes': 10} -> {'numberOfTrees': 300, 'minLeafPopulation': 1, 'bagFraction': 0.5, 'maxNodes': None}  (dev OA 85.53%)
+  svm   {'kernelType': 'RBF', 'gamma': 1.0, 'cost': 100.0} -> {'kernelType': 'RBF', 'gamma': 0.1, 'cost': 10.0}  (dev OA 86.53%)
+wrote /Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py: 4 model(s) retuned on the winter development districts
+=== D. statewide classifier comparison ===
+=== chain complete ===

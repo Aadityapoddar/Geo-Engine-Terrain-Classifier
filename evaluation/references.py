@@ -1,9 +1,9 @@
 """Independent whole-MP consensus reference construction.
 
 WorldCover and Dynamic World must agree. Specialist datasets then confirm
-water, buildings, and seasonal agriculture. Project Soil and Sand are kept
-separate for held-out six-class evaluation, but collapse to Bare here because
-the independent products do not provide a defensible Soil/Sand distinction.
+water, buildings, and seasonal agriculture. Training points are used only to
+buffer test samples away from them; evaluation is exclusively against these
+public products.
 """
 
 import ee
@@ -11,14 +11,42 @@ import ee
 
 DW_MIN_PROBABILITY = 0.70
 GHSL_MIN_BUILT_SQM = 50
+# Same names as backend.config.LAND_COVER_CLASSES, so a confusion matrix built
+# here and a class area reported by the dashboard use one vocabulary.
 REFERENCE_LABELS = {
-    0: "Forest",
+    0: "Vegetation",
     1: "Water",
-    2: "Buildings",
-    3: "Bare",
+    2: "Built Area",
+    3: "Open Land",
     4: "Agriculture",
 }
-PROJECT_TO_REFERENCE_LABEL = {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 4}
+# Artefacts written before the rename spell three of the five classes
+# differently. The integers never changed, so a stored result is still valid --
+# it just needs its keys translated on the way in, which is cheaper and safer
+# than re-running an hour of Earth Engine to relabel numbers that are correct.
+LEGACY_REFERENCE_LABELS = {
+    "Forest": "Vegetation",
+    "Buildings": "Built Area",
+    "Bare": "Open Land",
+    "Barren Land": "Open Land",
+    "Soil": "Open Land",
+}
+
+
+def canonical_label(name):
+    """Current name for a class label, whatever spelling it arrives in."""
+    return LEGACY_REFERENCE_LABELS.get(name, name)
+
+
+# The two conditions do not share a label inventory, so each carries its own
+# collapse onto the five-class reference taxonomy. Before is the preserved
+# soil-era table: Soil (3) and Sand (4) both collapse to Bare, and it never
+# learned Agriculture. After is the v3 inventory, already aligned with the
+# reference except that Barren Land (3) reads as Bare.
+PROJECT_TO_REFERENCE_LABEL = {
+    "before": {0: 0, 1: 1, 2: 2, 3: 3, 4: 3},
+    "after": {0: 0, 1: 1, 2: 2, 3: 3, 4: 4},
+}
 
 WORLD_COVER_ID = "ESA/WorldCover/v200"
 DYNAMIC_WORLD_ID = "GOOGLE/DYNAMICWORLD/V1"
@@ -38,9 +66,10 @@ WORLD_CEREAL_SEASON = {
 }
 
 
-def collapse_project_prediction(values):
-    """Map six project labels to the five-class independent taxonomy."""
-    return [PROJECT_TO_REFERENCE_LABEL[value] for value in values]
+def collapse_project_prediction(values, condition):
+    """Map one condition's project labels to the five-class reference taxonomy."""
+    mapping = PROJECT_TO_REFERENCE_LABEL[condition]
+    return [mapping[value] for value in values]
 
 
 def _dynamic_world(region, start_date, end_date):

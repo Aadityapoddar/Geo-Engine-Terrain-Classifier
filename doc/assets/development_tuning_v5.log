@@ -1,0 +1,231 @@
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 45, in <module>
+    from backend.config import (  # noqa: E402
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/backend/config.py", line 147, in <module>
+    assert BAND_STACKS["b19"] == [b for b in FULL_BANDS if b not in _CUT8]
+AssertionError
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 4 development districts, season=winter, mode=grid
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 3 development districts, season=winter, mode=grid
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 4 development districts, season=winter, mode=grid
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Damoh configs 0-8
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Hoshangabad configs 0-8
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 4 development districts, season=winter, mode=grid
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Barwani configs 0-8
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Harda configs 0-8
+evaluate winter:Harda configs 8-16
+evaluate winter:Barwani configs 8-16
+evaluate winter:Hoshangabad configs 8-16
+evaluate winter:Damoh configs 8-16
+evaluate winter:Harda configs 16-24
+evaluate winter:Barwani configs 16-24
+evaluate winter:Harda configs 24-28
+evaluate winter:Barwani configs 24-28
+evaluate winter:Hoshangabad configs 16-24
+evaluate winter:Damoh configs 16-24
+landed winter:Harda
+evaluate winter:Neemuch configs 0-8
+landed winter:Barwani
+evaluate winter:Jhabua configs 0-8
+evaluate winter:Hoshangabad configs 24-28
+evaluate winter:Neemuch configs 8-16
+evaluate winter:Damoh configs 24-28
+evaluate winter:Jhabua configs 8-16
+landed winter:Hoshangabad
+evaluate winter:Rajgarh configs 0-8
+evaluate winter:Neemuch configs 16-24
+evaluate winter:Jhabua configs 16-24
+landed winter:Damoh
+evaluate winter:Mandsaur configs 0-8
+evaluate winter:Rajgarh configs 8-16
+evaluate winter:Neemuch configs 24-28
+evaluate winter:Jhabua configs 24-28
+landed winter:Neemuch
+evaluate winter:Shajapur configs 0-8
+evaluate winter:Rajgarh configs 16-24
+evaluate winter:Mandsaur configs 8-16
+landed winter:Jhabua
+evaluate winter:Rewa configs 0-8
+evaluate winter:Mandsaur configs 16-24
+evaluate winter:Shajapur configs 8-16
+evaluate winter:Rajgarh configs 24-28
+evaluate winter:Mandsaur configs 24-28
+evaluate winter:Rewa configs 8-16
+evaluate winter:Shajapur configs 16-24
+landed winter:Rajgarh
+evaluate winter:Sheopur configs 0-8
+evaluate winter:Shajapur configs 24-28
+landed winter:Mandsaur
+evaluate winter:Sehore configs 0-8
+evaluate winter:Rewa configs 16-24
+retry winter:Shajapur attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate winter:Sheopur configs 8-16
+evaluate winter:Sehore configs 8-16
+evaluate winter:Rewa configs 24-28
+landed winter:Rewa
+evaluate winter:Shivpuri configs 0-8
+evaluate winter:Sehore configs 16-24
+landed winter:Shajapur
+evaluate winter:West Nimar configs 0-8
+evaluate winter:Sheopur configs 16-24
+evaluate winter:Sehore configs 24-28
+evaluate winter:Sheopur configs 24-28
+evaluate winter:West Nimar configs 8-16
+evaluate winter:Shivpuri configs 8-16
+landed winter:Sheopur
+wrote doc/assets/development_tuning_v5_w3.json
+landed winter:Sehore
+evaluate winter:Tikamgarh configs 0-8
+evaluate winter:West Nimar configs 16-24
+evaluate winter:West Nimar configs 24-28
+landed winter:West Nimar
+wrote doc/assets/development_tuning_v5_w2.json
+evaluate winter:Tikamgarh configs 8-16
+evaluate winter:Tikamgarh configs 16-24
+evaluate winter:Tikamgarh configs 24-28
+landed winter:Tikamgarh
+wrote doc/assets/development_tuning_v5_w1.json
+evaluate winter:Shivpuri configs 16-24
+evaluate winter:Shivpuri configs 24-28
+landed winter:Shivpuri
+wrote doc/assets/development_tuning_v5_w0.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 4 development districts, season=summer, mode=grid
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Damoh configs 0-8
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 4 development districts, season=summer, mode=grid
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Barwani configs 0-8
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 4 development districts, season=summer, mode=grid
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+28 configurations x 3 development districts, season=summer, mode=grid
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Harda configs 0-8
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Hoshangabad configs 0-8
+evaluate summer:Harda configs 8-16
+evaluate summer:Harda configs 16-24
+evaluate summer:Harda configs 24-28
+landed summer:Harda
+evaluate summer:Neemuch configs 0-8
+evaluate summer:Barwani configs 8-16
+evaluate summer:Hoshangabad configs 8-16
+evaluate summer:Hoshangabad configs 16-24
+evaluate summer:Barwani configs 16-24
+evaluate summer:Barwani configs 24-28
+landed summer:Barwani
+evaluate summer:Jhabua configs 0-8
+evaluate summer:Hoshangabad configs 24-28
+evaluate summer:Damoh configs 8-16
+evaluate summer:Damoh configs 16-24
+evaluate summer:Damoh configs 24-28
+landed summer:Damoh
+evaluate summer:Mandsaur configs 0-8
+evaluate summer:Neemuch configs 8-16
+evaluate summer:Neemuch configs 16-24
+landed summer:Hoshangabad
+evaluate summer:Rajgarh configs 0-8
+evaluate summer:Jhabua configs 8-16
+evaluate summer:Jhabua configs 16-24
+evaluate summer:Neemuch configs 24-28
+evaluate summer:Jhabua configs 24-28
+landed summer:Jhabua
+evaluate summer:Rewa configs 0-8
+landed summer:Neemuch
+evaluate summer:Shajapur configs 0-8
+evaluate summer:Mandsaur configs 8-16
+evaluate summer:Mandsaur configs 16-24
+evaluate summer:Rajgarh configs 8-16
+evaluate summer:Mandsaur configs 24-28
+evaluate summer:Rajgarh configs 16-24
+evaluate summer:Rajgarh configs 24-28
+landed summer:Mandsaur
+evaluate summer:Sehore configs 0-8
+landed summer:Rajgarh
+evaluate summer:Sheopur configs 0-8
+evaluate summer:Rewa configs 8-16
+evaluate summer:Rewa configs 16-24
+evaluate summer:Rewa configs 24-28
+landed summer:Rewa
+evaluate summer:Shivpuri configs 0-8
+evaluate summer:Shajapur configs 8-16
+evaluate summer:Shajapur configs 16-24
+evaluate summer:Shajapur configs 24-28
+landed summer:Shajapur
+evaluate summer:West Nimar configs 0-8
+evaluate summer:Sehore configs 8-16
+evaluate summer:Sehore configs 16-24
+evaluate summer:Sehore configs 24-28
+landed summer:Sehore
+evaluate summer:Tikamgarh configs 0-8
+evaluate summer:Sheopur configs 8-16
+evaluate summer:Sheopur configs 16-24
+evaluate summer:Sheopur configs 24-28
+landed summer:Sheopur
+wrote doc/assets/development_tuning_v5_w3.json
+evaluate summer:West Nimar configs 8-16
+evaluate summer:West Nimar configs 16-24
+evaluate summer:West Nimar configs 24-28
+landed summer:West Nimar
+wrote doc/assets/development_tuning_v5_w2.json
+evaluate summer:Tikamgarh configs 8-16
+evaluate summer:Shivpuri configs 8-16
+evaluate summer:Tikamgarh configs 16-24
+evaluate summer:Tikamgarh configs 24-28
+landed summer:Tikamgarh
+wrote doc/assets/development_tuning_v5_w1.json
+evaluate summer:Shivpuri configs 16-24
+evaluate summer:Shivpuri configs 24-28
+landed summer:Shivpuri
+wrote doc/assets/development_tuning_v5_w0.json

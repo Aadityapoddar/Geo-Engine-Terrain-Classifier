@@ -36,6 +36,7 @@ from backend.gee_classifier import (  # noqa: E402
 from evaluation.assets import training_points  # noqa: E402
 from evaluation.metrics import metrics_from_matrix  # noqa: E402
 from evaluation.references import (  # noqa: E402
+    PROJECT_TO_REFERENCE_LABEL,
     REFERENCE_LABELS,
     build_reference_image,
     madhya_pradesh_districts,
@@ -244,8 +245,9 @@ def cmd_status(_args):
     return 0 if all(row["exists"] for row in summary.values()) else 2
 
 
-def _collapsed_external_predictions(classified):
-    mapping = ee.List([0, 1, 2, 3, 3, 4])
+def _collapsed_external_predictions(classified, condition):
+    labels = PROJECT_TO_REFERENCE_LABEL[condition]
+    mapping = ee.List([labels[index] for index in range(len(labels))])
     return classified.map(lambda feature: feature.set(
         "external_prediction",
         mapping.get(ee.Number(feature.get("classification")).toInt()),
@@ -279,7 +281,7 @@ def _evaluate_run(spec, assets):
         features=split_train, classProperty="label", inputProperties=BANDS
     )
     external_classified = _collapsed_external_predictions(
-        external.classify(external_classifier)
+        external.classify(external_classifier), spec.condition
     )
     heldout_classified = heldout.classify(heldout_classifier)
     external_payload = _matrix_payload(
@@ -323,7 +325,7 @@ def cmd_evaluate(_args):
         "seasons": SEASONS,
         "reference": {
             "external_labels": REFERENCE_LABELS,
-            "soil_sand_collapsed": True,
+            "project_to_reference_label": PROJECT_TO_REFERENCE_LABEL,
             "sampling_seed": BLOCK_SEED,
             "training_exclusion_metres": 100,
         },

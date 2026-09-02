@@ -1,0 +1,1967 @@
+{
+  "training_schema_version": "five-class-19-band-v3-no-sand",
+  "district_count": 48,
+  "shard_count": 96,
+  "runs": [
+    {
+      "run_id": "winter-before-rf",
+      "season": "winter",
+      "condition": "before",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              777,
+              7,
+              10,
+              165,
+              0
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              930,
+              26,
+              0
+            ],
+            [
+              0,
+              6,
+              246,
+              701,
+              0
+            ],
+            [
+              63,
+              4,
+              55,
+              837,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7033632755379152,
+          "kappa": 0.6293091770673983,
+          "macro_precision": 0.7653286008460423,
+          "macro_recall": 0.7035155380474215,
+          "macro_f1": 0.8058789660506955,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9239001189060642,
+              "recall": 0.8102189781021898,
+              "f1": 0.8633333333333333,
+              "support": 959,
+              "predicted": 841
+            },
+            "Water": {
+              "precision": 0.9825819672131147,
+              "recall": 1.0,
+              "f1": 0.9912144702842378,
+              "support": 959,
+              "predicted": 976
+            },
+            "Buildings": {
+              "precision": 0.7493956486704271,
+              "recall": 0.9717868338557993,
+              "f1": 0.8462238398544131,
+              "support": 957,
+              "predicted": 1241
+            },
+            "Bare": {
+              "precision": 0.40543666859456334,
+              "recall": 0.7355718782791185,
+              "f1": 0.5227442207307978,
+              "support": 953,
+              "predicted": 1729
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-svm",
+      "season": "winter",
+      "condition": "before",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              869,
+              12,
+              18,
+              60,
+              0
+            ],
+            [
+              0,
+              937,
+              0,
+              22,
+              0
+            ],
+            [
+              0,
+              4,
+              952,
+              1,
+              0
+            ],
+            [
+              1,
+              15,
+              291,
+              646,
+              0
+            ],
+            [
+              54,
+              47,
+              83,
+              775,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7110925423020681,
+          "kappa": 0.6389454977621498,
+          "macro_precision": 0.7503708774412187,
+          "macro_recall": 0.7111692819661272,
+          "macro_f1": 0.8064118759830998,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9404761904761905,
+              "recall": 0.9061522419186653,
+              "f1": 0.9229952203929898,
+              "support": 959,
+              "predicted": 924
+            },
+            "Water": {
+              "precision": 0.9231527093596059,
+              "recall": 0.9770594369134515,
+              "f1": 0.9493414387031408,
+              "support": 959,
+              "predicted": 1015
+            },
+            "Buildings": {
+              "precision": 0.7083333333333334,
+              "recall": 0.9947753396029259,
+              "f1": 0.8274663189917428,
+              "support": 957,
+              "predicted": 1344
+            },
+            "Bare": {
+              "precision": 0.4295212765957447,
+              "recall": 0.6778593913955928,
+              "f1": 0.5258445258445259,
+              "support": 953,
+              "predicted": 1504
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-xgb",
+      "season": "winter",
+      "condition": "before",
+      "model": "xgb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              848,
+              14,
+              6,
+              91,
+              0
+            ],
+            [
+              0,
+              931,
+              0,
+              28,
+              0
+            ],
+            [
+              0,
+              0,
+              950,
+              7,
+              0
+            ],
+            [
+              1,
+              5,
+              256,
+              691,
+              0
+            ],
+            [
+              44,
+              30,
+              72,
+              813,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7144349279298099,
+          "kappa": 0.6431349342945383,
+          "macro_precision": 0.765852458121541,
+          "macro_recall": 0.7145643051395126,
+          "macro_f1": 0.8147320284648021,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9496080627099664,
+              "recall": 0.8842544316996872,
+              "f1": 0.9157667386609072,
+              "support": 959,
+              "predicted": 893
+            },
+            "Water": {
+              "precision": 0.95,
+              "recall": 0.9708029197080292,
+              "f1": 0.9602888086642599,
+              "support": 959,
+              "predicted": 980
+            },
+            "Buildings": {
+              "precision": 0.7398753894080997,
+              "recall": 0.9926854754440961,
+              "f1": 0.8478357875948237,
+              "support": 957,
+              "predicted": 1284
+            },
+            "Bare": {
+              "precision": 0.42392638036809815,
+              "recall": 0.7250786988457503,
+              "f1": 0.535036778939218,
+              "support": 953,
+              "predicted": 1630
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-cart",
+      "season": "winter",
+      "condition": "before",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              705,
+              22,
+              9,
+              223,
+              0
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              899,
+              58,
+              0
+            ],
+            [
+              2,
+              15,
+              274,
+              662,
+              0
+            ],
+            [
+              73,
+              107,
+              86,
+              693,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.6736996030917067,
+          "kappa": 0.5922288873178082,
+          "macro_precision": 0.7217322824312554,
+          "macro_recall": 0.6738366379040087,
+          "macro_f1": 0.7651149869165292,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9038461538461539,
+              "recall": 0.735140771637122,
+              "f1": 0.8108108108108107,
+              "support": 959,
+              "predicted": 780
+            },
+            "Water": {
+              "precision": 0.8694469628286491,
+              "recall": 1.0,
+              "f1": 0.9301648884578079,
+              "support": 959,
+              "predicted": 1103
+            },
+            "Buildings": {
+              "precision": 0.7089905362776026,
+              "recall": 0.9393939393939394,
+              "f1": 0.8080898876404495,
+              "support": 957,
+              "predicted": 1268
+            },
+            "Bare": {
+              "precision": 0.40464547677261614,
+              "recall": 0.6946484784889821,
+              "f1": 0.511394360757049,
+              "support": 953,
+              "predicted": 1636
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-knn",
+      "season": "winter",
+      "condition": "before",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              842,
+              8,
+              16,
+              93,
+              0
+            ],
+            [
+              0,
+              957,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              1,
+              952,
+              4,
+              0
+            ],
+            [
+              2,
+              14,
+              290,
+              647,
+              0
+            ],
+            [
+              60,
+              33,
+              97,
+              769,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7098391476916649,
+          "kappa": 0.637380841075114,
+          "macro_precision": 0.7514450796893837,
+          "macro_recall": 0.709919291540196,
+          "macro_f1": 0.8055868103419646,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9314159292035398,
+              "recall": 0.8779979144942649,
+              "f1": 0.903918411164788,
+              "support": 959,
+              "predicted": 904
+            },
+            "Water": {
+              "precision": 0.9447186574531096,
+              "recall": 0.9979144942648592,
+              "f1": 0.9705882352941178,
+              "support": 959,
+              "predicted": 1013
+            },
+            "Buildings": {
+              "precision": 0.7025830258302583,
+              "recall": 0.9947753396029259,
+              "f1": 0.823529411764706,
+              "support": 957,
+              "predicted": 1355
+            },
+            "Bare": {
+              "precision": 0.4270627062706271,
+              "recall": 0.6789087093389297,
+              "f1": 0.5243111831442464,
+              "support": 953,
+              "predicted": 1515
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-rf",
+      "season": "winter",
+      "condition": "after",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              818,
+              21,
+              34,
+              0,
+              86
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              930,
+              26,
+              0
+            ],
+            [
+              3,
+              15,
+              406,
+              529,
+              0
+            ],
+            [
+              167,
+              26,
+              157,
+              109,
+              500
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7804470440777105,
+          "kappa": 0.7255495051897607,
+          "macro_precision": 0.8050679390282187,
+          "macro_recall": 0.7802448610677504,
+          "macro_f1": 0.7717724283958128,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8270980788675429,
+              "recall": 0.8529718456725756,
+              "f1": 0.839835728952772,
+              "support": 959,
+              "predicted": 989
+            },
+            "Water": {
+              "precision": 0.9392752203721841,
+              "recall": 1.0,
+              "f1": 0.9686868686868687,
+              "support": 959,
+              "predicted": 1021
+            },
+            "Buildings": {
+              "precision": 0.6090373280943026,
+              "recall": 0.9717868338557993,
+              "f1": 0.7487922705314008,
+              "support": 957,
+              "predicted": 1527
+            },
+            "Bare": {
+              "precision": 0.7966867469879518,
+              "recall": 0.5550891920251836,
+              "f1": 0.6542980828695114,
+              "support": 953,
+              "predicted": 664
+            },
+            "Agriculture": {
+              "precision": 0.8532423208191127,
+              "recall": 0.5213764337851929,
+              "f1": 0.6472491909385113,
+              "support": 959,
+              "predicted": 586
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-svm",
+      "season": "winter",
+      "condition": "after",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              863,
+              6,
+              19,
+              2,
+              69
+            ],
+            [
+              0,
+              957,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              3,
+              954,
+              0,
+              0
+            ],
+            [
+              1,
+              45,
+              298,
+              568,
+              41
+            ],
+            [
+              31,
+              25,
+              84,
+              128,
+              691
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8424900772926677,
+          "kappa": 0.8031045499381231,
+          "macro_precision": 0.8532300512488973,
+          "macro_recall": 0.8422460492092629,
+          "macro_f1": 0.837616140108454,
+          "per_class": {
+            "Forest": {
+              "precision": 0.964245810055866,
+              "recall": 0.899895724713243,
+              "f1": 0.9309600862998921,
+              "support": 959,
+              "predicted": 895
+            },
+            "Water": {
+              "precision": 0.9237451737451737,
+              "recall": 0.9979144942648592,
+              "f1": 0.9593984962406015,
+              "support": 959,
+              "predicted": 1036
+            },
+            "Buildings": {
+              "precision": 0.7040590405904059,
+              "recall": 0.9968652037617555,
+              "f1": 0.8252595155709344,
+              "support": 957,
+              "predicted": 1355
+            },
+            "Bare": {
+              "precision": 0.8114285714285714,
+              "recall": 0.5960125918153201,
+              "f1": 0.6872353297035693,
+              "support": 953,
+              "predicted": 700
+            },
+            "Agriculture": {
+              "precision": 0.8626716604244694,
+              "recall": 0.7205422314911366,
+              "f1": 0.7852272727272727,
+              "support": 959,
+              "predicted": 801
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-xgb",
+      "season": "winter",
+      "condition": "after",
+      "model": "xgb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              831,
+              21,
+              10,
+              2,
+              95
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              949,
+              7,
+              0
+            ],
+            [
+              0,
+              22,
+              247,
+              653,
+              31
+            ],
+            [
+              32,
+              25,
+              101,
+              124,
+              677
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8500104449550867,
+          "kappa": 0.8125096893590137,
+          "macro_precision": 0.8591533858750056,
+          "macro_recall": 0.8498632969319548,
+          "macro_f1": 0.8470498385165282,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9629200463499421,
+              "recall": 0.8665276329509907,
+              "f1": 0.9121844127332601,
+              "support": 959,
+              "predicted": 863
+            },
+            "Water": {
+              "precision": 0.9328793774319066,
+              "recall": 1.0,
+              "f1": 0.96527428283845,
+              "support": 959,
+              "predicted": 1028
+            },
+            "Buildings": {
+              "precision": 0.7260902830910482,
+              "recall": 0.9916405433646813,
+              "f1": 0.838339222614841,
+              "support": 957,
+              "predicted": 1307
+            },
+            "Bare": {
+              "precision": 0.8307888040712468,
+              "recall": 0.6852046169989506,
+              "f1": 0.7510063254744106,
+              "support": 953,
+              "predicted": 786
+            },
+            "Agriculture": {
+              "precision": 0.8430884184308842,
+              "recall": 0.7059436913451512,
+              "f1": 0.76844494892168,
+              "support": 959,
+              "predicted": 803
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-cart",
+      "season": "winter",
+      "condition": "after",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              759,
+              26,
+              45,
+              0,
+              129
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              825,
+              131,
+              0
+            ],
+            [
+              0,
+              28,
+              578,
+              342,
+              5
+            ],
+            [
+              102,
+              44,
+              194,
+              88,
+              531
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7135993315228745,
+          "kappa": 0.6419794552329826,
+          "macro_precision": 0.7397036569722398,
+          "macro_recall": 0.7132173802608471,
+          "macro_f1": 0.7051133882506475,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8815331010452961,
+              "recall": 0.7914494264859229,
+              "f1": 0.8340659340659341,
+              "support": 959,
+              "predicted": 861
+            },
+            "Water": {
+              "precision": 0.9064272211720227,
+              "recall": 1.0,
+              "f1": 0.9509172037679722,
+              "support": 959,
+              "predicted": 1058
+            },
+            "Buildings": {
+              "precision": 0.502436053593179,
+              "recall": 0.8620689655172413,
+              "f1": 0.6348595613697576,
+              "support": 957,
+              "predicted": 1642
+            },
+            "Bare": {
+              "precision": 0.6096256684491979,
+              "recall": 0.3588667366211962,
+              "f1": 0.4517833553500661,
+              "support": 953,
+              "predicted": 561
+            },
+            "Agriculture": {
+              "precision": 0.7984962406015037,
+              "recall": 0.5537017726798749,
+              "f1": 0.6539408866995073,
+              "support": 959,
+              "predicted": 665
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-knn",
+      "season": "winter",
+      "condition": "after",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              837,
+              5,
+              17,
+              0,
+              100
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              951,
+              4,
+              0
+            ],
+            [
+              0,
+              33,
+              257,
+              638,
+              25
+            ],
+            [
+              79,
+              16,
+              129,
+              112,
+              623
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8372675997493211,
+          "kappa": 0.7965797593567661,
+          "macro_precision": 0.84799759184198,
+          "macro_recall": 0.8371228884050346,
+          "macro_f1": 0.8329794709109907,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9137554585152838,
+              "recall": 0.872784150156413,
+              "f1": 0.8927999999999999,
+              "support": 959,
+              "predicted": 916
+            },
+            "Water": {
+              "precision": 0.9448275862068966,
+              "recall": 1.0,
+              "f1": 0.9716312056737589,
+              "support": 959,
+              "predicted": 1015
+            },
+            "Buildings": {
+              "precision": 0.7023633677991138,
+              "recall": 0.9937304075235109,
+              "f1": 0.8230203375162267,
+              "support": 957,
+              "predicted": 1354
+            },
+            "Bare": {
+              "precision": 0.8461538461538461,
+              "recall": 0.6694648478488983,
+              "f1": 0.7475102519039251,
+              "support": 953,
+              "predicted": 754
+            },
+            "Agriculture": {
+              "precision": 0.8328877005347594,
+              "recall": 0.6496350364963503,
+              "f1": 0.7299355594610427,
+              "support": 959,
+              "predicted": 748
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-rf",
+      "season": "summer",
+      "condition": "before",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              576,
+              137,
+              7,
+              77,
+              0
+            ],
+            [
+              0,
+              958,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              914,
+              41,
+              0
+            ],
+            [
+              1,
+              11,
+              176,
+              768,
+              0
+            ],
+            [
+              44,
+              11,
+              87,
+              817,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6950507888480657,
+          "kappa": 0.6177824475259266,
+          "macro_precision": 0.7517718038608484,
+          "macro_recall": 0.6962163272371041,
+          "macro_f1": 0.7916363541508405,
+          "per_class": {
+            "Forest": {
+              "precision": 0.927536231884058,
+              "recall": 0.7227101631116688,
+              "f1": 0.8124118476727785,
+              "support": 797,
+              "predicted": 621
+            },
+            "Water": {
+              "precision": 0.8568872987477638,
+              "recall": 0.9989572471324296,
+              "f1": 0.9224843524313915,
+              "support": 959,
+              "predicted": 1118
+            },
+            "Buildings": {
+              "precision": 0.7719594594594594,
+              "recall": 0.9560669456066946,
+              "f1": 0.8542056074766355,
+              "support": 956,
+              "predicted": 1184
+            },
+            "Bare": {
+              "precision": 0.4507042253521127,
+              "recall": 0.803347280334728,
+              "f1": 0.5774436090225564,
+              "support": 956,
+              "predicted": 1704
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-svm",
+      "season": "summer",
+      "condition": "before",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              456,
+              45,
+              8,
+              288,
+              0
+            ],
+            [
+              2,
+              940,
+              1,
+              16,
+              0
+            ],
+            [
+              0,
+              4,
+              949,
+              3,
+              0
+            ],
+            [
+              5,
+              59,
+              294,
+              598,
+              0
+            ],
+            [
+              33,
+              35,
+              146,
+              745,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6360492759887616,
+          "kappa": 0.5433024807207315,
+          "macro_precision": 0.7071413372033774,
+          "macro_recall": 0.6341068156265968,
+          "macro_f1": 0.722807629250452,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9193548387096774,
+              "recall": 0.5721455457967378,
+              "f1": 0.7053364269141531,
+              "support": 797,
+              "predicted": 496
+            },
+            "Water": {
+              "precision": 0.8679593721144968,
+              "recall": 0.9801876955161627,
+              "f1": 0.920666013712047,
+              "support": 959,
+              "predicted": 1083
+            },
+            "Buildings": {
+              "precision": 0.678826895565093,
+              "recall": 0.9926778242677824,
+              "f1": 0.806287170773152,
+              "support": 956,
+              "predicted": 1398
+            },
+            "Bare": {
+              "precision": 0.3624242424242424,
+              "recall": 0.6255230125523012,
+              "f1": 0.4589409056024559,
+              "support": 956,
+              "predicted": 1650
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-xgb",
+      "season": "summer",
+      "condition": "before",
+      "model": "xgb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              487,
+              202,
+              3,
+              105,
+              0
+            ],
+            [
+              0,
+              950,
+              0,
+              9,
+              0
+            ],
+            [
+              0,
+              3,
+              944,
+              9,
+              0
+            ],
+            [
+              0,
+              22,
+              238,
+              696,
+              0
+            ],
+            [
+              27,
+              27,
+              93,
+              812,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6650097255240977,
+          "kappa": 0.5797045809935646,
+          "macro_precision": 0.7254733938232543,
+          "macro_recall": 0.663427560201949,
+          "macro_f1": 0.7511374458424899,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9474708171206225,
+              "recall": 0.6110414052697616,
+              "f1": 0.7429443173150265,
+              "support": 797,
+              "predicted": 514
+            },
+            "Water": {
+              "precision": 0.7890365448504983,
+              "recall": 0.9906152241918665,
+              "f1": 0.8784096162736941,
+              "support": 959,
+              "predicted": 1204
+            },
+            "Buildings": {
+              "precision": 0.7386541471048513,
+              "recall": 0.9874476987447699,
+              "f1": 0.8451208594449418,
+              "support": 956,
+              "predicted": 1278
+            },
+            "Bare": {
+              "precision": 0.42673206621704474,
+              "recall": 0.7280334728033473,
+              "f1": 0.5380749903362968,
+              "support": 956,
+              "predicted": 1631
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-cart",
+      "season": "summer",
+      "condition": "before",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              388,
+              101,
+              19,
+              289,
+              0
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              13,
+              1,
+              890,
+              52,
+              0
+            ],
+            [
+              4,
+              25,
+              246,
+              681,
+              0
+            ],
+            [
+              31,
+              21,
+              130,
+              777,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6306462070456019,
+          "kappa": 0.5362612686579419,
+          "macro_precision": 0.7068410564611806,
+          "macro_recall": 0.6260262070630975,
+          "macro_f1": 0.7115963511358635,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8899082568807339,
+              "recall": 0.4868255959849435,
+              "f1": 0.6293592862935928,
+              "support": 797,
+              "predicted": 436
+            },
+            "Water": {
+              "precision": 0.8663053297199639,
+              "recall": 1.0,
+              "f1": 0.9283639883833494,
+              "support": 959,
+              "predicted": 1107
+            },
+            "Buildings": {
+              "precision": 0.6926070038910506,
+              "recall": 0.9309623430962343,
+              "f1": 0.7942882641677822,
+              "support": 956,
+              "predicted": 1285
+            },
+            "Bare": {
+              "precision": 0.37854363535297386,
+              "recall": 0.7123430962343096,
+              "f1": 0.49437386569872954,
+              "support": 956,
+              "predicted": 1799
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-knn",
+      "season": "summer",
+      "condition": "before",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              427,
+              37,
+              3,
+              330,
+              0
+            ],
+            [
+              0,
+              954,
+              0,
+              5,
+              0
+            ],
+            [
+              18,
+              5,
+              928,
+              5,
+              0
+            ],
+            [
+              11,
+              51,
+              262,
+              632,
+              0
+            ],
+            [
+              99,
+              24,
+              115,
+              721,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6356170304733089,
+          "kappa": 0.5430123189087954,
+          "macro_precision": 0.6857269063209113,
+          "macro_recall": 0.6324688990908721,
+          "macro_f1": 0.7171268653337367,
+          "per_class": {
+            "Forest": {
+              "precision": 0.7693693693693694,
+              "recall": 0.5357590966122961,
+              "f1": 0.6316568047337278,
+              "support": 797,
+              "predicted": 555
+            },
+            "Water": {
+              "precision": 0.8907563025210085,
+              "recall": 0.9947862356621481,
+              "f1": 0.9399014778325123,
+              "support": 959,
+              "predicted": 1071
+            },
+            "Buildings": {
+              "precision": 0.709480122324159,
+              "recall": 0.9707112970711297,
+              "f1": 0.8197879858657244,
+              "support": 956,
+              "predicted": 1308
+            },
+            "Bare": {
+              "precision": 0.3733018310691081,
+              "recall": 0.6610878661087866,
+              "f1": 0.4771611929029823,
+              "support": 956,
+              "predicted": 1693
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-rf",
+      "season": "summer",
+      "condition": "after",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              143,
+              90,
+              0,
+              0,
+              564
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              948,
+              5,
+              3
+            ],
+            [
+              2,
+              43,
+              311,
+              340,
+              260
+            ],
+            [
+              30,
+              26,
+              112,
+              314,
+              477
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.619623946401556,
+          "kappa": 0.5211461933229826,
+          "macro_precision": 0.6496242943213313,
+          "macro_recall": 0.6048192576385467,
+          "macro_f1": 0.5750171744002065,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8171428571428572,
+              "recall": 0.1794228356336261,
+              "f1": 0.29423868312757206,
+              "support": 797,
+              "predicted": 175
+            },
+            "Water": {
+              "precision": 0.8577817531305904,
+              "recall": 1.0,
+              "f1": 0.9234472797303803,
+              "support": 959,
+              "predicted": 1118
+            },
+            "Buildings": {
+              "precision": 0.6914660831509847,
+              "recall": 0.9916317991631799,
+              "f1": 0.8147829823807479,
+              "support": 956,
+              "predicted": 1371
+            },
+            "Bare": {
+              "precision": 0.5159332321699545,
+              "recall": 0.35564853556485354,
+              "f1": 0.42105263157894735,
+              "support": 956,
+              "predicted": 659
+            },
+            "Agriculture": {
+              "precision": 0.36579754601226994,
+              "recall": 0.49739311783107404,
+              "f1": 0.4215642951833849,
+              "support": 959,
+              "predicted": 1304
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-svm",
+      "season": "summer",
+      "condition": "after",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              371,
+              30,
+              2,
+              0,
+              394
+            ],
+            [
+              5,
+              953,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              4,
+              946,
+              5,
+              1
+            ],
+            [
+              6,
+              82,
+              300,
+              395,
+              173
+            ],
+            [
+              28,
+              22,
+              85,
+              273,
+              551
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6950507888480657,
+          "kappa": 0.6169565802568066,
+          "macro_precision": 0.7133909029097454,
+          "macro_recall": 0.6873031173259644,
+          "macro_f1": 0.6772175701208862,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9048780487804878,
+              "recall": 0.465495608531995,
+              "f1": 0.6147473073736537,
+              "support": 797,
+              "predicted": 410
+            },
+            "Water": {
+              "precision": 0.8735105407882676,
+              "recall": 0.9937434827945777,
+              "f1": 0.9297560975609755,
+              "support": 959,
+              "predicted": 1091
+            },
+            "Buildings": {
+              "precision": 0.7096774193548387,
+              "recall": 0.9895397489539749,
+              "f1": 0.8265618173875054,
+              "support": 956,
+              "predicted": 1333
+            },
+            "Bare": {
+              "precision": 0.586924219910847,
+              "recall": 0.4131799163179916,
+              "f1": 0.48496009821976677,
+              "support": 956,
+              "predicted": 673
+            },
+            "Agriculture": {
+              "precision": 0.4919642857142857,
+              "recall": 0.5745568300312826,
+              "f1": 0.53006253006253,
+              "support": 959,
+              "predicted": 1120
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-xgb",
+      "season": "summer",
+      "condition": "after",
+      "model": "xgb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              324,
+              163,
+              2,
+              0,
+              308
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              3,
+              947,
+              4,
+              1
+            ],
+            [
+              0,
+              75,
+              247,
+              478,
+              156
+            ],
+            [
+              20,
+              37,
+              69,
+              299,
+              534
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.7006699805489518,
+          "kappa": 0.6237850084983654,
+          "macro_precision": 0.7219160307994533,
+          "macro_recall": 0.6907880544182954,
+          "macro_f1": 0.6778859078155356,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9391304347826087,
+              "recall": 0.4065244667503137,
+              "f1": 0.5674255691768826,
+              "support": 797,
+              "predicted": 345
+            },
+            "Water": {
+              "precision": 0.7752627324171383,
+              "recall": 1.0,
+              "f1": 0.8734061930783243,
+              "support": 959,
+              "predicted": 1237
+            },
+            "Buildings": {
+              "precision": 0.7486166007905138,
+              "recall": 0.9905857740585774,
+              "f1": 0.8527690229626294,
+              "support": 956,
+              "predicted": 1265
+            },
+            "Bare": {
+              "precision": 0.6120358514724712,
+              "recall": 0.5,
+              "f1": 0.5503742084052964,
+              "support": 956,
+              "predicted": 781
+            },
+            "Agriculture": {
+              "precision": 0.5345345345345346,
+              "recall": 0.556830031282586,
+              "f1": 0.5454545454545454,
+              "support": 959,
+              "predicted": 999
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-cart",
+      "season": "summer",
+      "condition": "after",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              161,
+              84,
+              0,
+              0,
+              552
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              4,
+              4,
+              922,
+              16,
+              10
+            ],
+            [
+              3,
+              51,
+              312,
+              268,
+              322
+            ],
+            [
+              62,
+              30,
+              129,
+              219,
+              519
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6114112816079533,
+          "kappa": 0.5110493318304755,
+          "macro_precision": 0.6258702183991193,
+          "macro_recall": 0.5975932281953767,
+          "macro_f1": 0.5669120839590641,
+          "per_class": {
+            "Forest": {
+              "precision": 0.7,
+              "recall": 0.20200752823086573,
+              "f1": 0.3135345666991236,
+              "support": 797,
+              "predicted": 230
+            },
+            "Water": {
+              "precision": 0.850177304964539,
+              "recall": 1.0,
+              "f1": 0.9190225203641591,
+              "support": 959,
+              "predicted": 1128
+            },
+            "Buildings": {
+              "precision": 0.6764490095377843,
+              "recall": 0.9644351464435147,
+              "f1": 0.7951703320396722,
+              "support": 956,
+              "predicted": 1363
+            },
+            "Bare": {
+              "precision": 0.532803180914513,
+              "recall": 0.2803347280334728,
+              "f1": 0.36737491432488006,
+              "support": 956,
+              "predicted": 503
+            },
+            "Agriculture": {
+              "precision": 0.3699215965787598,
+              "recall": 0.5411887382690302,
+              "f1": 0.4394580863674851,
+              "support": 959,
+              "predicted": 1403
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-knn",
+      "season": "summer",
+      "condition": "after",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              244,
+              24,
+              3,
+              0,
+              526
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              18,
+              6,
+              922,
+              5,
+              5
+            ],
+            [
+              19,
+              73,
+              229,
+              457,
+              178
+            ],
+            [
+              68,
+              20,
+              116,
+              311,
+              444
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Bare",
+            "Agriculture"
+          ],
+          "sample_count": 4627,
+          "overall_accuracy": 0.6539874648800519,
+          "kappa": 0.5651280815178464,
+          "macro_precision": 0.6575463556547956,
+          "macro_recall": 0.642319789531028,
+          "macro_f1": 0.6286079878242945,
+          "per_class": {
+            "Forest": {
+              "precision": 0.6991404011461319,
+              "recall": 0.30614805520702637,
+              "f1": 0.42582897033158823,
+              "support": 797,
+              "predicted": 349
+            },
+            "Water": {
+              "precision": 0.8863216266173752,
+              "recall": 1.0,
+              "f1": 0.9397354238118569,
+              "support": 959,
+              "predicted": 1082
+            },
+            "Buildings": {
+              "precision": 0.7259842519685039,
+              "recall": 0.9644351464435147,
+              "f1": 0.8283917340521114,
+              "support": 956,
+              "predicted": 1270
+            },
+            "Bare": {
+              "precision": 0.5912031047865459,
+              "recall": 0.4780334728033473,
+              "f1": 0.5286292654713707,
+              "support": 956,
+              "predicted": 773
+            },
+            "Agriculture": {
+              "precision": 0.38508239375542064,
+              "recall": 0.4629822732012513,
+              "f1": 0.42045454545454547,
+              "support": 959,
+              "predicted": 1153
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    }
+  ]
+}

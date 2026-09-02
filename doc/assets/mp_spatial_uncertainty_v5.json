@@ -1,0 +1,1882 @@
+{
+  "training_schema_version": "five-class-19-band-v3-no-sand",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20260901,
+  "resampling_unit": "district",
+  "seasons": {
+    "summer": {
+      "pooled": {
+        "after-cart": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6114112816079533,
+          "overall_accuracy_ci95": [
+            0.5928583914164034,
+            0.6295707207250546
+          ],
+          "kappa": 0.5110493318304755,
+          "kappa_ci95": [
+            0.48833373815382053,
+            0.5336156066153767
+          ],
+          "macro_f1": 0.5669120839590641,
+          "macro_f1_ci95": [
+            0.5441302185217458,
+            0.5906558540882173
+          ],
+          "per_class_f1": {
+            "Forest": 0.3135345666991236,
+            "Water": 0.9190225203641591,
+            "Buildings": 0.7951703320396722,
+            "Bare": 0.36737491432488006,
+            "Agriculture": 0.4394580863674851
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.22491765194220906,
+              0.40040656138838626
+            ],
+            "Water": [
+              0.8933395435491384,
+              0.9430357355114094
+            ],
+            "Buildings": [
+              0.7770326906957251,
+              0.8138131931514611
+            ],
+            "Bare": [
+              0.3299789615862217,
+              0.4027155427803658
+            ],
+            "Agriculture": [
+              0.4048222715522086,
+              0.47356802024842826
+            ]
+          }
+        },
+        "after-knn": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6524746055759671,
+          "overall_accuracy_ci95": [
+            0.6305943679752111,
+            0.6755935716797898
+          ],
+          "kappa": 0.5632493959045722,
+          "kappa_ci95": [
+            0.5356495028974786,
+            0.5916751449858603
+          ],
+          "macro_f1": 0.6258035569672086,
+          "macro_f1_ci95": [
+            0.6002478906970496,
+            0.6528821380638216
+          ],
+          "per_class_f1": {
+            "Forest": 0.4344048653344918,
+            "Water": 0.9315201554152501,
+            "Buildings": 0.821396993810787,
+            "Bare": 0.5250291036088475,
+            "Agriculture": 0.4166666666666667
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.35132208432565315,
+              0.5158806923450111
+            ],
+            "Water": [
+              0.9167394457069121,
+              0.9448908242661084
+            ],
+            "Buildings": [
+              0.8063405205728487,
+              0.8368103115235571
+            ],
+            "Bare": [
+              0.4780562194532467,
+              0.5703190241613886
+            ],
+            "Agriculture": [
+              0.36654787249099774,
+              0.4644566867699805
+            ]
+          }
+        },
+        "after-rf": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.619623946401556,
+          "overall_accuracy_ci95": [
+            0.6033104083495644,
+            0.6366806755352906
+          ],
+          "kappa": 0.5211461933229826,
+          "kappa_ci95": [
+            0.5010046515752727,
+            0.5419077043125519
+          ],
+          "macro_f1": 0.5750171744002065,
+          "macro_f1_ci95": [
+            0.550862239817834,
+            0.5997311988318609
+          ],
+          "per_class_f1": {
+            "Forest": 0.29423868312757206,
+            "Water": 0.9234472797303803,
+            "Buildings": 0.8147829823807479,
+            "Bare": 0.42105263157894735,
+            "Agriculture": 0.4215642951833849
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.19400630649144143,
+              0.4004217814149321
+            ],
+            "Water": [
+              0.8980355472404116,
+              0.9475766567754699
+            ],
+            "Buildings": [
+              0.7961328289197142,
+              0.8330404217926186
+            ],
+            "Bare": [
+              0.37468005385015085,
+              0.4633469359553102
+            ],
+            "Agriculture": [
+              0.38499085205154226,
+              0.45755774025298634
+            ]
+          }
+        },
+        "after-svm": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6969958936676032,
+          "overall_accuracy_ci95": [
+            0.6775622178026232,
+            0.7153564181369559
+          ],
+          "kappa": 0.619387880828973,
+          "kappa_ci95": [
+            0.5951184033481536,
+            0.6423133370120441
+          ],
+          "macro_f1": 0.679131746286726,
+          "macro_f1_ci95": [
+            0.6576074598841899,
+            0.6987944357803586
+          ],
+          "per_class_f1": {
+            "Forest": 0.6162790697674418,
+            "Water": 0.9348358647721705,
+            "Buildings": 0.8296943231441047,
+            "Bare": 0.4813895781637717,
+            "Agriculture": 0.5334598955861415
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.5599182410072212,
+              0.6684083116883117
+            ],
+            "Water": [
+              0.9238215368605752,
+              0.9457994566891536
+            ],
+            "Buildings": [
+              0.811063829787234,
+              0.8475989089377103
+            ],
+            "Bare": [
+              0.43665302239162757,
+              0.5233780815792416
+            ],
+            "Agriculture": [
+              0.48953623256155626,
+              0.574781109029907
+            ]
+          }
+        },
+        "after-xgb": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.7030473308839421,
+          "overall_accuracy_ci95": [
+            0.6801198044543846,
+            0.7254568122607884
+          ],
+          "kappa": 0.6268302419567144,
+          "kappa_ci95": [
+            0.5981695385114816,
+            0.6550448680303645
+          ],
+          "macro_f1": 0.6825783758243886,
+          "macro_f1_ci95": [
+            0.6548524356536836,
+            0.7089215963405077
+          ],
+          "per_class_f1": {
+            "Forest": 0.5889464594127807,
+            "Water": 0.8826507132995859,
+            "Buildings": 0.854176072234763,
+            "Bare": 0.5508571428571427,
+            "Agriculture": 0.5362614913176711
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.511111247581908,
+              0.6604165374035698
+            ],
+            "Water": [
+              0.8554861730597682,
+              0.909004739336493
+            ],
+            "Buildings": [
+              0.8355437665782494,
+              0.8728783500967662
+            ],
+            "Bare": [
+              0.5116153039971345,
+              0.5924401876207865
+            ],
+            "Agriculture": [
+              0.4831905691376574,
+              0.582845764199465
+            ]
+          }
+        },
+        "before-cart": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6306462070456019,
+          "overall_accuracy_ci95": [
+            0.614767809244981,
+            0.646680040832931
+          ],
+          "kappa": 0.5362612686579419,
+          "kappa_ci95": [
+            0.5160864215865688,
+            0.5563847875905276
+          ],
+          "macro_f1": 0.7115963511358635,
+          "macro_f1_ci95": [
+            0.6878187090782287,
+            0.7337998589566661
+          ],
+          "per_class_f1": {
+            "Forest": 0.6293592862935928,
+            "Water": 0.9283639883833494,
+            "Buildings": 0.7942882641677822,
+            "Bare": 0.49437386569872954,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.5514249105910844,
+              0.7021317199935033
+            ],
+            "Water": [
+              0.9135186246757008,
+              0.9429695181907571
+            ],
+            "Buildings": [
+              0.7772911201679156,
+              0.8118818580098875
+            ],
+            "Bare": [
+              0.472765565688991,
+              0.5167738528088757
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-knn": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6358331532310352,
+          "overall_accuracy_ci95": [
+            0.6199524508324825,
+            0.6520585185033063
+          ],
+          "kappa": 0.5432338397007235,
+          "kappa_ci95": [
+            0.5233897807588668,
+            0.563974704811695
+          ],
+          "macro_f1": 0.7158297984319325,
+          "macro_f1_ci95": [
+            0.694080760831448,
+            0.7377299446589519
+          ],
+          "per_class_f1": {
+            "Forest": 0.6368381804623415,
+            "Water": 0.9263565891472868,
+            "Buildings": 0.8237885462555067,
+            "Bare": 0.47633587786259535,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.570442881852845,
+              0.7005234450016002
+            ],
+            "Water": [
+              0.912997254906962,
+              0.9396200424436029
+            ],
+            "Buildings": [
+              0.8064784258724528,
+              0.8418739294661707
+            ],
+            "Bare": [
+              0.44787568054427834,
+              0.5046154733063972
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-rf": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6950507888480657,
+          "overall_accuracy_ci95": [
+            0.6798235676974915,
+            0.7098874172950183
+          ],
+          "kappa": 0.6177824475259266,
+          "kappa_ci95": [
+            0.5985617345036746,
+            0.6364928062516232
+          ],
+          "macro_f1": 0.7916363541508405,
+          "macro_f1_ci95": [
+            0.7705907194891609,
+            0.8111994038131334
+          ],
+          "per_class_f1": {
+            "Forest": 0.8124118476727785,
+            "Water": 0.9224843524313915,
+            "Buildings": 0.8542056074766355,
+            "Bare": 0.5774436090225564,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.7515280724100487,
+              0.8642810118645704
+            ],
+            "Water": [
+              0.8949064645179634,
+              0.9466416330782825
+            ],
+            "Buildings": [
+              0.8353242985752958,
+              0.8740555283595881
+            ],
+            "Bare": [
+              0.5555916280061917,
+              0.5970787777118772
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-svm": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6388588718392046,
+          "overall_accuracy_ci95": [
+            0.6228218700596935,
+            0.6548844641359931
+          ],
+          "kappa": 0.5469263641666345,
+          "kappa_ci95": [
+            0.5264322041481071,
+            0.5673081680935614
+          ],
+          "macro_f1": 0.727819877692033,
+          "macro_f1_ci95": [
+            0.7074952918252898,
+            0.7476255236183511
+          ],
+          "per_class_f1": {
+            "Forest": 0.729483282674772,
+            "Water": 0.9166255550074001,
+            "Buildings": 0.8032162505289885,
+            "Bare": 0.46195442255697183,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.6700925320365465,
+              0.7834517570382316
+            ],
+            "Water": [
+              0.9007856635043917,
+              0.9328658186586999
+            ],
+            "Buildings": [
+              0.7841162939127196,
+              0.8226581122645136
+            ],
+            "Bare": [
+              0.4300212770725537,
+              0.4922410974690464
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-xgb": {
+          "sample_count": 4627,
+          "district_count": 48,
+          "overall_accuracy": 0.6686838124054463,
+          "overall_accuracy_ci95": [
+            0.6515775494996806,
+            0.6851872639156155
+          ],
+          "kappa": 0.5844229901111974,
+          "kappa_ci95": [
+            0.5622686243368588,
+            0.6053113381011826
+          ],
+          "macro_f1": 0.7554595125396877,
+          "macro_f1_ci95": [
+            0.7312576399748867,
+            0.7781036529303597
+          ],
+          "per_class_f1": {
+            "Forest": 0.758775205377147,
+            "Water": 0.8800370541917555,
+            "Buildings": 0.8416370106761565,
+            "Bare": 0.5413887799136917,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.6947981461987505,
+              0.817874181975526
+            ],
+            "Water": [
+              0.8503550677467573,
+              0.9076212450727199
+            ],
+            "Buildings": [
+              0.8217504172564596,
+              0.8603810373708976
+            ],
+            "Bare": [
+              0.5084725439986993,
+              0.5700915676295523
+            ],
+            "Agriculture": null
+          }
+        }
+      },
+      "paired_comparisons": [
+        {
+          "left": "after-cart",
+          "right": "after-knn",
+          "mean_district_oa_difference": -0.04167195264245041,
+          "ci95": [
+            -0.055724031420939964,
+            -0.026797405147414095
+          ],
+          "districts_left_better": 7,
+          "districts_right_better": 39,
+          "districts_tied": 2,
+          "wilcoxon_p": 1.425899625921887e-05
+        },
+        {
+          "left": "after-cart",
+          "right": "after-rf",
+          "mean_district_oa_difference": -0.007953790795724162,
+          "ci95": [
+            -0.01680026242341727,
+            0.00110308515185366
+          ],
+          "districts_left_better": 12,
+          "districts_right_better": 26,
+          "districts_tied": 10,
+          "wilcoxon_p": 0.07880045351283672
+        },
+        {
+          "left": "after-cart",
+          "right": "after-svm",
+          "mean_district_oa_difference": -0.08508237013236042,
+          "ci95": [
+            -0.10183024635730063,
+            -0.06874182599480864
+          ],
+          "districts_left_better": 3,
+          "districts_right_better": 44,
+          "districts_tied": 1,
+          "wilcoxon_p": 1.1591984158586116e-08
+        },
+        {
+          "left": "after-cart",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.0914991564381838,
+          "ci95": [
+            -0.10693393705204897,
+            -0.07645540939608267
+          ],
+          "districts_left_better": 0,
+          "districts_right_better": 46,
+          "districts_tied": 2,
+          "wilcoxon_p": 3.487337144559502e-09
+        },
+        {
+          "left": "after-knn",
+          "right": "after-rf",
+          "mean_district_oa_difference": 0.03371816184672624,
+          "ci95": [
+            0.019565226615253947,
+            0.047254587460106245
+          ],
+          "districts_left_better": 32,
+          "districts_right_better": 12,
+          "districts_tied": 4,
+          "wilcoxon_p": 6.855943709432294e-05
+        },
+        {
+          "left": "after-knn",
+          "right": "after-svm",
+          "mean_district_oa_difference": -0.04341041748991003,
+          "ci95": [
+            -0.05827136939237153,
+            -0.0283935988201302
+          ],
+          "districts_left_better": 7,
+          "districts_right_better": 38,
+          "districts_tied": 3,
+          "wilcoxon_p": 3.369601179524528e-06
+        },
+        {
+          "left": "after-knn",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.0498272037957334,
+          "ci95": [
+            -0.06318203595648726,
+            -0.036783790812974435
+          ],
+          "districts_left_better": 5,
+          "districts_right_better": 43,
+          "districts_tied": 0,
+          "wilcoxon_p": 3.5280933730064135e-09
+        },
+        {
+          "left": "after-rf",
+          "right": "after-svm",
+          "mean_district_oa_difference": -0.07712857933663626,
+          "ci95": [
+            -0.09116261692090495,
+            -0.06304743388001895
+          ],
+          "districts_left_better": 2,
+          "districts_right_better": 46,
+          "districts_tied": 0,
+          "wilcoxon_p": 2.3447910280083306e-13
+        },
+        {
+          "left": "after-rf",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.08354536564245964,
+          "ci95": [
+            -0.09670498729367855,
+            -0.07026227489147907
+          ],
+          "districts_left_better": 1,
+          "districts_right_better": 45,
+          "districts_tied": 2,
+          "wilcoxon_p": 3.870020554144987e-09
+        },
+        {
+          "left": "after-svm",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.006416786305823379,
+          "ci95": [
+            -0.01908831844691836,
+            0.006946667844081815
+          ],
+          "districts_left_better": 15,
+          "districts_right_better": 29,
+          "districts_tied": 4,
+          "wilcoxon_p": 0.18098088908979815
+        }
+      ],
+      "best_after_model": "after-xgb",
+      "transfer": {
+        "origin": "Jabalpur",
+        "classifier": "after-xgb",
+        "districts": [
+          {
+            "district": "Anuppur",
+            "distance_km": 197.02517619130134,
+            "overall_accuracy": 0.53,
+            "sample_count": 100
+          },
+          {
+            "district": "Ashoknagar",
+            "distance_km": 264.83639068034006,
+            "overall_accuracy": 0.77,
+            "sample_count": 100
+          },
+          {
+            "district": "Balaghat",
+            "distance_km": 149.80545891249264,
+            "overall_accuracy": 0.58,
+            "sample_count": 100
+          },
+          {
+            "district": "Barwani",
+            "distance_km": 528.5195990825666,
+            "overall_accuracy": 0.66,
+            "sample_count": 100
+          },
+          {
+            "district": "Betul",
+            "distance_km": 257.43833351033413,
+            "overall_accuracy": 0.72,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhind",
+            "distance_km": 382.3061279430432,
+            "overall_accuracy": 0.68,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhopal",
+            "distance_km": 262.90106327716404,
+            "overall_accuracy": 0.7,
+            "sample_count": 100
+          },
+          {
+            "district": "Burhanpur",
+            "distance_km": 418.8321463140728,
+            "overall_accuracy": 0.7125,
+            "sample_count": 80
+          },
+          {
+            "district": "Chhatarpur",
+            "distance_km": 183.31571453092153,
+            "overall_accuracy": 0.69,
+            "sample_count": 100
+          },
+          {
+            "district": "Chhindwara",
+            "distance_km": 162.16453794842042,
+            "overall_accuracy": 0.67,
+            "sample_count": 100
+          },
+          {
+            "district": "Damoh",
+            "distance_km": 83.40887903067647,
+            "overall_accuracy": 0.7261904761904762,
+            "sample_count": 84
+          },
+          {
+            "district": "Datia",
+            "distance_km": 326.37535948167806,
+            "overall_accuracy": 0.8,
+            "sample_count": 100
+          },
+          {
+            "district": "Dewas",
+            "distance_km": 360.45433863184724,
+            "overall_accuracy": 0.7439024390243902,
+            "sample_count": 82
+          },
+          {
+            "district": "Dhar",
+            "distance_km": 501.6023905102611,
+            "overall_accuracy": 0.63,
+            "sample_count": 100
+          },
+          {
+            "district": "Dindori",
+            "distance_km": 118.87844729317437,
+            "overall_accuracy": 0.66,
+            "sample_count": 100
+          },
+          {
+            "district": "East Nimar",
+            "distance_km": 372.784777665806,
+            "overall_accuracy": 0.85,
+            "sample_count": 80
+          },
+          {
+            "district": "Guna",
+            "distance_km": 319.09632524247894,
+            "overall_accuracy": 0.66,
+            "sample_count": 100
+          },
+          {
+            "district": "Gwalior",
+            "distance_km": 367.7190605271574,
+            "overall_accuracy": 0.71,
+            "sample_count": 100
+          },
+          {
+            "district": "Harda",
+            "distance_km": 308.11454136530574,
+            "overall_accuracy": 0.7093023255813954,
+            "sample_count": 86
+          },
+          {
+            "district": "Hoshangabad",
+            "distance_km": 211.07161026655646,
+            "overall_accuracy": 0.71,
+            "sample_count": 100
+          },
+          {
+            "district": "Indore",
+            "distance_km": 429.3305353726156,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Jabalpur",
+            "distance_km": 0.0,
+            "overall_accuracy": 0.8295454545454546,
+            "sample_count": 88
+          },
+          {
+            "district": "Jhabua",
+            "distance_km": 558.9629676405324,
+            "overall_accuracy": 0.53,
+            "sample_count": 100
+          },
+          {
+            "district": "Katni",
+            "distance_km": 71.00747468952434,
+            "overall_accuracy": 0.7959183673469388,
+            "sample_count": 98
+          },
+          {
+            "district": "Mandla",
+            "distance_km": 76.48086697873804,
+            "overall_accuracy": 0.57,
+            "sample_count": 100
+          },
+          {
+            "district": "Mandsaur",
+            "distance_km": 476.6323220276655,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Morena",
+            "distance_km": 417.67828366259994,
+            "overall_accuracy": 0.7634408602150538,
+            "sample_count": 93
+          },
+          {
+            "district": "Narsinghpur",
+            "distance_km": 92.20045725412517,
+            "overall_accuracy": 0.73,
+            "sample_count": 100
+          },
+          {
+            "district": "Neemuch",
+            "distance_km": 513.5427352516958,
+            "overall_accuracy": 0.6951219512195121,
+            "sample_count": 82
+          },
+          {
+            "district": "Panna",
+            "distance_km": 141.12526593632543,
+            "overall_accuracy": 0.72,
+            "sample_count": 100
+          },
+          {
+            "district": "Raisen",
+            "distance_km": 187.28814922477773,
+            "overall_accuracy": 0.8170731707317073,
+            "sample_count": 82
+          },
+          {
+            "district": "Rajgarh",
+            "distance_km": 336.5165446333322,
+            "overall_accuracy": 0.8,
+            "sample_count": 100
+          },
+          {
+            "district": "Ratlam",
+            "distance_km": 497.027639486618,
+            "overall_accuracy": 0.6404494382022472,
+            "sample_count": 89
+          },
+          {
+            "district": "Rewa",
+            "distance_km": 242.21145737646913,
+            "overall_accuracy": 0.61,
+            "sample_count": 100
+          },
+          {
+            "district": "Sagar",
+            "distance_km": 142.91874683734022,
+            "overall_accuracy": 0.71,
+            "sample_count": 100
+          },
+          {
+            "district": "Satna",
+            "distance_km": 175.87544221693273,
+            "overall_accuracy": 0.71,
+            "sample_count": 100
+          },
+          {
+            "district": "Sehore",
+            "distance_km": 289.09664712924643,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          },
+          {
+            "district": "Seoni",
+            "distance_km": 99.06470613805489,
+            "overall_accuracy": 0.69,
+            "sample_count": 100
+          },
+          {
+            "district": "Shahdol",
+            "distance_km": 155.32055758202478,
+            "overall_accuracy": 0.61,
+            "sample_count": 100
+          },
+          {
+            "district": "Shajapur",
+            "distance_km": 370.3234500091883,
+            "overall_accuracy": 0.67,
+            "sample_count": 100
+          },
+          {
+            "district": "Sheopur",
+            "distance_km": 413.60612699129433,
+            "overall_accuracy": 0.73,
+            "sample_count": 100
+          },
+          {
+            "district": "Shivpuri",
+            "distance_km": 326.2768523606065,
+            "overall_accuracy": 0.7,
+            "sample_count": 100
+          },
+          {
+            "district": "Sidhi",
+            "distance_km": 252.6465612712786,
+            "overall_accuracy": 0.6,
+            "sample_count": 100
+          },
+          {
+            "district": "Tikamgarh",
+            "distance_km": 226.46909237569233,
+            "overall_accuracy": 0.62,
+            "sample_count": 100
+          },
+          {
+            "district": "Ujjain",
+            "distance_km": 437.35669519030967,
+            "overall_accuracy": 0.75,
+            "sample_count": 100
+          },
+          {
+            "district": "Umaria",
+            "distance_km": 109.89013942218097,
+            "overall_accuracy": 0.59,
+            "sample_count": 100
+          },
+          {
+            "district": "Vidisha",
+            "distance_km": 232.12280118322684,
+            "overall_accuracy": 0.7469879518072289,
+            "sample_count": 83
+          },
+          {
+            "district": "West Nimar",
+            "distance_km": 450.318195857136,
+            "overall_accuracy": 0.77,
+            "sample_count": 100
+          }
+        ],
+        "slope_oa_per_100km": 0.003985163847319791,
+        "slope_stderr_per_100km": 0.008380598716741745,
+        "intercept": 0.6935941118812194,
+        "r_squared": 0.004891643664393745,
+        "linregress_p": 0.6366649896562387,
+        "spearman_rho": 0.10742995981447791,
+        "spearman_p": 0.46735797231005016,
+        "nearest_quartile_mean_oa": 0.6843045248402392,
+        "farthest_quartile_mean_oa": 0.7117926874697343
+      },
+      "class_transfer": {
+        "Forest": {
+          "districts_with_support": 46,
+          "slope_recall_per_100km": 0.006530856300971005,
+          "p_value": 0.8156681085156501,
+          "mean_recall": 0.39747073578595327
+        },
+        "Water": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": 0.0,
+          "p_value": 1.0,
+          "mean_recall": 1.0
+        },
+        "Buildings": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": -0.0006052005474008439,
+          "p_value": 0.7748578598433442,
+          "mean_recall": 0.9895833333333334
+        },
+        "Bare": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": -0.02813307094068595,
+          "p_value": 0.0796023895776402,
+          "mean_recall": 0.5049479166666667
+        },
+        "Agriculture": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": 0.03175309451289197,
+          "p_value": 0.1627296258955692,
+          "mean_recall": 0.5476425438596492
+        }
+      }
+    },
+    "winter": {
+      "pooled": {
+        "after-cart": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.7135993315228745,
+          "overall_accuracy_ci95": [
+            0.6943715147243107,
+            0.7316639868231407
+          ],
+          "kappa": 0.6419794552329826,
+          "kappa_ci95": [
+            0.6179634105919307,
+            0.6645887685452924
+          ],
+          "macro_f1": 0.7051133882506475,
+          "macro_f1_ci95": [
+            0.6838197982939924,
+            0.724716327850615
+          ],
+          "per_class_f1": {
+            "Forest": 0.8340659340659341,
+            "Water": 0.9509172037679722,
+            "Buildings": 0.6348595613697576,
+            "Bare": 0.4517833553500661,
+            "Agriculture": 0.6539408866995073
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.8072967003926306,
+              0.8583956438900235
+            ],
+            "Water": [
+              0.9292635658914729,
+              0.9691451694486595
+            ],
+            "Buildings": [
+              0.6107604274163829,
+              0.6553558530088935
+            ],
+            "Bare": [
+              0.39414669146477854,
+              0.5054679583773329
+            ],
+            "Agriculture": [
+              0.5901161070407438,
+              0.7048317634964297
+            ]
+          }
+        },
+        "after-knn": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.8316273240025068,
+          "overall_accuracy_ci95": [
+            0.8144871692985245,
+            0.8489343919765984
+          ],
+          "kappa": 0.789528125216496,
+          "kappa_ci95": [
+            0.7680800878854308,
+            0.811164775585788
+          ],
+          "macro_f1": 0.8266499406048835,
+          "macro_f1_ci95": [
+            0.8075291781910139,
+            0.8452690217103993
+          ],
+          "per_class_f1": {
+            "Forest": 0.8992576882290562,
+            "Water": 0.95995995995996,
+            "Buildings": 0.8116688116688117,
+            "Bare": 0.7268408551068883,
+            "Agriculture": 0.7355223880597015
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.8751311894510225,
+              0.9201055294213486
+            ],
+            "Water": [
+              0.9499752352649826,
+              0.9696969696969697
+            ],
+            "Buildings": [
+              0.794773994145949,
+              0.8296943231441047
+            ],
+            "Bare": [
+              0.690689610473783,
+              0.7623544013350021
+            ],
+            "Agriculture": [
+              0.6774762299137392,
+              0.783508515696136
+            ]
+          }
+        },
+        "after-rf": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.7804470440777105,
+          "overall_accuracy_ci95": [
+            0.7596783151059467,
+            0.8020420921025213
+          ],
+          "kappa": 0.7255495051897607,
+          "kappa_ci95": [
+            0.6995279651800674,
+            0.7525596823781499
+          ],
+          "macro_f1": 0.7717724283958128,
+          "macro_f1_ci95": [
+            0.7479803686985961,
+            0.7961650773036936
+          ],
+          "per_class_f1": {
+            "Forest": 0.839835728952772,
+            "Water": 0.9686868686868687,
+            "Buildings": 0.7487922705314008,
+            "Bare": 0.6542980828695114,
+            "Agriculture": 0.6472491909385113
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.8088701617175595,
+              0.8663340166536655
+            ],
+            "Water": [
+              0.9514370664023786,
+              0.9830682401231401
+            ],
+            "Buildings": [
+              0.7299324917570357,
+              0.7702491814776224
+            ],
+            "Bare": [
+              0.6022827495529859,
+              0.7054821212464193
+            ],
+            "Agriculture": [
+              0.5801414942730247,
+              0.707997520148791
+            ]
+          }
+        },
+        "after-svm": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.8410277835805307,
+          "overall_accuracy_ci95": [
+            0.824577563700919,
+            0.8578278843404012
+          ],
+          "kappa": 0.8012764563267272,
+          "kappa_ci95": [
+            0.780721648240798,
+            0.8222659326948333
+          ],
+          "macro_f1": 0.8362974624538803,
+          "macro_f1_ci95": [
+            0.8182895847112718,
+            0.8541340423629041
+          ],
+          "per_class_f1": {
+            "Forest": 0.9297297297297298,
+            "Water": 0.9574787393696849,
+            "Buildings": 0.8210890233362143,
+            "Bare": 0.6872727272727273,
+            "Agriculture": 0.7859170925610449
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.9080819502716392,
+              0.9472014064997335
+            ],
+            "Water": [
+              0.9470008369620122,
+              0.9667019794464379
+            ],
+            "Buildings": [
+              0.8006770696320528,
+              0.84150339916779
+            ],
+            "Bare": [
+              0.6449580991970949,
+              0.728151789528456
+            ],
+            "Agriculture": [
+              0.743219063866797,
+              0.8254424979790321
+            ]
+          }
+        },
+        "after-xgb": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.851054940463756,
+          "overall_accuracy_ci95": [
+            0.8349738219895287,
+            0.8678637733336096
+          ],
+          "kappa": 0.81381553531625,
+          "kappa_ci95": [
+            0.7937109551720586,
+            0.8348351213054666
+          ],
+          "macro_f1": 0.847962004324265,
+          "macro_f1_ci95": [
+            0.8308430056847532,
+            0.8656632092685735
+          ],
+          "per_class_f1": {
+            "Forest": 0.9157549234135668,
+            "Water": 0.9614035087719298,
+            "Buildings": 0.8388520971302429,
+            "Bare": 0.7531572904707233,
+            "Agriculture": 0.7706422018348624
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.892439201866323,
+              0.9351368863463895
+            ],
+            "Water": [
+              0.9448173244907306,
+              0.9760820329327026
+            ],
+            "Buildings": [
+              0.8206239168110919,
+              0.8577898550724637
+            ],
+            "Bare": [
+              0.7184443878624172,
+              0.7876014589971491
+            ],
+            "Agriculture": [
+              0.726704487932733,
+              0.8106585388395514
+            ]
+          }
+        },
+        "before-cart": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.6736996030917067,
+          "overall_accuracy_ci95": [
+            0.6594910206981139,
+            0.6887417252440893
+          ],
+          "kappa": 0.5922288873178082,
+          "kappa_ci95": [
+            0.5744725398327198,
+            0.6111234191206864
+          ],
+          "macro_f1": 0.7651149869165292,
+          "macro_f1_ci95": [
+            0.7492111024302286,
+            0.7821920229055535
+          ],
+          "per_class_f1": {
+            "Forest": 0.8108108108108107,
+            "Water": 0.9301648884578079,
+            "Buildings": 0.8080898876404495,
+            "Bare": 0.511394360757049,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.7816475652950154,
+              0.8378393804763667
+            ],
+            "Water": [
+              0.9158679681996578,
+              0.9444171175602557
+            ],
+            "Buildings": [
+              0.7900126012033533,
+              0.8286251531961623
+            ],
+            "Bare": [
+              0.48288309963679704,
+              0.5403319916089355
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-knn": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.7041988719448506,
+          "overall_accuracy_ci95": [
+            0.6924175152269814,
+            0.7165831244778613
+          ],
+          "kappa": 0.6303262419485535,
+          "kappa_ci95": [
+            0.6156262708637577,
+            0.6457997405108324
+          ],
+          "macro_f1": 0.7972771215144657,
+          "macro_f1_ci95": [
+            0.7836415538301995,
+            0.8112330529882175
+          ],
+          "per_class_f1": {
+            "Forest": 0.9059011164274323,
+            "Water": 0.9562594268476621,
+            "Buildings": 0.8138936535162952,
+            "Bare": 0.5130542892664732,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.8874634763948499,
+              0.9228329809725158
+            ],
+            "Water": [
+              0.9471545613160518,
+              0.9648506142257722
+            ],
+            "Buildings": [
+              0.7976391231028669,
+              0.8315896381105805
+            ],
+            "Bare": [
+              0.4820886666328115,
+              0.5444953542053815
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-rf": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.7033632755379152,
+          "overall_accuracy_ci95": [
+            0.6902083333333333,
+            0.7162308573298429
+          ],
+          "kappa": 0.6293091770673983,
+          "kappa_ci95": [
+            0.6130143229166667,
+            0.6453587134568464
+          ],
+          "macro_f1": 0.8058789660506955,
+          "macro_f1_ci95": [
+            0.7918049872110149,
+            0.8196562944516081
+          ],
+          "per_class_f1": {
+            "Forest": 0.8633333333333333,
+            "Water": 0.9912144702842378,
+            "Buildings": 0.8462238398544131,
+            "Bare": 0.5227442207307978,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.8381984933894919,
+              0.8858425034699857
+            ],
+            "Water": [
+              0.9840944073884044,
+              0.9963636363636363
+            ],
+            "Buildings": [
+              0.8285939293449859,
+              0.8638528220423863
+            ],
+            "Bare": [
+              0.4960442816936564,
+              0.5504456149948335
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-svm": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.7110925423020681,
+          "overall_accuracy_ci95": [
+            0.6985581729597522,
+            0.7229333874871741
+          ],
+          "kappa": 0.638942032175527,
+          "kappa_ci95": [
+            0.623341593481561,
+            0.6538114715868723
+          ],
+          "macro_f1": 0.804884946553265,
+          "macro_f1_ci95": [
+            0.7909313457256735,
+            0.8183769876121166
+          ],
+          "per_class_f1": {
+            "Forest": 0.9217758985200846,
+            "Water": 0.9453085800301055,
+            "Buildings": 0.8258792878853669,
+            "Bare": 0.5265760197775031,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.9013774478614351,
+              0.9398118028649638
+            ],
+            "Water": [
+              0.9322033898305085,
+              0.9576623562518273
+            ],
+            "Buildings": [
+              0.8071367884451996,
+              0.8451584114234717
+            ],
+            "Bare": [
+              0.4954577335695268,
+              0.5568608459759223
+            ],
+            "Agriculture": null
+          }
+        },
+        "before-xgb": {
+          "sample_count": 4787,
+          "district_count": 48,
+          "overall_accuracy": 0.7150616252350115,
+          "overall_accuracy_ci95": [
+            0.7029784074655393,
+            0.7272361763784461
+          ],
+          "kappa": 0.6439167074587041,
+          "kappa_ci95": [
+            0.6287874087916655,
+            0.659128297243809
+          ],
+          "macro_f1": 0.8148083577248575,
+          "macro_f1_ci95": [
+            0.8014133238857418,
+            0.8283658952699744
+          ],
+          "per_class_f1": {
+            "Forest": 0.9130199891950297,
+            "Water": 0.964102564102564,
+            "Buildings": 0.8467023172905526,
+            "Bare": 0.535408560311284,
+            "Agriculture": null
+          },
+          "per_class_f1_ci95": {
+            "Forest": [
+              0.8921358075895625,
+              0.9303561935140883
+            ],
+            "Water": [
+              0.9547062254766617,
+              0.9731404958677686
+            ],
+            "Buildings": [
+              0.8292667027061404,
+              0.8662741580769315
+            ],
+            "Bare": [
+              0.5078845716124077,
+              0.5625503263014912
+            ],
+            "Agriculture": null
+          }
+        }
+      },
+      "paired_comparisons": [
+        {
+          "left": "after-cart",
+          "right": "after-knn",
+          "mean_district_oa_difference": -0.11797874579124579,
+          "ci95": [
+            -0.13250236742424243,
+            -0.10387342171717173
+          ],
+          "districts_left_better": 0,
+          "districts_right_better": 48,
+          "districts_tied": 0,
+          "wilcoxon_p": 7.105427357601002e-15
+        },
+        {
+          "left": "after-cart",
+          "right": "after-rf",
+          "mean_district_oa_difference": -0.06679503367003367,
+          "ci95": [
+            -0.08022553661616164,
+            -0.054120265151515155
+          ],
+          "districts_left_better": 1,
+          "districts_right_better": 47,
+          "districts_tied": 0,
+          "wilcoxon_p": 2.6361135496699717e-12
+        },
+        {
+          "left": "after-cart",
+          "right": "after-svm",
+          "mean_district_oa_difference": -0.12736005892255894,
+          "ci95": [
+            -0.14250052609427608,
+            -0.11303240740740743
+          ],
+          "districts_left_better": 0,
+          "districts_right_better": 48,
+          "districts_tied": 0,
+          "wilcoxon_p": 7.105427357601002e-15
+        },
+        {
+          "left": "after-cart",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.13739688552188553,
+          "ci95": [
+            -0.1504493371212121,
+            -0.12438641624579128
+          ],
+          "districts_left_better": 0,
+          "districts_right_better": 48,
+          "districts_tied": 0,
+          "wilcoxon_p": 7.105427357601002e-15
+        },
+        {
+          "left": "after-knn",
+          "right": "after-rf",
+          "mean_district_oa_difference": 0.05118371212121212,
+          "ci95": [
+            0.039583333333333345,
+            0.06313778409090909
+          ],
+          "districts_left_better": 44,
+          "districts_right_better": 3,
+          "districts_tied": 1,
+          "wilcoxon_p": 1.8602243931785014e-08
+        },
+        {
+          "left": "after-knn",
+          "right": "after-svm",
+          "mean_district_oa_difference": -0.009381313131313122,
+          "ci95": [
+            -0.017714646464646454,
+            -0.0010416666666666606
+          ],
+          "districts_left_better": 19,
+          "districts_right_better": 24,
+          "districts_tied": 5,
+          "wilcoxon_p": 0.03756841102038973
+        },
+        {
+          "left": "after-knn",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.019418139730639716,
+          "ci95": [
+            -0.02833404356060606,
+            -0.009474273989898984
+          ],
+          "districts_left_better": 11,
+          "districts_right_better": 34,
+          "districts_tied": 3,
+          "wilcoxon_p": 0.0003392887719461705
+        },
+        {
+          "left": "after-rf",
+          "right": "after-svm",
+          "mean_district_oa_difference": -0.06056502525252525,
+          "ci95": [
+            -0.07515625000000001,
+            -0.0461898674242424
+          ],
+          "districts_left_better": 4,
+          "districts_right_better": 43,
+          "districts_tied": 1,
+          "wilcoxon_p": 1.3873951426997796e-08
+        },
+        {
+          "left": "after-rf",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.07060185185185185,
+          "ci95": [
+            -0.08268555345117845,
+            -0.05794575968013468
+          ],
+          "districts_left_better": 0,
+          "districts_right_better": 45,
+          "districts_tied": 3,
+          "wilcoxon_p": 5.094541053140185e-09
+        },
+        {
+          "left": "after-svm",
+          "right": "after-xgb",
+          "mean_district_oa_difference": -0.010036826599326594,
+          "ci95": [
+            -0.017736952861952853,
+            -0.0025448232323232274
+          ],
+          "districts_left_better": 14,
+          "districts_right_better": 30,
+          "districts_tied": 4,
+          "wilcoxon_p": 0.016085942778134552
+        }
+      ],
+      "best_after_model": "after-xgb",
+      "transfer": {
+        "origin": "Jabalpur",
+        "classifier": "after-xgb",
+        "districts": [
+          {
+            "district": "Anuppur",
+            "distance_km": 197.02517619130134,
+            "overall_accuracy": 0.76,
+            "sample_count": 100
+          },
+          {
+            "district": "Ashoknagar",
+            "distance_km": 264.83639068034006,
+            "overall_accuracy": 0.87,
+            "sample_count": 100
+          },
+          {
+            "district": "Balaghat",
+            "distance_km": 149.80545891249264,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Barwani",
+            "distance_km": 528.5195990825666,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Betul",
+            "distance_km": 257.43833351033413,
+            "overall_accuracy": 0.78,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhind",
+            "distance_km": 382.3061279430432,
+            "overall_accuracy": 0.96,
+            "sample_count": 100
+          },
+          {
+            "district": "Bhopal",
+            "distance_km": 262.90106327716404,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Burhanpur",
+            "distance_km": 418.8321463140728,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Chhatarpur",
+            "distance_km": 183.31571453092153,
+            "overall_accuracy": 0.79,
+            "sample_count": 100
+          },
+          {
+            "district": "Chhindwara",
+            "distance_km": 162.16453794842042,
+            "overall_accuracy": 0.84,
+            "sample_count": 100
+          },
+          {
+            "district": "Damoh",
+            "distance_km": 83.40887903067647,
+            "overall_accuracy": 0.84,
+            "sample_count": 100
+          },
+          {
+            "district": "Datia",
+            "distance_km": 326.37535948167806,
+            "overall_accuracy": 0.94,
+            "sample_count": 100
+          },
+          {
+            "district": "Dewas",
+            "distance_km": 360.45433863184724,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Dhar",
+            "distance_km": 501.6023905102611,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Dindori",
+            "distance_km": 118.87844729317437,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "East Nimar",
+            "distance_km": 372.784777665806,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Guna",
+            "distance_km": 319.09632524247894,
+            "overall_accuracy": 0.91,
+            "sample_count": 100
+          },
+          {
+            "district": "Gwalior",
+            "distance_km": 367.7190605271574,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          },
+          {
+            "district": "Harda",
+            "distance_km": 308.11454136530574,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Hoshangabad",
+            "distance_km": 211.07161026655646,
+            "overall_accuracy": 0.94,
+            "sample_count": 100
+          },
+          {
+            "district": "Indore",
+            "distance_km": 429.3305353726156,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Jabalpur",
+            "distance_km": 0.0,
+            "overall_accuracy": 0.8636363636363636,
+            "sample_count": 88
+          },
+          {
+            "district": "Jhabua",
+            "distance_km": 558.9629676405324,
+            "overall_accuracy": 0.78,
+            "sample_count": 100
+          },
+          {
+            "district": "Katni",
+            "distance_km": 71.00747468952434,
+            "overall_accuracy": 0.9292929292929293,
+            "sample_count": 99
+          },
+          {
+            "district": "Mandla",
+            "distance_km": 76.48086697873804,
+            "overall_accuracy": 0.82,
+            "sample_count": 100
+          },
+          {
+            "district": "Mandsaur",
+            "distance_km": 476.6323220276655,
+            "overall_accuracy": 0.95,
+            "sample_count": 100
+          },
+          {
+            "district": "Morena",
+            "distance_km": 417.67828366259994,
+            "overall_accuracy": 0.98,
+            "sample_count": 100
+          },
+          {
+            "district": "Narsinghpur",
+            "distance_km": 92.20045725412517,
+            "overall_accuracy": 0.9,
+            "sample_count": 100
+          },
+          {
+            "district": "Neemuch",
+            "distance_km": 513.5427352516958,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Panna",
+            "distance_km": 141.12526593632543,
+            "overall_accuracy": 0.92,
+            "sample_count": 100
+          },
+          {
+            "district": "Raisen",
+            "distance_km": 187.28814922477773,
+            "overall_accuracy": 0.96,
+            "sample_count": 100
+          },
+          {
+            "district": "Rajgarh",
+            "distance_km": 336.5165446333322,
+            "overall_accuracy": 0.86,
+            "sample_count": 100
+          },
+          {
+            "district": "Ratlam",
+            "distance_km": 497.027639486618,
+            "overall_accuracy": 0.84,
+            "sample_count": 100
+          },
+          {
+            "district": "Rewa",
+            "distance_km": 242.21145737646913,
+            "overall_accuracy": 0.85,
+            "sample_count": 100
+          },
+          {
+            "district": "Sagar",
+            "distance_km": 142.91874683734022,
+            "overall_accuracy": 0.9,
+            "sample_count": 100
+          },
+          {
+            "district": "Satna",
+            "distance_km": 175.87544221693273,
+            "overall_accuracy": 0.76,
+            "sample_count": 100
+          },
+          {
+            "district": "Sehore",
+            "distance_km": 289.09664712924643,
+            "overall_accuracy": 0.92,
+            "sample_count": 100
+          },
+          {
+            "district": "Seoni",
+            "distance_km": 99.06470613805489,
+            "overall_accuracy": 0.78,
+            "sample_count": 100
+          },
+          {
+            "district": "Shahdol",
+            "distance_km": 155.32055758202478,
+            "overall_accuracy": 0.79,
+            "sample_count": 100
+          },
+          {
+            "district": "Shajapur",
+            "distance_km": 370.3234500091883,
+            "overall_accuracy": 0.74,
+            "sample_count": 100
+          },
+          {
+            "district": "Sheopur",
+            "distance_km": 413.60612699129433,
+            "overall_accuracy": 0.89,
+            "sample_count": 100
+          },
+          {
+            "district": "Shivpuri",
+            "distance_km": 326.2768523606065,
+            "overall_accuracy": 0.87,
+            "sample_count": 100
+          },
+          {
+            "district": "Sidhi",
+            "distance_km": 252.6465612712786,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Tikamgarh",
+            "distance_km": 226.46909237569233,
+            "overall_accuracy": 0.79,
+            "sample_count": 100
+          },
+          {
+            "district": "Ujjain",
+            "distance_km": 437.35669519030967,
+            "overall_accuracy": 0.81,
+            "sample_count": 100
+          },
+          {
+            "district": "Umaria",
+            "distance_km": 109.89013942218097,
+            "overall_accuracy": 0.78,
+            "sample_count": 100
+          },
+          {
+            "district": "Vidisha",
+            "distance_km": 232.12280118322684,
+            "overall_accuracy": 0.9,
+            "sample_count": 100
+          },
+          {
+            "district": "West Nimar",
+            "distance_km": 450.318195857136,
+            "overall_accuracy": 0.83,
+            "sample_count": 100
+          }
+        ],
+        "slope_oa_per_100km": 0.0008578878442994649,
+        "slope_stderr_per_100km": 0.006096316360088145,
+        "intercept": 0.8486902520400806,
+        "r_squared": 0.00043030984586856245,
+        "linregress_p": 0.8887037326884091,
+        "spearman_rho": 0.02225372577184111,
+        "spearman_p": 0.8806598885378661,
+        "nearest_quartile_mean_oa": 0.8477441077441078,
+        "farthest_quartile_mean_oa": 0.8533333333333334
+      },
+      "class_transfer": {
+        "Forest": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": -0.0011924399710959515,
+          "p_value": 0.9258116736483726,
+          "mean_recall": 0.8728618421052632
+        },
+        "Water": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": 0.0,
+          "p_value": 1.0,
+          "mean_recall": 1.0
+        },
+        "Buildings": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": 0.001079393068366109,
+          "p_value": 0.6130711454321863,
+          "mean_recall": 0.9926535087719298
+        },
+        "Bare": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": -0.027444186441641687,
+          "p_value": 0.1329055759970022,
+          "mean_recall": 0.6878205128205129
+        },
+        "Agriculture": {
+          "districts_with_support": 48,
+          "slope_recall_per_100km": 0.03389034296782225,
+          "p_value": 0.12376852381292933,
+          "mean_recall": 0.7007127192982456
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,199 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 3 development districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=winter, mode=stacks
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train ...
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train ...
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train ...
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train ...
+exported users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Damoh configs 0-7
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 467, in <module>
+    main()
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 463, in main
+    run(args)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 289, in run
+    training = materialised_training_table(args.season, args.retries)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 116, in materialised_training_table
+    raise RuntimeError(f"export {state}: {status.get('error_message')}")
+RuntimeError: export FAILED: Cannot overwrite asset 'projects/earthengine-legacy/assets/users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train'.
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 467, in <module>
+    main()
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 463, in main
+    run(args)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 289, in run
+    training = materialised_training_table(args.season, args.retries)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 116, in materialised_training_table
+    raise RuntimeError(f"export {state}: {status.get('error_message')}")
+RuntimeError: export FAILED: Cannot overwrite asset 'projects/earthengine-legacy/assets/users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train'.
+landed winter:Damoh
+evaluate winter:Mandsaur configs 0-7
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 467, in <module>
+    parser.add_argument("--stacks", type=Path,
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 463, in main
+    parser.add_argument("--mode", default="grid",
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 289, in run
+    # attribution table and the ablation come from identical pixels.
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 116, in materialised_training_table
+    # winner's export and then read it, which is what the poll below does.
+RuntimeError: export FAILED: Cannot overwrite asset 'projects/earthengine-legacy/assets/users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train'.
+landed winter:Mandsaur
+evaluate winter:Sehore configs 0-7
+landed winter:Sehore
+evaluate winter:Tikamgarh configs 0-7
+landed winter:Tikamgarh
+wrote doc/assets/band_family_ablation_v4_w1.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 3 development districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=summer, mode=stacks
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train ...
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train ...
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train ...
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train ...
+exported users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Damoh configs 0-7
+another worker is exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train; waiting
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Barwani configs 0-7
+another worker is exporting users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train; waiting
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Hoshangabad configs 0-7
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/data.py", line 349, in _execute_cloud_call
+    return call.execute(num_retries=num_retries)
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/googleapiclient/_helpers.py", line 130, in positional_wrapper
+    return wrapped(*args, **kwargs)
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/googleapiclient/http.py", line 938, in execute
+    raise HttpError(resp, content, uri=self.uri)
+googleapiclient.errors.HttpError: <HttpError 429 when requesting https://earthengine.googleapis.com/v1/projects/plenary-line-461306-s8/operations/EDZ2GFNWLS5SHFJGGZ336VGK?alt=json returned "Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode". Details: "Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode">
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 489, in <module>
+    main()
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 485, in main
+    run(args)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 311, in run
+    training = materialised_training_table(args.season, args.retries)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 121, in materialised_training_table
+    status = task.status()
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/batch.py", line 175, in status
+    operation = data.getOperation(self.operation_name)
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/data.py", line 1671, in getOperation
+    return _execute_cloud_call(
+  File "/Users/ashutoshsaxena/Library/Python/3.9/lib/python/site-packages/ee/data.py", line 351, in _execute_cloud_call
+    raise _translate_cloud_exception(e)  # pylint: disable=raise-missing-from
+ee.ee_exception.EEException: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed summer:Barwani
+evaluate summer:Jhabua configs 0-7
+landed summer:Damoh
+evaluate summer:Mandsaur configs 0-7
+landed summer:Hoshangabad
+evaluate summer:Rajgarh configs 0-7
+landed summer:Jhabua
+evaluate summer:Rewa configs 0-7
+landed summer:Rajgarh
+evaluate summer:Sheopur configs 0-7
+landed summer:Mandsaur
+evaluate summer:Sehore configs 0-7
+landed summer:Rewa
+evaluate summer:Shivpuri configs 0-7
+landed summer:Sheopur
+wrote doc/assets/band_family_ablation_v4_w3.json
+landed summer:Sehore
+evaluate summer:Tikamgarh configs 0-7
+landed summer:Shivpuri
+wrote doc/assets/band_family_ablation_v4_w0.json
+landed summer:Tikamgarh
+wrote doc/assets/band_family_ablation_v4_w1.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 3 development districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=winter, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Hoshangabad configs 0-7
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Harda configs 0-7
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=winter, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=winter, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+skip winter:Damoh
+skip winter:Mandsaur
+skip winter:Sehore
+skip winter:Tikamgarh
+wrote doc/assets/band_family_ablation_v4_w1.json
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_winter_train (5000 rows)
+evaluate winter:Barwani configs 0-7
+landed winter:Harda
+evaluate winter:Neemuch configs 0-7
+landed winter:Barwani
+evaluate winter:Jhabua configs 0-7
+landed winter:Hoshangabad
+evaluate winter:Rajgarh configs 0-7
+landed winter:Neemuch
+evaluate winter:Shajapur configs 0-7
+landed winter:Jhabua
+evaluate winter:Rewa configs 0-7
+landed winter:Rajgarh
+evaluate winter:Sheopur configs 0-7
+landed winter:Shajapur
+evaluate winter:West Nimar configs 0-7
+landed winter:Rewa
+evaluate winter:Shivpuri configs 0-7
+landed winter:Sheopur
+wrote doc/assets/band_family_ablation_v4_w3.json
+landed winter:West Nimar
+wrote doc/assets/band_family_ablation_v4_w2.json
+landed winter:Shivpuri
+wrote doc/assets/band_family_ablation_v4_w0.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+skip summer:Barwani
+skip summer:Jhabua
+skip summer:Rewa
+skip summer:Shivpuri
+wrote doc/assets/band_family_ablation_v4_w0.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 4 development districts, season=summer, mode=stacks
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+7 configurations x 3 development districts, season=summer, mode=stacks
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+skip summer:Damoh
+skip summer:Mandsaur
+skip summer:Sehore
+skip summer:Tikamgarh
+wrote doc/assets/band_family_ablation_v4_w1.json
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+evaluate summer:Harda configs 0-7
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v5_drop_summer_summer_train (5000 rows)
+skip summer:Hoshangabad
+skip summer:Rajgarh
+skip summer:Sheopur
+wrote doc/assets/band_family_ablation_v4_w3.json
+landed summer:Harda
+evaluate summer:Neemuch configs 0-7
+landed summer:Neemuch
+evaluate summer:Shajapur configs 0-7
+landed summer:Shajapur
+evaluate summer:West Nimar configs 0-7
+retry summer:West Nimar attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+landed summer:West Nimar
+wrote doc/assets/band_family_ablation_v4_w2.json

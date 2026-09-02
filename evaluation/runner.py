@@ -3,7 +3,9 @@
 from dataclasses import dataclass
 
 
-MODEL_NAMES = ("rf", "svm", "xgb", "cart", "knn")
+MODEL_NAMES = ("rf", "svm", "gtb", "cart", "knn")
+# Shards written before the v4 rename spell the boosted-tree model "xgb".
+LEGACY_MODEL_NAMES = {"gtb": "xgb"}
 SEASON_NAMES = ("winter", "summer")
 CONDITIONS = ("before", "after")
 

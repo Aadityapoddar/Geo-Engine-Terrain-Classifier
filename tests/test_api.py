@@ -29,15 +29,15 @@ class TestGeoEngineAPI(unittest.TestCase):
         data = response.json()
         self.assertIn("rf", data["models"])
         self.assertIn("svm", data["models"])
-        self.assertIn("xgb", data["models"])
+        self.assertIn("gtb", data["models"])
         self.assertIn("cart", data["models"])
         self.assertIn("knn", data["models"])
 
-    def test_config_exposes_six_class_training_schema(self):
+    def test_config_exposes_five_class_training_schema(self):
         response = self.client.get("/api/config")
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertEqual(len(data["classes"]), 6)
+        self.assertEqual(len(data["classes"]), 5)
         self.assertEqual(len(data["bands"]), 19)
         self.assertEqual(data["bands"], BANDS)
         self.assertEqual(data["seasons"], SEASONS)
@@ -73,9 +73,30 @@ class TestGeoEngineAPI(unittest.TestCase):
         data = response.json()
 
         self.assertEqual(data["status"], "success")
-        self.assertIn("tile_urls", data)
-        self.assertIn("sentinel_rgb", data["tile_urls"])
-        self.assertIn("terrain_classified", data["tile_urls"])
+        for overlay_key in ("rgb_overlay", "terrain_overlay"):
+            self.assertIn(overlay_key, data)
+            overlay = data[overlay_key]
+            self.assertEqual(
+                sorted(overlay["bounds"]), ["east", "north", "south", "west"])
+
+        # The true-colour layer is a plain thumbnail and comes back with the
+        # response. The classified layer does not: it is rendered at the
+        # classifier's 10 m training scale, which is minutes of Earth Engine
+        # compute for anything district-sized, so the response carries a key to
+        # poll and the URL only appears once the PNG is cached.
+        self.assertTrue(data["rgb_overlay"]["url"])
+
+        terrain = data["terrain_overlay"]
+        self.assertTrue(terrain["key"])
+        self.assertIn(terrain["status"], ("rendering", "ready"))
+        self.assertEqual(terrain["scale_m"], 10)
+        if terrain["status"] == "ready":
+            self.assertTrue(terrain["url"])
+
+        status = self.client.get(f"/api/overlay/{terrain['key']}")
+        self.assertEqual(status.status_code, 200)
+        self.assertIn(status.json()["status"], ("rendering", "ready", "failed"))
+
         
         # Verify individual class areas breakdown
         self.assertIn("individual_class_areas", data)

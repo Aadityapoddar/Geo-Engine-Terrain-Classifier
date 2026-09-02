@@ -18,7 +18,12 @@ try:
         SEASONS,
         TRAINING_SCHEMA_VERSION,
     )
-    from backend.gee_classifier import init_ee, classify_and_analyze
+    from backend.gee_classifier import (
+        init_ee,
+        classify_and_analyze,
+        overlay_status,
+        OVERLAY_CACHE_DIR,
+    )
 except ModuleNotFoundError:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     from backend.config import (
@@ -31,7 +36,12 @@ except ModuleNotFoundError:
         SEASONS,
         TRAINING_SCHEMA_VERSION,
     )
-    from backend.gee_classifier import init_ee, classify_and_analyze
+    from backend.gee_classifier import (
+        init_ee,
+        classify_and_analyze,
+        overlay_status,
+        OVERLAY_CACHE_DIR,
+    )
 
 app = FastAPI(
     title="Geo-Engine Terrain Classifier API",
@@ -51,7 +61,7 @@ app.add_middleware(
 
 class ClassifyRequest(BaseModel):
     geometry: Dict[str, Any] = Field(..., description="GeoJSON Geometry (Polygon or Rectangle) marked on map")
-    model_type: str = Field(DEFAULT_MODEL, description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
+    model_type: str = Field(DEFAULT_MODEL, description="Classifier model ID: 'rf', 'svm', 'gtb', 'cart', 'knn'")
     start_date: str = Field(SEASONS["summer"]["start"], description="Sentinel-2 composite start date (YYYY-MM-DD)")
     end_date: str = Field(SEASONS["summer"]["end"], description="Sentinel-2 composite end date (YYYY-MM-DD, exclusive)")
     cloud_threshold: float = Field(15.0, description="Max cloud cover percentage filter (1-50%)")
@@ -111,7 +121,9 @@ def run_classification(payload: ClassifyRequest):
     if not payload.geometry or "coordinates" not in payload.geometry:
         raise HTTPException(status_code=400, detail="Invalid GeoJSON geometry. Must contain valid 'coordinates'.")
 
-    valid_models = ["rf", "svm", "xgb", "cart", "knn"]
+    # "xgb" is accepted as the retired spelling of "gtb" so links and saved
+    # payloads from before the rename keep resolving.
+    valid_models = ["rf", "svm", "gtb", "cart", "knn", "xgb"]
     if payload.model_type.lower() not in valid_models:
         raise HTTPException(status_code=400, detail=f"Invalid model_type '{payload.model_type}'. Choose from {valid_models}")
 
@@ -128,6 +140,18 @@ def run_classification(payload: ClassifyRequest):
     except Exception as e:
         print(f"Classification error: {e}")
         raise HTTPException(status_code=500, detail=f"Earth Engine classification failed: {str(e)}")
+
+
+@app.get("/api/overlay/{key}")
+def get_overlay_status(key: str):
+    """How far the AOI's terrain render has got.
+
+    The overlay is rendered at the classifier's 10 m training scale, which for a
+    district is minutes of Earth Engine compute -- far longer than a request can
+    wait -- so `/api/classify` returns the statistics immediately and the
+    frontend polls this until the PNG lands in the cache.
+    """
+    return overlay_status(key)
 
 
 @app.post("/api/export")
@@ -156,6 +180,11 @@ def export_report(payload: ClassifyRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Export generation failed: {str(e)}")
 
+
+# Rendered terrain overlays. Cached on disk and served flat, so panning and
+# zooming costs the client one HTTP request and Earth Engine nothing.
+os.makedirs(OVERLAY_CACHE_DIR, exist_ok=True)
+app.mount("/overlays", StaticFiles(directory=OVERLAY_CACHE_DIR), name="overlays")
 
 # Serve static frontend files
 frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))

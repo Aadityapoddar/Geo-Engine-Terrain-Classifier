@@ -1,0 +1,96 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+evaluate winter:Anuppur classifiers=10 attempt=1
+landed winter:Anuppur samples=100
+evaluate winter:Betul classifiers=10 attempt=1
+landed winter:Betul samples=100
+evaluate winter:Chhatarpur classifiers=10 attempt=1
+landed winter:Chhatarpur samples=100
+evaluate winter:Dewas classifiers=10 attempt=1
+landed winter:Dewas samples=100
+evaluate winter:Guna classifiers=10 attempt=1
+landed winter:Guna samples=100
+evaluate winter:Indore classifiers=10 attempt=1
+landed winter:Indore samples=100
+evaluate winter:Mandla classifiers=10 attempt=1
+landed winter:Mandla samples=100
+evaluate winter:Neemuch classifiers=10 attempt=1
+landed winter:Neemuch samples=100
+evaluate winter:Ratlam classifiers=10 attempt=1
+landed winter:Ratlam samples=100
+evaluate winter:Sehore classifiers=10 attempt=1
+landed winter:Sehore samples=100
+evaluate winter:Sheopur classifiers=10 attempt=1
+landed winter:Sheopur samples=100
+evaluate winter:Ujjain classifiers=10 attempt=1
+landed winter:Ujjain samples=100
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+retry district-list attempt=1: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+retry district-list attempt=2: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+skip winter:Anuppur
+skip winter:Betul
+skip winter:Chhatarpur
+skip winter:Dewas
+skip winter:Guna
+skip winter:Indore
+skip winter:Mandla
+skip winter:Neemuch
+skip winter:Ratlam
+skip winter:Sehore
+skip winter:Sheopur
+skip winter:Ujjain
+evaluate summer:Anuppur classifiers=10 attempt=1
+landed summer:Anuppur samples=100
+evaluate summer:Betul classifiers=10 attempt=1
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:242: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+skip winter:Anuppur
+skip winter:Betul
+skip winter:Chhatarpur
+skip winter:Dewas
+skip winter:Guna
+skip winter:Indore
+skip winter:Mandla
+skip winter:Neemuch
+skip winter:Ratlam
+skip winter:Sehore
+skip winter:Sheopur
+skip winter:Ujjain
+skip summer:Anuppur
+evaluate summer:Betul classifiers=10 attempt=1
+landed summer:Betul samples=100
+evaluate summer:Chhatarpur classifiers=10 attempt=1
+landed summer:Chhatarpur samples=100
+evaluate summer:Dewas classifiers=10 attempt=1
+landed summer:Dewas samples=82
+evaluate summer:Guna classifiers=10 attempt=1
+landed summer:Guna samples=100
+evaluate summer:Indore classifiers=10 attempt=1
+landed summer:Indore samples=100
+evaluate summer:Mandla classifiers=10 attempt=1
+landed summer:Mandla samples=100
+evaluate summer:Neemuch classifiers=10 attempt=1
+landed summer:Neemuch samples=82
+evaluate summer:Ratlam classifiers=10 attempt=1
+landed summer:Ratlam samples=89
+evaluate summer:Sehore classifiers=10 attempt=1
+landed summer:Sehore samples=100
+evaluate summer:Sheopur classifiers=10 attempt=1
+landed summer:Sheopur samples=100
+evaluate summer:Ujjain classifiers=10 attempt=1
+landed summer:Ujjain samples=100
+wrote /Users/ashutoshsaxena/Desktop/Geo-Engine-Terrain-Classifier/doc/assets/mp_external_shards_worker_0.json

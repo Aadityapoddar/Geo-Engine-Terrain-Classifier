@@ -1,0 +1,238 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+32 configurations x 15 development districts, season=winter, mode=ablation
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+Traceback (most recent call last):
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 449, in <module>
+    main()
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 445, in main
+    run(args)
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 298, in run
+    classifiers[key] = FACTORIES[model](settings).train(
+  File "/Users/ashutoshsaxena/Desktop/CODE-SEM5/Geo-Engine-Terrain-Classifier/scripts/district_experiments.py", line 174, in <lambda>
+    "gtb": lambda p: ee.Classifier.smileGradientTreeBoost(**_drop_none(p)),
+TypeError: smileGradientTreeBoost() missing 1 required positional argument: 'numberOfTrees'
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+32 configurations x 15 development districts, season=winter, mode=ablation
+reusing users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_winter_train (5000 rows)
+evaluate winter:Barwani configs 0-8
+evaluate winter:Barwani configs 8-16
+evaluate winter:Barwani configs 16-24
+evaluate winter:Barwani configs 24-32
+landed winter:Barwani
+evaluate winter:Damoh configs 0-8
+evaluate winter:Damoh configs 8-16
+evaluate winter:Damoh configs 16-24
+evaluate winter:Damoh configs 24-32
+landed winter:Damoh
+evaluate winter:Harda configs 0-8
+evaluate winter:Harda configs 8-16
+evaluate winter:Harda configs 16-24
+evaluate winter:Harda configs 24-32
+landed winter:Harda
+evaluate winter:Hoshangabad configs 0-8
+evaluate winter:Hoshangabad configs 8-16
+evaluate winter:Hoshangabad configs 16-24
+evaluate winter:Hoshangabad configs 24-32
+landed winter:Hoshangabad
+evaluate winter:Jhabua configs 0-8
+evaluate winter:Jhabua configs 8-16
+evaluate winter:Jhabua configs 16-24
+evaluate winter:Jhabua configs 24-32
+landed winter:Jhabua
+evaluate winter:Mandsaur configs 0-8
+evaluate winter:Mandsaur configs 8-16
+evaluate winter:Mandsaur configs 16-24
+evaluate winter:Mandsaur configs 24-32
+landed winter:Mandsaur
+evaluate winter:Neemuch configs 0-8
+evaluate winter:Neemuch configs 8-16
+evaluate winter:Neemuch configs 16-24
+evaluate winter:Neemuch configs 24-32
+landed winter:Neemuch
+evaluate winter:Rajgarh configs 0-8
+evaluate winter:Rajgarh configs 8-16
+evaluate winter:Rajgarh configs 16-24
+evaluate winter:Rajgarh configs 24-32
+landed winter:Rajgarh
+evaluate winter:Rewa configs 0-8
+evaluate winter:Rewa configs 8-16
+evaluate winter:Rewa configs 16-24
+evaluate winter:Rewa configs 24-32
+landed winter:Rewa
+evaluate winter:Sehore configs 0-8
+evaluate winter:Sehore configs 8-16
+evaluate winter:Sehore configs 16-24
+evaluate winter:Sehore configs 24-32
+landed winter:Sehore
+evaluate winter:Shajapur configs 0-8
+evaluate winter:Shajapur configs 8-16
+evaluate winter:Shajapur configs 16-24
+evaluate winter:Shajapur configs 24-32
+landed winter:Shajapur
+evaluate winter:Sheopur configs 0-8
+evaluate winter:Sheopur configs 8-16
+evaluate winter:Sheopur configs 16-24
+evaluate winter:Sheopur configs 24-32
+landed winter:Sheopur
+evaluate winter:Shivpuri configs 0-8
+evaluate winter:Shivpuri configs 8-16
+evaluate winter:Shivpuri configs 16-24
+evaluate winter:Shivpuri configs 24-32
+landed winter:Shivpuri
+evaluate winter:Tikamgarh configs 0-8
+evaluate winter:Tikamgarh configs 8-16
+evaluate winter:Tikamgarh configs 16-24
+evaluate winter:Tikamgarh configs 24-32
+landed winter:Tikamgarh
+evaluate winter:West Nimar configs 0-8
+evaluate winter:West Nimar configs 8-16
+evaluate winter:West Nimar configs 16-24
+evaluate winter:West Nimar configs 24-32
+landed winter:West Nimar
+
+== development, winter ==
+  gtb   best 86.73%  kappa 0.834  drop_g_contrast
+
+  leave-one-out against gtb:all27 (86.67%), winter:
+    -g_contrast    86.73%  +0.07  drop
+    -s_ent         86.73%  +0.07  drop
+    -NDBI          86.60%  -0.07
+    -B3            86.53%  -0.13
+    -g_asm         86.53%  -0.13
+    -g_diss        86.53%  -0.13
+    -B2            86.47%  -0.20
+    -B4            86.47%  -0.20
+    -NDWI          86.47%  -0.20
+    -UI            86.40%  -0.27
+    -VVVH          86.40%  -0.27
+    -s_contrast    86.33%  -0.33
+    -VV            86.27%  -0.40
+    -IBI           86.20%  -0.47
+    -SAVI          86.20%  -0.47
+    -B8            86.07%  -0.60
+    -g_var         86.00%  -0.67
+    -NDVI          85.93%  -0.73
+    -BSI           85.93%  -0.73
+    -g_ent         85.93%  -0.73
+    -s_var         85.93%  -0.73
+    -BAEI          85.87%  -0.80
+    -B11           85.80%  -0.87
+    -g_idm         85.67%  -1.00
+    -B12           85.27%  -1.40
+    -SWIRratio     85.13%  -1.53
+    -VH            84.07%  -2.60
+  2 bands are not earning their place: g_contrast, s_ent
+wrote doc/assets/band_ablation_v4.json
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+32 configurations x 15 development districts, season=summer, mode=ablation
+exporting users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train ...
+exported users/ashutoshsaxena703/tuning_five_class_19_band_v4_matched_windows_summer_train (5000 rows)
+evaluate summer:Barwani configs 0-8
+evaluate summer:Barwani configs 8-16
+evaluate summer:Barwani configs 16-24
+evaluate summer:Barwani configs 24-32
+landed summer:Barwani
+evaluate summer:Damoh configs 0-8
+evaluate summer:Damoh configs 8-16
+evaluate summer:Damoh configs 16-24
+evaluate summer:Damoh configs 24-32
+landed summer:Damoh
+evaluate summer:Harda configs 0-8
+evaluate summer:Harda configs 8-16
+evaluate summer:Harda configs 16-24
+evaluate summer:Harda configs 24-32
+landed summer:Harda
+evaluate summer:Hoshangabad configs 0-8
+evaluate summer:Hoshangabad configs 8-16
+evaluate summer:Hoshangabad configs 16-24
+evaluate summer:Hoshangabad configs 24-32
+landed summer:Hoshangabad
+evaluate summer:Jhabua configs 0-8
+evaluate summer:Jhabua configs 8-16
+evaluate summer:Jhabua configs 16-24
+evaluate summer:Jhabua configs 24-32
+landed summer:Jhabua
+evaluate summer:Mandsaur configs 0-8
+evaluate summer:Mandsaur configs 8-16
+evaluate summer:Mandsaur configs 16-24
+evaluate summer:Mandsaur configs 24-32
+landed summer:Mandsaur
+evaluate summer:Neemuch configs 0-8
+evaluate summer:Neemuch configs 8-16
+evaluate summer:Neemuch configs 16-24
+evaluate summer:Neemuch configs 24-32
+landed summer:Neemuch
+evaluate summer:Rajgarh configs 0-8
+evaluate summer:Rajgarh configs 8-16
+evaluate summer:Rajgarh configs 16-24
+evaluate summer:Rajgarh configs 24-32
+landed summer:Rajgarh
+evaluate summer:Rewa configs 0-8
+evaluate summer:Rewa configs 8-16
+evaluate summer:Rewa configs 16-24
+evaluate summer:Rewa configs 24-32
+landed summer:Rewa
+evaluate summer:Sehore configs 0-8
+evaluate summer:Sehore configs 8-16
+evaluate summer:Sehore configs 16-24
+evaluate summer:Sehore configs 24-32
+landed summer:Sehore
+evaluate summer:Shajapur configs 0-8
+evaluate summer:Shajapur configs 8-16
+evaluate summer:Shajapur configs 16-24
+evaluate summer:Shajapur configs 24-32
+landed summer:Shajapur
+evaluate summer:Sheopur configs 0-8
+evaluate summer:Sheopur configs 8-16
+evaluate summer:Sheopur configs 16-24
+evaluate summer:Sheopur configs 24-32
+landed summer:Sheopur
+evaluate summer:Shivpuri configs 0-8
+evaluate summer:Shivpuri configs 8-16
+evaluate summer:Shivpuri configs 16-24
+evaluate summer:Shivpuri configs 24-32
+landed summer:Shivpuri
+evaluate summer:Tikamgarh configs 0-8
+evaluate summer:Tikamgarh configs 8-16
+evaluate summer:Tikamgarh configs 16-24
+evaluate summer:Tikamgarh configs 24-32
+landed summer:Tikamgarh
+evaluate summer:West Nimar configs 0-8
+evaluate summer:West Nimar configs 8-16
+evaluate summer:West Nimar configs 16-24
+evaluate summer:West Nimar configs 24-32
+landed summer:West Nimar
+
+== development, summer ==
+  gtb   best 75.81%  kappa 0.695  drop_B3
+
+  leave-one-out against gtb:all27 (74.75%), summer:
+    -B3            75.81%  +1.06  drop
+    -BAEI          75.60%  +0.85  drop
+    -NDBI          75.25%  +0.49  drop
+    -g_diss        75.18%  +0.42  drop
+    -BSI           74.96%  +0.21  drop
+    -B2            74.89%  +0.14  drop
+    -g_asm         74.82%  +0.07  drop
+    -g_ent         74.82%  +0.07  drop
+    -IBI           74.54%  -0.21
+    -g_idm         74.54%  -0.21
+    -s_ent         74.54%  -0.21
+    -SAVI          74.40%  -0.35
+    -UI            74.40%  -0.35
+    -VVVH          74.19%  -0.56
+    -B8            74.05%  -0.71
+    -NDVI          73.98%  -0.78
+    -g_contrast    73.98%  -0.78
+    -B4            73.91%  -0.85
+    -s_var         73.84%  -0.92
+    -VV            73.70%  -1.06
+    -B12           73.62%  -1.13
+    -s_contrast    73.62%  -1.13
+    -g_var         73.34%  -1.41
+    -B11           73.27%  -1.48
+    -NDWI          73.13%  -1.62
+    -VH            72.85%  -1.90
+    -SWIRratio     72.36%  -2.40
+  8 bands are not earning their place: B3, BAEI, NDBI, g_diss, BSI, B2, g_asm, g_ent
+wrote doc/assets/band_ablation_v4.json

@@ -171,6 +171,73 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // The classified layer is rendered at the classifier's 10 m training scale --
+  // the only scale its accuracy is defined at -- so a district takes minutes of
+  // Earth Engine compute. The statistics come back straight away; the picture
+  // is polled for and dropped on the map when the backend has finished it. Once
+  // rendered it is cached server-side, so re-running the same AOI is instant and
+  // panning and zooming never re-classifies anything.
+  let overlayPollTimer = null;
+
+  function pollTerrainOverlay(terrainOverlay) {
+    if (overlayPollTimer) {
+      clearTimeout(overlayPollTimer);
+      overlayPollTimer = null;
+    }
+    if (!terrainOverlay || !terrainOverlay.key) return;
+    if (terrainOverlay.status === "ready") return;
+
+    const key = terrainOverlay.key;
+
+    async function tick() {
+      try {
+        const res = await fetch(`${API_BASE}/api/overlay/${key}`);
+        const state = await res.json();
+
+        if (state.status === "ready") {
+          setOverlayProgress(null);
+          MapController.setTerrainOverlay({ ...terrainOverlay, url: state.url });
+          return;
+        }
+        if (state.status === "failed") {
+          setOverlayProgress("Terrain render failed - re-run to try again");
+          console.error("Overlay render failed:", state.error);
+          return;
+        }
+        // The backend forgot this render -- it restarted mid-job. Polling
+        // forever would just show "tile 0/?" until the user gave up.
+        if (state.status === "unknown") {
+          setOverlayProgress("Terrain render was interrupted - re-run to try again");
+          return;
+        }
+        setOverlayProgress(
+          `Rendering terrain at 10 m - tile ${state.done || 0}/${state.total || "?"}`
+        );
+      } catch (err) {
+        console.error("Overlay poll failed:", err);
+      }
+      overlayPollTimer = setTimeout(tick, 5000);
+    }
+
+    setOverlayProgress("Rendering terrain at 10 m...");
+    tick();
+  }
+
+  function setOverlayProgress(text) {
+    let el = document.getElementById("overlayProgress");
+    if (!text) {
+      if (el) el.remove();
+      return;
+    }
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "overlayProgress";
+      el.className = "overlay-progress";
+      document.body.appendChild(el);
+    }
+    el.textContent = text;
+  }
+
   async function runClassification() {
     const geometry = MapController.getCurrentGeoJSON();
     if (!geometry) {
@@ -207,6 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Update map overlays (single pre-rendered images, not live GEE tiles)
       MapController.updateOverlays(results.rgb_overlay, results.terrain_overlay);
+      pollTerrainOverlay(results.terrain_overlay);
 
       // Show Layer Controls
       layerControls.style.display = "flex";

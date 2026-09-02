@@ -1,0 +1,13 @@
+{
+  "condition": "before-agriculture-label-fix",
+  "model": "rf",
+  "aoi": "jabalpur agriculture training area",
+  "classes": {
+    "Forest": 33.31,
+    "Water": 6.0,
+    "Buildings": 18.2,
+    "Soil": 42.49,
+    "Sand": 0.0,
+    "Agriculture": 0.0
+  }
+}

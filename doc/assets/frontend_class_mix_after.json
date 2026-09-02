@@ -1,0 +1,24 @@
+{
+  "condition": "after-agriculture-label-fix",
+  "model": "rf",
+  "aoi": "jabalpur agriculture training area",
+  "agriculture_asset": "users/ashutoshsaxena703/jabalpur_agriculture_points_labelled",
+  "training_label_histogram": {
+    "0": 1000,
+    "1": 1000,
+    "2": 1000,
+    "3": 2000,
+    "4": 500,
+    "5": 1000
+  },
+  "classes": {
+    "Forest": 4.65,
+    "Water": 4.17,
+    "Buildings": 18.64,
+    "Barren Land": 16.68,
+    "Sand": 0.0,
+    "Agriculture": 55.86
+  },
+  "class_3_note": "Class 3 reads 'Barren Land' because the schema was already renamed, but the points came from jabalpur_soil_points + soil_points_mp, pinned deliberately so this is the same configuration the 0.00% baseline was measured under. The only variable between before and after is the Agriculture label fix.",
+  "baseline": "doc/assets/frontend_class_mix_before.json"
+}

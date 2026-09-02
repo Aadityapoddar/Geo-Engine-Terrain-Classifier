@@ -1,0 +1,54 @@
+Google Earth Engine initialized successfully with project 'plenary-line-461306-s8'
+evaluate winter:Balaghat classifiers=12 attempt=1
+landed winter:Balaghat samples=100
+evaluate winter:Bhopal classifiers=12 attempt=1
+landed winter:Bhopal samples=100
+evaluate winter:Damoh classifiers=12 attempt=1
+landed winter:Damoh samples=100
+evaluate winter:Dindori classifiers=12 attempt=1
+landed winter:Dindori samples=100
+evaluate winter:Harda classifiers=12 attempt=1
+landed winter:Harda samples=100
+evaluate winter:Jhabua classifiers=12 attempt=1
+landed winter:Jhabua samples=100
+evaluate winter:Morena classifiers=12 attempt=1
+landed winter:Morena samples=100
+evaluate winter:Raisen classifiers=12 attempt=1
+landed winter:Raisen samples=100
+evaluate winter:Sagar classifiers=12 attempt=1
+landed winter:Sagar samples=100
+evaluate winter:Shahdol classifiers=12 attempt=1
+landed winter:Shahdol samples=100
+evaluate winter:Sidhi classifiers=12 attempt=1
+landed winter:Sidhi samples=100
+evaluate winter:Vidisha classifiers=12 attempt=1
+landed winter:Vidisha samples=100
+evaluate summer:Balaghat classifiers=12 attempt=1
+retry summer:Balaghat: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate summer:Balaghat classifiers=12 attempt=2
+retry summer:Balaghat: Too Many Requests: Exceeded Earth Engine concurrency limit. Your project is in Restricted Mode. Learn more at https://developers.google.com/earth-engine/guides/noncommercial_tiers#restricted_mode
+evaluate summer:Balaghat classifiers=12 attempt=3
+landed summer:Balaghat samples=100
+evaluate summer:Bhopal classifiers=12 attempt=1
+landed summer:Bhopal samples=100
+evaluate summer:Damoh classifiers=12 attempt=1
+landed summer:Damoh samples=80
+evaluate summer:Dindori classifiers=12 attempt=1
+landed summer:Dindori samples=100
+evaluate summer:Harda classifiers=12 attempt=1
+landed summer:Harda samples=84
+evaluate summer:Jhabua classifiers=12 attempt=1
+landed summer:Jhabua samples=100
+evaluate summer:Morena classifiers=12 attempt=1
+landed summer:Morena samples=80
+evaluate summer:Raisen classifiers=12 attempt=1
+landed summer:Raisen samples=94
+evaluate summer:Sagar classifiers=12 attempt=1
+landed summer:Sagar samples=100
+evaluate summer:Shahdol classifiers=12 attempt=1
+landed summer:Shahdol samples=100
+evaluate summer:Sidhi classifiers=12 attempt=1
+landed summer:Sidhi samples=100
+evaluate summer:Vidisha classifiers=12 attempt=1
+landed summer:Vidisha samples=88
+wrote doc/assets/mp_external_shards_v6_worker_2.json

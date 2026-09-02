@@ -1,0 +1,2447 @@
+{
+  "schema_version": "six-class-19-band-v1",
+  "bands": [
+    "B3",
+    "B11",
+    "B12",
+    "BSI",
+    "UI",
+    "IBI",
+    "SWIRratio",
+    "BAEI",
+    "g_contrast",
+    "g_ent",
+    "g_var",
+    "g_idm",
+    "g_diss",
+    "g_asm",
+    "VV",
+    "VH",
+    "VVVH",
+    "s_contrast",
+    "s_var"
+  ],
+  "seasons": {
+    "winter": {
+      "start": "2025-01-01",
+      "end": "2025-02-28"
+    },
+    "summer": {
+      "start": "2025-03-31",
+      "end": "2025-04-30"
+    }
+  },
+  "sources": {
+    "external_five_class": {
+      "method": "district-sharded whole-MP public-map consensus",
+      "district_count": null,
+      "shard_count": null
+    },
+    "heldout_six_class": {
+      "method": "fixed 70/30 spatial block split on project labels"
+    }
+  },
+  "generated_at": "2026-08-07T16:00:41.671536+00:00",
+  "runs": [
+    {
+      "run_id": "winter-before-rf",
+      "season": "winter",
+      "condition": "before",
+      "model": "rf",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              218,
+              1,
+              3,
+              10,
+              0,
+              0
+            ],
+            [
+              4,
+              119,
+              11,
+              23,
+              0,
+              0
+            ],
+            [
+              5,
+              0,
+              178,
+              30,
+              0,
+              0
+            ],
+            [
+              27,
+              2,
+              41,
+              715,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.8868060562364816,
+          "kappa": 0.8162879810482836,
+          "macro_precision": 0.8791622966754677,
+          "macro_recall": 0.8610314331261749,
+          "macro_f1": 0.8658198610648178,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8582677165354331,
+              "recall": 0.9396551724137931,
+              "f1": 0.8971193415637861,
+              "support": 232,
+              "predicted": 254
+            },
+            "Water": {
+              "precision": 0.9754098360655737,
+              "recall": 0.7579617834394905,
+              "f1": 0.853046594982079,
+              "support": 157,
+              "predicted": 122
+            },
+            "Buildings": {
+              "precision": 0.7639484978540773,
+              "recall": 0.8356807511737089,
+              "f1": 0.7982062780269059,
+              "support": 213,
+              "predicted": 233
+            },
+            "Soil": {
+              "precision": 0.9190231362467867,
+              "recall": 0.910828025477707,
+              "f1": 0.9149072296865003,
+              "support": 785,
+              "predicted": 778
+            },
+            "Sand": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-svm",
+      "season": "winter",
+      "condition": "before",
+      "model": "svm",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              198,
+              10,
+              10,
+              14,
+              0,
+              0
+            ],
+            [
+              5,
+              129,
+              14,
+              7,
+              2,
+              0
+            ],
+            [
+              4,
+              51,
+              132,
+              20,
+              6,
+              0
+            ],
+            [
+              23,
+              59,
+              47,
+              594,
+              62,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.7591925018024513,
+          "kappa": 0.6407744404862896,
+          "macro_precision": 0.5929242461317757,
+          "macro_recall": 0.7628776336914525,
+          "macro_f1": 0.7409614850909169,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8608695652173913,
+              "recall": 0.853448275862069,
+              "f1": 0.8571428571428572,
+              "support": 232,
+              "predicted": 230
+            },
+            "Water": {
+              "precision": 0.5180722891566265,
+              "recall": 0.821656050955414,
+              "f1": 0.6354679802955665,
+              "support": 157,
+              "predicted": 249
+            },
+            "Buildings": {
+              "precision": 0.6502463054187192,
+              "recall": 0.6197183098591549,
+              "f1": 0.6346153846153846,
+              "support": 213,
+              "predicted": 203
+            },
+            "Soil": {
+              "precision": 0.9354330708661417,
+              "recall": 0.756687898089172,
+              "f1": 0.8366197183098592,
+              "support": 785,
+              "predicted": 635
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 70
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-xgb",
+      "season": "winter",
+      "condition": "before",
+      "model": "xgb",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              213,
+              2,
+              4,
+              13,
+              0,
+              0
+            ],
+            [
+              3,
+              113,
+              13,
+              11,
+              17,
+              0
+            ],
+            [
+              2,
+              3,
+              192,
+              15,
+              1,
+              0
+            ],
+            [
+              11,
+              2,
+              38,
+              727,
+              7,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.8976207642393655,
+          "kappa": 0.8355811934417473,
+          "macro_precision": 0.7196423536272093,
+          "macro_recall": 0.8663429428978882,
+          "macro_f1": 0.8780512199383473,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9301310043668122,
+              "recall": 0.9181034482758621,
+              "f1": 0.9240780911062908,
+              "support": 232,
+              "predicted": 229
+            },
+            "Water": {
+              "precision": 0.9416666666666667,
+              "recall": 0.7197452229299363,
+              "f1": 0.8158844765342961,
+              "support": 157,
+              "predicted": 120
+            },
+            "Buildings": {
+              "precision": 0.7773279352226721,
+              "recall": 0.9014084507042254,
+              "f1": 0.8347826086956522,
+              "support": 213,
+              "predicted": 247
+            },
+            "Soil": {
+              "precision": 0.9490861618798956,
+              "recall": 0.9261146496815287,
+              "f1": 0.9374597034171502,
+              "support": 785,
+              "predicted": 766
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 25
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-cart",
+      "season": "winter",
+      "condition": "before",
+      "model": "cart",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              205,
+              0,
+              5,
+              22,
+              0,
+              0
+            ],
+            [
+              5,
+              115,
+              13,
+              24,
+              0,
+              0
+            ],
+            [
+              6,
+              0,
+              162,
+              41,
+              4,
+              0
+            ],
+            [
+              37,
+              7,
+              48,
+              672,
+              21,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.8320115356885364,
+          "kappa": 0.7310360037951296,
+          "macro_precision": 0.6697602881044379,
+          "macro_recall": 0.8081797754459991,
+          "macro_f1": 0.8187234458483607,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8102766798418972,
+              "recall": 0.8836206896551724,
+              "f1": 0.845360824742268,
+              "support": 232,
+              "predicted": 253
+            },
+            "Water": {
+              "precision": 0.9426229508196722,
+              "recall": 0.732484076433121,
+              "f1": 0.8243727598566309,
+              "support": 157,
+              "predicted": 122
+            },
+            "Buildings": {
+              "precision": 0.7105263157894737,
+              "recall": 0.7605633802816901,
+              "f1": 0.7346938775510203,
+              "support": 213,
+              "predicted": 228
+            },
+            "Soil": {
+              "precision": 0.8853754940711462,
+              "recall": 0.8560509554140128,
+              "f1": 0.8704663212435234,
+              "support": 785,
+              "predicted": 759
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 25
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-knn",
+      "season": "winter",
+      "condition": "before",
+      "model": "knn",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              197,
+              3,
+              9,
+              23,
+              0,
+              0
+            ],
+            [
+              6,
+              117,
+              14,
+              11,
+              9,
+              0
+            ],
+            [
+              8,
+              7,
+              164,
+              27,
+              7,
+              0
+            ],
+            [
+              66,
+              3,
+              72,
+              588,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.768565248738284,
+          "kappa": 0.6506552171385124,
+          "macro_precision": 0.6300810427874002,
+          "macro_recall": 0.7783396246503105,
+          "macro_f1": 0.7760991860852635,
+          "per_class": {
+            "Forest": {
+              "precision": 0.7111913357400722,
+              "recall": 0.8491379310344828,
+              "f1": 0.7740667976424361,
+              "support": 232,
+              "predicted": 277
+            },
+            "Water": {
+              "precision": 0.9,
+              "recall": 0.7452229299363057,
+              "f1": 0.8153310104529616,
+              "support": 157,
+              "predicted": 130
+            },
+            "Buildings": {
+              "precision": 0.6332046332046332,
+              "recall": 0.7699530516431925,
+              "f1": 0.6949152542372881,
+              "support": 213,
+              "predicted": 259
+            },
+            "Soil": {
+              "precision": 0.9060092449922958,
+              "recall": 0.7490445859872611,
+              "f1": 0.8200836820083682,
+              "support": 785,
+              "predicted": 649
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 72
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-rf",
+      "season": "winter",
+      "condition": "after",
+      "model": "rf",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              205,
+              1,
+              2,
+              24,
+              0,
+              0
+            ],
+            [
+              4,
+              115,
+              10,
+              28,
+              0,
+              0
+            ],
+            [
+              3,
+              0,
+              163,
+              47,
+              0,
+              0
+            ],
+            [
+              25,
+              1,
+              31,
+              728,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10,
+              0,
+              8,
+              431,
+              0,
+              1
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.6597713663581927,
+          "kappa": 0.4931762821729599,
+          "macro_precision": 0.8306488166937808,
+          "macro_recall": 0.6621947478609609,
+          "macro_f1": 0.6351888042218865,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8299595141700404,
+              "recall": 0.8836206896551724,
+              "f1": 0.8559498956158663,
+              "support": 232,
+              "predicted": 247
+            },
+            "Water": {
+              "precision": 0.9829059829059829,
+              "recall": 0.732484076433121,
+              "f1": 0.8394160583941606,
+              "support": 157,
+              "predicted": 117
+            },
+            "Buildings": {
+              "precision": 0.7616822429906542,
+              "recall": 0.7652582159624414,
+              "f1": 0.7634660421545667,
+              "support": 213,
+              "predicted": 214
+            },
+            "Soil": {
+              "precision": 0.5786963434022258,
+              "recall": 0.9273885350318471,
+              "f1": 0.7126774351443954,
+              "support": 785,
+              "predicted": 1258
+            },
+            "Sand": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "Agriculture": {
+              "precision": 1.0,
+              "recall": 0.0022222222222222222,
+              "f1": 0.004434589800443459,
+              "support": 450,
+              "predicted": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-svm",
+      "season": "winter",
+      "condition": "after",
+      "model": "svm",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              190,
+              9,
+              9,
+              7,
+              0,
+              17
+            ],
+            [
+              5,
+              128,
+              13,
+              5,
+              2,
+              4
+            ],
+            [
+              4,
+              51,
+              131,
+              19,
+              6,
+              2
+            ],
+            [
+              11,
+              46,
+              42,
+              486,
+              52,
+              148
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              21,
+              58,
+              16,
+              125,
+              3,
+              227
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.6325530756668482,
+          "kappa": 0.5131854800716104,
+          "macro_precision": 0.5348468620085779,
+          "macro_recall": 0.6745656680645652,
+          "macro_f1": 0.6450682788480433,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8225108225108225,
+              "recall": 0.8189655172413793,
+              "f1": 0.8207343412526998,
+              "support": 232,
+              "predicted": 231
+            },
+            "Water": {
+              "precision": 0.4383561643835616,
+              "recall": 0.8152866242038217,
+              "f1": 0.5701559020044543,
+              "support": 157,
+              "predicted": 292
+            },
+            "Buildings": {
+              "precision": 0.6208530805687204,
+              "recall": 0.6150234741784038,
+              "f1": 0.6179245283018868,
+              "support": 213,
+              "predicted": 211
+            },
+            "Soil": {
+              "precision": 0.7570093457943925,
+              "recall": 0.619108280254777,
+              "f1": 0.6811492641906096,
+              "support": 785,
+              "predicted": 642
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 63
+            },
+            "Agriculture": {
+              "precision": 0.5703517587939698,
+              "recall": 0.5044444444444445,
+              "f1": 0.535377358490566,
+              "support": 450,
+              "predicted": 398
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-xgb",
+      "season": "winter",
+      "condition": "after",
+      "model": "xgb",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              213,
+              2,
+              4,
+              8,
+              0,
+              5
+            ],
+            [
+              2,
+              109,
+              11,
+              8,
+              21,
+              6
+            ],
+            [
+              1,
+              1,
+              191,
+              15,
+              1,
+              4
+            ],
+            [
+              4,
+              1,
+              37,
+              574,
+              8,
+              161
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              10,
+              6,
+              6,
+              122,
+              0,
+              306
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.7583015786608601,
+          "kappa": 0.6686989772914675,
+          "macro_precision": 0.6722537446221466,
+          "macro_recall": 0.7840589540611411,
+          "macro_f1": 0.7909368882311595,
+          "per_class": {
+            "Forest": {
+              "precision": 0.9260869565217391,
+              "recall": 0.9181034482758621,
+              "f1": 0.922077922077922,
+              "support": 232,
+              "predicted": 230
+            },
+            "Water": {
+              "precision": 0.9159663865546218,
+              "recall": 0.6942675159235668,
+              "f1": 0.7898550724637682,
+              "support": 157,
+              "predicted": 119
+            },
+            "Buildings": {
+              "precision": 0.7670682730923695,
+              "recall": 0.8967136150234741,
+              "f1": 0.8268398268398268,
+              "support": 213,
+              "predicted": 249
+            },
+            "Soil": {
+              "precision": 0.7895460797799174,
+              "recall": 0.7312101910828025,
+              "f1": 0.7592592592592592,
+              "support": 785,
+              "predicted": 727
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 30
+            },
+            "Agriculture": {
+              "precision": 0.6348547717842323,
+              "recall": 0.68,
+              "f1": 0.6566523605150214,
+              "support": 450,
+              "predicted": 482
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-cart",
+      "season": "winter",
+      "condition": "after",
+      "model": "cart",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              187,
+              0,
+              4,
+              40,
+              0,
+              1
+            ],
+            [
+              4,
+              98,
+              13,
+              26,
+              16,
+              0
+            ],
+            [
+              3,
+              0,
+              142,
+              67,
+              0,
+              1
+            ],
+            [
+              19,
+              3,
+              45,
+              711,
+              0,
+              7
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              13,
+              0,
+              14,
+              404,
+              0,
+              19
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.6298312465977136,
+          "kappa": 0.4491185703084276,
+          "macro_precision": 0.6162316286405853,
+          "macro_recall": 0.6089719354759987,
+          "macro_f1": 0.6028346718407054,
+          "per_class": {
+            "Forest": {
+              "precision": 0.827433628318584,
+              "recall": 0.8060344827586207,
+              "f1": 0.8165938864628821,
+              "support": 232,
+              "predicted": 226
+            },
+            "Water": {
+              "precision": 0.9702970297029703,
+              "recall": 0.6242038216560509,
+              "f1": 0.7596899224806202,
+              "support": 157,
+              "predicted": 101
+            },
+            "Buildings": {
+              "precision": 0.6513761467889908,
+              "recall": 0.6666666666666666,
+              "f1": 0.6589327146171694,
+              "support": 213,
+              "predicted": 218
+            },
+            "Soil": {
+              "precision": 0.5697115384615384,
+              "recall": 0.9057324840764331,
+              "f1": 0.6994589276930645,
+              "support": 785,
+              "predicted": 1248
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 16
+            },
+            "Agriculture": {
+              "precision": 0.6785714285714286,
+              "recall": 0.042222222222222223,
+              "f1": 0.0794979079497908,
+              "support": 450,
+              "predicted": 28
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-knn",
+      "season": "winter",
+      "condition": "after",
+      "model": "knn",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              193,
+              3,
+              5,
+              19,
+              1,
+              11
+            ],
+            [
+              6,
+              117,
+              13,
+              10,
+              10,
+              1
+            ],
+            [
+              8,
+              6,
+              160,
+              27,
+              6,
+              6
+            ],
+            [
+              47,
+              2,
+              63,
+              483,
+              52,
+              138
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              59,
+              11,
+              26,
+              141,
+              5,
+              208
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.6320087098530213,
+          "kappa": 0.508321590523503,
+          "macro_precision": 0.5565522771067677,
+          "macro_recall": 0.6811604074013351,
+          "macro_f1": 0.6671812529053346,
+          "per_class": {
+            "Forest": {
+              "precision": 0.6166134185303515,
+              "recall": 0.8318965517241379,
+              "f1": 0.708256880733945,
+              "support": 232,
+              "predicted": 313
+            },
+            "Water": {
+              "precision": 0.841726618705036,
+              "recall": 0.7452229299363057,
+              "f1": 0.7905405405405405,
+              "support": 157,
+              "predicted": 139
+            },
+            "Buildings": {
+              "precision": 0.599250936329588,
+              "recall": 0.7511737089201878,
+              "f1": 0.6666666666666667,
+              "support": 213,
+              "predicted": 267
+            },
+            "Soil": {
+              "precision": 0.7102941176470589,
+              "recall": 0.6152866242038216,
+              "f1": 0.6593856655290102,
+              "support": 785,
+              "predicted": 680
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 74
+            },
+            "Agriculture": {
+              "precision": 0.5714285714285714,
+              "recall": 0.4622222222222222,
+              "f1": 0.511056511056511,
+              "support": 450,
+              "predicted": 364
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-rf",
+      "season": "summer",
+      "condition": "before",
+      "model": "rf",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              214,
+              13,
+              4,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              120,
+              8,
+              28,
+              0,
+              0
+            ],
+            [
+              7,
+              2,
+              169,
+              35,
+              0,
+              0
+            ],
+            [
+              45,
+              62,
+              11,
+              667,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.8435472242249459,
+          "kappa": 0.7525179560339262,
+          "macro_precision": 0.8008230542305294,
+          "macro_recall": 0.832463440500975,
+          "macro_f1": 0.8125491658356645,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8014981273408239,
+              "recall": 0.9224137931034483,
+              "f1": 0.8577154308617234,
+              "support": 232,
+              "predicted": 267
+            },
+            "Water": {
+              "precision": 0.6091370558375635,
+              "recall": 0.7643312101910829,
+              "f1": 0.6779661016949153,
+              "support": 157,
+              "predicted": 197
+            },
+            "Buildings": {
+              "precision": 0.8802083333333334,
+              "recall": 0.7934272300469484,
+              "f1": 0.8345679012345679,
+              "support": 213,
+              "predicted": 192
+            },
+            "Soil": {
+              "precision": 0.9124487004103967,
+              "recall": 0.8496815286624204,
+              "f1": 0.8799472295514512,
+              "support": 785,
+              "predicted": 731
+            },
+            "Sand": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-svm",
+      "season": "summer",
+      "condition": "before",
+      "model": "svm",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              202,
+              18,
+              9,
+              2,
+              1,
+              0
+            ],
+            [
+              2,
+              130,
+              11,
+              10,
+              4,
+              0
+            ],
+            [
+              13,
+              26,
+              145,
+              23,
+              6,
+              0
+            ],
+            [
+              34,
+              68,
+              47,
+              562,
+              74,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.749098774333093,
+          "kappa": 0.632594527692652,
+          "macro_precision": 0.5934613515255908,
+          "macro_recall": 0.7738474683668304,
+          "macro_f1": 0.745933743720062,
+          "per_class": {
+            "Forest": {
+              "precision": 0.8047808764940239,
+              "recall": 0.8706896551724138,
+              "f1": 0.8364389233954451,
+              "support": 232,
+              "predicted": 251
+            },
+            "Water": {
+              "precision": 0.5371900826446281,
+              "recall": 0.8280254777070064,
+              "f1": 0.6516290726817042,
+              "support": 157,
+              "predicted": 242
+            },
+            "Buildings": {
+              "precision": 0.6839622641509434,
+              "recall": 0.6807511737089202,
+              "f1": 0.6823529411764707,
+              "support": 213,
+              "predicted": 212
+            },
+            "Soil": {
+              "precision": 0.9413735343383585,
+              "recall": 0.7159235668789808,
+              "f1": 0.8133140376266281,
+              "support": 785,
+              "predicted": 597
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 85
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-xgb",
+      "season": "summer",
+      "condition": "before",
+      "model": "xgb",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              211,
+              14,
+              3,
+              4,
+              0,
+              0
+            ],
+            [
+              0,
+              110,
+              7,
+              21,
+              19,
+              0
+            ],
+            [
+              6,
+              4,
+              184,
+              18,
+              1,
+              0
+            ],
+            [
+              36,
+              43,
+              9,
+              691,
+              6,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.8622927180966113,
+          "kappa": 0.7826405873988859,
+          "macro_precision": 0.6650175566564999,
+          "macro_recall": 0.8385560609060321,
+          "macro_f1": 0.8338148174100638,
+          "per_class": {
+            "Forest": {
+              "precision": 0.83399209486166,
+              "recall": 0.9094827586206896,
+              "f1": 0.8701030927835052,
+              "support": 232,
+              "predicted": 253
+            },
+            "Water": {
+              "precision": 0.6432748538011696,
+              "recall": 0.7006369426751592,
+              "f1": 0.6707317073170731,
+              "support": 157,
+              "predicted": 171
+            },
+            "Buildings": {
+              "precision": 0.9064039408866995,
+              "recall": 0.863849765258216,
+              "f1": 0.8846153846153847,
+              "support": 213,
+              "predicted": 203
+            },
+            "Soil": {
+              "precision": 0.94141689373297,
+              "recall": 0.8802547770700637,
+              "f1": 0.9098090849242922,
+              "support": 785,
+              "predicted": 734
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 26
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-cart",
+      "season": "summer",
+      "condition": "before",
+      "model": "cart",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              211,
+              15,
+              6,
+              0,
+              0,
+              0
+            ],
+            [
+              5,
+              123,
+              7,
+              12,
+              10,
+              0
+            ],
+            [
+              21,
+              2,
+              153,
+              35,
+              2,
+              0
+            ],
+            [
+              72,
+              130,
+              14,
+              550,
+              19,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.7476568132660418,
+          "kappa": 0.6273526029664407,
+          "macro_precision": 0.5819352967642961,
+          "macro_recall": 0.7779672627241596,
+          "macro_f1": 0.7326808091362662,
+          "per_class": {
+            "Forest": {
+              "precision": 0.6828478964401294,
+              "recall": 0.9094827586206896,
+              "f1": 0.7800369685767098,
+              "support": 232,
+              "predicted": 309
+            },
+            "Water": {
+              "precision": 0.45555555555555555,
+              "recall": 0.7834394904458599,
+              "f1": 0.576112412177986,
+              "support": 157,
+              "predicted": 270
+            },
+            "Buildings": {
+              "precision": 0.85,
+              "recall": 0.7183098591549296,
+              "f1": 0.7786259541984734,
+              "support": 213,
+              "predicted": 180
+            },
+            "Soil": {
+              "precision": 0.9212730318257957,
+              "recall": 0.7006369426751592,
+              "f1": 0.7959479015918958,
+              "support": 785,
+              "predicted": 597
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 31
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-knn",
+      "season": "summer",
+      "condition": "before",
+      "model": "knn",
+      "training_count": 4113,
+      "heldout_training_count": null,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              181,
+              11,
+              24,
+              13,
+              3,
+              0
+            ],
+            [
+              3,
+              115,
+              13,
+              13,
+              13,
+              0
+            ],
+            [
+              27,
+              13,
+              144,
+              22,
+              7,
+              0
+            ],
+            [
+              66,
+              30,
+              78,
+              550,
+              61,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1387,
+          "overall_accuracy": 0.7137707281903388,
+          "kappa": 0.5791428298461833,
+          "macro_precision": 0.5619239946250559,
+          "macro_recall": 0.7223374427323881,
+          "macro_f1": 0.7055654427738267,
+          "per_class": {
+            "Forest": {
+              "precision": 0.6534296028880866,
+              "recall": 0.7801724137931034,
+              "f1": 0.7111984282907662,
+              "support": 232,
+              "predicted": 277
+            },
+            "Water": {
+              "precision": 0.6804733727810651,
+              "recall": 0.732484076433121,
+              "f1": 0.7055214723926381,
+              "support": 157,
+              "predicted": 169
+            },
+            "Buildings": {
+              "precision": 0.555984555984556,
+              "recall": 0.676056338028169,
+              "f1": 0.6101694915254238,
+              "support": 213,
+              "predicted": 259
+            },
+            "Soil": {
+              "precision": 0.919732441471572,
+              "recall": 0.7006369426751592,
+              "f1": 0.7953723788864788,
+              "support": 785,
+              "predicted": 598
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 84
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-rf",
+      "season": "summer",
+      "condition": "after",
+      "model": "rf",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              196,
+              0,
+              3,
+              2,
+              0,
+              31
+            ],
+            [
+              0,
+              114,
+              8,
+              35,
+              0,
+              0
+            ],
+            [
+              3,
+              1,
+              164,
+              43,
+              0,
+              2
+            ],
+            [
+              25,
+              0,
+              7,
+              675,
+              0,
+              78
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              23,
+              2,
+              29,
+              349,
+              0,
+              47
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.6510615133369625,
+          "kappa": 0.4916197258196894,
+          "macro_precision": 0.6908027648616432,
+          "macro_recall": 0.661042468688206,
+          "macro_f1": 0.6586684815916866,
+          "per_class": {
+            "Forest": {
+              "precision": 0.7935222672064778,
+              "recall": 0.8448275862068966,
+              "f1": 0.8183716075156576,
+              "support": 232,
+              "predicted": 247
+            },
+            "Water": {
+              "precision": 0.9743589743589743,
+              "recall": 0.7261146496815286,
+              "f1": 0.8321167883211679,
+              "support": 157,
+              "predicted": 117
+            },
+            "Buildings": {
+              "precision": 0.7772511848341233,
+              "recall": 0.7699530516431925,
+              "f1": 0.7735849056603774,
+              "support": 213,
+              "predicted": 211
+            },
+            "Soil": {
+              "precision": 0.6114130434782609,
+              "recall": 0.8598726114649682,
+              "f1": 0.7146638433033351,
+              "support": 785,
+              "predicted": 1104
+            },
+            "Sand": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "Agriculture": {
+              "precision": 0.2974683544303797,
+              "recall": 0.10444444444444445,
+              "f1": 0.15460526315789475,
+              "support": 450,
+              "predicted": 158
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-svm",
+      "season": "summer",
+      "condition": "after",
+      "model": "svm",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              192,
+              11,
+              9,
+              2,
+              0,
+              18
+            ],
+            [
+              1,
+              129,
+              10,
+              10,
+              2,
+              5
+            ],
+            [
+              15,
+              25,
+              143,
+              17,
+              4,
+              9
+            ],
+            [
+              25,
+              43,
+              38,
+              502,
+              60,
+              117
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              44,
+              50,
+              35,
+              142,
+              36,
+              143
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.6037016875340229,
+          "kappa": 0.47761108326865337,
+          "macro_precision": 0.5062152131068498,
+          "macro_recall": 0.6555743967674068,
+          "macro_f1": 0.61771186415051,
+          "per_class": {
+            "Forest": {
+              "precision": 0.6931407942238267,
+              "recall": 0.8275862068965517,
+              "f1": 0.7544204322200393,
+              "support": 232,
+              "predicted": 277
+            },
+            "Water": {
+              "precision": 0.5,
+              "recall": 0.821656050955414,
+              "f1": 0.6216867469879518,
+              "support": 157,
+              "predicted": 258
+            },
+            "Buildings": {
+              "precision": 0.6085106382978723,
+              "recall": 0.6713615023474179,
+              "f1": 0.6383928571428571,
+              "support": 213,
+              "predicted": 235
+            },
+            "Soil": {
+              "precision": 0.7459138187221397,
+              "recall": 0.6394904458598726,
+              "f1": 0.6886145404663924,
+              "support": 785,
+              "predicted": 673
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 102
+            },
+            "Agriculture": {
+              "precision": 0.4897260273972603,
+              "recall": 0.31777777777777777,
+              "f1": 0.38544474393531,
+              "support": 450,
+              "predicted": 292
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-xgb",
+      "season": "summer",
+      "condition": "after",
+      "model": "xgb",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              196,
+              8,
+              0,
+              1,
+              0,
+              27
+            ],
+            [
+              1,
+              111,
+              8,
+              13,
+              19,
+              5
+            ],
+            [
+              6,
+              3,
+              183,
+              18,
+              0,
+              3
+            ],
+            [
+              22,
+              6,
+              11,
+              604,
+              6,
+              136
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              24,
+              11,
+              21,
+              144,
+              3,
+              247
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.7299945563418617,
+          "kappa": 0.6276573008063899,
+          "macro_precision": 0.6286009355692158,
+          "macro_recall": 0.7458609051384717,
+          "macro_f1": 0.7490855528483823,
+          "per_class": {
+            "Forest": {
+              "precision": 0.7871485943775101,
+              "recall": 0.8448275862068966,
+              "f1": 0.814968814968815,
+              "support": 232,
+              "predicted": 249
+            },
+            "Water": {
+              "precision": 0.7985611510791367,
+              "recall": 0.7070063694267515,
+              "f1": 0.75,
+              "support": 157,
+              "predicted": 139
+            },
+            "Buildings": {
+              "precision": 0.820627802690583,
+              "recall": 0.8591549295774648,
+              "f1": 0.8394495412844036,
+              "support": 213,
+              "predicted": 223
+            },
+            "Soil": {
+              "precision": 0.7743589743589744,
+              "recall": 0.7694267515923567,
+              "f1": 0.7718849840255592,
+              "support": 785,
+              "predicted": 780
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 28
+            },
+            "Agriculture": {
+              "precision": 0.5909090909090909,
+              "recall": 0.5488888888888889,
+              "f1": 0.5691244239631336,
+              "support": 450,
+              "predicted": 418
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-cart",
+      "season": "summer",
+      "condition": "after",
+      "model": "cart",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              164,
+              2,
+              9,
+              3,
+              0,
+              54
+            ],
+            [
+              3,
+              112,
+              7,
+              15,
+              7,
+              13
+            ],
+            [
+              20,
+              2,
+              165,
+              16,
+              0,
+              10
+            ],
+            [
+              23,
+              21,
+              13,
+              548,
+              22,
+              158
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              19,
+              28,
+              37,
+              103,
+              15,
+              248
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.673380511703865,
+          "kappa": 0.5575729209901183,
+          "macro_precision": 0.5704480592082642,
+          "macro_recall": 0.6888241036624116,
+          "macro_f1": 0.6855177659616242,
+          "per_class": {
+            "Forest": {
+              "precision": 0.7161572052401747,
+              "recall": 0.7068965517241379,
+              "f1": 0.7114967462039046,
+              "support": 232,
+              "predicted": 229
+            },
+            "Water": {
+              "precision": 0.6787878787878788,
+              "recall": 0.7133757961783439,
+              "f1": 0.6956521739130435,
+              "support": 157,
+              "predicted": 165
+            },
+            "Buildings": {
+              "precision": 0.7142857142857143,
+              "recall": 0.7746478873239436,
+              "f1": 0.7432432432432432,
+              "support": 213,
+              "predicted": 231
+            },
+            "Soil": {
+              "precision": 0.8,
+              "recall": 0.6980891719745222,
+              "f1": 0.745578231292517,
+              "support": 785,
+              "predicted": 685
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 44
+            },
+            "Agriculture": {
+              "precision": 0.5134575569358178,
+              "recall": 0.5511111111111111,
+              "f1": 0.5316184351554127,
+              "support": 450,
+              "predicted": 483
+            }
+          }
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-knn",
+      "season": "summer",
+      "condition": "after",
+      "model": "knn",
+      "training_count": 6500,
+      "heldout_training_count": 4663,
+      "metrics": {
+        "heldout_six_class": {
+          "confusion_matrix": [
+            [
+              178,
+              6,
+              18,
+              12,
+              2,
+              16
+            ],
+            [
+              1,
+              114,
+              15,
+              12,
+              12,
+              3
+            ],
+            [
+              26,
+              14,
+              145,
+              20,
+              5,
+              3
+            ],
+            [
+              49,
+              11,
+              65,
+              523,
+              58,
+              79
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              102,
+              23,
+              50,
+              170,
+              21,
+              84
+            ]
+          ],
+          "labels": [
+            "Forest",
+            "Water",
+            "Buildings",
+            "Soil",
+            "Sand",
+            "Agriculture"
+          ],
+          "sample_count": 1837,
+          "overall_accuracy": 0.568317909635275,
+          "kappa": 0.4267951839086928,
+          "macro_precision": 0.4728566131054543,
+          "macro_recall": 0.6054031815168042,
+          "macro_f1": 0.566384742170713,
+          "per_class": {
+            "Forest": {
+              "precision": 0.5,
+              "recall": 0.7672413793103449,
+              "f1": 0.6054421768707484,
+              "support": 232,
+              "predicted": 356
+            },
+            "Water": {
+              "precision": 0.6785714285714286,
+              "recall": 0.7261146496815286,
+              "f1": 0.7015384615384614,
+              "support": 157,
+              "predicted": 168
+            },
+            "Buildings": {
+              "precision": 0.4948805460750853,
+              "recall": 0.6807511737089202,
+              "f1": 0.5731225296442687,
+              "support": 213,
+              "predicted": 293
+            },
+            "Soil": {
+              "precision": 0.7096336499321574,
+              "recall": 0.6662420382165605,
+              "f1": 0.6872536136662287,
+              "support": 785,
+              "predicted": 737
+            },
+            "Sand": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 98
+            },
+            "Agriculture": {
+              "precision": 0.4540540540540541,
+              "recall": 0.18666666666666668,
+              "f1": 0.2645669291338583,
+              "support": 450,
+              "predicted": 185
+            }
+          }
+        }
+      }
+    }
+  ]
+}

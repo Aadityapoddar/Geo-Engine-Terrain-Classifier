@@ -14,13 +14,16 @@ def test_reference_schema_and_thresholds_are_fixed():
     assert DW_MIN_PROBABILITY == 0.70
     assert GHSL_MIN_BUILT_SQM == 50
     assert REFERENCE_LABELS == {
-        0: "Forest",
+        0: "Vegetation",
         1: "Water",
-        2: "Buildings",
-        3: "Bare",
+        2: "Built Area",
+        3: "Open Land",
         4: "Agriculture",
     }
-    assert PROJECT_TO_REFERENCE_LABEL == {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 4}
+    assert PROJECT_TO_REFERENCE_LABEL == {
+        "before": {0: 0, 1: 1, 2: 2, 3: 3, 4: 3},
+        "after": {0: 0, 1: 1, 2: 2, 3: 3, 4: 4},
+    }
     assert WORLD_CEREAL_SEASON == {
         "winter": "tc-wintercereals",
         "summer": "tc-maize-main",
@@ -29,5 +32,8 @@ def test_reference_schema_and_thresholds_are_fixed():
     assert WORLD_CEREAL_PRODUCT == "temporarycrops"
 
 
-def test_soil_and_sand_collapse_only_for_external_reference():
-    assert collapse_project_prediction([0, 1, 2, 3, 4, 5]) == [0, 1, 2, 3, 3, 4]
+def test_collapse_is_per_condition():
+    # Before: Soil (3) and Sand (4) both read as Bare; Agriculture was never learned.
+    assert collapse_project_prediction([0, 1, 2, 3, 4], "before") == [0, 1, 2, 3, 3]
+    # After: Barren Land (3) reads as Bare; Agriculture (4) maps to itself.
+    assert collapse_project_prediction([0, 1, 2, 3, 4], "after") == [0, 1, 2, 3, 4]

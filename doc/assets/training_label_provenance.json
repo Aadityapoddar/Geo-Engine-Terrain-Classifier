@@ -1,0 +1,315 @@
+{
+  "training_schema_version": "five-class-19-band-v4-matched-windows",
+  "note": "These collections carry only system:index and label. Interpreter identity, source image, interpretation date and any second-interpreter check are not recorded in the assets and cannot be reconstructed from them.",
+  "classes": {
+    "forest": {
+      "bounds": [
+        [
+          [
+            79.56758453464704,
+            22.992358255690956
+          ],
+          [
+            80.50581294151489,
+            22.992358255690956
+          ],
+          [
+            80.50581294151489,
+            23.5578031157135
+          ],
+          [
+            79.56758453464704,
+            23.5578031157135
+          ],
+          [
+            79.56758453464704,
+            22.992358255690956
+          ]
+        ]
+      ],
+      "containing_districts": {
+        "Jabalpur": 950,
+        "Katni": 50
+      },
+      "distance_outside_jabalpur_km": {
+        "p100": 23.06487966998967,
+        "p50": 0.6480464916056745,
+        "p90": 22.831870091399534
+      },
+      "inside_jabalpur": 950,
+      "labels": {
+        "0": 1000
+      },
+      "nn_measured": 1000,
+      "nn_percentiles_m": {
+        "p0": 2.1845226803453563,
+        "p100": 928.7102950499138,
+        "p25": 62.18554699583554,
+        "p5": 26.235966433930628,
+        "p50": 114.21115036423379,
+        "p75": 177.7562944205469,
+        "p95": 277.09357391258766
+      },
+      "properties": [
+        "system:index",
+        "label"
+      ],
+      "size": 1000,
+      "within_1000m": 1000,
+      "within_100m": 430,
+      "within_500m": 996,
+      "asset": "users/ashutoshsaxena703/jabalpur_forest_points",
+      "class": "forest",
+      "expected_label": 0
+    },
+    "water": {
+      "bounds": [
+        [
+          [
+            79.86676302989612,
+            23.15108507044351
+          ],
+          [
+            80.51675919703501,
+            23.15108507044351
+          ],
+          [
+            80.51675919703501,
+            23.41934166659175
+          ],
+          [
+            79.86676302989612,
+            23.41934166659175
+          ],
+          [
+            79.86676302989612,
+            23.15108507044351
+          ]
+        ]
+      ],
+      "containing_districts": {
+        "Jabalpur": 802,
+        "Katni": 198
+      },
+      "distance_outside_jabalpur_km": {
+        "p100": 7.618717107010776,
+        "p50": 7.3259749257511935,
+        "p90": 7.549707843829712
+      },
+      "inside_jabalpur": 802,
+      "labels": {
+        "1": 1000
+      },
+      "nn_measured": 1000,
+      "nn_percentiles_m": {
+        "p0": 0,
+        "p100": 276.4335958046865,
+        "p25": 17.06789849708235,
+        "p5": 8.854309226947338,
+        "p50": 41.07233682094629,
+        "p75": 73.179637276384,
+        "p95": 140.9909619859518
+      },
+      "properties": [
+        "system:index",
+        "label"
+      ],
+      "size": 1000,
+      "within_1000m": 1000,
+      "within_100m": 859,
+      "within_500m": 1000,
+      "asset": "users/ashutoshsaxena703/jabalpur_water_points",
+      "class": "water",
+      "expected_label": 1
+    },
+    "buildings": {
+      "bounds": [
+        [
+          [
+            79.35520682563032,
+            22.878734773692177
+          ],
+          [
+            80.55897212972886,
+            22.878734773692177
+          ],
+          [
+            80.55897212972886,
+            23.583359594640797
+          ],
+          [
+            79.35520682563032,
+            23.583359594640797
+          ],
+          [
+            79.35520682563032,
+            22.878734773692177
+          ]
+        ]
+      ],
+      "containing_districts": {
+        "Dindori": 3,
+        "Jabalpur": 829,
+        "Katni": 167,
+        "Mandla": 1
+      },
+      "distance_outside_jabalpur_km": {
+        "p100": 23.092787748745817,
+        "p50": 7.433203117768105,
+        "p90": 18.115620675658143
+      },
+      "inside_jabalpur": 829,
+      "labels": {
+        "2": 1000
+      },
+      "nn_measured": 1000,
+      "nn_percentiles_m": {
+        "p0": 13.516921060903016,
+        "p100": 5365.621352699832,
+        "p25": 173.34882323540043,
+        "p5": 80.58967767547989,
+        "p50": 371.39398840946956,
+        "p75": 1198.0797671899122,
+        "p95": 2591.65740648636
+      },
+      "properties": [
+        "system:index",
+        "label"
+      ],
+      "size": 1000,
+      "within_1000m": 708,
+      "within_100m": 113,
+      "within_500m": 571,
+      "asset": "users/ashutoshsaxena703/jabalpur_building_points",
+      "class": "buildings",
+      "expected_label": 2
+    },
+    "barren": {
+      "bounds": [
+        [
+          [
+            79.76584105984874,
+            22.913221599697597
+          ],
+          [
+            80.4059185216472,
+            22.913221599697597
+          ],
+          [
+            80.4059185216472,
+            23.39965478051695
+          ],
+          [
+            79.76584105984874,
+            23.39965478051695
+          ],
+          [
+            79.76584105984874,
+            22.913221599697597
+          ]
+        ]
+      ],
+      "containing_districts": {
+        "Jabalpur": 800,
+        "Katni": 200
+      },
+      "distance_outside_jabalpur_km": {
+        "p100": 5.884561607477608,
+        "p50": 4.741459241795671,
+        "p90": 5.671174626221519
+      },
+      "inside_jabalpur": 800,
+      "labels": {
+        "3": 1000
+      },
+      "nn_measured": 1000,
+      "nn_percentiles_m": {
+        "p0": 6.603770590253917,
+        "p100": 213.87480348720447,
+        "p25": 20.54293964914506,
+        "p5": 11.409744160062136,
+        "p50": 28.92623949047475,
+        "p75": 43.02806899656488,
+        "p95": 75.61989399304206
+      },
+      "properties": [
+        "system:index",
+        "label"
+      ],
+      "size": 1000,
+      "within_1000m": 1000,
+      "within_100m": 984,
+      "within_500m": 1000,
+      "asset": "users/ashutoshsaxena703/jabalpur_barren_points",
+      "class": "barren",
+      "expected_label": 3
+    },
+    "agriculture": {
+      "bounds": [
+        [
+          [
+            79.61039224508197,
+            23.022054919905507
+          ],
+          [
+            80.14597212725064,
+            23.022054919905507
+          ],
+          [
+            80.14597212725064,
+            23.488678062869255
+          ],
+          [
+            79.61039224508197,
+            23.488678062869255
+          ],
+          [
+            79.61039224508197,
+            23.022054919905507
+          ]
+        ]
+      ],
+      "containing_districts": {
+        "Jabalpur": 747,
+        "Katni": 253
+      },
+      "distance_outside_jabalpur_km": {
+        "p100": 14.101581308093827,
+        "p50": 8.948527956709047,
+        "p90": 12.318589842065057
+      },
+      "inside_jabalpur": 747,
+      "labels": {
+        "4": 1000
+      },
+      "nn_measured": 1000,
+      "nn_percentiles_m": {
+        "p0": 70.4957513601446,
+        "p100": 2078.060772245692,
+        "p25": 213.1975760945497,
+        "p5": 116.3460128144624,
+        "p50": 299.89582502822975,
+        "p75": 436.2187995147402,
+        "p95": 719.6712346445827
+      },
+      "properties": [
+        "system:index",
+        "label"
+      ],
+      "size": 1000,
+      "within_1000m": 993,
+      "within_100m": 26,
+      "within_500m": 834,
+      "asset": "users/ashutoshsaxena703/jabalpur_agriculture_points_labelled",
+      "class": "agriculture",
+      "expected_label": 4
+    }
+  },
+  "points_outside_jabalpur": {
+    "Katni": 868,
+    "Dindori": 3,
+    "Mandla": 1
+  },
+  "total_points": 5000,
+  "merged_size": 5000
+}

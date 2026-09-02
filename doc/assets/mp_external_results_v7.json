@@ -1,0 +1,1967 @@
+{
+  "training_schema_version": "five-class-19-band-v5-drop-summer",
+  "district_count": 48,
+  "shard_count": 96,
+  "runs": [
+    {
+      "run_id": "winter-before-rf",
+      "season": "winter",
+      "condition": "before",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              818,
+              11,
+              6,
+              124,
+              0
+            ],
+            [
+              0,
+              951,
+              0,
+              8,
+              0
+            ],
+            [
+              0,
+              0,
+              951,
+              6,
+              0
+            ],
+            [
+              0,
+              2,
+              266,
+              685,
+              0
+            ],
+            [
+              42,
+              20,
+              55,
+              842,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7113014414038019,
+          "kappa": 0.6392229733009138,
+          "macro_precision": 0.7682922680355733,
+          "macro_recall": 0.7114286042882506,
+          "macro_f1": 0.8131502057789537,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9511627906976744,
+              "recall": 0.8529718456725756,
+              "f1": 0.8993952721275426,
+              "support": 959,
+              "predicted": 860
+            },
+            "Water": {
+              "precision": 0.9664634146341463,
+              "recall": 0.9916579770594369,
+              "f1": 0.9788986103962944,
+              "support": 959,
+              "predicted": 984
+            },
+            "Built Area": {
+              "precision": 0.744131455399061,
+              "recall": 0.9937304075235109,
+              "f1": 0.851006711409396,
+              "support": 957,
+              "predicted": 1278
+            },
+            "Open Land": {
+              "precision": 0.4114114114114114,
+              "recall": 0.7187827911857293,
+              "f1": 0.5233002291825821,
+              "support": 953,
+              "predicted": 1665
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-svm",
+      "season": "winter",
+      "condition": "before",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              888,
+              2,
+              12,
+              57,
+              0
+            ],
+            [
+              0,
+              945,
+              0,
+              14,
+              0
+            ],
+            [
+              0,
+              0,
+              955,
+              2,
+              0
+            ],
+            [
+              0,
+              7,
+              311,
+              635,
+              0
+            ],
+            [
+              39,
+              21,
+              57,
+              842,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7150616252350115,
+          "kappa": 0.6439107651655928,
+          "macro_precision": 0.7630481991045125,
+          "macro_recall": 0.715118607223315,
+          "macro_f1": 0.8149122980233745,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9579288025889967,
+              "recall": 0.9259645464025026,
+              "f1": 0.9416755037115588,
+              "support": 959,
+              "predicted": 927
+            },
+            "Water": {
+              "precision": 0.9692307692307692,
+              "recall": 0.9854014598540146,
+              "f1": 0.9772492244053775,
+              "support": 959,
+              "predicted": 975
+            },
+            "Built Area": {
+              "precision": 0.7153558052434457,
+              "recall": 0.9979101358411703,
+              "f1": 0.8333333333333334,
+              "support": 957,
+              "predicted": 1335
+            },
+            "Open Land": {
+              "precision": 0.4096774193548387,
+              "recall": 0.6663168940188877,
+              "f1": 0.5073911306432282,
+              "support": 953,
+              "predicted": 1550
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-gtb",
+      "season": "winter",
+      "condition": "before",
+      "model": "gtb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              885,
+              7,
+              13,
+              54,
+              0
+            ],
+            [
+              0,
+              945,
+              0,
+              14,
+              0
+            ],
+            [
+              0,
+              0,
+              952,
+              5,
+              0
+            ],
+            [
+              1,
+              5,
+              239,
+              708,
+              0
+            ],
+            [
+              45,
+              22,
+              82,
+              810,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7290578650511803,
+          "kappa": 0.6614046848204431,
+          "macro_precision": 0.7752861318654523,
+          "macro_recall": 0.7291860382278417,
+          "macro_f1": 0.8293017594930541,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9505907626208379,
+              "recall": 0.9228362877997914,
+              "f1": 0.9365079365079364,
+              "support": 959,
+              "predicted": 931
+            },
+            "Water": {
+              "precision": 0.965270684371808,
+              "recall": 0.9854014598540146,
+              "f1": 0.9752321981424148,
+              "support": 959,
+              "predicted": 979
+            },
+            "Built Area": {
+              "precision": 0.7402799377916018,
+              "recall": 0.9947753396029259,
+              "f1": 0.8488631297369593,
+              "support": 957,
+              "predicted": 1286
+            },
+            "Open Land": {
+              "precision": 0.4450031426775613,
+              "recall": 0.7429171038824763,
+              "f1": 0.5566037735849056,
+              "support": 953,
+              "predicted": 1591
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-cart",
+      "season": "winter",
+      "condition": "before",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              709,
+              20,
+              4,
+              226,
+              0
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              11,
+              904,
+              42,
+              0
+            ],
+            [
+              2,
+              93,
+              288,
+              570,
+              0
+            ],
+            [
+              79,
+              50,
+              75,
+              755,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.6563609776477961,
+          "kappa": 0.5705552504000712,
+          "macro_precision": 0.7032400499275289,
+          "macro_recall": 0.6564083221200822,
+          "macro_f1": 0.7467065807388592,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.8974683544303798,
+              "recall": 0.7393117831074035,
+              "f1": 0.8107489994282447,
+              "support": 959,
+              "predicted": 790
+            },
+            "Water": {
+              "precision": 0.8464254192409533,
+              "recall": 1.0,
+              "f1": 0.9168260038240919,
+              "support": 959,
+              "predicted": 1133
+            },
+            "Built Area": {
+              "precision": 0.7112509834775768,
+              "recall": 0.9446185997910136,
+              "f1": 0.8114901256732496,
+              "support": 957,
+              "predicted": 1271
+            },
+            "Open Land": {
+              "precision": 0.3578154425612053,
+              "recall": 0.5981112277019937,
+              "f1": 0.4477611940298507,
+              "support": 953,
+              "predicted": 1593
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-before-knn",
+      "season": "winter",
+      "condition": "before",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              867,
+              5,
+              6,
+              81,
+              0
+            ],
+            [
+              0,
+              952,
+              0,
+              7,
+              0
+            ],
+            [
+              0,
+              2,
+              951,
+              4,
+              0
+            ],
+            [
+              0,
+              8,
+              291,
+              654,
+              0
+            ],
+            [
+              61,
+              30,
+              83,
+              785,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.7152705243367453,
+          "kappa": 0.6441694601865875,
+          "macro_precision": 0.757700998491581,
+          "macro_recall": 0.715350361715266,
+          "macro_f1": 0.8125494516115349,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9342672413793104,
+              "recall": 0.9040667361835245,
+              "f1": 0.918918918918919,
+              "support": 959,
+              "predicted": 928
+            },
+            "Water": {
+              "precision": 0.954864593781344,
+              "recall": 0.9927007299270073,
+              "f1": 0.9734151329243355,
+              "support": 959,
+              "predicted": 997
+            },
+            "Built Area": {
+              "precision": 0.7145003756574004,
+              "recall": 0.9937304075235109,
+              "f1": 0.8312937062937062,
+              "support": 957,
+              "predicted": 1331
+            },
+            "Open Land": {
+              "precision": 0.4271717831482691,
+              "recall": 0.6862539349422875,
+              "f1": 0.5265700483091788,
+              "support": 953,
+              "predicted": 1531
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-rf",
+      "season": "winter",
+      "condition": "after",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              805,
+              19,
+              9,
+              0,
+              126
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              930,
+              26,
+              0
+            ],
+            [
+              0,
+              17,
+              194,
+              741,
+              1
+            ],
+            [
+              34,
+              18,
+              96,
+              125,
+              686
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8608731982452476,
+          "kappa": 0.8260929283522777,
+          "macro_precision": 0.8672907272547187,
+          "macro_recall": 0.8608151910831673,
+          "macro_f1": 0.8591901224524662,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9594755661501788,
+              "recall": 0.8394160583941606,
+              "f1": 0.8954393770856507,
+              "support": 959,
+              "predicted": 839
+            },
+            "Water": {
+              "precision": 0.9457593688362919,
+              "recall": 1.0,
+              "f1": 0.9721236695387734,
+              "support": 959,
+              "predicted": 1014
+            },
+            "Built Area": {
+              "precision": 0.7567127746135069,
+              "recall": 0.9717868338557993,
+              "f1": 0.8508691674290942,
+              "support": 957,
+              "predicted": 1229
+            },
+            "Open Land": {
+              "precision": 0.8307174887892377,
+              "recall": 0.7775445960125918,
+              "f1": 0.8032520325203253,
+              "support": 953,
+              "predicted": 892
+            },
+            "Agriculture": {
+              "precision": 0.8437884378843789,
+              "recall": 0.7153284671532847,
+              "f1": 0.7742663656884876,
+              "support": 959,
+              "predicted": 813
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-svm",
+      "season": "winter",
+      "condition": "after",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              871,
+              1,
+              13,
+              0,
+              74
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              951,
+              5,
+              0
+            ],
+            [
+              0,
+              22,
+              266,
+              661,
+              4
+            ],
+            [
+              35,
+              17,
+              93,
+              124,
+              690
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.86317108836432,
+          "kappa": 0.8289613115236278,
+          "macro_precision": 0.8748671751718262,
+          "macro_recall": 0.8630133588693057,
+          "macro_f1": 0.8609731394594331,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9613686534216336,
+              "recall": 0.908237747653806,
+              "f1": 0.9340482573726542,
+              "support": 959,
+              "predicted": 906
+            },
+            "Water": {
+              "precision": 0.959,
+              "recall": 1.0,
+              "f1": 0.9790709545686574,
+              "support": 959,
+              "predicted": 1000
+            },
+            "Built Area": {
+              "precision": 0.7188208616780045,
+              "recall": 0.9937304075235109,
+              "f1": 0.8342105263157894,
+              "support": 957,
+              "predicted": 1323
+            },
+            "Open Land": {
+              "precision": 0.8367088607594937,
+              "recall": 0.6935991605456453,
+              "f1": 0.7584624211130235,
+              "support": 953,
+              "predicted": 790
+            },
+            "Agriculture": {
+              "precision": 0.8984375,
+              "recall": 0.7194994786235662,
+              "f1": 0.799073537927041,
+              "support": 959,
+              "predicted": 768
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-gtb",
+      "season": "winter",
+      "condition": "after",
+      "model": "gtb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              858,
+              9,
+              10,
+              1,
+              81
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              944,
+              13,
+              0
+            ],
+            [
+              0,
+              9,
+              204,
+              733,
+              7
+            ],
+            [
+              38,
+              19,
+              95,
+              127,
+              680
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8719448506371422,
+          "kappa": 0.8399318561151832,
+          "macro_precision": 0.8795843972838544,
+          "macro_recall": 0.8718639691513517,
+          "macro_f1": 0.8700682556882777,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9575892857142857,
+              "recall": 0.894681960375391,
+              "f1": 0.925067385444744,
+              "support": 959,
+              "predicted": 896
+            },
+            "Water": {
+              "precision": 0.9628514056224899,
+              "recall": 1.0,
+              "f1": 0.981074168797954,
+              "support": 959,
+              "predicted": 996
+            },
+            "Built Area": {
+              "precision": 0.753391859537111,
+              "recall": 0.9864158829676071,
+              "f1": 0.8542986425339366,
+              "support": 957,
+              "predicted": 1253
+            },
+            "Open Land": {
+              "precision": 0.8386727688787186,
+              "recall": 0.7691500524658972,
+              "f1": 0.8024083196496989,
+              "support": 953,
+              "predicted": 874
+            },
+            "Agriculture": {
+              "precision": 0.8854166666666666,
+              "recall": 0.7090719499478624,
+              "f1": 0.787492762015055,
+              "support": 959,
+              "predicted": 768
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-cart",
+      "season": "winter",
+      "condition": "after",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              736,
+              10,
+              47,
+              4,
+              162
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              3,
+              886,
+              60,
+              7
+            ],
+            [
+              0,
+              53,
+              195,
+              671,
+              34
+            ],
+            [
+              113,
+              20,
+              89,
+              154,
+              583
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8011280551493628,
+          "kappa": 0.7514115442797354,
+          "macro_precision": 0.8016232710329252,
+          "macro_recall": 0.8010586389331799,
+          "macro_f1": 0.7965266432710016,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.8658823529411764,
+              "recall": 0.7674661105318039,
+              "f1": 0.8137092316196793,
+              "support": 959,
+              "predicted": 850
+            },
+            "Water": {
+              "precision": 0.9177033492822967,
+              "recall": 1.0,
+              "f1": 0.9570858283433133,
+              "support": 959,
+              "predicted": 1045
+            },
+            "Built Area": {
+              "precision": 0.7280197206244864,
+              "recall": 0.9258098223615465,
+              "f1": 0.8150873965041396,
+              "support": 957,
+              "predicted": 1217
+            },
+            "Open Land": {
+              "precision": 0.7547806524184477,
+              "recall": 0.7040923399790137,
+              "f1": 0.7285559174809988,
+              "support": 953,
+              "predicted": 889
+            },
+            "Agriculture": {
+              "precision": 0.7417302798982188,
+              "recall": 0.607924921793535,
+              "f1": 0.6681948424068768,
+              "support": 959,
+              "predicted": 786
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "winter-after-knn",
+      "season": "winter",
+      "condition": "after",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              858,
+              6,
+              8,
+              0,
+              87
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              3,
+              951,
+              3,
+              0
+            ],
+            [
+              0,
+              31,
+              269,
+              650,
+              3
+            ],
+            [
+              67,
+              16,
+              126,
+              108,
+              642
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4787,
+          "overall_accuracy": 0.8481303530394819,
+          "kappa": 0.8101589523404817,
+          "macro_precision": 0.8611893984617611,
+          "macro_recall": 0.8479832744096061,
+          "macro_f1": 0.8446506654667518,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9275675675675675,
+              "recall": 0.894681960375391,
+              "f1": 0.9108280254777071,
+              "support": 959,
+              "predicted": 925
+            },
+            "Water": {
+              "precision": 0.9448275862068966,
+              "recall": 1.0,
+              "f1": 0.9716312056737589,
+              "support": 959,
+              "predicted": 1015
+            },
+            "Built Area": {
+              "precision": 0.7023633677991138,
+              "recall": 0.9937304075235109,
+              "f1": 0.8230203375162267,
+              "support": 957,
+              "predicted": 1354
+            },
+            "Open Land": {
+              "precision": 0.8541392904073587,
+              "recall": 0.6820566631689402,
+              "f1": 0.7584597432905483,
+              "support": 953,
+              "predicted": 761
+            },
+            "Agriculture": {
+              "precision": 0.8770491803278688,
+              "recall": 0.6694473409801877,
+              "f1": 0.7593140153755173,
+              "support": 959,
+              "predicted": 732
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-rf",
+      "season": "summer",
+      "condition": "before",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              448,
+              194,
+              0,
+              22,
+              0
+            ],
+            [
+              0,
+              861,
+              0,
+              98,
+              0
+            ],
+            [
+              2,
+              1,
+              946,
+              7,
+              0
+            ],
+            [
+              0,
+              16,
+              243,
+              697,
+              0
+            ],
+            [
+              44,
+              29,
+              102,
+              784,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6568758344459279,
+          "kappa": 0.5679901341068482,
+          "macro_precision": 0.7137804873820452,
+          "macro_recall": 0.6582256522041499,
+          "macro_f1": 0.7488408723639665,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9068825910931174,
+              "recall": 0.6746987951807228,
+              "f1": 0.773747841105354,
+              "support": 664,
+              "predicted": 494
+            },
+            "Water": {
+              "precision": 0.782016348773842,
+              "recall": 0.8978102189781022,
+              "f1": 0.8359223300970874,
+              "support": 959,
+              "predicted": 1101
+            },
+            "Built Area": {
+              "precision": 0.7327652982184353,
+              "recall": 0.9895397489539749,
+              "f1": 0.8420115709835335,
+              "support": 956,
+              "predicted": 1291
+            },
+            "Open Land": {
+              "precision": 0.43345771144278605,
+              "recall": 0.7290794979079498,
+              "f1": 0.5436817472698908,
+              "support": 956,
+              "predicted": 1608
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-svm",
+      "season": "summer",
+      "condition": "before",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              387,
+              45,
+              0,
+              232,
+              0
+            ],
+            [
+              0,
+              925,
+              0,
+              34,
+              0
+            ],
+            [
+              5,
+              3,
+              941,
+              7,
+              0
+            ],
+            [
+              0,
+              24,
+              301,
+              631,
+              0
+            ],
+            [
+              46,
+              19,
+              98,
+              796,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6417445482866043,
+          "kappa": 0.548486017141124,
+          "macro_precision": 0.7168524978150357,
+          "macro_recall": 0.6383458384477917,
+          "macro_f1": 0.7334763052403565,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.8835616438356164,
+              "recall": 0.5828313253012049,
+              "f1": 0.7023593466424682,
+              "support": 664,
+              "predicted": 438
+            },
+            "Water": {
+              "precision": 0.9104330708661418,
+              "recall": 0.9645464025026069,
+              "f1": 0.9367088607594937,
+              "support": 959,
+              "predicted": 1016
+            },
+            "Built Area": {
+              "precision": 0.7022388059701492,
+              "recall": 0.9843096234309623,
+              "f1": 0.8196864111498258,
+              "support": 956,
+              "predicted": 1340
+            },
+            "Open Land": {
+              "precision": 0.3711764705882353,
+              "recall": 0.6600418410041841,
+              "f1": 0.4751506024096385,
+              "support": 956,
+              "predicted": 1700
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-gtb",
+      "season": "summer",
+      "condition": "before",
+      "model": "gtb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              473,
+              148,
+              5,
+              38,
+              0
+            ],
+            [
+              0,
+              814,
+              0,
+              145,
+              0
+            ],
+            [
+              1,
+              5,
+              943,
+              7,
+              0
+            ],
+            [
+              0,
+              20,
+              227,
+              709,
+              0
+            ],
+            [
+              40,
+              35,
+              91,
+              793,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6539830885625278,
+          "kappa": 0.5645130111348099,
+          "macro_precision": 0.720151852450635,
+          "macro_recall": 0.6578367409192005,
+          "macro_f1": 0.7522866407938593,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9202334630350194,
+              "recall": 0.7123493975903614,
+              "f1": 0.8030560271646857,
+              "support": 664,
+              "predicted": 514
+            },
+            "Water": {
+              "precision": 0.7964774951076321,
+              "recall": 0.848800834202294,
+              "f1": 0.8218071680969207,
+              "support": 959,
+              "predicted": 1022
+            },
+            "Built Area": {
+              "precision": 0.7448657187993681,
+              "recall": 0.9864016736401674,
+              "f1": 0.8487848784878489,
+              "support": 956,
+              "predicted": 1266
+            },
+            "Open Land": {
+              "precision": 0.4190307328605201,
+              "recall": 0.7416317991631799,
+              "f1": 0.5354984894259818,
+              "support": 956,
+              "predicted": 1692
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-cart",
+      "season": "summer",
+      "condition": "before",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              328,
+              160,
+              0,
+              176,
+              0
+            ],
+            [
+              0,
+              943,
+              0,
+              16,
+              0
+            ],
+            [
+              48,
+              1,
+              850,
+              57,
+              0
+            ],
+            [
+              3,
+              15,
+              216,
+              722,
+              0
+            ],
+            [
+              42,
+              49,
+              91,
+              777,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6326212728081887,
+          "kappa": 0.5368311775868957,
+          "macro_precision": 0.6835406197400089,
+          "macro_recall": 0.6243286644336956,
+          "macro_f1": 0.7074675355853645,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.7790973871733967,
+              "recall": 0.4939759036144578,
+              "f1": 0.6046082949308755,
+              "support": 664,
+              "predicted": 421
+            },
+            "Water": {
+              "precision": 0.8073630136986302,
+              "recall": 0.9833159541188738,
+              "f1": 0.8866948754113775,
+              "support": 959,
+              "predicted": 1168
+            },
+            "Built Area": {
+              "precision": 0.7346585998271391,
+              "recall": 0.8891213389121339,
+              "f1": 0.8045433033601513,
+              "support": 956,
+              "predicted": 1157
+            },
+            "Open Land": {
+              "precision": 0.41304347826086957,
+              "recall": 0.7552301255230126,
+              "f1": 0.5340236686390533,
+              "support": 956,
+              "predicted": 1748
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-before-knn",
+      "season": "summer",
+      "condition": "before",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              489,
+              38,
+              0,
+              137,
+              0
+            ],
+            [
+              0,
+              952,
+              0,
+              7,
+              0
+            ],
+            [
+              12,
+              4,
+              937,
+              3,
+              0
+            ],
+            [
+              0,
+              31,
+              264,
+              661,
+              0
+            ],
+            [
+              85,
+              16,
+              104,
+              754,
+              0
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6762349799732977,
+          "kappa": 0.5930503322771604,
+          "macro_precision": 0.7225398380277169,
+          "macro_recall": 0.6801389260428697,
+          "macro_f1": 0.7720641637266084,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.8344709897610921,
+              "recall": 0.7364457831325302,
+              "f1": 0.7824,
+              "support": 664,
+              "predicted": 586
+            },
+            "Water": {
+              "precision": 0.914505283381364,
+              "recall": 0.9927007299270073,
+              "f1": 0.9520000000000001,
+              "support": 959,
+              "predicted": 1041
+            },
+            "Built Area": {
+              "precision": 0.7180076628352491,
+              "recall": 0.9801255230125523,
+              "f1": 0.8288367978770455,
+              "support": 956,
+              "predicted": 1305
+            },
+            "Open Land": {
+              "precision": 0.4231754161331626,
+              "recall": 0.6914225941422594,
+              "f1": 0.5250198570293884,
+              "support": 956,
+              "predicted": 1562
+            },
+            "Agriculture": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": null,
+              "support": 959,
+              "predicted": 0
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-rf",
+      "season": "summer",
+      "condition": "after",
+      "model": "rf",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              264,
+              126,
+              0,
+              0,
+              274
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              2,
+              935,
+              11,
+              7
+            ],
+            [
+              0,
+              71,
+              225,
+              618,
+              42
+            ],
+            [
+              34,
+              43,
+              78,
+              333,
+              471
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.7225189141076992,
+          "kappa": 0.6493345418445983,
+          "macro_precision": 0.7344610863008196,
+          "macro_recall": 0.7026407899038267,
+          "macro_f1": 0.6940719757748176,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.882943143812709,
+              "recall": 0.39759036144578314,
+              "f1": 0.5482866043613708,
+              "support": 664,
+              "predicted": 299
+            },
+            "Water": {
+              "precision": 0.7985012489592007,
+              "recall": 1.0,
+              "f1": 0.887962962962963,
+              "support": 959,
+              "predicted": 1201
+            },
+            "Built Area": {
+              "precision": 0.7552504038772213,
+              "recall": 0.9780334728033473,
+              "f1": 0.85232452142206,
+              "support": 956,
+              "predicted": 1238
+            },
+            "Open Land": {
+              "precision": 0.6424116424116424,
+              "recall": 0.6464435146443515,
+              "f1": 0.6444212721584984,
+              "support": 956,
+              "predicted": 962
+            },
+            "Agriculture": {
+              "precision": 0.593198992443325,
+              "recall": 0.49113660062565173,
+              "f1": 0.5373645179691957,
+              "support": 959,
+              "predicted": 794
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-svm",
+      "season": "summer",
+      "condition": "after",
+      "model": "svm",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              187,
+              29,
+              0,
+              0,
+              448
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              3,
+              2,
+              943,
+              4,
+              4
+            ],
+            [
+              0,
+              63,
+              256,
+              559,
+              78
+            ],
+            [
+              46,
+              21,
+              88,
+              347,
+              457
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6909212283044058,
+          "kappa": 0.6089481216007441,
+          "macro_precision": 0.6990626457027125,
+          "macro_recall": 0.6658588547233466,
+          "macro_f1": 0.6537302034218662,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.7923728813559322,
+              "recall": 0.2816265060240964,
+              "f1": 0.4155555555555555,
+              "support": 664,
+              "predicted": 236
+            },
+            "Water": {
+              "precision": 0.8929236499068901,
+              "recall": 1.0,
+              "f1": 0.9434333497294638,
+              "support": 959,
+              "predicted": 1074
+            },
+            "Built Area": {
+              "precision": 0.7327117327117327,
+              "recall": 0.9864016736401674,
+              "f1": 0.8408381631743201,
+              "support": 956,
+              "predicted": 1287
+            },
+            "Open Land": {
+              "precision": 0.6142857142857143,
+              "recall": 0.5847280334728033,
+              "f1": 0.5991425509110396,
+              "support": 956,
+              "predicted": 910
+            },
+            "Agriculture": {
+              "precision": 0.4630192502532928,
+              "recall": 0.4765380604796663,
+              "f1": 0.4696813977389517,
+              "support": 959,
+              "predicted": 987
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-gtb",
+      "season": "summer",
+      "condition": "after",
+      "model": "gtb",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              310,
+              59,
+              4,
+              0,
+              291
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              2,
+              946,
+              4,
+              3
+            ],
+            [
+              0,
+              76,
+              234,
+              574,
+              72
+            ],
+            [
+              27,
+              39,
+              83,
+              279,
+              531
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.7387627948375612,
+          "kappa": 0.6700954680143759,
+          "macro_precision": 0.7540981688244278,
+          "macro_recall": 0.7221054803110418,
+          "macro_f1": 0.7182435665330109,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.9171597633136095,
+              "recall": 0.46686746987951805,
+              "f1": 0.6187624750499001,
+              "support": 664,
+              "predicted": 338
+            },
+            "Water": {
+              "precision": 0.8449339207048459,
+              "recall": 1.0,
+              "f1": 0.9159503342884432,
+              "support": 959,
+              "predicted": 1135
+            },
+            "Built Area": {
+              "precision": 0.7466456195737964,
+              "recall": 0.9895397489539749,
+              "f1": 0.8511021142600089,
+              "support": 956,
+              "predicted": 1267
+            },
+            "Open Land": {
+              "precision": 0.6697782963827305,
+              "recall": 0.600418410041841,
+              "f1": 0.6332046332046332,
+              "support": 956,
+              "predicted": 857
+            },
+            "Agriculture": {
+              "precision": 0.5919732441471572,
+              "recall": 0.5537017726798749,
+              "f1": 0.5721982758620691,
+              "support": 959,
+              "predicted": 897
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-cart",
+      "season": "summer",
+      "condition": "after",
+      "model": "cart",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              150,
+              176,
+              0,
+              0,
+              338
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              949,
+              4,
+              2
+            ],
+            [
+              2,
+              101,
+              424,
+              422,
+              7
+            ],
+            [
+              44,
+              50,
+              294,
+              312,
+              259
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.609479305740988,
+          "kappa": 0.5055693402927101,
+          "macro_precision": 0.6151278185255628,
+          "macro_recall": 0.5860154051137206,
+          "macro_f1": 0.5511186863395993,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.7614213197969543,
+              "recall": 0.22590361445783133,
+              "f1": 0.34843205574912894,
+              "support": 664,
+              "predicted": 197
+            },
+            "Water": {
+              "precision": 0.7457231726283048,
+              "recall": 1.0,
+              "f1": 0.8543429844097995,
+              "support": 959,
+              "predicted": 1286
+            },
+            "Built Area": {
+              "precision": 0.5692861427714457,
+              "recall": 0.9926778242677824,
+              "f1": 0.7235989325200152,
+              "support": 956,
+              "predicted": 1667
+            },
+            "Open Land": {
+              "precision": 0.5718157181571816,
+              "recall": 0.44142259414225943,
+              "f1": 0.49822904368358906,
+              "support": 956,
+              "predicted": 738
+            },
+            "Agriculture": {
+              "precision": 0.4273927392739274,
+              "recall": 0.27007299270072993,
+              "f1": 0.33099041533546325,
+              "support": 959,
+              "predicted": 606
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    },
+    {
+      "run_id": "summer-after-knn",
+      "season": "summer",
+      "condition": "after",
+      "model": "knn",
+      "metrics": {
+        "external_five_class": {
+          "confusion_matrix": [
+            [
+              277,
+              27,
+              0,
+              0,
+              360
+            ],
+            [
+              0,
+              959,
+              0,
+              0,
+              0
+            ],
+            [
+              12,
+              3,
+              932,
+              1,
+              8
+            ],
+            [
+              0,
+              53,
+              259,
+              559,
+              85
+            ],
+            [
+              62,
+              17,
+              124,
+              338,
+              418
+            ]
+          ],
+          "labels": [
+            "Vegetation",
+            "Water",
+            "Built Area",
+            "Open Land",
+            "Agriculture"
+          ],
+          "sample_count": 4494,
+          "overall_accuracy": 0.6998219848687138,
+          "kappa": 0.6210161064244533,
+          "macro_precision": 0.7011785827233133,
+          "macro_recall": 0.6825325608611119,
+          "macro_f1": 0.6753787374017293,
+          "per_class": {
+            "Vegetation": {
+              "precision": 0.7891737891737892,
+              "recall": 0.4171686746987952,
+              "f1": 0.5458128078817734,
+              "support": 664,
+              "predicted": 351
+            },
+            "Water": {
+              "precision": 0.9055712936732767,
+              "recall": 1.0,
+              "f1": 0.9504459861248762,
+              "support": 959,
+              "predicted": 1059
+            },
+            "Built Area": {
+              "precision": 0.708745247148289,
+              "recall": 0.9748953974895398,
+              "f1": 0.8207837956847204,
+              "support": 956,
+              "predicted": 1315
+            },
+            "Open Land": {
+              "precision": 0.6224944320712695,
+              "recall": 0.5847280334728033,
+              "f1": 0.6030204962243797,
+              "support": 956,
+              "predicted": 898
+            },
+            "Agriculture": {
+              "precision": 0.4799081515499426,
+              "recall": 0.4358706986444213,
+              "f1": 0.4568306010928962,
+              "support": 959,
+              "predicted": 871
+            }
+          },
+          "district_coverage": 48
+        }
+      }
+    }
+  ]
+}
