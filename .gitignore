@@ -10,3 +10,20 @@ __pycache__/
 
 # Rendered terrain overlays (cache, rebuilt on demand)
 .overlay_cache/
+
+# IDE
+.idea/
+
+# Large binaries that are not project source: slide decks, screenshots and the
+# rendered PDFs of drafts. The manuscript itself (4.docx) is tracked.
+*.pptx
+Screenshot*.png
+
+# Regenerable intermediates, not source. The plate builder re-fetches these
+# from the API (scripts/build_paper_figure_plates.py) and the district gallery
+# is rebuilt by scripts/district_eval.py; together they are ~60 MB of rasters
+# that no reader of this repository needs in its history.
+doc/assets/paper_figs/sources/
+doc/assets/districts/
+doc/paper/*.pdf
+doc/assets/confusion_matrices_before_after.*

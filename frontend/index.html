@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@2.16.0/dist/leaflet-geoman.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css" />
 
-  <link rel="stylesheet" href="/static/css/style.css?v=20260813-1" />
+  <link rel="stylesheet" href="/static/css/style.css?v=20260901-v4" />
 </head>
 <body>
   <div id="app-container">
@@ -26,7 +26,7 @@
         </svg>
         <div class="brand-meta">
           <h1 class="brand-title">Geo-Engine <span class="highlight">Terrain</span> Classifier</h1>
-          <span class="brand-sub">Sentinel-2 Land Cover Classification · Google Earth Engine</span>
+          <span class="brand-sub">Sentinel-1 + Sentinel-2 Land Use/Land Cover · 10 m output grid · Google Earth Engine</span>
         </div>
         <span class="version-tag">v1.0</span>
       </div>
@@ -121,7 +121,7 @@
                 <select id="select-model" class="custom-select">
                   <option value="rf">Random Forest</option>
                   <option value="svm">Support Vector Machine (SVM)</option>
-                  <option value="xgb" selected>Gradient Boosted Trees (XGBoost)</option>
+                  <option value="gtb" selected>Smile Gradient Tree Boosting (GTB)</option>
                   <option value="cart">Decision Tree (CART)</option>
                   <option value="knn">K-Nearest Neighbors (KNN)</option>
                 </select>
@@ -287,8 +287,8 @@
   <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <script src="/static/js/map.js?v=20260813-1"></script>
-  <script src="/static/js/charts.js?v=20260813-1"></script>
-  <script src="/static/js/app.js?v=20260813-1"></script>
+  <script src="/static/js/map.js?v=20260901-v4"></script>
+  <script src="/static/js/charts.js?v=20260901-v4"></script>
+  <script src="/static/js/app.js?v=20260901-v4"></script>
 </body>
 </html>

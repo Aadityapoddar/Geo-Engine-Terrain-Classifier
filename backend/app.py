@@ -61,7 +61,7 @@ app.add_middleware(
 
 class ClassifyRequest(BaseModel):
     geometry: Dict[str, Any] = Field(..., description="GeoJSON Geometry (Polygon or Rectangle) marked on map")
-    model_type: str = Field(DEFAULT_MODEL, description="Classifier model ID: 'rf', 'svm', 'xgb', 'cart', 'knn'")
+    model_type: str = Field(DEFAULT_MODEL, description="Classifier model ID: 'rf', 'svm', 'gtb', 'cart', 'knn'")
     start_date: str = Field(SEASONS["summer"]["start"], description="Sentinel-2 composite start date (YYYY-MM-DD)")
     end_date: str = Field(SEASONS["summer"]["end"], description="Sentinel-2 composite end date (YYYY-MM-DD, exclusive)")
     cloud_threshold: float = Field(15.0, description="Max cloud cover percentage filter (1-50%)")
@@ -121,7 +121,9 @@ def run_classification(payload: ClassifyRequest):
     if not payload.geometry or "coordinates" not in payload.geometry:
         raise HTTPException(status_code=400, detail="Invalid GeoJSON geometry. Must contain valid 'coordinates'.")
 
-    valid_models = ["rf", "svm", "xgb", "cart", "knn"]
+    # "xgb" is accepted as the retired spelling of "gtb" so links and saved
+    # payloads from before the rename keep resolving.
+    valid_models = ["rf", "svm", "gtb", "cart", "knn", "xgb"]
     if payload.model_type.lower() not in valid_models:
         raise HTTPException(status_code=400, detail=f"Invalid model_type '{payload.model_type}'. Choose from {valid_models}")
 

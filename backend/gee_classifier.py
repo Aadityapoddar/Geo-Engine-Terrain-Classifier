@@ -49,39 +49,69 @@ _EE_INITIALIZED = False
 _CLASSIFIER_CACHE = {}
 
 
-def _classifier_cache_key(model_type, start_date, end_date, cloud_threshold):
+def _classifier_cache_key(model_type, start_date, end_date, cloud_threshold,
+                          allow_temporal_fallback):
     return (
         model_type.lower(),
         start_date,
         end_date,
         cloud_threshold,
+        # Part of the key because it changes which imagery the model was
+        # trained on. Without it a dashboard request and an evaluation run
+        # would silently share one cached classifier.
+        allow_temporal_fallback,
         TRAINING_SCHEMA_VERSION,
     )
 
 
-def make_classifier(model_type):
-    """Build one of the five supported classifiers with canonical parameters."""
+# One Earth Engine constructor per model id. The settings themselves live in
+# config.MODEL_METADATA, not here: they used to be written out twice, once in
+# this function and once in the metadata the dashboard displays, and two copies
+# of a hyperparameter is one copy too many. Retuning now edits a single place
+# and the served description, the trained model and the paper agree by
+# construction.
+CLASSIFIER_FACTORIES = {
+    "rf": lambda: ee.Classifier.smileRandomForest,
+    "svm": lambda: ee.Classifier.libsvm,
+    # "xgb" is the pre-v4 spelling and still resolves, so old notebooks and
+    # saved request payloads keep working. The name was wrong:
+    # ee.Classifier.smileGradientTreeBoost is Smile's gradient tree boosting,
+    # not the XGBoost of Chen and Guestrin, and nothing about this classifier
+    # is XGBoost's algorithm.
+    "gtb": lambda: ee.Classifier.smileGradientTreeBoost,
+    "xgb": lambda: ee.Classifier.smileGradientTreeBoost,
+    "cart": lambda: ee.Classifier.smileCart,
+    "knn": lambda: ee.Classifier.smileKNN,
+}
+
+MODEL_ALIASES = {"xgb": "gtb"}
+
+
+def classifier_parameters(model_type):
+    """The settings one model ships with, from the single place they live."""
+    model = MODEL_ALIASES.get(model_type.lower(), model_type.lower())
+    if model not in MODEL_METADATA:
+        raise ValueError(f"Unsupported model: {model_type}")
+    return dict(MODEL_METADATA[model]["params"])
+
+
+def make_classifier(model_type, params=None):
+    """Build one of the five supported classifiers.
+
+    `params` overrides the shipped settings, which is what the hyperparameter
+    search on the development districts needs; leaving it None gives exactly
+    the configuration the dashboard serves and the paper reports.
+    """
     model = model_type.lower()
-    if model == "rf":
-        return ee.Classifier.smileRandomForest(
-            numberOfTrees=200,
-            minLeafPopulation=1,
-            bagFraction=0.3,
-            maxNodes=10,
-        )
-    if model == "svm":
-        return ee.Classifier.libsvm(kernelType="RBF", gamma=1.0, cost=100.0)
-    if model == "xgb":
-        return ee.Classifier.smileGradientTreeBoost(
-            numberOfTrees=100,
-            shrinkage=0.1,
-            maxNodes=10,
-        )
-    if model == "cart":
-        return ee.Classifier.smileCart(maxNodes=20)
-    if model == "knn":
-        return ee.Classifier.smileKNN(k=5)
-    raise ValueError(f"Unsupported model: {model_type}")
+    factory = CLASSIFIER_FACTORIES.get(model)
+    if factory is None:
+        raise ValueError(f"Unsupported model: {model_type}")
+    settings = classifier_parameters(model) if params is None else dict(params)
+    # A None means "leave this argument unset", which is how the search says
+    # "no node cap" without Earth Engine seeing a null.
+    settings = {key: value for key, value in settings.items()
+                if value is not None}
+    return factory()(**settings)
 
 
 def merge_feature_collections(paths):
@@ -216,7 +246,29 @@ def _add_spectral_indices(composite):
     return composite.addBands(texture)
 
 
-def _add_sar(composite, geometry, start_date, end_date):
+# One orbit direction only. Sentinel-1 backscatter depends on the viewing
+# geometry as much as on the ground: ascending and descending passes see the
+# same slope, wall or furrow from opposite sides, so mixing them into one median
+# adds a look-direction term to every radar feature that the classifier can only
+# read as noise. Descending is the pass with the denser Indian archive.
+S1_ORBIT_PASS = "DESCENDING"
+
+
+def sentinel1_collection(geometry, start_date, end_date):
+    """The canonical Sentinel-1 selection: IW, dual-pol, one orbit direction."""
+    return (
+        ee.ImageCollection("COPERNICUS/S1_GRD")
+        .filterBounds(geometry)
+        .filterDate(start_date, end_date)
+        .filter(ee.Filter.eq("instrumentMode", "IW"))
+        .filter(ee.Filter.eq("orbitProperties_pass", S1_ORBIT_PASS))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+    )
+
+
+def _add_sar(composite, geometry, start_date, end_date,
+             allow_temporal_fallback=False):
     """Add Sentinel-1 C-band radar bands.
 
     Buildings produce a double-bounce return that bare soil cannot, at any
@@ -224,28 +276,35 @@ def _add_sar(composite, geometry, start_date, end_date):
     appearance. Values are rescaled from dB into roughly 0-1 so they sit on the
     same scale as reflectance -- an RBF SVM is distance-based and unscaled dB
     (-25..5) would otherwise dominate the kernel.
-    """
-    s1 = (
-        ee.ImageCollection("COPERNICUS/S1_GRD")
-        .filterBounds(geometry)
-        .filterDate(start_date, end_date)
-        .filter(ee.Filter.eq("instrumentMode", "IW"))
-        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
-        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
-    )
-    sar_fallback = (
-        ee.ImageCollection("COPERNICUS/S1_GRD")
-        .filterBounds(geometry)
-        .filterDate("2024-01-01", "2025-12-31")
-        .filter(ee.Filter.eq("instrumentMode", "IW"))
-        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
-        .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
-    )
-    s1 = ee.ImageCollection(
-        ee.Algorithms.If(s1.size().gt(0), s1, sar_fallback)
-    )
 
-    return add_sar_bands(composite, s1.select(["VV", "VH"]).median())
+    `allow_temporal_fallback` is the difference between the dashboard and the
+    experiments. A user who draws a polygon over a week with no radar pass wants
+    a map, so the dashboard widens to the 2024-2025 archive rather than handing
+    back a blank. An accuracy figure cannot afford that: a 2024 monsoon scene
+    standing in for an April 2025 one describes a different season and a
+    different ground state, and the seasonal comparison the paper reports would
+    then be partly a comparison of fallback rates. With the fallback off, an
+    empty window yields fully masked radar bands, the affected points fail the
+    notNull filter, and the missingness is visible in the sample count instead
+    of being silently papered over.
+    """
+    s1 = sentinel1_collection(geometry, start_date, end_date)
+    if allow_temporal_fallback:
+        s1 = ee.ImageCollection(ee.Algorithms.If(
+            s1.size().gt(0),
+            s1,
+            sentinel1_collection(geometry, "2024-01-01", "2025-12-31"),
+        ))
+        sar = s1.select(["VV", "VH"]).median()
+    else:
+        # median() of an empty collection has no bands at all, so select("VV")
+        # would raise rather than mask. Substitute a fully masked stand-in that
+        # keeps the band names and lets the notNull filter drop the points.
+        blank = ee.Image.constant([0, 0]).rename(["VV", "VH"]) \
+            .updateMask(ee.Image.constant(0)).toFloat()
+        sar = ee.Image(ee.Algorithms.If(
+            s1.size().gt(0), s1.select(["VV", "VH"]).median(), blank))
+    return add_sar_bands(composite, sar)
 
 
 def add_sar_bands(composite, sar):
@@ -257,6 +316,13 @@ def add_sar_bands(composite, sar):
     silently missed the texture rescaling.
     """
     vv_db, vh_db = sar.select("VV"), sar.select("VH")
+    # The polarimetric ratio is taken as a *difference of decibels*, which is
+    # identically log10(sigma0_VV / sigma0_VH) up to the 10x factor -- the same
+    # physical quantity a linear-power ratio measures. Dividing the dB values,
+    # or dividing after the 0-1 rescaling below, would not be: neither is a
+    # backscatter ratio in any units. The rescale is applied only afterwards,
+    # to the finished ratio, purely so the distance-based classifiers see it on
+    # the same footing as reflectance.
     ratio = vv_db.subtract(vh_db).unitScale(-5, 20).clamp(0, 1).rename("VVVH")
     vv = vv_db.unitScale(-25, 5).clamp(0, 1).rename("VV")
     vh = vh_db.unitScale(-30, 0).clamp(0, 1).rename("VH")
@@ -267,8 +333,13 @@ def add_sar_bands(composite, sar):
     return composite.addBands([vv, vh, ratio]).addBands(texture)
 
 
-def _build_collection(geometry, start_date, end_date, cloud_threshold):
-    """Build a filtered & cloud-masked Sentinel-2 image collection for a geometry."""
+def _build_collection(geometry, start_date, end_date, cloud_threshold,
+                      allow_temporal_fallback=False):
+    """Build a filtered & cloud-masked Sentinel-2 image collection for a geometry.
+
+    See `_add_sar` for why `allow_temporal_fallback` exists: the same
+    dashboard-versus-experiment split applies to the optical archive.
+    """
     collection = (
         ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
         .filterDate(start_date, end_date)
@@ -276,6 +347,8 @@ def _build_collection(geometry, start_date, end_date, cloud_threshold):
         .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", cloud_threshold))
         .map(mask_s2_clouds)
     )
+    if not allow_temporal_fallback:
+        return collection
     fallback = (
         ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
         .filterDate("2024-01-01", "2025-12-31")
@@ -288,34 +361,51 @@ def _build_collection(geometry, start_date, end_date, cloud_threshold):
     )
 
 
-def build_sentinel_composite(geometry, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):
+def build_sentinel_composite(geometry, start_date="2025-04-01", end_date="2025-05-30",
+                             cloud_threshold=15, allow_temporal_fallback=False):
     """Build a Sentinel-2 median composite clipped to `geometry` with spectral indices."""
     init_ee()
-    collection = _build_collection(geometry, start_date, end_date, cloud_threshold)
+    collection = _build_collection(
+        geometry, start_date, end_date, cloud_threshold, allow_temporal_fallback)
     composite = collection.median().clip(geometry)
     composite = _add_spectral_indices(composite)
-    composite = _add_sar(composite, geometry, start_date, end_date)
+    composite = _add_sar(composite, geometry, start_date, end_date,
+                         allow_temporal_fallback)
     return composite
 
 
 def sample_training_points(
     points,
-    start_date="2025-03-31",
-    end_date="2025-04-30",
+    start_date="2025-04-01",
+    end_date="2025-05-30",
     cloud_threshold=15,
+    allow_temporal_fallback=False,
+    bands=None,
 ):
-    """Sample the canonical feature stack for a labelled point collection."""
+    """Sample a feature stack for a labelled point collection.
+
+    `bands` defaults to the shipped 19-band cut. Pass config.FULL_BANDS to get
+    the 27-band superset, which is what the feature-stack comparison needs: one
+    sampled table that every candidate stack can be trained from, so the stacks
+    differ only in which columns the classifier is allowed to see and not in
+    which pixels survived sampling.
+    """
     train_geometry = points.geometry().bounds()
     train_collection = _build_collection(
-        train_geometry, start_date, end_date, cloud_threshold)
+        train_geometry, start_date, end_date, cloud_threshold,
+        allow_temporal_fallback)
     train_composite = _add_spectral_indices(train_collection.median())
     train_composite = _add_sar(
-        train_composite, train_geometry, start_date, end_date)
-    return _sample_regions_with_geometry(train_composite.select(BANDS), points)
+        train_composite, train_geometry, start_date, end_date,
+        allow_temporal_fallback)
+    bands = list(BANDS if bands is None else bands)
+    return _sample_regions_with_geometry(
+        train_composite.select(bands), points, bands)
 
 
-def _sample_regions_with_geometry(image, points):
+def _sample_regions_with_geometry(image, points, bands=None):
     """Sample labelled points into an exportable table with point geometries."""
+    bands = list(BANDS if bands is None else bands)
     return (
         image.sampleRegions(
             collection=points,
@@ -324,11 +414,12 @@ def _sample_regions_with_geometry(image, points):
             tileScale=4,
             geometries=True,
         )
-        .filter(ee.Filter.notNull(BANDS + ["label"]))
+        .filter(ee.Filter.notNull(bands + ["label"]))
     )
 
 
-def get_trained_classifier(model_type, start_date="2025-03-31", end_date="2025-04-30", cloud_threshold=15):
+def get_trained_classifier(model_type, start_date="2025-04-01", end_date="2025-05-30",
+                           cloud_threshold=15, allow_temporal_fallback=False):
     """
     ALWAYS train on the composite covering the labelled training points.
     The classifier is then applied to any user-supplied AOI.
@@ -336,7 +427,8 @@ def get_trained_classifier(model_type, start_date="2025-03-31", end_date="2025-0
     init_ee()
 
     cache_key = _classifier_cache_key(
-        model_type, start_date, end_date, cloud_threshold)
+        model_type, start_date, end_date, cloud_threshold,
+        allow_temporal_fallback)
     if cache_key in _CLASSIFIER_CACHE:
         return _CLASSIFIER_CACHE[cache_key]
 
@@ -349,6 +441,7 @@ def get_trained_classifier(model_type, start_date="2025-03-31", end_date="2025-0
         start_date=start_date,
         end_date=end_date,
         cloud_threshold=cloud_threshold,
+        allow_temporal_fallback=allow_temporal_fallback,
     )
 
     # ── Instantiate the requested classifier ──
@@ -599,9 +692,14 @@ def _is_rate_limited(ex):
     waiting out rather than discarding the whole job over.
     """
     if isinstance(ex, urllib.error.HTTPError):
-        return ex.code == 429
+        # 429 is EE's own rate limiter; the 5xx family is its fronting
+        # infrastructure being briefly unavailable. Both are transient and both
+        # cost the whole render if treated as fatal -- a measured Etawah run
+        # lost 9 completed tiles and 10 minutes to a single 503 on tile 10.
+        return ex.code == 429 or ex.code in (500, 502, 503, 504)
     text = str(ex).lower()
-    return "too many requests" in text or "concurrency limit" in text
+    return ("too many requests" in text or "concurrency limit" in text
+            or "service unavailable" in text or "backend error" in text)
 
 
 def _fetch_tile(image_fn, box, attempts=6):
@@ -742,16 +840,26 @@ def start_overlay_render(image_fn, geometry_dict, key):
 def classify_and_analyze(
     geometry_dict,
     model_type="rf",
-    start_date="2025-03-31",
-    end_date="2025-04-30",
+    start_date="2025-04-01",
+    end_date="2025-05-30",
     cloud_threshold=15,
-    smoothing=True
+    smoothing=True,
+    allow_temporal_fallback=True,
 ):
+    """Classify a user-drawn AOI. This is the dashboard path, and the only one
+    that widens to the 2024-2025 archive when the requested window is empty:
+    somebody who drew a polygon wants a map back, whereas a reported accuracy
+    figure cannot be allowed to quietly describe a different year. Every
+    evaluation script therefore leaves `allow_temporal_fallback` at its False
+    default; see `_add_sar`.
+    """
     start_time = time.time()
     init_ee()
 
     # ── 1. Train on the labelled-point composite (training labels always live there) ──
-    classifier = get_trained_classifier(model_type, start_date, end_date, cloud_threshold)
+    classifier = get_trained_classifier(
+        model_type, start_date, end_date, cloud_threshold,
+        allow_temporal_fallback)
 
     # ── 2. Build the user's AOI composite for classification ──
     user_geometry = ee.Geometry(geometry_dict)
@@ -759,7 +867,8 @@ def classify_and_analyze(
         geometry=user_geometry,
         start_date=start_date,
         end_date=end_date,
-        cloud_threshold=cloud_threshold
+        cloud_threshold=cloud_threshold,
+        allow_temporal_fallback=allow_temporal_fallback,
     )
 
     # ── 3. Classify the user's AOI ──
@@ -783,6 +892,7 @@ def classify_and_analyze(
                 start_date=start_date,
                 end_date=end_date,
                 cloud_threshold=cloud_threshold,
+                allow_temporal_fallback=allow_temporal_fallback,
             ),
             clip_to=user_geometry,
         )

@@ -5,21 +5,28 @@ const ChartsController = (function () {
   let donutChart = null;
 
   const FALLBACK_COLOR_MAP = {
-    "Forest": "#006400",
+    "Vegetation": "#006400",
     "Water": "#3b82f6",
-    "Buildings": "#f43f5e",
-    "Barren Land": "#d97706",
+    "Built Area": "#f43f5e",
+    "Open Land": "#d97706",
     "Agriculture": "#90EE90"
   };
 
-  const CLASS_DISPLAY_NAMES = {
+  // The backend used to send Forest / Buildings / Barren Land while the UI and
+  // the paper said Vegetation / Built Area / Open Land, so this file translated
+  // between them. backend.config.LAND_COVER_CLASSES now carries the display
+  // names directly and there is nothing left to translate. The old spellings
+  // are still accepted so a cached response, or a deployment that has not
+  // restarted yet, does not render an unlabelled chart.
+  const LEGACY_CLASS_NAMES = {
     "Forest": "Vegetation",
     "Buildings": "Built Area",
-    "Barren Land": "Open Land"
+    "Barren Land": "Open Land",
+    "Bare": "Open Land"
   };
 
   function displayClassName(name) {
-    return CLASS_DISPLAY_NAMES[name] || name;
+    return LEGACY_CLASS_NAMES[name] || name;
   }
 
   function renderTerrainAnalytics(summaryData, classAreasList) {

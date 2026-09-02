@@ -1,0 +1,119 @@
+import os
+import sys
+import unittest
+from fastapi.testclient import TestClient
+
+# Ensure root directory is on python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from backend.app import app
+from backend.config import BANDS, LAND_COVER_CLASSES, SEASONS, TRAINING_SCHEMA_VERSION
+
+
+class TestGeoEngineAPI(unittest.TestCase):
+
+    def setUp(self):
+        self.client = TestClient(app)
+
+    def test_health_endpoint(self):
+        response = self.client.get("/api/health")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["status"], "online")
+        self.assertTrue(data["gee_initialized"])
+        self.assertEqual(data["default_map_center"]["label"], "India")
+
+    def test_models_endpoint(self):
+        response = self.client.get("/api/models")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("rf", data["models"])
+        self.assertIn("svm", data["models"])
+        self.assertIn("gtb", data["models"])
+        self.assertIn("cart", data["models"])
+        self.assertIn("knn", data["models"])
+
+    def test_config_exposes_five_class_training_schema(self):
+        response = self.client.get("/api/config")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data["classes"]), 5)
+        self.assertEqual(len(data["bands"]), 19)
+        self.assertEqual(data["bands"], BANDS)
+        self.assertEqual(data["seasons"], SEASONS)
+        self.assertEqual(data["training_schema_version"], TRAINING_SCHEMA_VERSION)
+
+    def test_classification_endpoint(self):
+        # Campus study area polygon
+        test_geojson = {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [80.0171, 23.1739],
+                    [80.0325, 23.1653],
+                    [80.0365, 23.1725],
+                    [80.0268, 23.1816],
+                    [80.0154, 23.1769],
+                    [80.0171, 23.1739]
+                ]
+            ]
+        }
+
+        payload = {
+            "geometry": test_geojson,
+            "model_type": "rf",
+            "start_date": "2025-03-31",
+            "end_date": "2025-04-30",
+            "cloud_threshold": 15.0,
+            "smoothing": True
+        }
+
+        response = self.client.post("/api/classify", json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+
+        self.assertEqual(data["status"], "success")
+        for overlay_key in ("rgb_overlay", "terrain_overlay"):
+            self.assertIn(overlay_key, data)
+            overlay = data[overlay_key]
+            self.assertEqual(
+                sorted(overlay["bounds"]), ["east", "north", "south", "west"])
+
+        # The true-colour layer is a plain thumbnail and comes back with the
+        # response. The classified layer does not: it is rendered at the
+        # classifier's 10 m training scale, which is minutes of Earth Engine
+        # compute for anything district-sized, so the response carries a key to
+        # poll and the URL only appears once the PNG is cached.
+        self.assertTrue(data["rgb_overlay"]["url"])
+
+        terrain = data["terrain_overlay"]
+        self.assertTrue(terrain["key"])
+        self.assertIn(terrain["status"], ("rendering", "ready"))
+        self.assertEqual(terrain["scale_m"], 10)
+        if terrain["status"] == "ready":
+            self.assertTrue(terrain["url"])
+
+        status = self.client.get(f"/api/overlay/{terrain['key']}")
+        self.assertEqual(status.status_code, 200)
+        self.assertIn(status.json()["status"], ("rendering", "ready", "failed"))
+
+        
+        # Verify individual class areas breakdown
+        self.assertIn("individual_class_areas", data)
+        class_areas = data["individual_class_areas"]
+        self.assertEqual(len(class_areas), len(LAND_COVER_CLASSES))
+
+        for item in class_areas:
+            self.assertIn("name", item)
+            self.assertIn("area_ha", item)
+            self.assertIn("area_sqm", item)
+            self.assertIn("percentage", item)
+
+        print("\n✅ Classification Test Result:")
+        print(f"Total Area: {data['summary']['total_area_ha']} ha")
+        for cls in class_areas:
+            print(f" - {cls['name']}: {cls['area_ha']} ha ({cls['percentage']}%)")
+
+
+if __name__ == "__main__":
+    unittest.main()
