@@ -1,0 +1,313 @@
+{
+ "season": "winter",
+ "training_rows": 5000,
+ "evaluation_rows": 2900,
+ "repeats": 4,
+ "mode_notes": {
+  "frozen": "identical training rows, values and order",
+  "shuffled": "identical training rows and values, order permuted per repeat",
+  "resampled": "training table re-sampled from Earth Engine per repeat"
+ },
+ "runs": [
+  {
+   "model": "gtb",
+   "mode": "frozen",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    87.241,
+    87.241,
+    87.241,
+    87.241
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "rf",
+   "mode": "frozen",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.517,
+    86.517,
+    86.517,
+    86.517
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "svm",
+   "mode": "frozen",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.379,
+    86.379,
+    86.379,
+    86.379
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "knn",
+   "mode": "frozen",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    85.241,
+    85.241,
+    85.241,
+    85.241
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "cart",
+   "mode": "frozen",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    80.586,
+    80.586,
+    80.586,
+    80.586
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "gtb",
+   "mode": "shuffled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.724,
+    86.517,
+    86.897,
+    86.655
+   ],
+   "agreement_range_pp": 0.379,
+   "changed_point_predictions_vs_first_fit": [
+    66,
+    72,
+    64
+   ],
+   "points_changed_by_any_repeat": 119,
+   "districts_touched": 29
+  },
+  {
+   "model": "rf",
+   "mode": "shuffled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.034,
+    86.034,
+    86.138,
+    86.414
+   ],
+   "agreement_range_pp": 0.379,
+   "changed_point_predictions_vs_first_fit": [
+    52,
+    46,
+    44
+   ],
+   "points_changed_by_any_repeat": 79,
+   "districts_touched": 24
+  },
+  {
+   "model": "svm",
+   "mode": "shuffled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.31,
+    86.345,
+    87.069,
+    87.034
+   ],
+   "agreement_range_pp": 0.759,
+   "changed_point_predictions_vs_first_fit": [
+    6,
+    25,
+    26
+   ],
+   "points_changed_by_any_repeat": 26,
+   "districts_touched": 17
+  },
+  {
+   "model": "knn",
+   "mode": "shuffled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    85.241,
+    85.241,
+    85.241,
+    85.241
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "cart",
+   "mode": "shuffled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    80.621,
+    80.586,
+    80.586,
+    80.586
+   ],
+   "agreement_range_pp": 0.034,
+   "changed_point_predictions_vs_first_fit": [
+    8,
+    8,
+    8
+   ],
+   "points_changed_by_any_repeat": 8,
+   "districts_touched": 8
+  },
+  {
+   "model": "gtb",
+   "mode": "resampled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    87.414,
+    87.414,
+    87.414,
+    87.414
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "rf",
+   "mode": "resampled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.517,
+    86.517,
+    86.517,
+    86.517
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "svm",
+   "mode": "resampled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    86.379,
+    86.379,
+    86.379,
+    86.379
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "knn",
+   "mode": "resampled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    85.241,
+    85.241,
+    85.241,
+    85.241
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  },
+  {
+   "model": "cart",
+   "mode": "resampled",
+   "repeats": 4,
+   "rows": 2900,
+   "agreement_pct": [
+    80.586,
+    80.586,
+    80.586,
+    80.586
+   ],
+   "agreement_range_pp": 0.0,
+   "changed_point_predictions_vs_first_fit": [
+    0,
+    0,
+    0
+   ],
+   "points_changed_by_any_repeat": 0,
+   "districts_touched": 0
+  }
+ ]
+}

@@ -1,0 +1,95 @@
+experiment,source_file,season,population,tuning,variant,n,overall_accuracy,open_land_recall,built_area_precision
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:all27,1500,0.866667,0.733333,0.731051
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B11,1500,0.858,0.713333,0.730392
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B12,1500,0.852667,0.71,0.719128
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B2,1500,0.864667,0.726667,0.73201
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B3,1500,0.865333,0.743333,0.743142
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B4,1500,0.864667,0.736667,0.7375
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B8,1500,0.860667,0.723333,0.727273
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_NDVI,1500,0.859333,0.71,0.731527
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_BAEI,1500,0.858667,0.716667,0.72439
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_BSI,1500,0.859333,0.713333,0.723716
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_IBI,1500,0.862,0.72,0.736973
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_NDBI,1500,0.866,0.74,0.738806
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_NDWI,1500,0.864667,0.74,0.7425
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_SAVI,1500,0.862,0.716667,0.736453
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_SWIRratio,1500,0.851333,0.713333,0.716346
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_UI,1500,0.864,0.723333,0.736318
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_VH,1500,0.840667,0.656667,0.686916
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_VV,1500,0.862667,0.713333,0.722628
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_asm,1500,0.865333,0.743333,0.735802
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_contrast,1500,0.867333,0.75,0.751899
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_diss,1500,0.865333,0.726667,0.72973
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_ent,1500,0.859333,0.71,0.722628
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_idm,1500,0.856667,0.713333,0.72439
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_var,1500,0.86,0.726667,0.72549
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_VVVH,1500,0.864,0.733333,0.732187
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_s_contrast,1500,0.863333,0.74,0.738155
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_s_ent,1500,0.867333,0.743333,0.734491
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:drop_s_var,1500,0.859333,0.723333,0.723301
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:g10_baseline,1500,0.758667,0.42,0.577551
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:g15_bareness,1500,0.77,0.406667,0.57485
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:g21_texture,1500,0.802,0.573333,0.624729
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:g27_sar,1500,0.866667,0.733333,0.731051
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:all27,1418,0.747532,0.55,0.727941
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B11,1418,0.732722,0.57,0.725061
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B12,1418,0.736248,0.51,0.721951
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B2,1418,0.748942,0.593333,0.736318
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B3,1418,0.75811,0.58,0.726829
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B4,1418,0.739069,0.533333,0.722628
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_B8,1418,0.74048,0.556667,0.721951
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_NDVI,1418,0.739774,0.543333,0.719128
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_BAEI,1418,0.755994,0.6,0.730392
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_BSI,1418,0.749647,0.593333,0.734491
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_IBI,1418,0.745416,0.563333,0.717762
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_NDBI,1418,0.752468,0.586667,0.732673
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_NDWI,1418,0.731312,0.563333,0.722359
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_SAVI,1418,0.744006,0.566667,0.723716
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_SWIRratio,1418,0.723554,0.523333,0.726601
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_UI,1418,0.744006,0.58,0.72549
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_VH,1418,0.728491,0.573333,0.734644
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_VV,1418,0.736953,0.563333,0.722222
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_asm,1418,0.748237,0.566667,0.72439
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_contrast,1418,0.739774,0.55,0.727941
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_diss,1418,0.751763,0.57,0.730392
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_ent,1418,0.748237,0.566667,0.72439
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_idm,1418,0.745416,0.546667,0.720874
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_g_var,1418,0.733427,0.563333,0.721951
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_VVVH,1418,0.74189,0.55,0.720195
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_s_contrast,1418,0.736248,0.573333,0.727273
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_s_ent,1418,0.745416,0.553333,0.725061
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:drop_s_var,1418,0.738364,0.563333,0.713942
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:g10_baseline,1418,0.602257,0.326667,0.565385
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:g15_bareness,1418,0.603667,0.306667,0.566219
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:g21_texture,1418,0.667842,0.536667,0.648352
+cumulative feature families and leave-one-band-out,band_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:g27_sar,1418,0.747532,0.55,0.727941
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:all27,1500,0.867333,0.73,0.738806
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:minus_bareness_indices,1500,0.855333,0.726667,0.730198
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:minus_core_indices,1500,0.864667,0.733333,0.749367
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:minus_optical_glcm_texture,1500,0.852667,0.636667,0.714976
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:minus_optical_reflectance,1500,0.851333,0.666667,0.711217
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:minus_sar_amplitude,1500,0.810667,0.573333,0.628571
+leave-one-family-out,band_family_ablation_v4.json,winter,development (15 districts),pre-hyperparameter-search settings,gtb:minus_sar_glcm_texture,1500,0.859333,0.726667,0.726161
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:all27,1418,0.7433,0.553333,0.731527
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:minus_bareness_indices,1418,0.744711,0.596667,0.744949
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:minus_core_indices,1418,0.713681,0.503333,0.713253
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:minus_optical_glcm_texture,1418,0.727786,0.493333,0.689252
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:minus_optical_reflectance,1418,0.729901,0.506667,0.728606
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:minus_sar_amplitude,1418,0.67842,0.51,0.645514
+leave-one-family-out,band_family_ablation_v4.json,summer,development (15 districts),pre-hyperparameter-search settings,gtb:minus_sar_glcm_texture,1418,0.739774,0.586667,0.720482
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,development (15 districts),frozen winter hyperparameter selection,after-gtb,1500,0.871333,0.763333,0.745592
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,development (15 districts),frozen winter hyperparameter selection,after-gtb-b19,1500,0.857333,0.72,0.728606
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,development (15 districts),frozen winter hyperparameter selection,after-gtb-b22,1500,0.866,0.736667,0.745636
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,development (15 districts),frozen winter hyperparameter selection,after-gtb-b27,1500,0.869333,0.746667,0.744361
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,test (29 districts),frozen winter hyperparameter selection,after-gtb,2900,0.874138,0.763793,0.756614
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,test (29 districts),frozen winter hyperparameter selection,after-gtb-b19,2900,0.856552,0.687931,0.731646
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,test (29 districts),frozen winter hyperparameter selection,after-gtb-b22,2900,0.857586,0.705172,0.723965
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,winter,test (29 districts),frozen winter hyperparameter selection,after-gtb-b27,2900,0.854828,0.687931,0.718905
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,development (15 districts),frozen winter hyperparameter selection,after-gtb,1418,0.752468,0.59,0.734491
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,development (15 districts),frozen winter hyperparameter selection,after-gtb-b19,1418,0.702398,0.426667,0.719807
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,development (15 districts),frozen winter hyperparameter selection,after-gtb-b22,1418,0.716502,0.52,0.726829
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,development (15 districts),frozen winter hyperparameter selection,after-gtb-b27,1418,0.739774,0.523333,0.719807
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,test (29 districts),frozen winter hyperparameter selection,after-gtb,2692,0.738484,0.596552,0.751309
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,test (29 districts),frozen winter hyperparameter selection,after-gtb-b19,2692,0.689822,0.465517,0.740979
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,test (29 districts),frozen winter hyperparameter selection,after-gtb-b22,2692,0.707652,0.532759,0.740979
+"candidate feature stacks, frozen pipeline",result_archive/predictions.csv,summer,test (29 districts),frozen winter hyperparameter selection,after-gtb-b27,2692,0.719911,0.493103,0.743226

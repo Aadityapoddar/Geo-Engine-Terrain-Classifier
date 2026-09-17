@@ -1,0 +1,7 @@
+product,asset_id,version,epoch,native_grid_m,role,condition,remap
+ESA WorldCover,ESA/WorldCover/v200,v200,2021 calendar year,10,general product A,class must match the crosswalk row,"10,95->Vegetation; 80,90->Water; 50->Built; 60->Open; 40->Agriculture; 20,30,70,100->unassigned"
+Dynamic World,GOOGLE/DYNAMICWORLD/V1,V1,composited over the same season window as the map,10,general product B,class must match product A and carry probability >= 0.7,"1->Vegetation; 0,3->Water; 6->Built; 7->Open; 4->Agriculture; 2,5,8->unassigned"
+JRC GHSL built surface,JRC/GHSL/P2023A/GHS_BUILT_S_10m/2018,P2023A,2018 observation epoch,10,"specialist, Built Area",built surface >= 50 m2 inside a 100 m2 cell,n/a (continuous built-surface area)
+OPERA DSWx-HLS,OPERA/DSWX/L3_V1/HLS,L3 V1,scenes inside the season window,30,"specialist, Water",WTR_Water_classification marks open water,open water -> Water
+ESA WorldCereal,ESA/WorldCereal/2021/MODELS/v100,2021 v100 temporarycrops,2021 seasons,10,"specialist, Agriculture","season product {'winter': 'tc-wintercereals', 'summer': 'tc-maize-main'} marks temporary crops",temporary crops -> Agriculture
+ESRI 10 m Annual Land Cover,external arbiter,2024,2024 calendar year,10,"independent arbiter, contributes nothing to the consensus",not used to build the reference,same five-class crosswalk

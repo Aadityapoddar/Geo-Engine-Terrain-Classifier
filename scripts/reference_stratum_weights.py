@@ -72,24 +72,79 @@ def district_stratum_areas(district, season, scale):
     region = district.geometry()
     reference = build_reference_image(
         region, season, dates["start"], dates["end"])
-    pixel_area = ee.Image.pixelArea()
-    stack = ee.Image.cat([
-        pixel_area.updateMask(reference.eq(value)).rename(str(value))
-        for value in REFERENCE_LABELS
-    ])
-    measured = stack.reduceRegion(
-        reducer=ee.Reducer.sum(),
+    # One grouped pass rather than five masked bands. The five-band version
+    # evaluates the same reference image five times and times out on the larger
+    # districts once the scale drops to 10 m; grouping by the class value
+    # measures exactly the same masked areas in one pass. Masked pixels carry no
+    # group and are dropped, which is the behaviour the five masks had.
+    grouped = ee.Image.pixelArea().addBands(reference).reduceRegion(
+        reducer=ee.Reducer.sum().group(groupField=1, groupName="class"),
         geometry=region,
         scale=scale,
         maxPixels=1e13,
-        tileScale=8,
+        tileScale=2,
         bestEffort=False,
     )
-    return ee.Dictionary(measured).set(
-        "district_area_m2", region.area(maxError=100)).getInfo()
+    areas = {str(value): 0.0 for value in REFERENCE_LABELS}
+    for group in ee.Dictionary(grouped).getInfo()["groups"]:
+        if int(group["class"]) in REFERENCE_LABELS:
+            areas[str(int(group["class"]))] = group["sum"]
+    areas["district_area_m2"] = region.area(maxError=100).getInfo()
+    return areas
+
+
+def district_stratum_areas_tiled(district, season, scale, tiles=2):
+    """The same measurement over a `tiles` x `tiles` grid, summed.
+
+    The largest districts time out at 10 m even in one grouped pass. Splitting
+    the bounding box and summing the pieces is arithmetically identical -- the
+    strata partition the district and pixel areas add -- and each piece is a
+    request Earth Engine will finish.
+    """
+    region = district.geometry()
+    bounds = region.bounds().coordinates().get(0).getInfo()
+    lons = [point[0] for point in bounds]
+    lats = [point[1] for point in bounds]
+    west, east, south, north = min(lons), max(lons), min(lats), max(lats)
+    totals = {str(value): 0.0 for value in REFERENCE_LABELS}
+    for row in range(tiles):
+        for column in range(tiles):
+            cell = ee.Geometry.Rectangle([
+                west + (east - west) * column / tiles,
+                south + (north - south) * row / tiles,
+                west + (east - west) * (column + 1) / tiles,
+                south + (north - south) * (row + 1) / tiles,
+            ], proj="EPSG:4326", geodesic=False)
+            piece = ee.Feature(region.intersection(cell, maxError=10))
+            if piece.geometry().area(maxError=100).getInfo() <= 0:
+                continue
+            measured = district_stratum_areas(piece, season, scale)
+            measured.pop("district_area_m2")
+            for key, value in measured.items():
+                totals[key] += value
+    totals["district_area_m2"] = region.area(maxError=100).getInfo()
+    return totals
+
+
+def merge(args):
+    """Fold shard outputs into one file, asserting they agree on the scale."""
+    merged = None
+    for path in args.merge:
+        piece = json.loads(path.read_text())
+        if merged is None:
+            merged = piece
+            continue
+        if piece["scale_m"] != merged["scale_m"]:
+            raise SystemExit(f"{path} was measured at {piece['scale_m']} m")
+        merged["strata"].update(piece["strata"])
+    _write_json(args.output, merged)
+    print(f"merged {len(args.merge)} shards into {args.output} "
+          f"({len(merged['strata'])} district-seasons)")
 
 
 def run(args):
+    if args.merge:
+        return merge(args)
     socket.setdefaulttimeout(SOCKET_TIMEOUT_SECONDS)
     _call_with_retry("initialize", init_ee, args.retries)
     districts = madhya_pradesh_districts()
@@ -110,17 +165,43 @@ def run(args):
         raise SystemExit(
             f"{output} was measured at {state.get('scale_m')} m; rerun with "
             f"--scale {state.get('scale_m')} or start a new output.")
+    if args.districts:
+        names = [name for name in names if name in set(args.districts)]
+        print(f"restricted to {len(names)} named districts", flush=True)
+    if args.shards > 1:
+        # Shard by index so each worker owns a disjoint district list and its
+        # own checkpoint file; merge with --merge once they all land.
+        names = [name for index, name in enumerate(names)
+                 if index % args.shards == args.shard]
+        print(f"shard {args.shard}/{args.shards}: {len(names)} districts",
+              flush=True)
     for season in SEASONS:
         for name in names:
             key = f"{season}:{name}"
             if key in state["strata"]:
                 continue
             district = districts.filter(ee.Filter.eq("ADM2_NAME", name)).first()
-            areas = _call_with_retry(
-                key,
-                lambda: district_stratum_areas(district, season, args.scale),
-                args.retries,
-            )
+            try:
+                # Two attempts, not `--retries`: a district that times out at
+                # this scale will time out again, and each attempt costs several
+                # minutes before the server gives up. The tiled path below is
+                # what actually finishes it, so get there quickly.
+                areas = _call_with_retry(
+                    key,
+                    lambda: district_stratum_areas(district, season, args.scale),
+                    2,
+                )
+            except RETRYABLE_ERRORS as whole_district:
+                # A timeout here is a size problem, not a data problem: the same
+                # measurement over pieces of the same district adds to the same
+                # total. Say so in the log rather than losing the district.
+                print(f"tiling {key} after {whole_district}", flush=True)
+                areas = _call_with_retry(
+                    f"{key} tiled",
+                    lambda: district_stratum_areas_tiled(
+                        district, season, args.scale, args.tiles),
+                    args.retries,
+                )
             state["strata"][key] = {
                 "season": season,
                 "district": name,
@@ -143,6 +224,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scale", type=int, default=30)
     parser.add_argument("--retries", type=int, default=4)
+    parser.add_argument("--districts", nargs="*", default=None,
+                        help="measure only these district names")
+    parser.add_argument("--shard", type=int, default=0)
+    parser.add_argument("--shards", type=int, default=1)
+    parser.add_argument("--merge", type=Path, nargs="*", default=None,
+                        help="merge these shard outputs into --output and exit")
+    parser.add_argument("--tiles", type=int, default=3,
+                        help="grid used when a whole district times out")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     run(parser.parse_args())
 

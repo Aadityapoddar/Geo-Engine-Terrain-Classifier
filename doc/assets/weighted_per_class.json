@@ -1,0 +1,64 @@
+{
+ "winter": {
+  "weighted_overall_accuracy": 75.5,
+  "represented_share_of_domain": 100.0,
+  "per_class": {
+   "Vegetation": {
+    "reference_area_share_pct": 1.898,
+    "weighted_producers_accuracy_pct": 89.13,
+    "weighted_users_accuracy_pct": 32.75
+   },
+   "Water": {
+    "reference_area_share_pct": 1.719,
+    "weighted_producers_accuracy_pct": 100.0,
+    "weighted_users_accuracy_pct": 48.42
+   },
+   "Built Area": {
+    "reference_area_share_pct": 0.298,
+    "weighted_producers_accuracy_pct": 99.61,
+    "weighted_users_accuracy_pct": 3.43
+   },
+   "Open Land": {
+    "reference_area_share_pct": 0.227,
+    "weighted_producers_accuracy_pct": 87.4,
+    "weighted_users_accuracy_pct": 1.83
+   },
+   "Agriculture": {
+    "reference_area_share_pct": 95.858,
+    "weighted_producers_accuracy_pct": 74.69,
+    "weighted_users_accuracy_pct": 99.72
+   }
+  }
+ },
+ "summer": {
+  "weighted_overall_accuracy": 58.67,
+  "represented_share_of_domain": 100.0,
+  "per_class": {
+   "Vegetation": {
+    "reference_area_share_pct": 0.115,
+    "weighted_producers_accuracy_pct": 30.34,
+    "weighted_users_accuracy_pct": 1.49
+   },
+   "Water": {
+    "reference_area_share_pct": 0.789,
+    "weighted_producers_accuracy_pct": 100.0,
+    "weighted_users_accuracy_pct": 15.73
+   },
+   "Built Area": {
+    "reference_area_share_pct": 0.37,
+    "weighted_producers_accuracy_pct": 99.01,
+    "weighted_users_accuracy_pct": 4.17
+   },
+   "Open Land": {
+    "reference_area_share_pct": 0.333,
+    "weighted_producers_accuracy_pct": 61.1,
+    "weighted_users_accuracy_pct": 0.77
+   },
+   "Agriculture": {
+    "reference_area_share_pct": 98.393,
+    "weighted_producers_accuracy_pct": 58.21,
+    "weighted_users_accuracy_pct": 99.85
+   }
+  }
+ }
+}

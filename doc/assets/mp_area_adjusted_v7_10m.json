@@ -1,0 +1,686 @@
+{
+  "weights_source": "doc/assets/mp_reference_stratum_areas_10m.json",
+  "weight_scale_m": 10,
+  "estimator": "Olofsson et al. (2014) stratified, strata = district x reference class",
+  "classifier": "after-gtb",
+  "district_splits": {
+    "development": [
+      "Barwani",
+      "Damoh",
+      "Harda",
+      "Hoshangabad",
+      "Jhabua",
+      "Mandsaur",
+      "Neemuch",
+      "Rajgarh",
+      "Rewa",
+      "Sehore",
+      "Shajapur",
+      "Sheopur",
+      "Shivpuri",
+      "Tikamgarh",
+      "West Nimar"
+    ],
+    "test": [
+      "Anuppur",
+      "Ashoknagar",
+      "Balaghat",
+      "Betul",
+      "Bhind",
+      "Bhopal",
+      "Burhanpur",
+      "Chhatarpur",
+      "Chhindwara",
+      "Datia",
+      "Dewas",
+      "Dhar",
+      "East Nimar",
+      "Guna",
+      "Gwalior",
+      "Indore",
+      "Morena",
+      "Narsinghpur",
+      "Panna",
+      "Raisen",
+      "Ratlam",
+      "Sagar",
+      "Satna",
+      "Seoni",
+      "Shahdol",
+      "Sidhi",
+      "Ujjain",
+      "Umaria",
+      "Vidisha"
+    ],
+    "training": [
+      "Jabalpur",
+      "Katni",
+      "Dindori",
+      "Mandla"
+    ]
+  },
+  "seasons": {
+    "summer": {
+      "development": {
+        "districts": 15,
+        "strata": 73,
+        "strata_with_samples": 73,
+        "sample_count": 1418,
+        "domain_area_km2": 55257.347131445276,
+        "sampled_domain_area_km2": 55257.347131445276,
+        "area_adjusted_overall_accuracy": 0.5621239762335348,
+        "area_adjusted_overall_accuracy_ci95": 0.055983520268562965,
+        "area_proportion_matrix": [
+          [
+            0.00011295243466465621,
+            0.00014685494021188627,
+            4.699277722077045e-08,
+            0.0,
+            0.00011129985054824205
+          ],
+          [
+            0.0,
+            0.013501619199325568,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            8.825945369159108e-06,
+            0.0032986622475377407,
+            1.0150111608951457e-05,
+            3.57629784027732e-06
+          ],
+          [
+            0.0,
+            0.00011592349554525864,
+            0.0005987590294526888,
+            0.0018827702656916447,
+            0.00024624654785568127
+          ],
+          [
+            0.028227014062689154,
+            0.04632788484819026,
+            0.05867451347893357,
+            0.303404928165443,
+            0.5433279720863153
+          ]
+        ],
+        "per_class": {
+          "Vegetation": {
+            "users_accuracy": 0.00398562343661214,
+            "producers_accuracy": 0.3043274981807709,
+            "f1": 0.007868201021039075,
+            "mapped_area_proportion": 0.028339966497353812,
+            "mapped_area_km2": 1565.9913664378087,
+            "mapped_area_ci95_km2": 1066.8335574268062,
+            "reference_area_proportion": 0.0003711542182020053
+          },
+          "Water": {
+            "users_accuracy": 0.22464842250548508,
+            "producers_accuracy": 1.0,
+            "f1": 0.36687822950178817,
+            "mapped_area_proportion": 0.06010110842864213,
+            "mapped_area_km2": 3321.027811426109,
+            "mapped_area_ci95_km2": 1416.205076733308,
+            "reference_area_proportion": 0.013501619199325568
+          },
+          "Built Area": {
+            "users_accuracy": 0.05271788035714898,
+            "producers_accuracy": 0.9932096062680236,
+            "f1": 0.10012148234435461,
+            "mapped_area_proportion": 0.06257198174870122,
+            "mapped_area_km2": 3457.5617161904415,
+            "mapped_area_ci95_km2": 1488.479942108985,
+            "reference_area_proportion": 0.0033212146023561284
+          },
+          "Open Land": {
+            "users_accuracy": 0.006166994869693767,
+            "producers_accuracy": 0.6620848555159833,
+            "f1": 0.012220164912113567,
+            "mapped_area_proportion": 0.3052978485427436,
+            "mapped_area_km2": 16869.949195409787,
+            "mapped_area_ci95_km2": 2831.7268189110173,
+            "reference_area_proportion": 0.0028436993385452733
+          },
+          "Agriculture": {
+            "users_accuracy": 0.9993357919080782,
+            "producers_accuracy": 0.5544376197710388,
+            "f1": 0.7131919669274744,
+            "mapped_area_proportion": 0.5436890947825596,
+            "mapped_area_km2": 30042.817041981143,
+            "mapped_area_ci95_km2": 3093.493692597109,
+            "reference_area_proportion": 0.9799623126415713
+          }
+        },
+        "area_share_in_strata_below_two_points": 0.0,
+        "domain": {
+          "district_area_km2": 94953.54557218919,
+          "labelled_area_km2": 55257.347131445276,
+          "labelled_share_of_districts": 0.5819408511653252,
+          "reference_class_area_share": {
+            "Agriculture": 0.9799623126415707,
+            "Water": 0.013501619199325562,
+            "Built Area": 0.0033212146023561284,
+            "Open Land": 0.0028436993385452724,
+            "Vegetation": 0.00037115421820200513
+          }
+        }
+      },
+      "test": {
+        "districts": 29,
+        "strata": 137,
+        "strata_with_samples": 137,
+        "sample_count": 2692,
+        "domain_area_km2": 104669.76231748122,
+        "sampled_domain_area_km2": 104669.76231748122,
+        "area_adjusted_overall_accuracy": 0.5866614676575044,
+        "area_adjusted_overall_accuracy_ci95": 0.0401440602832016,
+        "area_proportion_matrix": [
+          [
+            0.0003498308550823966,
+            0.0001503415788132241,
+            4.165658008192793e-06,
+            0.0,
+            0.000648716087978693
+          ],
+          [
+            0.0,
+            0.007890604954582115,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.4977666204941405e-06,
+            3.711879742974307e-06,
+            0.003661861647373453,
+            1.2833318674418357e-05,
+            1.841217892823815e-05
+          ],
+          [
+            0.0,
+            0.00035717322633233494,
+            0.0007168377674191097,
+            0.0020354130434778804,
+            0.00022165134183007996
+          ],
+          [
+            0.023119467084925058,
+            0.041764746471554,
+            0.08343019028590291,
+            0.2628887876957656,
+            0.5727237571569885
+          ]
+        ],
+        "per_class": {
+          "Vegetation": {
+            "users_accuracy": 0.014904942271880769,
+            "producers_accuracy": 0.3033949845427415,
+            "f1": 0.028413985359295294,
+            "mapped_area_proportion": 0.02347079570662795,
+            "mapped_area_km2": 2456.682608014906,
+            "mapped_area_ci95_km2": 1307.4495301628176,
+            "reference_area_proportion": 0.0011530541798825066
+          },
+          "Water": {
+            "users_accuracy": 0.15728808405307734,
+            "producers_accuracy": 1.0,
+            "f1": 0.2718218328183591,
+            "mapped_area_proportion": 0.05016657811102465,
+            "mapped_area_km2": 5250.923807162306,
+            "mapped_area_ci95_km2": 1775.3389122129674,
+            "reference_area_proportion": 0.007890604954582115
+          },
+          "Built Area": {
+            "users_accuracy": 0.041700651826943914,
+            "producers_accuracy": 0.9901427741259232,
+            "f1": 0.08003074506126773,
+            "mapped_area_proportion": 0.08781305535870366,
+            "mapped_area_km2": 9191.371632767332,
+            "mapped_area_ci95_km2": 2506.6674714152773,
+            "reference_area_proportion": 0.0036983167913395777
+          },
+          "Open Land": {
+            "users_accuracy": 0.007682629386697666,
+            "producers_accuracy": 0.6110378216816634,
+            "f1": 0.015174468912832507,
+            "mapped_area_proportion": 0.2649370340579179,
+            "mapped_area_km2": 27730.896383940693,
+            "mapped_area_ci95_km2": 3597.5108219917406,
+            "reference_area_proportion": 0.003331075379059405
+          },
+          "Agriculture": {
+            "users_accuracy": 0.9984505575597278,
+            "producers_accuracy": 0.5820795516542393,
+            "f1": 0.7354211723082253,
+            "mapped_area_proportion": 0.5736125367657255,
+            "mapped_area_km2": 60039.88788559595,
+            "mapped_area_ci95_km2": 4201.788484417987,
+            "reference_area_proportion": 0.9839269486951361
+          }
+        },
+        "area_share_in_strata_below_two_points": 0.0,
+        "domain": {
+          "district_area_km2": 190329.53675323006,
+          "labelled_area_km2": 104669.76231748122,
+          "labelled_share_of_districts": 0.5499396683405465,
+          "reference_class_area_share": {
+            "Agriculture": 0.983926948695136,
+            "Water": 0.007890604954582114,
+            "Built Area": 0.0036983167913395764,
+            "Open Land": 0.003331075379059405,
+            "Vegetation": 0.0011530541798825066
+          }
+        }
+      },
+      "external": {
+        "districts": 44,
+        "strata": 210,
+        "strata_with_samples": 210,
+        "sample_count": 4110,
+        "domain_area_km2": 159927.10944892638,
+        "sampled_domain_area_km2": 159927.10944892638,
+        "area_adjusted_overall_accuracy": 0.578183376069273,
+        "area_adjusted_overall_accuracy_ci95": 0.03262612270574857,
+        "area_proportion_matrix": [
+          [
+            0.0002679856122710043,
+            0.00014913689000105283,
+            2.7425939937786765e-06,
+            0.0,
+            0.00046303027343420374
+          ],
+          [
+            0.0,
+            0.009829299169400582,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            9.802645512344759e-07,
+            5.4788703459610525e-06,
+            0.0035363705071670853,
+            1.1906228172045457e-05,
+            1.3286147237281467e-05
+          ],
+          [
+            0.0,
+            0.00027381762661316135,
+            0.0006760396948775863,
+            0.0019826725482090927,
+            0.00023014937472649828
+          ],
+          [
+            0.024884205391726047,
+            0.04334138299150021,
+            0.07487671219510164,
+            0.2768877553884466,
+            0.5625670482322251
+          ]
+        ],
+        "per_class": {
+          "Vegetation": {
+            "users_accuracy": 0.010654148115553744,
+            "producers_accuracy": 0.30353043120166256,
+            "f1": 0.020585721798493137,
+            "mapped_area_proportion": 0.025153171268548286,
+            "mapped_area_km2": 4022.6739744527126,
+            "mapped_area_ci95_km2": 1687.47092217167,
+            "reference_area_proportion": 0.0008828953697000395
+          },
+          "Water": {
+            "users_accuracy": 0.18338547322900461,
+            "producers_accuracy": 1.0,
+            "f1": 0.30993362243769323,
+            "mapped_area_proportion": 0.05359911554786097,
+            "mapped_area_km2": 8571.951618588413,
+            "mapped_area_ci95_km2": 2271.0052999900095,
+            "reference_area_proportion": 0.009829299169400582
+          },
+          "Built Area": {
+            "users_accuracy": 0.044712190154616166,
+            "producers_accuracy": 0.9911291157533456,
+            "f1": 0.08556436828418533,
+            "mapped_area_proportion": 0.0790918649911401,
+            "mapped_area_km2": 12648.933348957771,
+            "mapped_area_ci95_km2": 2915.2966144651937,
+            "reference_area_proportion": 0.0035680220174736078
+          },
+          "Open Land": {
+            "users_accuracy": 0.007109351526860336,
+            "producers_accuracy": 0.6268964997646225,
+            "f1": 0.014059263266124028,
+            "mapped_area_proportion": 0.27888233416482777,
+            "mapped_area_km2": 44600.84557935047,
+            "mapped_area_ci95_km2": 4578.292355375265,
+            "reference_area_proportion": 0.003162679244426339
+          },
+          "Agriculture": {
+            "users_accuracy": 0.998745785523721,
+            "producers_accuracy": 0.5725540488466989,
+            "f1": 0.727850828673069,
+            "mapped_area_proportion": 0.5632735140276232,
+            "mapped_area_km2": 90082.70492757706,
+            "mapped_area_ci95_km2": 5217.732236702616,
+            "reference_area_proportion": 0.9825571041989997
+          }
+        },
+        "area_share_in_strata_below_two_points": 0.0
+      }
+    },
+    "winter": {
+      "development": {
+        "districts": 15,
+        "strata": 75,
+        "strata_with_samples": 75,
+        "sample_count": 1500,
+        "domain_area_km2": 55832.608523088486,
+        "sampled_domain_area_km2": 55832.608523088486,
+        "area_adjusted_overall_accuracy": 0.7709798959950966,
+        "area_adjusted_overall_accuracy_ci95": 0.04583525848607819,
+        "area_proportion_matrix": [
+          [
+            0.004748001144726785,
+            2.3731304145385008e-05,
+            1.4678805432071416e-05,
+            1.3099023286408837e-06,
+            0.000286423687065251
+          ],
+          [
+            0.0,
+            0.02086944933300766,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0027703134393252974,
+            2.8233592788752268e-05,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0001867768711404206,
+            0.0012027750863745352,
+            2.8622885550507997e-06
+          ],
+          [
+            0.03649697694576877,
+            0.02292683194475682,
+            0.07929501824770491,
+            0.08975726041521755,
+            0.7413893569916622
+          ]
+        ],
+        "per_class": {
+          "Vegetation": {
+            "users_accuracy": 0.11511707278178696,
+            "producers_accuracy": 0.9357244010532326,
+            "f1": 0.20501256690340813,
+            "mapped_area_proportion": 0.04124497809049556,
+            "mapped_area_km2": 2302.81471527,
+            "mapped_area_ci95_km2": 1230.4150744252026,
+            "reference_area_proportion": 0.005074144843698134
+          },
+          "Water": {
+            "users_accuracy": 0.4762538416436502,
+            "producers_accuracy": 1.0,
+            "f1": 0.6452194442568124,
+            "mapped_area_proportion": 0.043820012581909866,
+            "mapped_area_km2": 2446.5856079625855,
+            "mapped_area_ci95_km2": 957.8164334042364,
+            "reference_area_proportion": 0.02086944933300766
+          },
+          "Built Area": {
+            "users_accuracy": 0.033674749289540964,
+            "producers_accuracy": 0.9899113388251959,
+            "f1": 0.06513378120488032,
+            "mapped_area_proportion": 0.0822667873636027,
+            "mapped_area_km2": 4593.169333324192,
+            "mapped_area_ci95_km2": 1643.9219969767676,
+            "reference_area_proportion": 0.00279854703211405
+          },
+          "Open Land": {
+            "users_accuracy": 0.013218822415015593,
+            "producers_accuracy": 0.8638055016811879,
+            "f1": 0.0260391672479646,
+            "mapped_area_proportion": 0.09098957899670948,
+            "mapped_area_km2": 5080.185543803915,
+            "mapped_area_ci95_km2": 1779.2232913628009,
+            "reference_area_proportion": 0.0013924142460700068
+          },
+          "Agriculture": {
+            "users_accuracy": 0.9996099577918774,
+            "producers_accuracy": 0.7644249634436572,
+            "f1": 0.8663397716727458,
+            "mapped_area_proportion": 0.7416786429672825,
+            "mapped_area_km2": 41409.853322727795,
+            "mapped_area_ci95_km2": 2559.097428459796,
+            "reference_area_proportion": 0.9698654445451103
+          }
+        },
+        "area_share_in_strata_below_two_points": 0.0,
+        "domain": {
+          "district_area_km2": 94953.54557218919,
+          "labelled_area_km2": 55832.608523088486,
+          "labelled_share_of_districts": 0.5879991967297451,
+          "reference_class_area_share": {
+            "Agriculture": 0.9698654445451101,
+            "Water": 0.02086944933300766,
+            "Vegetation": 0.005074144843698133,
+            "Built Area": 0.0027985470321140495,
+            "Open Land": 0.0013924142460700064
+          }
+        }
+      },
+      "test": {
+        "districts": 29,
+        "strata": 145,
+        "strata_with_samples": 145,
+        "sample_count": 2900,
+        "domain_area_km2": 107437.22769310322,
+        "sampled_domain_area_km2": 107437.22769310322,
+        "area_adjusted_overall_accuracy": 0.7550173609947011,
+        "area_adjusted_overall_accuracy_ci95": 0.03318816002949568,
+        "area_proportion_matrix": [
+          [
+            0.01691633566668209,
+            1.3800011627794181e-05,
+            1.5578065060285317e-05,
+            0.0,
+            0.002032981242434483
+          ],
+          [
+            0.0,
+            0.01719031437917963,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0029653849402432016,
+            1.1628905960634772e-05,
+            0.0
+          ],
+          [
+            0.0,
+            1.01267820622598e-05,
+            0.00027142113778557385,
+            0.0019855992026475543,
+            4.762080944714051e-06
+          ],
+          [
+            0.03473511559827381,
+            0.018291165830164362,
+            0.08308571389954665,
+            0.10651034545143831,
+            0.7159597268059485
+          ]
+        ],
+        "per_class": {
+          "Vegetation": {
+            "users_accuracy": 0.32750939716885286,
+            "producers_accuracy": 0.8913329224867607,
+            "f1": 0.47901176946805296,
+            "mapped_area_proportion": 0.0516514512649559,
+            "mapped_area_km2": 5549.2887302322915,
+            "mapped_area_ci95_km2": 1622.8128401982992,
+            "reference_area_proportion": 0.01897869498580465
+          },
+          "Water": {
+            "users_accuracy": 0.48416046541054053,
+            "producers_accuracy": 1.0,
+            "f1": 0.6524368175736506,
+            "mapped_area_proportion": 0.03550540700303405,
+            "mapped_area_km2": 3814.602496521271,
+            "mapped_area_ci95_km2": 1241.412726200233,
+            "reference_area_proportion": 0.01719031437917963
+          },
+          "Built Area": {
+            "users_accuracy": 0.034346192555444376,
+            "producers_accuracy": 0.9960937682653161,
+            "f1": 0.06640275934343297,
+            "mapped_area_proportion": 0.08633809804263572,
+            "mapped_area_km2": 9275.925897996125,
+            "mapped_area_ci95_km2": 2408.4561827769694,
+            "reference_area_proportion": 0.0029770138462038363
+          },
+          "Open Land": {
+            "users_accuracy": 0.01829917615426865,
+            "producers_accuracy": 0.8739782380567761,
+            "f1": 0.03584777890481389,
+            "mapped_area_proportion": 0.1085075735600465,
+            "mapped_area_km2": 11657.752886996865,
+            "mapped_area_ci95_km2": 2495.9188268953108,
+            "reference_area_proportion": 0.0022719092034401023
+          },
+          "Agriculture": {
+            "users_accuracy": 0.9971619073768989,
+            "producers_accuracy": 0.7468945550060427,
+            "f1": 0.8540718894635371,
+            "mapped_area_proportion": 0.7179974701293278,
+            "mapped_area_km2": 77139.65768135668,
+            "mapped_area_ci95_km2": 3565.608943914209,
+            "reference_area_proportion": 0.9585820675853717
+          }
+        },
+        "area_share_in_strata_below_two_points": 0.0,
+        "domain": {
+          "district_area_km2": 190329.53675323006,
+          "labelled_area_km2": 107437.22769310322,
+          "labelled_share_of_districts": 0.5644800566734943,
+          "reference_class_area_share": {
+            "Agriculture": 0.9585820675853713,
+            "Vegetation": 0.018978694985804644,
+            "Water": 0.01719031437917963,
+            "Built Area": 0.002977013846203835,
+            "Open Land": 0.002271909203440102
+          }
+        }
+      },
+      "external": {
+        "districts": 44,
+        "strata": 220,
+        "strata_with_samples": 220,
+        "sample_count": 4400,
+        "domain_area_km2": 163269.83621619164,
+        "sampled_domain_area_km2": 163269.83621619164,
+        "area_adjusted_overall_accuracy": 0.7604759930872393,
+        "area_adjusted_overall_accuracy_ci95": 0.0268815293527301,
+        "area_proportion_matrix": [
+          [
+            0.012755188246636242,
+            1.719616844471354e-05,
+            1.527054952682081e-05,
+            4.4794106255883863e-07,
+            0.0014357192710140567
+          ],
+          [
+            0.0,
+            0.018448450642075696,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.002898677267857601,
+            1.730713165625673e-05,
+            0.0
+          ],
+          [
+            0.0,
+            6.663774616523696e-06,
+            0.00024247574093305907,
+            0.001717900566823421,
+            4.1124179865987545e-06
+          ],
+          [
+            0.035337610934622364,
+            0.019876402499827417,
+            0.08178942775591873,
+            0.10078137272715157,
+            0.7246557763638466
+          ]
+        ],
+        "per_class": {
+          "Vegetation": {
+            "users_accuracy": 0.26522033368369297,
+            "producers_accuracy": 0.8967482922800085,
+            "f1": 0.409367130909463,
+            "mapped_area_proportion": 0.048092799181258604,
+            "mapped_area_km2": 7852.103445502288,
+            "mapped_area_ci95_km2": 2036.5271345320311,
+            "reference_area_proportion": 0.014223822176684392
+          },
+          "Water": {
+            "users_accuracy": 0.48107091889111947,
+            "producers_accuracy": 1.0,
+            "f1": 0.6496257711295799,
+            "mapped_area_proportion": 0.03834871308496435,
+            "mapped_area_km2": 6261.188104483855,
+            "mapped_area_ci95_km2": 1567.9661593513758,
+            "reference_area_proportion": 0.018448450642075696
+          },
+          "Built Area": {
+            "users_accuracy": 0.03412382385968044,
+            "producers_accuracy": 0.9940647379117864,
+            "f1": 0.06598262474964357,
+            "mapped_area_proportion": 0.08494585131423621,
+            "mapped_area_km2": 13869.095231320314,
+            "mapped_area_ci95_km2": 2916.014526112771,
+            "reference_area_proportion": 0.0029159843995138577
+          },
+          "Open Land": {
+            "users_accuracy": 0.016757221645936238,
+            "producers_accuracy": 0.8715208825851983,
+            "f1": 0.032882198782065296,
+            "mapped_area_proportion": 0.10251702836669381,
+            "mapped_area_km2": 16737.938430800772,
+            "mapped_area_ci95_km2": 3065.166604114422,
+            "reference_area_proportion": 0.001971152500359602
+          },
+          "Agriculture": {
+            "users_accuracy": 0.9980170219003779,
+            "producers_accuracy": 0.7529355927850006,
+            "f1": 0.8583242421201736,
+            "mapped_area_proportion": 0.7260956080528472,
+            "mapped_area_km2": 118549.51100408446,
+            "mapped_area_ci95_km2": 4388.911800124324,
+            "reference_area_proportion": 0.9624405902813666
+          }
+        },
+        "area_share_in_strata_below_two_points": 0.0
+      }
+    }
+  }
+}

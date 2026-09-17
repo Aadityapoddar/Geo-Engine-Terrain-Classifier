@@ -89,7 +89,18 @@ def tidy(ax, grid_axis="y"):
     ax.tick_params(length=2.5, colors=MUTED)
 
 
+# The paper is read by people with no access to this repository, so the
+# artefact filename in a provenance line is noise to them at best and an
+# unresolvable reference at worst. PAPER_FIGURES=1 keeps the descriptive half
+# of the line and drops everything from "Source:" on.
+PAPER_FIGURES = os.getenv("PAPER_FIGURES") == "1"
+
+
 def provenance(fig, text):
+    if PAPER_FIGURES:
+        text = text.split("Source")[0].rstrip(" \n.,;")
+        if not text:
+            return
     fig.text(0.5, -0.012, text, ha="center", va="top", fontsize=6, color=MUTED,
              style="italic")
 
@@ -175,11 +186,12 @@ def fig_family_removal():
                        "(points)")
     axes[0].set_title("(a) accuracy cost of removing a feature family",
                       loc="left", fontsize=7.4, color=INK, pad=6)
-    # Upper right of panel (a): every bar but one runs left of zero, so that
-    # corner is the only reliably empty space. Below-left sat on the longest
-    # bar's value label and above-centre sat on the panel title.
-    axes[0].legend(frameon=False, ncol=1, loc="upper right",
-                   handlelength=0.9, fontsize=6.6)
+    # Below the axes: every in-panel corner is occupied. The upper right sits on
+    # the "Core indices" value labels, below-left on the longest bar's label and
+    # above-centre on the panel title, so the legend goes under the x label
+    # where nothing competes with it.
+    axes[0].legend(frameon=False, ncol=2, loc="upper center",
+                   bbox_to_anchor=(0.5, -0.13), handlelength=0.9, fontsize=6.6)
     tidy(axes[0], grid_axis="x")
 
     axes[1].set_yticks(y, ["" for _ in order])
@@ -209,7 +221,6 @@ def fig_band_selection():
     scored once on districts that took no part in suggesting them.
     """
     ablation = load("band_ablation_v4.json")["ablation"]
-    stacks = load("band_stack_comparison_v4.json")
 
     fig, axes = plt.subplots(1, 2, figsize=(WIDE, 3.1),
                              gridspec_kw={"width_ratios": [1.25, 1.0]})
@@ -228,27 +239,36 @@ def fig_band_selection():
                       loc="left", fontsize=7.2, color=INK)
     tidy(axes[0], grid_axis="x")
 
-    # (b) candidate stacks, development against test
-    names = [name for name in stacks["stacks_order"]]
-    x = np.arange(len(names))
+    # (b) candidate stacks, development against test.
+    #
+    # Read from the spatial-uncertainty artefact rather than from the earlier
+    # stack-comparison run, so that the sel19 bars here are the same numbers the
+    # paper's headline table reports for Smile GTB instead of a second run of
+    # the same configuration. Names match the paper: sel19 is the shipped stack,
+    # alt19 the same-size stack that keeps a different nineteen.
+    uncertainty = load(versioned(SPATIAL_UNCERTAINTY).name)
+    STACK_BARS = [("after-gtb-b27", "all27", 27),
+                  ("after-gtb-b22", "b22", 22),
+                  ("after-gtb-b19", "alt19", 19),
+                  ("after-gtb", "sel19", 19)]
+    x = np.arange(len(STACK_BARS))
     width = 0.38
     for index, (split, colour) in enumerate((("development", SEQ[1]),
                                              ("test", SEQ[3]))):
-        values, errs = [], [[], []]
-        for name in names:
-            entry = stacks["seasons"]["winter"][split][name]
-            values.append(entry["overall_accuracy"] * 100)
+        pooled = uncertainty["seasons"]["winter"][split]["pooled"]
+        values = [pooled[key]["overall_accuracy"] * 100
+                  for key, _, _ in STACK_BARS]
         axes[1].bar(x + (index - 0.5) * (width + 0.02), values, width,
                     color=colour, label=f"{split} districts", zorder=3)
         for xi, value in zip(x, values):
             axes[1].text(xi + (index - 0.5) * (width + 0.02), value + 0.25,
                          f"{value:.1f}", ha="center", fontsize=5.8, color=INK)
     axes[1].set_xticks(
-        x, [f"{name}\n({len(stacks['stacks'][name])})" for name in names],
+        x, [f"{name}\n({count})" for _, name, count in STACK_BARS],
         fontsize=6.0)
     axes[1].set_ylabel("overall accuracy (%)")
-    low = min(stacks["seasons"]["winter"][s][n]["overall_accuracy"] * 100
-              for s in ("development", "test") for n in names)
+    low = min(uncertainty["seasons"]["winter"][s]["pooled"][k]["overall_accuracy"] * 100
+              for s in ("development", "test") for k, _, _ in STACK_BARS)
     axes[1].set_ylim(low - 3, None)
     axes[1].legend(frameon=False, ncol=2, loc="upper center",
                    bbox_to_anchor=(0.5, 1.16), handlelength=0.9, fontsize=6.6)
@@ -262,7 +282,7 @@ def fig_band_selection():
         "Smile GTB throughout. The stack is chosen on the development "
         "districts and scored once on the test districts.\n"
         "Sources: doc/assets/band_ablation_v4.json, "
-        "doc/assets/band_stack_comparison_v4.json.")
+        f"{versioned(SPATIAL_UNCERTAINTY).name}.")
     save(fig, "fig_band_selection")
 
 
@@ -344,18 +364,24 @@ def fig_per_class_f1():
     models = sorted(MODEL_LABEL, key=lambda m: -runs[f"winter-after-{m}"]["overall_accuracy"])
     classes = ["Vegetation", "Water", "Built Area", "Open Land", "Agriculture"]
 
-    fig, axes = plt.subplots(1, 2, figsize=(WIDE, 2.35))
+    # Taller panels and larger type than the other heat maps: this one is read
+    # cell by cell rather than scanned, and at 2.35 in the cell labels printed
+    # smaller than the body text of the table beside them.
+    fig, axes = plt.subplots(1, 2, figsize=(WIDE, 3.0))
     for ax, season, tag in zip(axes, ("winter", "summer"), ("(a)", "(b)")):
         grid = np.array([[runs[f"{season}-after-{m}"]["per_class_f1"][c] or 0.0
                           for c in classes] for m in models])
         ax.imshow(grid, cmap="Blues", vmin=0.35, vmax=1.0, aspect="auto")
-        ax.set_xticks(range(len(classes)), classes)
-        ax.set_yticks(range(len(models)), [MODEL_LABEL[m] for m in models])
-        ax.set_title(f"{tag} {season.capitalize()}", loc="left", color=INK)
+        ax.set_xticks(range(len(classes)),
+                      ["Veg.", "Water", "Built", "Open", "Agri."], fontsize=9)
+        ax.set_yticks(range(len(models)), [MODEL_LABEL[m] for m in models],
+                      fontsize=9)
+        ax.set_title(f"{tag} {season.capitalize()}", loc="left", color=INK,
+                     fontsize=10)
         for r in range(grid.shape[0]):
             for c in range(grid.shape[1]):
                 ax.text(c, r, f"{grid[r, c]:.2f}", ha="center", va="center",
-                        fontsize=7,
+                        fontsize=9.5,
                         color="white" if grid[r, c] > 0.78 else INK)
         for spine in ax.spines.values():
             spine.set_visible(False)
@@ -445,7 +471,8 @@ def fig_confusion():
         matrix = np.array(run["confusion_matrix"], dtype=float)
         pct = matrix / matrix.sum(axis=1, keepdims=True) * 100
         ax.imshow(pct, cmap="Blues", vmin=0, vmax=100, aspect="equal")
-        ax.set_xticks(range(5), classes)
+        ax.set_xticks(range(5), [c.replace(" ", "\n") for c in classes],
+                      fontsize=6.2)
         ax.set_yticks(range(5), classes)
         ax.set_xlabel("Predicted")
         if tag == "(a)":
@@ -592,8 +619,90 @@ def fig_pipeline():
     save(fig, "fig_pipeline")
 
 
+# -- F0b ---------------------------------------------------------------------
+def fig_methodology():
+    """The six steps, and the partition that decides what each number means.
+
+    Replaces a flowchart that said "compute 19 features" and "48 districts"
+    while its own caption said 27 candidates and 29 test districts. The count
+    that goes into the classifier is 19; the count that is computed and ablated
+    is 27, and the two are different steps. The districts split three ways, not
+    one, and only one of the three carries a reported figure.
+    """
+    from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+
+    fig, ax = plt.subplots(figsize=(WIDE, 3.15))
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 46)
+    ax.axis("off")
+
+    def box(x, y, w, h, title, lines, colour="#8a8a86", fill="#f6f6f4"):
+        ax.add_patch(FancyBboxPatch(
+            (x, y), w, h, boxstyle="round,pad=0,rounding_size=0.6",
+            linewidth=0.8, edgecolor=colour, facecolor=fill, zorder=2))
+        ax.text(x + w / 2, y + h - 2.0, title, fontsize=8.0, fontweight="bold",
+                color=INK, zorder=3, va="top", ha="center")
+        for i, line in enumerate(lines):
+            ax.text(x + w / 2, y + h - 5.0 - i * 3.0, line, fontsize=6.8,
+                    color=MUTED, zorder=3, va="top", ha="center")
+
+    def arrow(x0, y0, x1, y1, colour="#6a6a66"):
+        ax.add_patch(FancyArrowPatch(
+            (x0, y0), (x1, y1), arrowstyle="-|>", mutation_scale=8,
+            linewidth=0.9, color=colour, shrinkA=0, shrinkB=0, zorder=4))
+
+    top, mid, low = 34.0, 15.5, 1.5
+    h = 11.0
+
+    box(1, top, 22, h, "1-2  Images", ["Sentinel-2 and Sentinel-1,",
+                                       "cloud-masked 59-day medians"])
+    box(26, top, 22, h, "3  Features", ["27 candidates computed,",
+                                        "19 reach the classifiers"])
+    box(51, top, 22, h, "4  Training", ["5,000 labelled points in",
+                                        "4 districts, 1,000 per class"])
+    box(76, top, 23, h, "5  Five models", ["RF, SVM, Smile GTB,",
+                                           "CART, KNN"])
+    for x0, x1 in ((23, 25.4), (48, 50.4), (73, 75.4)):
+        arrow(x0, top + h / 2, x1, top + h / 2)
+
+    ax.plot([1, 99], [top - 2.4, top - 2.4], linestyle=(0, (4, 3)),
+            linewidth=0.9, color="#9a6a10", zorder=3)
+    ax.text(50, top - 3.4, "below this line the models meet only the public-map "
+            "consensus, never the labelled points",
+            fontsize=6.6, color="#9a6a10", ha="center", va="top", style="italic")
+
+    box(1, mid, 30, h, "4 withheld districts",
+        ["hold the labelled points;", "carry no reported figure"],
+        colour="#9a6a10", fill="#faf5ea")
+    box(35, mid, 30, h, "15 development districts",
+        ["every feature, model and", "hyperparameter choice made here"],
+        colour=BLUE, fill="#eef5fa")
+    box(69, mid, 30, h, "29 test districts",
+        ["scored once, with whatever", "the development half chose"],
+        colour=VERM, fill="#fdf0e8")
+    arrow(65, mid + h / 2, 68.4, mid + h / 2, colour=INK)
+    ax.text(66.9, mid + h + 0.6, "frozen configuration", fontsize=6.4,
+            color=INK, ha="center", va="bottom")
+
+    box(1, low, 46, h - 1.5, "6a  Development scoring",
+        ["candidate stacks, ablations, grid search;",
+         "re-scored as often as needed"], colour=BLUE)
+    box(53, low, 46, h - 1.5, "6b  Held-out scoring",
+        ["every accuracy this paper reports,",
+         "pooled, class-balanced and area-weighted"], colour=VERM)
+    arrow(50, mid, 24, low + h - 1.5, colour=BLUE)
+    arrow(84, mid, 76, low + h - 1.5, colour=VERM)
+
+    fig.tight_layout(pad=0.1)
+    provenance(fig, "The 27-to-19 reduction, the model and the hyperparameters "
+                    "are all chosen on the development half; the test half is "
+                    "scored once.")
+    save(fig, "fig_methodology")
+
+
 def main():
     print(f"building report figures into {OUT}")
+    fig_methodology()
     fig_pipeline()
     fig_family_removal()
     fig_band_selection()

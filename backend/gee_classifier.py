@@ -564,8 +564,9 @@ RENDER_WORKERS = int(os.getenv("OVERLAY_RENDER_WORKERS", "3"))
 
 _EARTH_RADIUS_M = 6378137.0
 
-# GLCM uses a 3x3 window and focalMode another; 24 px of overlap is far more
-# than either needs and costs nothing, the padding is cropped away.
+# glcmTexture(size=3) is a radius, so its window is 7x7, and focalMode adds
+# another 3x3; 24 px of overlap is far more than either needs and costs
+# nothing, the padding is cropped away.
 _EDGE_PAD_PX = 24
 
 # ponytail: plain dict + lock. One entry per rendered AOI, a handful per session.

@@ -20,7 +20,9 @@ ASSETS = Path(__file__).resolve().parents[1] / "doc" / "assets"
 
 # The run every figure, table and benchmark in the current manuscript describes.
 # v6 was the first under the matched-window pipeline; v7 adds the band stack
-# and hyperparameters the development districts selected.
+# and hyperparameters the development districts selected. A v8 under uniform
+# 0.70 reference screening was attempted and abandoned: it empties the
+# agriculture and open-land strata outright (evaluation/references.DW_SCREEN).
 RESULTS_VERSION = "v7"
 
 

@@ -1,0 +1,93 @@
+season,district,role,distance_km_from_jabalpur,overall_accuracy,sample_n
+winter,Anuppur,test,197.025,0.75,100
+winter,Ashoknagar,test,264.836,0.9,100
+winter,Balaghat,test,149.805,0.77,100
+winter,Barwani,development,528.52,0.82,100
+winter,Betul,test,257.438,0.83,100
+winter,Bhind,test,382.306,0.95,100
+winter,Bhopal,test,262.901,0.88,100
+winter,Burhanpur,test,418.832,0.86,100
+winter,Chhatarpur,test,183.316,0.86,100
+winter,Chhindwara,test,162.165,0.82,100
+winter,Damoh,development,83.409,0.85,100
+winter,Datia,test,326.375,0.96,100
+winter,Dewas,test,360.454,0.87,100
+winter,Dhar,test,501.602,0.88,100
+winter,East Nimar,test,372.785,0.88,100
+winter,Guna,test,319.096,0.91,100
+winter,Gwalior,test,367.719,0.86,100
+winter,Harda,development,308.115,0.82,100
+winter,Hoshangabad,development,211.072,0.96,100
+winter,Indore,test,429.331,0.94,100
+winter,Jhabua,development,558.963,0.76,100
+winter,Mandsaur,development,476.632,0.96,100
+winter,Morena,test,417.678,0.97,100
+winter,Narsinghpur,test,92.2,0.95,100
+winter,Neemuch,development,513.543,0.9,100
+winter,Panna,test,141.125,0.92,100
+winter,Raisen,test,187.288,0.99,100
+winter,Rajgarh,development,336.517,0.88,100
+winter,Ratlam,test,497.028,0.88,100
+winter,Rewa,development,242.211,0.9,100
+winter,Sagar,test,142.919,0.92,100
+winter,Satna,test,175.875,0.79,100
+winter,Sehore,development,289.097,0.92,100
+winter,Seoni,test,99.065,0.81,100
+winter,Shahdol,test,155.321,0.8,100
+winter,Shajapur,development,370.323,0.84,100
+winter,Sheopur,development,413.606,0.91,100
+winter,Shivpuri,development,326.277,0.86,100
+winter,Sidhi,test,252.647,0.85,100
+winter,Tikamgarh,development,226.469,0.83,100
+winter,Ujjain,test,437.357,0.83,100
+winter,Umaria,test,109.89,0.79,100
+winter,Vidisha,test,232.123,0.93,100
+winter,West Nimar,development,450.318,0.86,100
+winter,[fit: all 44 evaluation districts],regression summary,44,0.5479,"slope pp/100km with 95% CI [-0.81, +1.90], R2=0.0147, p=0.4332"
+winter,[fit: 29 test districts only],regression summary,29,1.4887,"slope pp/100km with 95% CI [-0.35, +3.32], R2=0.0856, p=0.1234"
+summer,Anuppur,test,197.025,0.64,100
+summer,Ashoknagar,test,264.836,0.81,100
+summer,Balaghat,test,149.805,0.67,100
+summer,Barwani,development,528.52,0.774194,93
+summer,Betul,test,257.438,0.65,100
+summer,Bhind,test,382.306,0.775,80
+summer,Bhopal,test,262.901,0.82,100
+summer,Burhanpur,test,418.832,0.8375,80
+summer,Chhatarpur,test,183.316,0.758621,87
+summer,Chhindwara,test,162.165,0.68,100
+summer,Damoh,development,83.409,0.7375,80
+summer,Datia,test,326.375,0.81,100
+summer,Dewas,test,360.454,0.8,80
+summer,Dhar,test,501.602,0.7,100
+summer,East Nimar,test,372.785,0.8,80
+summer,Guna,test,319.096,0.63,100
+summer,Gwalior,test,367.719,0.7625,80
+summer,Harda,development,308.115,0.797619,84
+summer,Hoshangabad,development,211.072,0.77,100
+summer,Indore,test,429.331,0.83,100
+summer,Jhabua,development,558.963,0.65,100
+summer,Mandsaur,development,476.632,0.88,100
+summer,Morena,test,417.678,0.875,80
+summer,Narsinghpur,test,92.2,0.76,100
+summer,Neemuch,development,513.543,0.7125,80
+summer,Panna,test,141.125,0.746988,83
+summer,Raisen,test,187.288,0.87234,94
+summer,Rajgarh,development,336.517,0.81,100
+summer,Ratlam,test,497.028,0.725,80
+summer,Rewa,development,242.211,0.66,100
+summer,Sagar,test,142.919,0.71,100
+summer,Satna,test,175.875,0.67,100
+summer,Sehore,development,289.097,0.85,100
+summer,Seoni,test,99.065,0.78,100
+summer,Shahdol,test,155.321,0.55,100
+summer,Shajapur,development,370.323,0.755319,94
+summer,Sheopur,development,413.606,0.81,100
+summer,Shivpuri,development,326.277,0.712644,87
+summer,Sidhi,test,252.647,0.61,100
+summer,Tikamgarh,development,226.469,0.61,100
+summer,Ujjain,test,437.357,0.8125,80
+summer,Umaria,test,109.89,0.68,100
+summer,Vidisha,test,232.123,0.761364,88
+summer,West Nimar,development,450.318,0.75,100
+summer,[fit: all 44 evaluation districts],regression summary,44,1.7205,"slope pp/100km with 95% CI [+0.00, +3.44], R2=0.0841, p=0.0562"
+summer,[fit: 29 test districts only],regression summary,29,2.4241,"slope pp/100km with 95% CI [+0.12, +4.73], R2=0.1359, p=0.0491"

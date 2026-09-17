@@ -1,0 +1,80 @@
+{
+  "aoi": {
+    "source": "FAO/GAUL/2015/level2",
+    "adm2_name": "Jabalpur",
+    "adm2_code": 17730,
+    "adm1_name": "Madhya Pradesh",
+    "adm0_name": "India",
+    "geodesic_area_km2": 4021.33,
+    "bounds_west": 79.34512376998777,
+    "bounds_east": 80.57701285505395,
+    "bounds_south": 22.832100132891764,
+    "bounds_north": 23.46988981075425
+  },
+  "composite": {
+    "season": "winter",
+    "date_filter": "2025-01-01 to 2025-03-01 (half-open)",
+    "cloud_threshold_percent": 15,
+    "optical": "COPERNICUS/S2_SR_HARMONIZED, per-pixel median",
+    "radar": "COPERNICUS/S1_GRD IW descending, per-pixel median",
+    "temporal_fallback": false
+  },
+  "model": {
+    "constructor": "ee.Classifier.smileGradientTreeBoost",
+    "parameters": {
+      "numberOfTrees": 300,
+      "shrinkage": 0.1,
+      "maxNodes": 10
+    },
+    "unset_parameters_use_earth_engine_defaults": "samplingRate 0.7, seed 0",
+    "feature_stack": "sel19 (19 bands)",
+    "bands": [
+      "B4",
+      "B8",
+      "B11",
+      "B12",
+      "NDVI",
+      "NDWI",
+      "SAVI",
+      "UI",
+      "IBI",
+      "SWIRratio",
+      "g_contrast",
+      "g_var",
+      "g_idm",
+      "VV",
+      "VH",
+      "VVVH",
+      "s_contrast",
+      "s_var",
+      "s_ent"
+    ]
+  },
+  "grids": {
+    "analysis_crs": "EPSG:4326",
+    "analysis_scale_m": 10,
+    "tiling_degrees": 0.1,
+    "display_crs": "EPSG:3857",
+    "area_method": "ee.Image.pixelArea summed by class group"
+  },
+  "class_areas_km2": {
+    "raw": {
+      "Vegetation": 768.9344937758314,
+      "Water": 182.60903714147005,
+      "Built Area": 571.3807329423224,
+      "Open Land": 625.6983467858078,
+      "Agriculture": 1863.0246430709417
+    },
+    "majority_filtered": {
+      "Vegetation": 766.5160868047643,
+      "Water": 163.96545022925017,
+      "Built Area": 567.546151727453,
+      "Open Land": 629.5615314483912,
+      "Agriculture": 1884.058033506514
+    }
+  },
+  "class_area_totals_km2": {
+    "raw": 4011.65,
+    "majority_filtered": 4011.65
+  }
+}

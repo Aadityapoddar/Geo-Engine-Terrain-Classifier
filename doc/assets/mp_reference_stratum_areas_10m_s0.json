@@ -1,0 +1,291 @@
+{
+  "training_schema_version": "five-class-19-band-v5-drop-summer",
+  "scale_m": 10,
+  "reference_labels": {
+    "0": "Vegetation",
+    "1": "Water",
+    "2": "Built Area",
+    "3": "Open Land",
+    "4": "Agriculture"
+  },
+  "district_count_total": 48,
+  "strata": {
+    "winter:Anuppur": {
+      "season": "winter",
+      "district": "Anuppur",
+      "district_area_m2": 2030759439.2295985,
+      "class_area_m2": {
+        "Vegetation": 29215451.189782087,
+        "Water": 5449062.100880193,
+        "Built Area": 334854.5467147827,
+        "Open Land": 4804097.784416706,
+        "Agriculture": 878779476.4377645
+      }
+    },
+    "winter:Ashoknagar": {
+      "season": "winter",
+      "district": "Ashoknagar",
+      "district_area_m2": 4734120580.982557,
+      "class_area_m2": {
+        "Vegetation": 858630.2187013814,
+        "Water": 59820975.602200195,
+        "Built Area": 5205422.632388186,
+        "Open Land": 973595.3892240935,
+        "Agriculture": 3414235317.06404
+      }
+    },
+    "winter:Balaghat": {
+      "season": "winter",
+      "district": "Balaghat",
+      "district_area_m2": 9273202911.700502,
+      "class_area_m2": {
+        "Vegetation": 525848446.3629334,
+        "Water": 21964477.788594145,
+        "Built Area": 152201.46138763428,
+        "Open Land": 14793004.05564985,
+        "Agriculture": 2818369545.6724343
+      }
+    },
+    "winter:Barwani": {
+      "season": "winter",
+      "district": "Barwani",
+      "district_area_m2": 5438720763.562563,
+      "class_area_m2": {
+        "Vegetation": 1462705.278369769,
+        "Water": 63089368.76657074,
+        "Built Area": 3497131.714707139,
+        "Open Land": 3087075.746646178,
+        "Agriculture": 2153857536.8016987
+      }
+    },
+    "winter:Betul": {
+      "season": "winter",
+      "district": "Betul",
+      "district_area_m2": 10094739119.322416,
+      "class_area_m2": {
+        "Vegetation": 145581074.04109168,
+        "Water": 23270491.701469183,
+        "Built Area": 10658953.81966795,
+        "Open Land": 1856855.2930597041,
+        "Agriculture": 4202111628.5452914
+      }
+    },
+    "winter:Bhind": {
+      "season": "winter",
+      "district": "Bhind",
+      "district_area_m2": 4480758829.526797,
+      "class_area_m2": {
+        "Vegetation": 35883223.57323303,
+        "Water": 15253525.889261045,
+        "Built Area": 6428107.680447866,
+        "Open Land": 7646099.049357036,
+        "Agriculture": 3388087211.208253
+      }
+    },
+    "winter:Bhopal": {
+      "season": "winter",
+      "district": "Bhopal",
+      "district_area_m2": 2728200542.4723554,
+      "class_area_m2": {
+        "Vegetation": 1149510.8919430603,
+        "Water": 39049748.54099321,
+        "Built Area": 24876187.390638042,
+        "Open Land": 867668.6036656997,
+        "Agriculture": 1804905411.497185
+      }
+    },
+    "winter:Burhanpur": {
+      "season": "winter",
+      "district": "Burhanpur",
+      "district_area_m2": 3205429731.1458387,
+      "class_area_m2": {
+        "Vegetation": 199428.2554608214,
+        "Water": 12316683.889246054,
+        "Built Area": 3072840.830786282,
+        "Open Land": 826385.5284031887,
+        "Agriculture": 1285259410.467462
+      }
+    },
+    "winter:Chhatarpur": {
+      "season": "winter",
+      "district": "Chhatarpur",
+      "district_area_m2": 8731555849.631458,
+      "class_area_m2": {
+        "Vegetation": 8131789.6211825805,
+        "Water": 36245215.451791376,
+        "Built Area": 3229509.4250853895,
+        "Open Land": 3314630.7523487466,
+        "Agriculture": 5562490819.868482
+      }
+    },
+    "winter:Chhindwara": {
+      "season": "winter",
+      "district": "Chhindwara",
+      "district_area_m2": 11835366817.221413,
+      "class_area_m2": {
+        "Vegetation": 149444135.57014847,
+        "Water": 75831694.14373025,
+        "Built Area": 10337204.210891694,
+        "Open Land": 3659807.721008929,
+        "Agriculture": 4806656940.460976
+      }
+    },
+    "winter:Dewas": {
+      "season": "winter",
+      "district": "Dewas",
+      "district_area_m2": 6974172329.238149,
+      "class_area_m2": {
+        "Vegetation": 1672832.7552460616,
+        "Water": 23135820.13029253,
+        "Built Area": 22583691.495878153,
+        "Open Land": 852846.2633689431,
+        "Agriculture": 4351267934.1086035
+      }
+    },
+    "winter:East Nimar": {
+      "season": "winter",
+      "district": "East Nimar",
+      "district_area_m2": 7464412099.474378,
+      "class_area_m2": {
+        "Vegetation": 9214282.157163613,
+        "Water": 574921099.9307574,
+        "Built Area": 8364081.613593756,
+        "Open Land": 3149020.1553956573,
+        "Agriculture": 3785140910.645092
+      }
+    },
+    "winter:Harda": {
+      "season": "winter",
+      "district": "Harda",
+      "district_area_m2": 3323033941.8478827,
+      "class_area_m2": {
+        "Vegetation": 9401218.177154303,
+        "Water": 24902564.07782216,
+        "Built Area": 7917900.387179566,
+        "Open Land": 341106.3084693759,
+        "Agriculture": 2117968094.226283
+      }
+    },
+    "winter:Jabalpur": {
+      "season": "winter",
+      "district": "Jabalpur",
+      "district_area_m2": 4021328036.682537,
+      "class_area_m2": {
+        "Vegetation": 15694586.34361734,
+        "Water": 59305886.095546335,
+        "Built Area": 4459797.907089054,
+        "Open Land": 1721066.3330638811,
+        "Agriculture": 2254731202.418631
+      }
+    },
+    "winter:Mandla": {
+      "season": "winter",
+      "district": "Mandla",
+      "district_area_m2": 6789128068.652252,
+      "class_area_m2": {
+        "Vegetation": 196315052.29921132,
+        "Water": 117932218.56419903,
+        "Built Area": 1117851.4263687134,
+        "Open Land": 3723313.7070454913,
+        "Agriculture": 2315197107.7696176
+      }
+    },
+    "winter:Narsinghpur": {
+      "season": "winter",
+      "district": "Narsinghpur",
+      "district_area_m2": 5157190836.73726,
+      "class_area_m2": {
+        "Vegetation": 62218388.96942326,
+        "Water": 18594891.152863055,
+        "Built Area": 6731108.087069313,
+        "Open Land": 10062794.26722472,
+        "Agriculture": 2990756023.688562
+      }
+    },
+    "winter:Raisen": {
+      "season": "winter",
+      "district": "Raisen",
+      "district_area_m2": 8515574877.211904,
+      "class_area_m2": {
+        "Vegetation": 47268986.5344609,
+        "Water": 78015926.15270081,
+        "Built Area": 10719579.764507577,
+        "Open Land": 1520116.44510519,
+        "Agriculture": 4801876095.793575
+      }
+    },
+    "winter:Rewa": {
+      "season": "winter",
+      "district": "Rewa",
+      "district_area_m2": 6327703909.411602,
+      "class_area_m2": {
+        "Vegetation": 13734031.162097618,
+        "Water": 17658656.164819542,
+        "Built Area": 7839413.548849009,
+        "Open Land": 4787225.364944907,
+        "Agriculture": 3886660127.735891
+      }
+    },
+    "winter:Sehore": {
+      "season": "winter",
+      "district": "Sehore",
+      "district_area_m2": 6579048527.953139,
+      "class_area_m2": {
+        "Vegetation": 15441559.862183813,
+        "Water": 36140096.96013375,
+        "Built Area": 11315278.001234764,
+        "Open Land": 5815074.76141462,
+        "Agriculture": 4589525685.341096
+      }
+    },
+    "winter:Shajapur": {
+      "season": "winter",
+      "district": "Shajapur",
+      "district_area_m2": 6306521423.633077,
+      "class_area_m2": {
+        "Vegetation": 643216.4441400565,
+        "Water": 33558054.09378952,
+        "Built Area": 23003416.832708318,
+        "Open Land": 2808013.3738859887,
+        "Agriculture": 4893440740.267703
+      }
+    },
+    "winter:Sidhi": {
+      "season": "winter",
+      "district": "Sidhi",
+      "district_area_m2": 10590123062.249128,
+      "class_area_m2": {
+        "Vegetation": 447245168.934705,
+        "Water": 82705279.70062757,
+        "Built Area": 775907.6210861206,
+        "Open Land": 107358419.15855196,
+        "Agriculture": 3370473244.5372424
+      }
+    },
+    "winter:Umaria": {
+      "season": "winter",
+      "district": "Umaria",
+      "district_area_m2": 3734613924.9527826,
+      "class_area_m2": {
+        "Vegetation": 170006180.8964277,
+        "Water": 59285240.282861754,
+        "Built Area": 362025.7911148071,
+        "Open Land": 1404765.9441353292,
+        "Agriculture": 1181887299.8416505
+      }
+    },
+    "summer:Anuppur": {
+      "season": "summer",
+      "district": "Anuppur",
+      "district_area_m2": 2030759439.2295985,
+      "class_area_m2": {
+        "Vegetation": 84155.95865337896,
+        "Water": 161420.57766541126,
+        "Built Area": 2652083.88943272,
+        "Open Land": 6229189.007560103,
+        "Agriculture": 878779476.4352446
+      }
+    }
+  },
+  "updated_at": "2026-09-09T08:46:17.249967+00:00"
+}

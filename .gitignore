@@ -27,3 +27,26 @@ doc/assets/paper_figs/sources/
 doc/assets/districts/
 doc/paper/*.pdf
 doc/assets/confusion_matrices_before_after.*
+
+# LaTeX build artifacts and backups
+*.aux
+*.tex.bak
+
+# Duplicate figure extraction dump, superseded by figures/
+extracted_figures.zip
+extracted_figures/
+
+# Claude Code local session config
+.claude/
+
+# Loose personal/reference files kept outside the repo (drafts, slide decks,
+# guidance docs sent by reviewers) — not project source.
+/1571316711 paper.pdf
+/Design.pdf
+/Geo-Engine Classifier Presentation.pdf
+/LULC_05Sep2026_Constructive_Correction_Guide.docx
+/Paper.docx
+/Paper.pdf
+/Research paper formatting guidance.zip
+/img1-mn.jpeg
+/img2-rp.jpeg

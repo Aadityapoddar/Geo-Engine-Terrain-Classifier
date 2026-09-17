@@ -1,0 +1,78 @@
+{
+ "season": "winter",
+ "districts": 1,
+ "points_sampled": 100,
+ "points_with_both_rasters": 100,
+ "raw": {
+  "n": 100,
+  "overall_agreement_pct": 75.0,
+  "per_class": {
+   "Vegetation": {
+    "support": 20,
+    "recall_pct": 90.0
+   },
+   "Water": {
+    "support": 20,
+    "recall_pct": 100.0
+   },
+   "Built Area": {
+    "support": 20,
+    "recall_pct": 100.0
+   },
+   "Open Land": {
+    "support": 20,
+    "recall_pct": 75.0
+   },
+   "Agriculture": {
+    "support": 20,
+    "recall_pct": 10.0
+   }
+  }
+ },
+ "delivered": {
+  "n": 100,
+  "overall_agreement_pct": 77.0,
+  "per_class": {
+   "Vegetation": {
+    "support": 20,
+    "recall_pct": 100.0
+   },
+   "Water": {
+    "support": 20,
+    "recall_pct": 100.0
+   },
+   "Built Area": {
+    "support": 20,
+    "recall_pct": 100.0
+   },
+   "Open Land": {
+    "support": 20,
+    "recall_pct": 80.0
+   },
+   "Agriculture": {
+    "support": 20,
+    "recall_pct": 5.0
+   }
+  }
+ },
+ "points_changed_by_the_filter": 4,
+ "delta_pp": 2.0,
+ "class_areas_km2": {
+  "district": "Anuppur",
+  "scale_m": 10,
+  "raw": {
+   "Vegetation": 361.6225,
+   "Water": 53.1566,
+   "Built Area": 446.4348,
+   "Open Land": 1016.7635,
+   "Agriculture": 147.8914
+  },
+  "delivered": {
+   "Vegetation": 375.5302,
+   "Water": 50.7241,
+   "Built Area": 439.7668,
+   "Open Land": 1030.3284,
+   "Agriculture": 129.5193
+  }
+ }
+}

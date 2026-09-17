@@ -1,0 +1,207 @@
+{
+  "scale_m": 300,
+  "cloud_threshold_percent": 15,
+  "saturating_bands": [
+    "SWIRratio",
+    "g_contrast",
+    "g_var",
+    "s_contrast",
+    "s_var",
+    "s_ent"
+  ],
+  "feature_ranges": {
+    "SWIRratio": [
+      0.0,
+      2.5
+    ],
+    "g_contrast": [
+      0.0,
+      22.0
+    ],
+    "g_var": [
+      0.0,
+      42.0
+    ],
+    "s_contrast": [
+      0.0,
+      13.5
+    ],
+    "s_var": [
+      0.0,
+      34.0
+    ],
+    "s_ent": [
+      0.0,
+      4.0
+    ]
+  },
+  "bounds_fitted_on": "winter p99 of the labelled training sample",
+  "districts": [
+    "Anuppur",
+    "Chhatarpur",
+    "Gwalior",
+    "Sagar"
+  ],
+  "results": {
+    "winter:Anuppur": {
+      "season": "winter",
+      "district": "Anuppur",
+      "observations": {
+        "s1_observations_mean": 5,
+        "s1_observations_p5": 5,
+        "s1_observations_p50": 5,
+        "s2_valid_observations_mean": 22.395229313092386,
+        "s2_valid_observations_p5": 10.000000000000005,
+        "s2_valid_observations_p50": 21.000000000000018
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.010481262343770465,
+        "sat_g_var": 0,
+        "sat_s_contrast": 0.053822905381939665,
+        "sat_s_ent": 0.0006912352014276907,
+        "sat_s_var": 0.00032528715361303094
+      }
+    },
+    "winter:Chhatarpur": {
+      "season": "winter",
+      "district": "Chhatarpur",
+      "observations": {
+        "s1_observations_mean": 5.00685735530068,
+        "s1_observations_p5": 5.000000000000017,
+        "s1_observations_p50": 5.000000000000017,
+        "s2_valid_observations_mean": 14.961290594450796,
+        "s2_valid_observations_p5": 8,
+        "s2_valid_observations_p50": 17.000000000000025
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.12346857180368274,
+        "sat_g_var": 0.013037987645879125,
+        "sat_s_contrast": 0.015462651708674705,
+        "sat_s_ent": 3.449016596396926e-05,
+        "sat_s_var": 0.0005866257315018213
+      }
+    },
+    "winter:Gwalior": {
+      "season": "winter",
+      "district": "Gwalior",
+      "observations": {
+        "s1_observations_mean": 5.011012479683563,
+        "s1_observations_p5": 5,
+        "s1_observations_p50": 5,
+        "s2_valid_observations_mean": 14.897326249513235,
+        "s2_valid_observations_p5": 6.999999999999996,
+        "s2_valid_observations_p50": 16
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.07386139891657911,
+        "sat_g_var": 0.007095540017185583,
+        "sat_s_contrast": 0.023593085702463913,
+        "sat_s_ent": 0.0010197098138481156,
+        "sat_s_var": 0.003887341863751117
+      }
+    },
+    "winter:Sagar": {
+      "season": "winter",
+      "district": "Sagar",
+      "observations": {
+        "s1_observations_mean": 6.865089919959677,
+        "s1_observations_p5": 5.000000000000007,
+        "s1_observations_p50": 5.000000000000007,
+        "s2_valid_observations_mean": 17.634703432497705,
+        "s2_valid_observations_p5": 8.999999999999998,
+        "s2_valid_observations_p50": 16
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.08550079258645332,
+        "sat_g_var": 0.008583642021105176,
+        "sat_s_contrast": 0.016759059573197795,
+        "sat_s_ent": 0.00020783349195657749,
+        "sat_s_var": 0.0012511388131177857
+      }
+    },
+    "summer:Anuppur": {
+      "season": "summer",
+      "district": "Anuppur",
+      "observations": {
+        "s1_observations_mean": 5,
+        "s1_observations_p5": 5,
+        "s1_observations_p50": 5,
+        "s2_valid_observations_mean": 17.401411523010385,
+        "s2_valid_observations_p5": 9,
+        "s2_valid_observations_p50": 16
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.014139307731533475,
+        "sat_g_var": 0.001219826826048866,
+        "sat_s_contrast": 0.03984703849964803,
+        "sat_s_ent": 0.0004066089420162887,
+        "sat_s_var": 0
+      }
+    },
+    "summer:Chhatarpur": {
+      "season": "summer",
+      "district": "Chhatarpur",
+      "observations": {
+        "s1_observations_mean": 5.005454361054039,
+        "s1_observations_p5": 5.000000000000015,
+        "s1_observations_p50": 5.000000000000015,
+        "s2_valid_observations_mean": 13.848053992924722,
+        "s2_valid_observations_p5": 6.999999999999999,
+        "s2_valid_observations_p50": 16
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.023140719228349104,
+        "sat_g_var": 0.0023008148884148386,
+        "sat_s_contrast": 0.009403015294691855,
+        "sat_s_ent": 0.00045397477820262094,
+        "sat_s_var": 0.0004201436067324039
+      }
+    },
+    "summer:Gwalior": {
+      "season": "summer",
+      "district": "Gwalior",
+      "observations": {
+        "s1_observations_mean": 5.011831890656989,
+        "s1_observations_p5": 5,
+        "s1_observations_p50": 5,
+        "s2_valid_observations_mean": 13.71223125440531,
+        "s2_valid_observations_p5": 6.999999999999989,
+        "s2_valid_observations_p50": 14.000000000000007
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.015178865904896756,
+        "sat_g_var": 0.004503153634621801,
+        "sat_s_contrast": 0.021689937486094907,
+        "sat_s_ent": 0.0009289569323980023,
+        "sat_s_var": 0.0038554126465313978
+      }
+    },
+    "summer:Sagar": {
+      "season": "summer",
+      "district": "Sagar",
+      "observations": {
+        "s1_observations_mean": 6.857040341848426,
+        "s1_observations_p5": 5.000000000000009,
+        "s1_observations_p50": 5.000000000000009,
+        "s2_valid_observations_mean": 16.683347810957553,
+        "s2_valid_observations_p5": 8,
+        "s2_valid_observations_p50": 16
+      },
+      "saturated_fraction": {
+        "sat_SWIRratio": 0,
+        "sat_g_contrast": 0.015623077263999217,
+        "sat_g_var": 0.0004607200648086038,
+        "sat_s_contrast": 0.010001109653167561,
+        "sat_s_ent": 0.0002034364140523468,
+        "sat_s_var": 0.00045580414433515795
+      }
+    }
+  }
+}

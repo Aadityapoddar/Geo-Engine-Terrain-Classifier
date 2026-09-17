@@ -1,0 +1,21 @@
+season,contrast,districts,mean_district_oa_difference_pp,ci95_low_pp,ci95_high_pp,districts_tied,abs_difference_ties,wilcoxon_p_raw,family,wilcoxon_p_holm
+winter,Smile GTB - RF,29,0.966,-0.0,1.966,7,14,0.10299692461188234,winter: all ten pairwise classifier contrasts,0.24970877450566198
+winter,Smile GTB - SVM,29,1.034,0.034,2.069,4,16,0.062427193626415495,winter: all ten pairwise classifier contrasts,0.24970877450566198
+winter,Smile GTB - KNN,29,2.138,1.103,3.172,1,17,0.0010545111408857475,winter: all ten pairwise classifier contrasts,0.006327066845314484
+winter,Smile GTB - CART,29,6.862,5.517,8.276,0,13,1.1175870895385742e-08,winter: all ten pairwise classifier contrasts,1.1175870895385742e-07
+winter,RF - SVM,29,0.069,-1.069,1.241,1,18,0.9635183303277441,winter: all ten pairwise classifier contrasts,0.9635183303277441
+winter,RF - KNN,29,1.172,0.31,2.138,5,15,0.03730588405494115,winter: all ten pairwise classifier contrasts,0.18652942027470576
+winter,RF - CART,29,5.897,4.69,7.172,0,11,1.862645149230957e-08,winter: all ten pairwise classifier contrasts,1.6763806343078613e-07
+winter,SVM - KNN,29,1.103,0.069,2.138,5,14,0.08293806458680222,winter: all ten pairwise classifier contrasts,0.24970877450566198
+winter,SVM - CART,29,5.828,4.897,6.828,1,15,3.7135987448490455e-06,winter: all ten pairwise classifier contrasts,2.9708789958792364e-05
+winter,KNN - CART,29,4.724,3.723,5.759,1,14,4.580231673454582e-06,winter: all ten pairwise classifier contrasts,3.206162171418207e-05
+summer,Smile GTB - RF,29,1.967,0.517,3.55,7,6,0.018522652027235104,summer: all ten pairwise classifier contrasts,0.06110116508990665
+summer,Smile GTB - SVM,29,5.255,3.03,7.556,3,3,0.0003759231581627214,summer: all ten pairwise classifier contrasts,0.002255538948976328
+summer,Smile GTB - KNN,29,4.224,2.173,6.294,1,7,0.0008112749272818698,summer: all ten pairwise classifier contrasts,0.0040563746364093494
+summer,Smile GTB - CART,29,12.458,10.379,14.528,0,8,3.725290298461914e-09,summer: all ten pairwise classifier contrasts,3.725290298461914e-08
+summer,RF - SVM,29,3.288,1.023,5.592,1,6,0.015275291272476663,summer: all ten pairwise classifier contrasts,0.06110116508990665
+summer,RF - KNN,29,2.257,0.548,3.989,2,7,0.035430657023023025,summer: all ten pairwise classifier contrasts,0.07086131404604605
+summer,RF - CART,29,10.491,8.394,12.77,1,5,3.7704951142407806e-06,summer: all ten pairwise classifier contrasts,2.6393465799685464e-05
+summer,SVM - KNN,29,-1.031,-2.942,0.795,3,8,0.3871171637671911,summer: all ten pairwise classifier contrasts,0.3871171637671911
+summer,SVM - CART,29,7.203,5.536,8.905,0,9,2.60770320892334e-08,summer: all ten pairwise classifier contrasts,2.3469328880310059e-07
+summer,KNN - CART,29,8.234,6.003,10.625,0,8,4.0978193283081055e-07,summer: all ten pairwise classifier contrasts,3.2782554626464844e-06

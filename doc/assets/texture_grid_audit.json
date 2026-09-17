@@ -1,0 +1,150 @@
+{
+ "district": "Anuppur",
+ "season": "winter",
+ "points": 60,
+ "stage_projections": {
+  "single S2 scene, B8": {
+   "crs": "EPSG:32644",
+   "nominal_scale_m": 10,
+   "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3], \n  PARAMETER[\"elt_0_0\", 10.0], \n  PARAMETER[\"elt_0_2\", 499980.0], \n  PARAMETER[\"elt_1_1\", -10.0], \n  PARAMETER[\"elt_1_2\", 2600040.0]]"
+  },
+  "single S2 scene, B11": {
+   "crs": "EPSG:32644",
+   "nominal_scale_m": 20,
+   "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3], \n  PARAMETER[\"elt_0_0\", 20.0], \n  PARAMETER[\"elt_0_2\", 499980.0], \n  PARAMETER[\"elt_1_1\", -20.0], \n  PARAMETER[\"elt_1_2\", 2600040.0]]"
+  },
+  "cloud-masked median, B8": {
+   "crs": "EPSG:4326",
+   "nominal_scale_m": 111319.49079327357,
+   "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3]]"
+  },
+  "composite with indices, NDVI": {
+   "crs": "EPSG:4326",
+   "nominal_scale_m": 111319.49079327357,
+   "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3]]"
+  },
+  "optical GLCM band, g_contrast": {
+   "crs": "EPSG:4326",
+   "nominal_scale_m": 111319.49079327357,
+   "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3]]"
+  },
+  "SAR GLCM band, s_contrast": {
+   "crs": "EPSG:4326",
+   "nominal_scale_m": 111319.49079327357,
+   "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3]]"
+  }
+ },
+ "request_scales": {
+  "10": {
+   "g_contrast": 0.0,
+   "g_var": 0.0,
+   "g_idm": 0.0,
+   "s_contrast": 0.0,
+   "s_var": 0.0,
+   "s_ent": 0.0,
+   "n": 60,
+   "predictions_changed_vs_scale_10": 0,
+   "predictions_compared": 60
+  },
+  "20": {
+   "g_contrast": 0.073142,
+   "g_var": 0.056345,
+   "g_idm": 0.067034,
+   "s_contrast": 0.187564,
+   "s_var": 0.100982,
+   "s_ent": 0.070238,
+   "n": 60,
+   "predictions_changed_vs_scale_10": 1,
+   "predictions_compared": 60
+  },
+  "30": {
+   "g_contrast": 0.158459,
+   "g_var": 0.11377,
+   "g_idm": 0.104666,
+   "s_contrast": 0.355861,
+   "s_var": 0.189158,
+   "s_ent": 0.110287,
+   "n": 60,
+   "predictions_changed_vs_scale_10": 3,
+   "predictions_compared": 60
+  },
+  "60": {
+   "g_contrast": 0.238702,
+   "g_var": 0.186082,
+   "g_idm": 0.166059,
+   "s_contrast": 0.392282,
+   "s_var": 0.247635,
+   "s_ent": 0.134891,
+   "n": 60,
+   "predictions_changed_vs_scale_10": 2,
+   "predictions_compared": 60
+  },
+  "100": {
+   "g_contrast": 0.292153,
+   "g_var": 0.209767,
+   "g_idm": 0.207953,
+   "s_contrast": 0.454764,
+   "s_var": 0.271861,
+   "s_ent": 0.150566,
+   "n": 60,
+   "predictions_changed_vs_scale_10": 4,
+   "predictions_compared": 60
+  }
+ },
+ "pinned_grid": {
+  "10": {
+   "g_contrast": 0.0,
+   "g_var": 0.0,
+   "g_idm": 0.0,
+   "s_contrast": 0.0,
+   "s_var": 0.0,
+   "s_ent": 0.0,
+   "n": 60,
+   "predictions_changed_vs_default": 0,
+   "predictions_compared": 60
+  },
+  "30": {
+   "g_contrast": 0.071702,
+   "g_var": 0.02897,
+   "g_idm": 0.18752,
+   "s_contrast": 0.0,
+   "s_var": 0.0,
+   "s_ent": 0.0,
+   "n": 60,
+   "predictions_changed_vs_default": 6,
+   "predictions_compared": 60
+  }
+ },
+ "delivered_render_scales": {
+  "5": {
+   "render_pixels": 500,
+   "request_scale_m": 10.0,
+   "glcm_footprint_m": 70.0
+  },
+  "10": {
+   "render_pixels": 1000,
+   "request_scale_m": 10.0,
+   "glcm_footprint_m": 70.0
+  },
+  "20": {
+   "render_pixels": 2000,
+   "request_scale_m": 10.0,
+   "glcm_footprint_m": 70.0
+  },
+  "50": {
+   "render_pixels": 2048,
+   "request_scale_m": 24.41,
+   "glcm_footprint_m": 170.9
+  },
+  "100": {
+   "render_pixels": 2048,
+   "request_scale_m": 48.83,
+   "glcm_footprint_m": 341.8
+  },
+  "200": {
+   "render_pixels": 2048,
+   "request_scale_m": 97.66,
+   "glcm_footprint_m": 683.6
+  }
+ }
+}

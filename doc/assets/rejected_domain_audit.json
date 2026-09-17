@@ -1,0 +1,45 @@
+{
+ "seed": 20260909,
+ "points_per_district": 40,
+ "seasons": {
+  "winter": {
+   "districts": 3,
+   "rejected": {
+    "points": 120,
+    "arbiter_class_share_pct": {
+     "Vegetation": 21.67,
+     "Water": 2.5,
+     "Built Area": 18.33,
+     "Agriculture": 57.5
+    },
+    "model_class_share_pct": {
+     "Vegetation": 27.5,
+     "Water": 6.67,
+     "Built Area": 25.83,
+     "Open Land": 20.83,
+     "Agriculture": 19.17
+    },
+    "model_vs_arbiter_agreement_pct": 52.5
+   },
+   "accepted": {
+    "points": 120,
+    "arbiter_class_share_pct": {
+     "Vegetation": 2.5,
+     "Water": 2.5,
+     "Built Area": 10.0,
+     "Agriculture": 85.0
+    },
+    "model_class_share_pct": {
+     "Vegetation": 7.5,
+     "Water": 4.17,
+     "Built Area": 14.17,
+     "Open Land": 25.83,
+     "Agriculture": 48.33
+    },
+    "model_vs_arbiter_agreement_pct": 56.67
+   },
+   "consensus_vs_arbiter_agreement_pct_accepted": 83.76,
+   "agreement_gap_pp": 4.17
+  }
+ }
+}

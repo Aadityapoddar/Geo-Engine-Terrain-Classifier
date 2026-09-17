@@ -1,0 +1,78 @@
+{
+ "season": "winter",
+ "districts": 29,
+ "points_sampled": 2900,
+ "points_with_both_rasters": 2900,
+ "raw": {
+  "n": 2900,
+  "overall_agreement_pct": 87.24,
+  "per_class": {
+   "Vegetation": {
+    "support": 580,
+    "recall_pct": 90.34
+   },
+   "Water": {
+    "support": 580,
+    "recall_pct": 100.0
+   },
+   "Built Area": {
+    "support": 580,
+    "recall_pct": 98.97
+   },
+   "Open Land": {
+    "support": 580,
+    "recall_pct": 76.55
+   },
+   "Agriculture": {
+    "support": 580,
+    "recall_pct": 70.34
+   }
+  }
+ },
+ "delivered": {
+  "n": 2900,
+  "overall_agreement_pct": 88.24,
+  "per_class": {
+   "Vegetation": {
+    "support": 580,
+    "recall_pct": 93.1
+   },
+   "Water": {
+    "support": 580,
+    "recall_pct": 100.0
+   },
+   "Built Area": {
+    "support": 580,
+    "recall_pct": 99.66
+   },
+   "Open Land": {
+    "support": 580,
+    "recall_pct": 75.52
+   },
+   "Agriculture": {
+    "support": 580,
+    "recall_pct": 72.93
+   }
+  }
+ },
+ "points_changed_by_the_filter": 110,
+ "delta_pp": 1.0,
+ "class_areas_km2": {
+  "district": "Jabalpur",
+  "scale_m": 30,
+  "raw": {
+   "Vegetation": 712.8961,
+   "Water": 321.44,
+   "Built Area": 1048.3834,
+   "Open Land": 542.3026,
+   "Agriculture": 1386.6289
+  },
+  "delivered": {
+   "Vegetation": 696.9697,
+   "Water": 274.3309,
+   "Built Area": 1059.5836,
+   "Open Land": 529.613,
+   "Agriculture": 1451.1537
+  }
+ }
+}

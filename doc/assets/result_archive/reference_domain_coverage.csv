@@ -1,0 +1,5 @@
+season,population,districts,district_area_km2,consensus_covered_area_km2,consensus_covered_pct,strata,strata_with_samples,unsampled_stratum_area_km2,unsampled_stratum_area_pct,sample_n,sample_n_carrying_weight,sample_n_in_zero_area_strata,unweighted_agreement,area_weighted_agreement,area_weighted_ci95_halfwidth,uncertainty_method
+winter,development,15,94953.5,55832.6,58.8,75,75,0.0,0.0,1500,1500,0,0.871333,0.77098,0.045835,"Olofsson et al. (2014) stratified design-based variance, normal 95% interval; no finite-population correction"
+winter,test,29,190329.5,107437.2,56.45,145,145,0.0,0.0,2900,2900,0,0.874138,0.755017,0.033188,"Olofsson et al. (2014) stratified design-based variance, normal 95% interval; no finite-population correction"
+summer,development,15,94953.5,55257.3,58.19,73,73,0.0,0.0,1418,1418,0,0.752468,0.562124,0.055984,"Olofsson et al. (2014) stratified design-based variance, normal 95% interval; no finite-population correction"
+summer,test,29,190329.5,104669.8,54.99,137,137,0.0,0.0,2692,2692,0,0.738484,0.586661,0.040144,"Olofsson et al. (2014) stratified design-based variance, normal 95% interval; no finite-population correction"

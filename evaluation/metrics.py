@@ -43,10 +43,17 @@ def metrics_from_matrix(matrix, labels):
             precision_values.append(precision)
         if recall is not None:
             recall_values.append(recall)
-        if precision is None or recall is None or precision + recall == 0:
-            f1 = None
-        else:
-            f1 = 2 * precision * recall / (precision + recall)
+        # F1 as 2*TP/(support + predicted), not as the harmonic mean of two
+        # rates. The two agree wherever both are defined, but the harmonic form
+        # divides by zero for a class the model got entirely wrong -- real
+        # support, real predictions, no true positive -- and returning None
+        # there dropped that class out of the macro average, which reported a
+        # higher score for a worse model. The count form gives the 0.0 the
+        # class has earned, and None stays reserved for a class that is genuinely
+        # absent from both the reference and the prediction.
+        denominator = row_totals[index] + column_totals[index]
+        f1 = (2 * true_positive / denominator) if denominator else None
+        if f1 is not None:
             f1_values.append(f1)
         per_class[label] = {
             "precision": precision,

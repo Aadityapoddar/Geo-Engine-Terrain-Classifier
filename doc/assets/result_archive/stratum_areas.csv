@@ -1,0 +1,481 @@
+season,district,role,consensus_class,eligible_area_km2,sample_n,sampled,exclusion_reason,weight_scale_m
+summer,Anuppur,test,Agriculture,878.7795,20,yes,,10
+summer,Anuppur,test,Built Area,2.6521,20,yes,,10
+summer,Anuppur,test,Open Land,6.2292,20,yes,,10
+summer,Anuppur,test,Vegetation,0.0842,20,yes,,10
+summer,Anuppur,test,Water,0.1614,20,yes,,10
+summer,Ashoknagar,test,Agriculture,3414.2353,20,yes,,10
+summer,Ashoknagar,test,Built Area,3.0929,20,yes,,10
+summer,Ashoknagar,test,Open Land,3.1545,20,yes,,10
+summer,Ashoknagar,test,Vegetation,0.0027,20,yes,,10
+summer,Ashoknagar,test,Water,43.8886,20,yes,,10
+summer,Balaghat,test,Agriculture,2818.3695,20,yes,,10
+summer,Balaghat,test,Built Area,6.4464,20,yes,,10
+summer,Balaghat,test,Open Land,13.7336,20,yes,,10
+summer,Balaghat,test,Vegetation,39.6405,20,yes,,10
+summer,Balaghat,test,Water,10.3797,20,yes,,10
+summer,Barwani,development,Agriculture,2153.8575,20,yes,,10
+summer,Barwani,development,Built Area,8.4701,20,yes,,10
+summer,Barwani,development,Open Land,18.9772,20,yes,,10
+summer,Barwani,development,Vegetation,0.0012,13,yes,,10
+summer,Barwani,development,Water,50.503,20,yes,,10
+summer,Betul,test,Agriculture,4202.1116,20,yes,,10
+summer,Betul,test,Built Area,11.3885,20,yes,,10
+summer,Betul,test,Open Land,3.3078,20,yes,,10
+summer,Betul,test,Vegetation,2.8859,20,yes,,10
+summer,Betul,test,Water,3.5395,20,yes,,10
+summer,Bhind,test,Agriculture,3388.0872,20,yes,,10
+summer,Bhind,test,Built Area,10.4985,20,yes,,10
+summer,Bhind,test,Open Land,12.8449,20,yes,,10
+summer,Bhind,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Bhind,test,Water,7.478,20,yes,,10
+summer,Bhopal,test,Agriculture,1804.9054,20,yes,,10
+summer,Bhopal,test,Built Area,36.399,20,yes,,10
+summer,Bhopal,test,Open Land,2.6367,20,yes,,10
+summer,Bhopal,test,Vegetation,0.0213,20,yes,,10
+summer,Bhopal,test,Water,20.8303,20,yes,,10
+summer,Burhanpur,test,Agriculture,1285.2594,20,yes,,10
+summer,Burhanpur,test,Built Area,6.9266,20,yes,,10
+summer,Burhanpur,test,Open Land,2.4922,20,yes,,10
+summer,Burhanpur,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Burhanpur,test,Water,2.5578,20,yes,,10
+summer,Chhatarpur,test,Agriculture,5562.4908,20,yes,,10
+summer,Chhatarpur,test,Built Area,3.1354,20,yes,,10
+summer,Chhatarpur,test,Open Land,7.7884,20,yes,,10
+summer,Chhatarpur,test,Vegetation,0.0006,7,yes,,10
+summer,Chhatarpur,test,Water,2.5166,20,yes,,10
+summer,Chhindwara,test,Agriculture,4806.6569,20,yes,,10
+summer,Chhindwara,test,Built Area,12.4425,20,yes,,10
+summer,Chhindwara,test,Open Land,3.1371,20,yes,,10
+summer,Chhindwara,test,Vegetation,5.8344,20,yes,,10
+summer,Chhindwara,test,Water,28.6152,20,yes,,10
+summer,Damoh,development,Agriculture,3753.6971,20,yes,,10
+summer,Damoh,development,Built Area,1.9224,20,yes,,10
+summer,Damoh,development,Open Land,7.1399,20,yes,,10
+summer,Damoh,development,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Damoh,development,Water,4.8381,20,yes,,10
+summer,Datia,test,Agriculture,1919.6104,20,yes,,10
+summer,Datia,test,Built Area,3.1951,20,yes,,10
+summer,Datia,test,Open Land,4.141,20,yes,,10
+summer,Datia,test,Vegetation,0.0358,20,yes,,10
+summer,Datia,test,Water,4.1207,20,yes,,10
+summer,Dewas,test,Agriculture,4351.2679,20,yes,,10
+summer,Dewas,test,Built Area,24.4233,20,yes,,10
+summer,Dewas,test,Open Land,2.0644,20,yes,,10
+summer,Dewas,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Dewas,test,Water,0.1419,20,yes,,10
+summer,Dhar,test,Agriculture,5216.7714,20,yes,,10
+summer,Dhar,test,Built Area,28.0455,20,yes,,10
+summer,Dhar,test,Open Land,14.6739,20,yes,,10
+summer,Dhar,test,Vegetation,0.0397,20,yes,,10
+summer,Dhar,test,Water,31.4405,20,yes,,10
+summer,Dindori,training-withheld,Agriculture,1966.2583,20,yes,,10
+summer,Dindori,training-withheld,Built Area,1.0116,20,yes,,10
+summer,Dindori,training-withheld,Open Land,0.7965,20,yes,,10
+summer,Dindori,training-withheld,Vegetation,99.2317,20,yes,,10
+summer,Dindori,training-withheld,Water,4.8762,20,yes,,10
+summer,East Nimar,test,Agriculture,3785.1409,20,yes,,10
+summer,East Nimar,test,Built Area,14.7467,20,yes,,10
+summer,East Nimar,test,Open Land,9.3162,20,yes,,10
+summer,East Nimar,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,East Nimar,test,Water,62.2906,20,yes,,10
+summer,Guna,test,Agriculture,4167.2325,20,yes,,10
+summer,Guna,test,Built Area,5.8689,20,yes,,10
+summer,Guna,test,Open Land,5.8691,20,yes,,10
+summer,Guna,test,Vegetation,0.0022,20,yes,,10
+summer,Guna,test,Water,0.0883,20,yes,,10
+summer,Gwalior,test,Agriculture,2370.9103,20,yes,,10
+summer,Gwalior,test,Built Area,11.3342,20,yes,,10
+summer,Gwalior,test,Open Land,6.4026,20,yes,,10
+summer,Gwalior,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Gwalior,test,Water,22.2506,20,yes,,10
+summer,Harda,development,Agriculture,2117.9681,20,yes,,10
+summer,Harda,development,Built Area,11.3538,20,yes,,10
+summer,Harda,development,Open Land,0.6085,20,yes,,10
+summer,Harda,development,Vegetation,0.0004,4,yes,,10
+summer,Harda,development,Water,9.5444,20,yes,,10
+summer,Hoshangabad,development,Agriculture,3529.3486,20,yes,,10
+summer,Hoshangabad,development,Built Area,20.2747,20,yes,,10
+summer,Hoshangabad,development,Open Land,24.3732,20,yes,,10
+summer,Hoshangabad,development,Vegetation,20.2659,20,yes,,10
+summer,Hoshangabad,development,Water,87.6674,20,yes,,10
+summer,Indore,test,Agriculture,2684.5069,20,yes,,10
+summer,Indore,test,Built Area,59.7554,20,yes,,10
+summer,Indore,test,Open Land,3.3065,20,yes,,10
+summer,Indore,test,Vegetation,0.0146,20,yes,,10
+summer,Indore,test,Water,1.0046,20,yes,,10
+summer,Jabalpur,training-withheld,Agriculture,2254.7312,19,yes,,10
+summer,Jabalpur,training-withheld,Built Area,28.9093,18,yes,,10
+summer,Jabalpur,training-withheld,Open Land,1.9193,16,yes,,10
+summer,Jabalpur,training-withheld,Vegetation,0.0419,14,yes,,10
+summer,Jabalpur,training-withheld,Water,53.1426,19,yes,,10
+summer,Jhabua,development,Agriculture,3186.4786,20,yes,,10
+summer,Jhabua,development,Built Area,3.9523,20,yes,,10
+summer,Jhabua,development,Open Land,6.0246,20,yes,,10
+summer,Jhabua,development,Vegetation,0.008,20,yes,,10
+summer,Jhabua,development,Water,28.579,20,yes,,10
+summer,Katni,training-withheld,Agriculture,3409.4713,20,yes,,10
+summer,Katni,training-withheld,Built Area,8.1119,18,yes,,10
+summer,Katni,training-withheld,Open Land,15.3449,20,yes,,10
+summer,Katni,training-withheld,Vegetation,1.1064,20,yes,,10
+summer,Katni,training-withheld,Water,40.3387,20,yes,,10
+summer,Mandla,training-withheld,Agriculture,2315.1971,20,yes,,10
+summer,Mandla,training-withheld,Built Area,4.2074,20,yes,,10
+summer,Mandla,training-withheld,Open Land,4.4805,20,yes,,10
+summer,Mandla,training-withheld,Vegetation,37.1688,20,yes,,10
+summer,Mandla,training-withheld,Water,74.6243,20,yes,,10
+summer,Mandsaur,development,Agriculture,3663.9249,20,yes,,10
+summer,Mandsaur,development,Built Area,26.8526,20,yes,,10
+summer,Mandsaur,development,Open Land,15.1323,20,yes,,10
+summer,Mandsaur,development,Vegetation,0.0237,20,yes,,10
+summer,Mandsaur,development,Water,297.1225,20,yes,,10
+summer,Morena,test,Agriculture,2837.6568,20,yes,,10
+summer,Morena,test,Built Area,7.6955,20,yes,,10
+summer,Morena,test,Open Land,49.6914,20,yes,,10
+summer,Morena,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Morena,test,Water,7.6683,20,yes,,10
+summer,Narsinghpur,test,Agriculture,2990.756,20,yes,,10
+summer,Narsinghpur,test,Built Area,13.7429,20,yes,,10
+summer,Narsinghpur,test,Open Land,7.9287,20,yes,,10
+summer,Narsinghpur,test,Vegetation,0.0396,20,yes,,10
+summer,Narsinghpur,test,Water,5.6295,20,yes,,10
+summer,Neemuch,development,Agriculture,1852.9886,20,yes,,10
+summer,Neemuch,development,Built Area,11.7619,20,yes,,10
+summer,Neemuch,development,Open Land,5.5015,20,yes,,10
+summer,Neemuch,development,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Neemuch,development,Water,117.2443,20,yes,,10
+summer,Panna,test,Agriculture,3270.858,20,yes,,10
+summer,Panna,test,Built Area,0.6924,20,yes,,10
+summer,Panna,test,Open Land,10.7499,20,yes,,10
+summer,Panna,test,Vegetation,0.0003,3,yes,,10
+summer,Panna,test,Water,15.2146,20,yes,,10
+summer,Raisen,test,Agriculture,4801.8761,20,yes,,10
+summer,Raisen,test,Built Area,14.1835,20,yes,,10
+summer,Raisen,test,Open Land,2.2781,20,yes,,10
+summer,Raisen,test,Vegetation,0.0013,14,yes,,10
+summer,Raisen,test,Water,54.2476,20,yes,,10
+summer,Rajgarh,development,Agriculture,4672.9272,20,yes,,10
+summer,Rajgarh,development,Built Area,16.5157,20,yes,,10
+summer,Rajgarh,development,Open Land,8.9948,20,yes,,10
+summer,Rajgarh,development,Vegetation,0.0185,20,yes,,10
+summer,Rajgarh,development,Water,1.3973,20,yes,,10
+summer,Ratlam,test,Agriculture,3351.2842,20,yes,,10
+summer,Ratlam,test,Built Area,21.4092,20,yes,,10
+summer,Ratlam,test,Open Land,8.9343,20,yes,,10
+summer,Ratlam,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Ratlam,test,Water,6.1783,20,yes,,10
+summer,Rewa,development,Agriculture,3886.6601,20,yes,,10
+summer,Rewa,development,Built Area,9.754,20,yes,,10
+summer,Rewa,development,Open Land,7.7779,20,yes,,10
+summer,Rewa,development,Vegetation,0.0738,20,yes,,10
+summer,Rewa,development,Water,5.0579,20,yes,,10
+summer,Sagar,test,Agriculture,6160.9617,20,yes,,10
+summer,Sagar,test,Built Area,14.4285,20,yes,,10
+summer,Sagar,test,Open Land,7.4665,20,yes,,10
+summer,Sagar,test,Vegetation,0.0777,20,yes,,10
+summer,Sagar,test,Water,17.5059,20,yes,,10
+summer,Satna,test,Agriculture,4199.3153,20,yes,,10
+summer,Satna,test,Built Area,9.64,20,yes,,10
+summer,Satna,test,Open Land,15.1936,20,yes,,10
+summer,Satna,test,Vegetation,0.0981,20,yes,,10
+summer,Satna,test,Water,142.4534,20,yes,,10
+summer,Sehore,development,Agriculture,4589.5257,20,yes,,10
+summer,Sehore,development,Built Area,17.3121,20,yes,,10
+summer,Sehore,development,Open Land,7.9354,20,yes,,10
+summer,Sehore,development,Vegetation,0.0032,20,yes,,10
+summer,Sehore,development,Water,27.2907,20,yes,,10
+summer,Seoni,test,Agriculture,4165.5361,20,yes,,10
+summer,Seoni,test,Built Area,8.4634,20,yes,,10
+summer,Seoni,test,Open Land,2.1447,20,yes,,10
+summer,Seoni,test,Vegetation,0.0905,20,yes,,10
+summer,Seoni,test,Water,77.4949,20,yes,,10
+summer,Shahdol,test,Agriculture,2831.2588,20,yes,,10
+summer,Shahdol,test,Built Area,5.456,20,yes,,10
+summer,Shahdol,test,Open Land,10.6215,20,yes,,10
+summer,Shahdol,test,Vegetation,21.655,20,yes,,10
+summer,Shahdol,test,Water,146.0269,20,yes,,10
+summer,Shajapur,development,Agriculture,4893.4407,20,yes,,10
+summer,Shajapur,development,Built Area,19.9937,20,yes,,10
+summer,Shajapur,development,Open Land,11.535,20,yes,,10
+summer,Shajapur,development,Vegetation,0.0013,14,yes,,10
+summer,Shajapur,development,Water,3.4063,20,yes,,10
+summer,Sheopur,development,Agriculture,2117.6747,20,yes,,10
+summer,Sheopur,development,Built Area,3.0798,20,yes,,10
+summer,Sheopur,development,Open Land,17.5488,20,yes,,10
+summer,Sheopur,development,Vegetation,0.0602,20,yes,,10
+summer,Sheopur,development,Water,1.6957,20,yes,,10
+summer,Shivpuri,development,Agriculture,5572.0388,20,yes,,10
+summer,Shivpuri,development,Built Area,5.6087,20,yes,,10
+summer,Shivpuri,development,Open Land,9.4594,20,yes,,10
+summer,Shivpuri,development,Vegetation,0.0006,7,yes,,10
+summer,Shivpuri,development,Water,74.5161,20,yes,,10
+summer,Sidhi,test,Agriculture,3370.4732,20,yes,,10
+summer,Sidhi,test,Built Area,5.7051,20,yes,,10
+summer,Sidhi,test,Open Land,123.3296,20,yes,,10
+summer,Sidhi,test,Vegetation,17.3782,20,yes,,10
+summer,Sidhi,test,Water,43.018,20,yes,,10
+summer,Tikamgarh,development,Agriculture,3420.3085,20,yes,,10
+summer,Tikamgarh,development,Built Area,4.0177,20,yes,,10
+summer,Tikamgarh,development,Open Land,5.2666,20,yes,,10
+summer,Tikamgarh,development,Vegetation,0.0021,20,yes,,10
+summer,Tikamgarh,development,Water,9.0043,20,yes,,10
+summer,Ujjain,test,Agriculture,5211.7767,20,yes,,10
+summer,Ujjain,test,Built Area,35.974,20,yes,,10
+summer,Ujjain,test,Open Land,5.108,20,yes,,10
+summer,Ujjain,test,Vegetation,0.0,0,no,no consensus pixel of this class cleared the 20-point quota,10
+summer,Ujjain,test,Water,2.6651,20,yes,,10
+summer,Umaria,test,Agriculture,1181.8873,20,yes,,10
+summer,Umaria,test,Built Area,1.59,20,yes,,10
+summer,Umaria,test,Open Land,1.8645,20,yes,,10
+summer,Umaria,test,Vegetation,32.7864,20,yes,,10
+summer,Umaria,test,Water,49.3466,20,yes,,10
+summer,Vidisha,test,Agriculture,5957.4234,20,yes,,10
+summer,Vidisha,test,Built Area,7.7704,20,yes,,10
+summer,Vidisha,test,Open Land,2.2538,20,yes,,10
+summer,Vidisha,test,Vegetation,0.0007,8,yes,,10
+summer,Vidisha,test,Water,17.1545,20,yes,,10
+summer,West Nimar,development,Agriculture,4739.2785,20,yes,,10
+summer,West Nimar,development,Built Area,22.652,20,yes,,10
+summer,West Nimar,development,Open Land,10.8602,20,yes,,10
+summer,West Nimar,development,Vegetation,0.0501,20,yes,,10
+summer,West Nimar,development,Water,28.1967,20,yes,,10
+winter,Anuppur,test,Agriculture,878.7795,20,yes,,10
+winter,Anuppur,test,Built Area,0.3349,20,yes,,10
+winter,Anuppur,test,Open Land,4.8041,20,yes,,10
+winter,Anuppur,test,Vegetation,29.2155,20,yes,,10
+winter,Anuppur,test,Water,5.4491,20,yes,,10
+winter,Ashoknagar,test,Agriculture,3414.2353,20,yes,,10
+winter,Ashoknagar,test,Built Area,5.2054,20,yes,,10
+winter,Ashoknagar,test,Open Land,0.9736,20,yes,,10
+winter,Ashoknagar,test,Vegetation,0.8586,20,yes,,10
+winter,Ashoknagar,test,Water,59.821,20,yes,,10
+winter,Balaghat,test,Agriculture,2818.3695,20,yes,,10
+winter,Balaghat,test,Built Area,0.1522,20,yes,,10
+winter,Balaghat,test,Open Land,14.793,20,yes,,10
+winter,Balaghat,test,Vegetation,525.8484,20,yes,,10
+winter,Balaghat,test,Water,21.9645,20,yes,,10
+winter,Barwani,development,Agriculture,2153.8575,20,yes,,10
+winter,Barwani,development,Built Area,3.4971,20,yes,,10
+winter,Barwani,development,Open Land,3.0871,20,yes,,10
+winter,Barwani,development,Vegetation,1.4627,20,yes,,10
+winter,Barwani,development,Water,63.0894,20,yes,,10
+winter,Betul,test,Agriculture,4202.1116,20,yes,,10
+winter,Betul,test,Built Area,10.659,20,yes,,10
+winter,Betul,test,Open Land,1.8569,20,yes,,10
+winter,Betul,test,Vegetation,145.5811,20,yes,,10
+winter,Betul,test,Water,23.2705,20,yes,,10
+winter,Bhind,test,Agriculture,3388.0872,20,yes,,10
+winter,Bhind,test,Built Area,6.4281,20,yes,,10
+winter,Bhind,test,Open Land,7.6461,20,yes,,10
+winter,Bhind,test,Vegetation,35.8832,20,yes,,10
+winter,Bhind,test,Water,15.2535,20,yes,,10
+winter,Bhopal,test,Agriculture,1804.9054,20,yes,,10
+winter,Bhopal,test,Built Area,24.8762,20,yes,,10
+winter,Bhopal,test,Open Land,0.8677,20,yes,,10
+winter,Bhopal,test,Vegetation,1.1495,20,yes,,10
+winter,Bhopal,test,Water,39.0497,20,yes,,10
+winter,Burhanpur,test,Agriculture,1285.2594,20,yes,,10
+winter,Burhanpur,test,Built Area,3.0728,20,yes,,10
+winter,Burhanpur,test,Open Land,0.8264,20,yes,,10
+winter,Burhanpur,test,Vegetation,0.1994,20,yes,,10
+winter,Burhanpur,test,Water,12.3167,20,yes,,10
+winter,Chhatarpur,test,Agriculture,5562.4908,20,yes,,10
+winter,Chhatarpur,test,Built Area,3.2295,20,yes,,10
+winter,Chhatarpur,test,Open Land,3.3146,20,yes,,10
+winter,Chhatarpur,test,Vegetation,8.1318,20,yes,,10
+winter,Chhatarpur,test,Water,36.2452,20,yes,,10
+winter,Chhindwara,test,Agriculture,4806.6569,20,yes,,10
+winter,Chhindwara,test,Built Area,10.3372,20,yes,,10
+winter,Chhindwara,test,Open Land,3.6598,20,yes,,10
+winter,Chhindwara,test,Vegetation,149.4441,20,yes,,10
+winter,Chhindwara,test,Water,75.8317,20,yes,,10
+winter,Damoh,development,Agriculture,3753.6971,20,yes,,10
+winter,Damoh,development,Built Area,2.8957,20,yes,,10
+winter,Damoh,development,Open Land,2.9375,20,yes,,10
+winter,Damoh,development,Vegetation,1.1051,20,yes,,10
+winter,Damoh,development,Water,25.7025,20,yes,,10
+winter,Datia,test,Agriculture,1919.6104,20,yes,,10
+winter,Datia,test,Built Area,4.5105,20,yes,,10
+winter,Datia,test,Open Land,2.2789,20,yes,,10
+winter,Datia,test,Vegetation,20.8794,20,yes,,10
+winter,Datia,test,Water,5.9442,20,yes,,10
+winter,Dewas,test,Agriculture,4351.2679,20,yes,,10
+winter,Dewas,test,Built Area,22.5837,20,yes,,10
+winter,Dewas,test,Open Land,0.8528,20,yes,,10
+winter,Dewas,test,Vegetation,1.6728,20,yes,,10
+winter,Dewas,test,Water,23.1358,20,yes,,10
+winter,Dhar,test,Agriculture,5216.7714,20,yes,,10
+winter,Dhar,test,Built Area,24.4373,20,yes,,10
+winter,Dhar,test,Open Land,4.3033,20,yes,,10
+winter,Dhar,test,Vegetation,1.0536,20,yes,,10
+winter,Dhar,test,Water,53.289,20,yes,,10
+winter,Dindori,training-withheld,Agriculture,1966.2583,20,yes,,10
+winter,Dindori,training-withheld,Built Area,0.7883,20,yes,,10
+winter,Dindori,training-withheld,Open Land,0.4385,20,yes,,10
+winter,Dindori,training-withheld,Vegetation,695.8518,20,yes,,10
+winter,Dindori,training-withheld,Water,14.5652,20,yes,,10
+winter,East Nimar,test,Agriculture,3785.1409,20,yes,,10
+winter,East Nimar,test,Built Area,8.3641,20,yes,,10
+winter,East Nimar,test,Open Land,3.149,20,yes,,10
+winter,East Nimar,test,Vegetation,9.2143,20,yes,,10
+winter,East Nimar,test,Water,574.9211,20,yes,,10
+winter,Guna,test,Agriculture,4167.2325,20,yes,,10
+winter,Guna,test,Built Area,10.1052,20,yes,,10
+winter,Guna,test,Open Land,1.3488,20,yes,,10
+winter,Guna,test,Vegetation,2.8442,20,yes,,10
+winter,Guna,test,Water,23.2607,20,yes,,10
+winter,Gwalior,test,Agriculture,2370.9103,20,yes,,10
+winter,Gwalior,test,Built Area,6.7156,20,yes,,10
+winter,Gwalior,test,Open Land,1.6741,20,yes,,10
+winter,Gwalior,test,Vegetation,3.809,20,yes,,10
+winter,Gwalior,test,Water,29.9228,20,yes,,10
+winter,Harda,development,Agriculture,2117.9681,20,yes,,10
+winter,Harda,development,Built Area,7.9179,20,yes,,10
+winter,Harda,development,Open Land,0.3411,20,yes,,10
+winter,Harda,development,Vegetation,9.4012,20,yes,,10
+winter,Harda,development,Water,24.9026,20,yes,,10
+winter,Hoshangabad,development,Agriculture,3529.3486,20,yes,,10
+winter,Hoshangabad,development,Built Area,11.9465,20,yes,,10
+winter,Hoshangabad,development,Open Land,27.7991,20,yes,,10
+winter,Hoshangabad,development,Vegetation,210.7608,20,yes,,10
+winter,Hoshangabad,development,Water,120.492,20,yes,,10
+winter,Indore,test,Agriculture,2684.5069,20,yes,,10
+winter,Indore,test,Built Area,65.036,20,yes,,10
+winter,Indore,test,Open Land,1.4144,20,yes,,10
+winter,Indore,test,Vegetation,2.6848,20,yes,,10
+winter,Indore,test,Water,8.2535,20,yes,,10
+winter,Jabalpur,training-withheld,Agriculture,2254.7312,19,yes,,10
+winter,Jabalpur,training-withheld,Built Area,4.4598,18,yes,,10
+winter,Jabalpur,training-withheld,Open Land,1.7211,13,yes,,10
+winter,Jabalpur,training-withheld,Vegetation,15.6946,19,yes,,10
+winter,Jabalpur,training-withheld,Water,59.3059,19,yes,,10
+winter,Jhabua,development,Agriculture,3186.4786,20,yes,,10
+winter,Jhabua,development,Built Area,4.7625,20,yes,,10
+winter,Jhabua,development,Open Land,1.2882,20,yes,,10
+winter,Jhabua,development,Vegetation,10.6444,20,yes,,10
+winter,Jhabua,development,Water,42.2261,20,yes,,10
+winter,Katni,training-withheld,Agriculture,3409.4713,20,yes,,10
+winter,Katni,training-withheld,Built Area,6.232,19,yes,,10
+winter,Katni,training-withheld,Open Land,10.0535,20,yes,,10
+winter,Katni,training-withheld,Vegetation,37.5125,20,yes,,10
+winter,Katni,training-withheld,Water,50.4471,20,yes,,10
+winter,Mandla,training-withheld,Agriculture,2315.1971,20,yes,,10
+winter,Mandla,training-withheld,Built Area,1.1179,20,yes,,10
+winter,Mandla,training-withheld,Open Land,3.7233,20,yes,,10
+winter,Mandla,training-withheld,Vegetation,196.3151,20,yes,,10
+winter,Mandla,training-withheld,Water,117.9322,20,yes,,10
+winter,Mandsaur,development,Agriculture,3663.9249,20,yes,,10
+winter,Mandsaur,development,Built Area,26.2828,20,yes,,10
+winter,Mandsaur,development,Open Land,4.0527,20,yes,,10
+winter,Mandsaur,development,Vegetation,0.7926,20,yes,,10
+winter,Mandsaur,development,Water,380.2352,20,yes,,10
+winter,Morena,test,Agriculture,2837.6568,20,yes,,10
+winter,Morena,test,Built Area,0.697,20,yes,,10
+winter,Morena,test,Open Land,38.0363,20,yes,,10
+winter,Morena,test,Vegetation,0.986,20,yes,,10
+winter,Morena,test,Water,32.9409,20,yes,,10
+winter,Narsinghpur,test,Agriculture,2990.756,20,yes,,10
+winter,Narsinghpur,test,Built Area,6.7311,20,yes,,10
+winter,Narsinghpur,test,Open Land,10.0628,20,yes,,10
+winter,Narsinghpur,test,Vegetation,62.2184,20,yes,,10
+winter,Narsinghpur,test,Water,18.5949,20,yes,,10
+winter,Neemuch,development,Agriculture,1852.9886,20,yes,,10
+winter,Neemuch,development,Built Area,5.7581,20,yes,,10
+winter,Neemuch,development,Open Land,1.9594,20,yes,,10
+winter,Neemuch,development,Vegetation,0.5424,20,yes,,10
+winter,Neemuch,development,Water,138.5566,20,yes,,10
+winter,Panna,test,Agriculture,3270.858,20,yes,,10
+winter,Panna,test,Built Area,2.7494,20,yes,,10
+winter,Panna,test,Open Land,5.4338,20,yes,,10
+winter,Panna,test,Vegetation,6.5283,20,yes,,10
+winter,Panna,test,Water,25.9576,20,yes,,10
+winter,Raisen,test,Agriculture,4801.8761,20,yes,,10
+winter,Raisen,test,Built Area,10.7196,20,yes,,10
+winter,Raisen,test,Open Land,1.5201,20,yes,,10
+winter,Raisen,test,Vegetation,47.269,20,yes,,10
+winter,Raisen,test,Water,78.0159,20,yes,,10
+winter,Rajgarh,development,Agriculture,4672.9272,20,yes,,10
+winter,Rajgarh,development,Built Area,19.3514,20,yes,,10
+winter,Rajgarh,development,Open Land,2.0287,20,yes,,10
+winter,Rajgarh,development,Vegetation,1.9697,20,yes,,10
+winter,Rajgarh,development,Water,69.4788,20,yes,,10
+winter,Ratlam,test,Agriculture,3351.2842,20,yes,,10
+winter,Ratlam,test,Built Area,25.0088,20,yes,,10
+winter,Ratlam,test,Open Land,1.8672,20,yes,,10
+winter,Ratlam,test,Vegetation,0.89,20,yes,,10
+winter,Ratlam,test,Water,16.7039,20,yes,,10
+winter,Rewa,development,Agriculture,3886.6601,20,yes,,10
+winter,Rewa,development,Built Area,7.8394,20,yes,,10
+winter,Rewa,development,Open Land,4.7872,20,yes,,10
+winter,Rewa,development,Vegetation,13.734,20,yes,,10
+winter,Rewa,development,Water,17.6587,20,yes,,10
+winter,Sagar,test,Agriculture,6160.9617,20,yes,,10
+winter,Sagar,test,Built Area,13.8584,20,yes,,10
+winter,Sagar,test,Open Land,3.4212,20,yes,,10
+winter,Sagar,test,Vegetation,14.8517,20,yes,,10
+winter,Sagar,test,Water,43.8397,20,yes,,10
+winter,Satna,test,Agriculture,4199.3153,20,yes,,10
+winter,Satna,test,Built Area,7.1092,20,yes,,10
+winter,Satna,test,Open Land,8.9786,20,yes,,10
+winter,Satna,test,Vegetation,15.878,20,yes,,10
+winter,Satna,test,Water,147.5452,20,yes,,10
+winter,Sehore,development,Agriculture,4589.5257,20,yes,,10
+winter,Sehore,development,Built Area,11.3153,20,yes,,10
+winter,Sehore,development,Open Land,5.8151,20,yes,,10
+winter,Sehore,development,Vegetation,15.4416,20,yes,,10
+winter,Sehore,development,Water,36.1401,20,yes,,10
+winter,Seoni,test,Agriculture,4165.5361,20,yes,,10
+winter,Seoni,test,Built Area,2.185,20,yes,,10
+winter,Seoni,test,Open Land,1.2564,20,yes,,10
+winter,Seoni,test,Vegetation,6.0056,20,yes,,10
+winter,Seoni,test,Water,120.7359,20,yes,,10
+winter,Shahdol,test,Agriculture,2831.2588,20,yes,,10
+winter,Shahdol,test,Built Area,0.519,20,yes,,10
+winter,Shahdol,test,Open Land,8.9539,20,yes,,10
+winter,Shahdol,test,Vegetation,325.5681,20,yes,,10
+winter,Shahdol,test,Water,178.1286,20,yes,,10
+winter,Shajapur,development,Agriculture,4893.4407,20,yes,,10
+winter,Shajapur,development,Built Area,23.0034,20,yes,,10
+winter,Shajapur,development,Open Land,2.808,20,yes,,10
+winter,Shajapur,development,Vegetation,0.6432,20,yes,,10
+winter,Shajapur,development,Water,33.5581,20,yes,,10
+winter,Sheopur,development,Agriculture,2117.6747,20,yes,,10
+winter,Sheopur,development,Built Area,0.2409,20,yes,,10
+winter,Sheopur,development,Open Land,12.2276,20,yes,,10
+winter,Sheopur,development,Vegetation,9.4548,20,yes,,10
+winter,Sheopur,development,Water,5.7095,20,yes,,10
+winter,Shivpuri,development,Agriculture,5572.0388,20,yes,,10
+winter,Shivpuri,development,Built Area,11.7224,20,yes,,10
+winter,Shivpuri,development,Open Land,2.887,20,yes,,10
+winter,Shivpuri,development,Vegetation,2.2753,20,yes,,10
+winter,Shivpuri,development,Water,113.7889,20,yes,,10
+winter,Sidhi,test,Agriculture,3370.4732,20,yes,,10
+winter,Sidhi,test,Built Area,0.7759,20,yes,,10
+winter,Sidhi,test,Open Land,107.3584,20,yes,,10
+winter,Sidhi,test,Vegetation,447.2452,20,yes,,10
+winter,Sidhi,test,Water,82.7053,20,yes,,10
+winter,Tikamgarh,development,Agriculture,3420.3085,20,yes,,10
+winter,Tikamgarh,development,Built Area,8.4605,20,yes,,10
+winter,Tikamgarh,development,Open Land,2.8683,20,yes,,10
+winter,Tikamgarh,development,Vegetation,1.8048,20,yes,,10
+winter,Tikamgarh,development,Water,32.3742,20,yes,,10
+winter,Ujjain,test,Agriculture,5211.7767,20,yes,,10
+winter,Ujjain,test,Built Area,40.5528,20,yes,,10
+winter,Ujjain,test,Open Land,1.2337,20,yes,,10
+winter,Ujjain,test,Vegetation,0.4372,20,yes,,10
+winter,Ujjain,test,Water,10.8879,20,yes,,10
+winter,Umaria,test,Agriculture,1181.8873,20,yes,,10
+winter,Umaria,test,Built Area,0.362,20,yes,,10
+winter,Umaria,test,Open Land,1.4048,20,yes,,10
+winter,Umaria,test,Vegetation,170.0062,20,yes,,10
+winter,Umaria,test,Water,59.2852,20,yes,,10
+winter,Vidisha,test,Agriculture,5957.4234,20,yes,,10
+winter,Vidisha,test,Built Area,2.5263,20,yes,,10
+winter,Vidisha,test,Open Land,0.797,20,yes,,10
+winter,Vidisha,test,Vegetation,2.6649,20,yes,,10
+winter,Vidisha,test,Water,23.6095,20,yes,,10
+winter,West Nimar,development,Agriculture,4739.2785,20,yes,,10
+winter,West Nimar,development,Built Area,11.2563,20,yes,,10
+winter,West Nimar,development,Open Land,2.8551,20,yes,,10
+winter,West Nimar,development,Vegetation,3.2703,20,yes,,10
+winter,West Nimar,development,Water,61.2832,20,yes,,10

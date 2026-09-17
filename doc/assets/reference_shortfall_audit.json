@@ -1,0 +1,101 @@
+{
+ "source": "stratum_areas.csv",
+ "role": "test",
+ "seasons": {
+  "winter": {
+   "strata": 145,
+   "strata_below_quota": 0,
+   "missing_points": 0,
+   "classes_affected": [],
+   "short_strata_with_fewer_than_20_eligible_pixels": 0,
+   "short_strata_with_at_least_1000_eligible_pixels": 0,
+   "detail": {}
+  },
+  "summer": {
+   "strata": 145,
+   "strata_below_quota": 12,
+   "missing_points": 208,
+   "classes_affected": [
+    "Vegetation"
+   ],
+   "short_strata_with_fewer_than_20_eligible_pixels": 12,
+   "short_strata_with_at_least_1000_eligible_pixels": 0,
+   "detail": {
+    "Vegetation": [
+     {
+      "district": "Bhind",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Burhanpur",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Chhatarpur",
+      "eligible_area_km2": 0.0006,
+      "eligible_10m_pixels": 6,
+      "sampled": 7
+     },
+     {
+      "district": "Dewas",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "East Nimar",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Gwalior",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Morena",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Panna",
+      "eligible_area_km2": 0.0003,
+      "eligible_10m_pixels": 3,
+      "sampled": 3
+     },
+     {
+      "district": "Raisen",
+      "eligible_area_km2": 0.0013,
+      "eligible_10m_pixels": 13,
+      "sampled": 14
+     },
+     {
+      "district": "Ratlam",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Ujjain",
+      "eligible_area_km2": 0.0,
+      "eligible_10m_pixels": 0,
+      "sampled": 0
+     },
+     {
+      "district": "Vidisha",
+      "eligible_area_km2": 0.0007,
+      "eligible_10m_pixels": 7,
+      "sampled": 8
+     }
+    ]
+   }
+  }
+ }
+}

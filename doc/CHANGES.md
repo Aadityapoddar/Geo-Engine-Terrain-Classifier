@@ -1,5 +1,112 @@
 # Changes
 
+## 2026-09-09 - The second-round audit: what the assessment itself was measuring
+
+The first audit round fixed what the paper said about its results. This round
+measures four things the paper had asserted about its own method without
+testing them, and reruns two experiments that were run on the wrong
+configuration.
+
+### The texture footprint was never verified
+
+`glcmTexture(size=3)` is a neighbourhood operation, so its footprint in metres
+is set by the pixel grid underneath it.
+An Earth Engine composite of many scenes carries the default WGS84 projection
+with a one-degree transform, not the 10 m grid of its inputs, and a
+neighbourhood operation on such an image is evaluated in the projection of the
+request.
+`scripts/texture_grid_audit.py` records the projection at every stage and
+measures the consequence.
+
+Training and evaluation both request 10 m, and their texture values are
+identical to a pipeline whose grey-level image is pinned to an explicit 10 m
+grid, so the reported results rest on a 70 m footprint as the paper claimed.
+The delivered dashboard raster does not: its render scale is the polygon width
+divided by at most 2,048 pixels, so a 100 km polygon is classified from texture
+measured over a 342 m neighbourhood.
+
+### Smile GTB is not nondeterministic
+
+The paper attributed a 531-point difference between two runs to the classifier's
+sampling rate, by elimination rather than by experiment.
+`scripts/refit_variability.py` runs the experiment: with the training and
+evaluation tables frozen as constant collections, every classifier including
+Smile GTB reproduces exactly, and for the leading model not one of 2,900 point
+predictions changes across four refits.
+
+Permuting the order of the 5,000 training rows, changing no value, moves pooled
+test agreement by 0.38 points for Smile GTB, 0.38 for Random Forest and 0.76 for
+SVM, changing 119, 79 and 26 individual predictions, and leaves KNN untouched.
+Round-tripping the same table through a client-side representation moves Smile
+GTB by 0.17 points on its own.
+
+Sampling the training table freshly from Earth Engine before each fit
+reproduces the frozen run exactly: 87.414% four times for Smile GTB, which is
+the stored figure to every digit the archive holds, and 86.379% for SVM.
+The model the earlier rebuild singled out as unstable is one of the two that
+reproduce exactly.
+The fit is a deterministic function of its inputs; what is unpinned across
+sessions is the table, not the classifier.
+
+### Stratum areas measured on the sampling grid
+
+The design-based weights were measured at 30 m for a sample drawn at 10 m,
+which under-measures fragmented classes and left sampled points in strata of
+zero measured area.
+`scripts/reference_stratum_weights.py --scale 10` measures them on the grid the
+sample was drawn on, using a grouped reducer and a tiled fallback so the larger
+districts finish at all.
+
+The winter weighted estimate is unchanged at 75.50% and the summer one moves
+from 58.69% to 58.67%, the covered domain moves from 107,461 to 107,437 km2, and
+the minority classes gain the share the coarser grid was hiding: built area from
+0.29% to 0.30% of the domain and its weighted user's accuracy from 3.29% to
+3.43%.
+
+Two accounting defects disappear.
+Under the 30 m weights two summer strata had area and no sample and three
+sampled points fell in strata of no measured area; on the sampling grid every
+stratum with area has a sample and every point carries weight.
+
+One conclusion reverses.
+At 30 m the vegetation shortfall audit showed Bhind holding about 4,400 eligible
+summer pixels and returning none, which looks like a sampler defect.
+On the 10 m grid Bhind holds none, every one of the twelve short strata holds
+fewer than twenty eligible pixels, and the shortfall is scarcity in the
+reference after all.
+
+### Two reruns on the right configuration
+
+The protocol comparison had been run on the `alt19` stack, under a 0.1-degree
+block assignment scrambled by an integer hash, on one realisation.
+It now runs on the production stack, over ten contiguous longitudinal bands of
+12.3 km, with the training budget matched between protocols, over eight
+rotations of the held-out window.
+The winter protocol effect rises from 3.41 to 5.67 points, which is what a
+partition that stops leaking at every cell boundary does, and the spread across
+realisations is wide enough that a single blocked split does not pin it down.
+
+All ten pairwise classifier contrasts are now tested rather than the four
+against the leader, which is what the claim that CART is separated from every
+other classifier actually requires.
+
+### Audits added
+
+- `scripts/fixed_location_seasonal.py` - the seasonal fall at 1,350 locations
+  sampled in both windows under an unchanged reference label: 8.67 points
+  against the 13.56 the pooled samples show.
+- `scripts/reference_shortfall_audit.py` - every stratum that missed the
+  sampling quota, per district, with its eligible area.
+- `scripts/delivered_map_eval.py` - the majority-filtered raster the dashboard
+  serves, which agrees 1.0 point better than the raw one and loses 14.7% of the
+  mapped water area in Jabalpur.
+- `scripts/all_pairwise_contrasts.py` - the ten-contrast family, which is what
+  the claim that CART is separated from every other classifier requires.
+- `scripts/rejected_domain_audit.py` - a three-district pilot comparing the
+  consensus-accepted and consensus-rejected halves of the state against an
+  independent product. It times out on the larger districts at 10 m, which is
+  why it is a pilot.
+
 ## 2026-09-02 - The feature stack and the hyperparameters, re-selected
 
 The band study this project shipped on was a four-class WorldCover experiment

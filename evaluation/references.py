@@ -1,15 +1,50 @@
 """Independent whole-MP consensus reference construction.
 
-WorldCover and Dynamic World must agree. Specialist datasets then confirm
-water, buildings, and seasonal agriculture. Training points are used only to
-buffer test samples away from them; evaluation is exclusively against these
-public products.
+The screening rule is class-specific, not uniform, and build_consensus_reference
+below is the only authority on it. Read the masks there before quoting a rule:
+
+    vegetation   WC 10  AND DW trees(1)  AND p >= DW_MIN_PROBABILITY
+    water        WC 80  AND DW water(0)  AND p >= DW_MIN_PROBABILITY AND OPERA
+    built area   WC 50  AND DW built(6)  AND p >= DW_MIN_PROBABILITY AND GHSL
+    open land    WC 60  AND DW bare(7)   AND no specialist claims the pixel
+    agriculture  WC 40  AND WorldCereal temporarycrops
+
+The last two rows carry weaker conditions, declared in DW_SCREEN below with the
+measurement that justifies them. Raising both to 0.70 empties the two strata
+outright rather than trimming them, so the five-class reference does not exist
+at a uniform threshold. The price is that agriculture, screened most cheaply,
+holds 95.92% of the winter and 98.40% of the summer weighted domain. Wetland,
+flooded vegetation and mangrove codes are unassigned and never enter.
+
+Training points are used only to buffer test samples away from them; evaluation
+is exclusively against these public products.
 """
 
 import ee
 
 
 DW_MIN_PROBABILITY = 0.70
+
+# Per-class screening, in class order: (WorldCover code, Dynamic World label,
+# probability threshold). A None means that condition is not applied.
+#
+# The last two rows are weaker than the first three and that is a measured
+# choice, not an oversight. Raising them to the uniform 0.70 of the other three
+# does not shrink those strata, it empties them: across the 29 test districts
+# the agriculture and open-land eligible areas both fall to 0 km2, leaving a
+# three-class reference over 2.4% of the area the rule below covers. Dynamic
+# World rarely reaches 0.70 on crops or bare ground in this landscape, so the
+# threshold that is right for tree cover, water and built surface is not
+# available for the other two. scripts/reference_threshold_sweep.py measures the
+# full curve; the cost of the asymmetry is that agriculture, screened most
+# cheaply, then dominates the area-weighted domain.
+DW_SCREEN = (
+    (10, 1, DW_MIN_PROBABILITY),     # vegetation
+    (80, 0, DW_MIN_PROBABILITY),     # water
+    (50, 6, DW_MIN_PROBABILITY),     # built area
+    (60, 7, None),                   # open land: label only
+    (40, None, None),                # agriculture: Dynamic World not consulted
+)
 GHSL_MIN_BUILT_SQM = 50
 # Same names as backend.config.LAND_COVER_CLASSES, so a confusion matrix built
 # here and a class area reported by the dashboard use one vocabulary.
@@ -119,20 +154,23 @@ def build_consensus_reference(region, season, start_date, end_date):
     world_cover = ee.ImageCollection(WORLD_COVER_ID).first().select("Map")
     dynamic_world = _dynamic_world(region, start_date, end_date)
     dw_label = dynamic_world.select("dw_label")
-    confident = dynamic_world.select("dw_probability").gte(DW_MIN_PROBABILITY)
+    dw_probability = dynamic_world.select("dw_probability")
     ghsl = ee.Image(GHSL_ID).select("built_surface").gte(GHSL_MIN_BUILT_SQM)
     crops = _world_cereal(region, season)
     opera_water = _opera_water(region, start_date, end_date)
 
     specialist_conflict = opera_water.Or(ghsl).Or(crops)
-    masks = (
-        world_cover.eq(10).And(dw_label.eq(1)).And(confident),
-        world_cover.eq(80).And(dw_label.eq(0)).And(confident).And(opera_water),
-        world_cover.eq(50).And(dw_label.eq(6)).And(confident).And(ghsl),
-        world_cover.eq(60).And(dw_label.eq(7))
-        .And(specialist_conflict.Not()),
-        world_cover.eq(40).And(crops),
-    )
+    specialists = (None, opera_water, ghsl, specialist_conflict.Not(), crops)
+    masks = []
+    for (wc_code, dw_code, threshold), specialist in zip(DW_SCREEN, specialists):
+        mask = world_cover.eq(wc_code)
+        if dw_code is not None:
+            mask = mask.And(dw_label.eq(dw_code))
+        if threshold is not None:
+            mask = mask.And(dw_probability.gte(threshold))
+        if specialist is not None:
+            mask = mask.And(specialist)
+        masks.append(mask)
     reference = ee.Image(0).updateMask(masks[0]).rename("reference")
     for label, mask in enumerate(masks[1:], start=1):
         reference = reference.blend(ee.Image(label).updateMask(mask))

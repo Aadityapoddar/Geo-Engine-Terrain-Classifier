@@ -1,0 +1,203 @@
+{
+ "shared_locations": 1350,
+ "locations_dropped_for_label_change": 0,
+ "per_class_counts": {
+  "Vegetation": 4,
+  "Water": 235,
+  "Built Area": 258,
+  "Open Land": 273,
+  "Agriculture": 580
+ },
+ "models": {
+  "Smile GTB": {
+   "winter_agreement_pct": 83.56,
+   "summer_agreement_pct": 74.89,
+   "seasonal_drop_pp": 8.67,
+   "n": 1350,
+   "per_class": {
+    "Vegetation": {
+     "n": 4,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 50.0,
+     "drop_pp": 50.0
+    },
+    "Water": {
+     "n": 235,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 100.0,
+     "drop_pp": 0.0
+    },
+    "Built Area": {
+     "n": 258,
+     "winter_recall_pct": 99.61,
+     "summer_recall_pct": 99.22,
+     "drop_pp": 0.39
+    },
+    "Open Land": {
+     "n": 273,
+     "winter_recall_pct": 82.05,
+     "summer_recall_pct": 69.96,
+     "drop_pp": 12.09
+    },
+    "Agriculture": {
+     "n": 580,
+     "winter_recall_pct": 70.34,
+     "summer_recall_pct": 56.38,
+     "drop_pp": 13.97
+    }
+   }
+  },
+  "RF": {
+   "winter_agreement_pct": 84.07,
+   "summer_agreement_pct": 71.41,
+   "seasonal_drop_pp": 12.67,
+   "n": 1350,
+   "per_class": {
+    "Vegetation": {
+     "n": 4,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 50.0,
+     "drop_pp": 50.0
+    },
+    "Water": {
+     "n": 235,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 100.0,
+     "drop_pp": 0.0
+    },
+    "Built Area": {
+     "n": 258,
+     "winter_recall_pct": 98.06,
+     "summer_recall_pct": 97.67,
+     "drop_pp": 0.39
+    },
+    "Open Land": {
+     "n": 273,
+     "winter_recall_pct": 82.05,
+     "summer_recall_pct": 72.89,
+     "drop_pp": 9.16
+    },
+    "Agriculture": {
+     "n": 580,
+     "winter_recall_pct": 72.24,
+     "summer_recall_pct": 47.59,
+     "drop_pp": 24.66
+    }
+   }
+  },
+  "SVM": {
+   "winter_agreement_pct": 82.74,
+   "summer_agreement_pct": 69.7,
+   "seasonal_drop_pp": 13.04,
+   "n": 1350,
+   "per_class": {
+    "Vegetation": {
+     "n": 4,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 25.0,
+     "drop_pp": 75.0
+    },
+    "Water": {
+     "n": 235,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 100.0,
+     "drop_pp": 0.0
+    },
+    "Built Area": {
+     "n": 258,
+     "winter_recall_pct": 99.61,
+     "summer_recall_pct": 98.06,
+     "drop_pp": 1.55
+    },
+    "Open Land": {
+     "n": 273,
+     "winter_recall_pct": 73.63,
+     "summer_recall_pct": 67.4,
+     "drop_pp": 6.23
+    },
+    "Agriculture": {
+     "n": 580,
+     "winter_recall_pct": 72.41,
+     "summer_recall_pct": 46.21,
+     "drop_pp": 26.21
+    }
+   }
+  },
+  "KNN": {
+   "winter_agreement_pct": 80.37,
+   "summer_agreement_pct": 68.37,
+   "seasonal_drop_pp": 12.0,
+   "n": 1350,
+   "per_class": {
+    "Vegetation": {
+     "n": 4,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 50.0,
+     "drop_pp": 50.0
+    },
+    "Water": {
+     "n": 235,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 100.0,
+     "drop_pp": 0.0
+    },
+    "Built Area": {
+     "n": 258,
+     "winter_recall_pct": 99.22,
+     "summer_recall_pct": 98.06,
+     "drop_pp": 1.16
+    },
+    "Open Land": {
+     "n": 273,
+     "winter_recall_pct": 71.79,
+     "summer_recall_pct": 65.57,
+     "drop_pp": 6.23
+    },
+    "Agriculture": {
+     "n": 580,
+     "winter_recall_pct": 67.93,
+     "summer_recall_pct": 43.79,
+     "drop_pp": 24.14
+    }
+   }
+  },
+  "CART": {
+   "winter_agreement_pct": 77.26,
+   "summer_agreement_pct": 57.78,
+   "seasonal_drop_pp": 19.48,
+   "n": 1350,
+   "per_class": {
+    "Vegetation": {
+     "n": 4,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 0.0,
+     "drop_pp": 100.0
+    },
+    "Water": {
+     "n": 235,
+     "winter_recall_pct": 100.0,
+     "summer_recall_pct": 100.0,
+     "drop_pp": 0.0
+    },
+    "Built Area": {
+     "n": 258,
+     "winter_recall_pct": 93.41,
+     "summer_recall_pct": 99.61,
+     "drop_pp": -6.2
+    },
+    "Open Land": {
+     "n": 273,
+     "winter_recall_pct": 75.09,
+     "summer_recall_pct": 47.25,
+     "drop_pp": 27.84
+    },
+    "Agriculture": {
+     "n": 580,
+     "winter_recall_pct": 61.72,
+     "summer_recall_pct": 27.41,
+     "drop_pp": 34.31
+    }
+   }
+  }
+ }
+}
